@@ -101,6 +101,12 @@ h3.sec{font-size:13px;font-weight:700;color:var(--text-3);text-transform:upperca
 .card p:last-child{margin-bottom:0}
 .card .label{display:block;font-size:11.5px;font-weight:700;color:var(--text-3);
   text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+button.place-option{position:relative;display:block;width:100%;font:inherit;text-align:left;color:inherit;cursor:pointer}
+button.place-option::after{content:"상세";position:absolute;top:13px;right:14px;
+  font-size:11.5px;font-weight:600;color:var(--brand);background:var(--brand-soft);border-radius:6px;padding:3px 8px}
+button.place-option h4{padding-right:54px}
+button.place-option:active{border-color:var(--brand)}
+button.place-option:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 
 button.stop,button.leg{font:inherit;text-align:left;width:100%;appearance:none;cursor:pointer}
 button.stop{display:block;color:inherit;transition:border-color .12s ease,box-shadow .12s ease}
@@ -161,9 +167,54 @@ tfoot td{background:var(--surface);font-weight:700;color:var(--text)}
 footer{margin-top:36px;padding:16px 0;border-top:1px solid var(--border);
   font-size:12px;color:var(--text-3);text-align:center}
 
+/* place detail */
+body.has-dialog{overflow:hidden}
+.place-dialog{
+  width:min(560px,calc(100% - 32px));max-height:calc(100dvh - 32px);
+  margin:auto;padding:0;border:0;border-radius:20px;overflow:auto;
+  color:var(--text);background:var(--bg);
+  box-shadow:0 24px 60px rgba(16,24,40,.24),0 4px 16px rgba(16,24,40,.12)
+}
+.place-dialog::backdrop{background:rgba(16,24,40,.56);backdrop-filter:blur(3px)}
+.place-hero{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--surface-2)}
+.place-hero img{display:block;width:100%;height:100%;object-fit:cover}
+.place-fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;
+  flex-direction:column;gap:6px;color:var(--text-2);font-size:13px;font-weight:600}
+.place-fallback span{font-size:30px;line-height:1}
+.place-hero.is-error img{display:none}
+.place-hero.is-error .place-fallback{display:flex}
+.place-close{
+  position:absolute;top:12px;right:12px;width:36px;height:36px;padding:0;
+  display:grid;place-items:center;border:1px solid rgba(255,255,255,.45);border-radius:999px;
+  color:#fff;background:rgba(16,24,40,.62);font:inherit;font-size:22px;line-height:1;cursor:pointer;
+  box-shadow:0 1px 3px rgba(16,24,40,.18)
+}
+.place-body{padding:19px 20px 20px}
+.place-kicker{margin:0 0 4px;color:var(--brand);font-size:12px;font-weight:700;letter-spacing:.02em}
+.place-title{margin:0;font-size:21px;line-height:1.35;letter-spacing:-.02em}
+.place-summary{margin:10px 0 0;color:var(--text-2);font-size:14px;line-height:1.65}
+.place-dialog .badges{margin-top:12px}
+.place-actions{display:flex;gap:8px;margin-top:18px}
+.place-action{flex:1;border:1px solid var(--border);border-radius:10px;padding:10px 12px;
+  color:var(--text-2);background:var(--surface);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.place-action.primary{border-color:var(--brand);color:#fff;background:var(--brand)}
+.place-action:focus-visible,.place-close:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.photo-credit{display:inline-block;margin-top:13px;color:var(--text-3);font-size:11.5px;text-decoration:none}
+.photo-credit:hover{text-decoration:underline}
+
+@media (max-width:600px){
+  .place-dialog{width:calc(100% - 16px);max-height:calc(100dvh - 16px);margin:auto auto 8px;
+    border-radius:20px 20px 14px 14px}
+  .place-body{padding:17px 17px calc(17px + env(safe-area-inset-bottom))}
+}
+
 @media (prefers-reduced-motion:no-preference){
   .panel{animation:fade .18s ease-out}
   @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .place-dialog[open]{animation:dialog-in .18s ease-out}
+  .place-dialog[open]::backdrop{animation:backdrop-in .18s ease-out}
+  @keyframes dialog-in{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+  @keyframes backdrop-in{from{opacity:0}to{opacity:1}}
 }
 </style>
 </head>
@@ -362,24 +413,24 @@ footer{margin-top:36px;padding:16px 0;border-top:1px solid var(--border);
 <!-- 9/17 -->
 <section class="panel" id="p6" role="tabpanel" aria-labelledby="b6" hidden>
   <div class="panel-head"><h2>비워둔 날</h2><p>베르사유를 뺀 자리 · 셋 중 하나</p></div>
-  <div class="card">
+  <button type="button" class="card place-option">
     <span class="label">Option A</span>
     <h4>로댕 미술관</h4>
     <p>정원이 본체인 미술관. 생각하는 사람과 지옥의 문이 야외에 있고 앵발리드 옆이라 오전 반나절이면 충분합니다. 목요일 개관.</p>
     <div class="badges"><span class="badge b-cost">약 €15/인 (확인 필요)</span></div>
-  </div>
-  <div class="card">
+  </button>
+  <button type="button" class="card place-option">
     <span class="label">Option B</span>
     <h4>마르모탕 모네</h4>
     <p>『인상, 해돋이』가 있는 곳. 16구라 조금 멀지만 오르세·오랑주리·지베르니를 다 본 뒤 모네 여정을 닫는 자리로 맞습니다.</p>
     <div class="badges"><span class="badge b-cost">€27/인 (통합권 기준)</span></div>
-  </div>
-  <div class="card">
+  </button>
+  <button type="button" class="card place-option">
     <span class="label">Option C</span>
     <h4>라탱 지구를 천천히</h4>
     <p>숙소 반경 도보권. 팡테옹, 셰익스피어 앤 컴퍼니, 무프타르 거리, 식물원. 일주일 걷고 나면 이런 날이 필요해집니다.</p>
     <div class="badges"><span class="badge b-free">대부분 무료</span></div>
-  </div>
+  </button>
 </section>
 
 <!-- 9/18 -->
@@ -581,10 +632,146 @@ footer{margin-top:36px;padding:16px 0;border-top:1px solid var(--border);
 <footer>파리 · 9월 12–19일 · 2인</footer>
 </div>
 
+<dialog class="place-dialog" id="place-dialog" aria-labelledby="place-dialog-title" aria-describedby="place-dialog-summary">
+  <div class="place-hero">
+    <img id="place-dialog-image" alt="" decoding="async">
+    <div class="place-fallback" aria-hidden="true"><span>📍</span>사진을 불러오지 못했습니다</div>
+    <button type="button" class="place-close" data-place-close aria-label="상세 카드 닫기">×</button>
+  </div>
+  <div class="place-body">
+    <p class="place-kicker" id="place-dialog-kicker"></p>
+    <h2 class="place-title" id="place-dialog-title"></h2>
+    <p class="place-summary" id="place-dialog-summary"></p>
+    <div class="badges" id="place-dialog-badges"></div>
+    <div class="place-actions">
+      <button type="button" class="place-action primary" data-place-map>지도에서 보기</button>
+      <button type="button" class="place-action" data-place-close>닫기</button>
+    </div>
+    <a class="photo-credit" id="place-photo-credit" href="#" target="_blank" rel="noopener noreferrer">참고 사진 · Wikimedia Commons ↗</a>
+  </div>
+</dialog>
+
 <script>
 (function(){
+  var commonsBase = 'https://commons.wikimedia.org/wiki/';
+  function photo(file){
+    return {
+      src: commonsBase + 'Special:FilePath/' + encodeURIComponent(file) + '?width=1280',
+      source: commonsBase + 'File:' + encodeURIComponent(file)
+    };
+  }
+
+  var placePhotos = {
+    'CDG → 5구 숙소': photo('Charles de Gaulle Airport terminal 2E.jpg'),
+    '앵테르마르셰 익스프레스': photo('Magasin Intermarché à Gif-sur-yvette le 28 aout 2012 - 06.jpg'),
+    '무프타르 거리 · 저녁': photo('Street market rue Mouffetard St Medard dsc00727.jpg'),
+    '생루이섬 · 투르넬 다리': photo('France Paris Pont de la Tournelle 01.JPG'),
+    '마르셰 몽주': photo('Marché Monge, Paris 30 March 2008.jpg'),
+    '오르세 미술관': photo("Front view of the Musée d'Orsay.jpg"),
+    '생제르맹 · 뤽상부르 공원': photo('LuxembourgMontparnasse.JPG'),
+    '오랑주리': photo('Musée de l’Orangerie exterior.JPG'),
+    '샹드마르스 · 에펠탑': photo('MG-Paris-Champ de Mars.jpg'),
+    '바토 파리지앵': photo('Paris-bateau-parisien.jpg'),
+    '루브르': photo('Louvre Museum Wikimedia Commons.jpg'),
+    '튈르리 정원': photo('Crowd in the Jardin des Tuileries, Paris July 2014.jpg'),
+    '팔레 루아얄 정원': photo('Palais-Royal, Paris, from garden.jpg'),
+    '오페라 가르니에': photo('Paris Opera full frontal architecture, May 2009.jpg'),
+    '갤러리 라파예트': photo('Galeries Lafayette Paris Dome.jpg'),
+    '보주 광장': photo('Place des Vosges vue aérienne.png'),
+    '마르셰 데 장팡 루즈': photo('Marché des Enfants-Rouges, Paris July 2014.jpg'),
+    '피카소 미술관': photo('Hôtel Salé.JPG'),
+    '아랍세계연구소 옥상': photo("Notre Dame de Paris depuis l'IMA, 01 janvier 2014.jpg"),
+    '생라자르역': photo('Gare de Paris-Saint-Lazare 001.jpg'),
+    '모네의 집과 정원': photo('La maison de Claude Monet (Giverny) (48744281997).jpg'),
+    '지베르니 인상주의 미술관': photo('Musée des impressionnismes Giverny 01.jpg'),
+    '노트르담': photo('Notre-Dame de Paris, 4 October 2017.jpg'),
+    '생트샤펠': photo('Sainte Chapelle - Upper level 1.jpg'),
+    '풀만 체크인': photo('Pullman Eiffel Tower Hotel Paris France 1.jpg'),
+    '트로카데로 광장': photo('Vue de la tour Eiffel depuis le Trocadéro.jpg'),
+    '저녁 · 에펠탑 근처': photo("Jacques Lameloise, escabèche d'écrevisses sur gaspacho d'asperge et cresson.jpg"),
+    '사크레쾨르 · 몽마르트르': photo('Le sacre coeur.jpg'),
+    '풀만 · 짐 회수': photo('Pullman Eiffel Tower Hotel Paris France 1.jpg'),
+    'CDG 공항': photo('Charles de Gaulle Airport terminal 2E.jpg'),
+    '로댕 미술관': photo('Le musée Rodin.jpg'),
+    '마르모탕 모네': photo('Musée Marmottan Monet, Paris, from street.jpg'),
+    '라탱 지구를 천천히': photo('P1300734 Paris V place de la Sorbonne rwk.jpg')
+  };
+
+  var dialog = document.getElementById('place-dialog');
+  var dialogHero = dialog.querySelector('.place-hero');
+  var dialogImage = document.getElementById('place-dialog-image');
+  var dialogKicker = document.getElementById('place-dialog-kicker');
+  var dialogTitle = document.getElementById('place-dialog-title');
+  var dialogSummary = document.getElementById('place-dialog-summary');
+  var dialogBadges = document.getElementById('place-dialog-badges');
+  var photoCredit = document.getElementById('place-photo-credit');
+  var dialogMapButton = dialog.querySelector('[data-place-map]');
+  var activeStop = null;
+
+  function closePlace(){
+    if(!dialog.hasAttribute('open')) return;
+    if(typeof dialog.close === 'function') dialog.close();
+    else{
+      dialog.removeAttribute('open');
+      document.body.classList.remove('has-dialog');
+      if(activeStop) activeStop.setAttribute('aria-expanded','false');
+    }
+  }
+
+  function openPlace(stop){
+    var nameNode = stop.querySelector('.stop-name') || stop.querySelector('h4');
+    var name = nameNode.textContent.trim();
+    var summary = stop.querySelector('.stop-desc') || stop.querySelector('p');
+    var badges = stop.querySelector('.badges');
+    var panel = stop.closest('.panel');
+    var tab = document.getElementById(panel.getAttribute('aria-labelledby'));
+    var time = stop.querySelector('.time') || stop.querySelector('.label');
+    var item = placePhotos[name];
+
+    if(activeStop && activeStop !== stop) activeStop.setAttribute('aria-expanded','false');
+    activeStop = stop;
+    stop.setAttribute('aria-expanded','true');
+    dialogTitle.textContent = name;
+    dialogSummary.textContent = summary ? summary.textContent.trim() : '일정에 포함된 장소입니다.';
+    dialogKicker.textContent = (tab ? tab.textContent.trim() : '파리 일정') + (time ? ' · ' + time.textContent.trim() : '');
+    dialogBadges.innerHTML = badges ? badges.innerHTML : '';
+    dialogBadges.hidden = !badges;
+    dialogMapButton.hidden = !stop.showOnMap;
+    dialogHero.classList.remove('is-error');
+    dialogImage.alt = name + ' 참고 사진';
+    if(item){
+      dialogImage.src = item.src;
+      photoCredit.href = item.source;
+      photoCredit.hidden = false;
+    }else{
+      dialogImage.removeAttribute('src');
+      dialogHero.classList.add('is-error');
+      photoCredit.hidden = true;
+    }
+    document.body.classList.add('has-dialog');
+    if(typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open','');
+  }
+
+  dialogImage.addEventListener('load', function(){ dialogHero.classList.remove('is-error'); });
+  dialogImage.addEventListener('error', function(){ dialogHero.classList.add('is-error'); });
+  dialog.querySelectorAll('[data-place-close]').forEach(function(button){
+    button.addEventListener('click', closePlace);
+  });
+  dialog.addEventListener('click', function(e){ if(e.target === dialog) closePlace(); });
+  dialog.addEventListener('close', function(){
+    document.body.classList.remove('has-dialog');
+    if(activeStop) activeStop.setAttribute('aria-expanded','false');
+  });
+  dialogMapButton.addEventListener('click', function(){
+    var stop = activeStop;
+    closePlace();
+    if(stop && stop.showOnMap) stop.showOnMap();
+  });
+
   var tabs = [].slice.call(document.querySelectorAll('.tab'));
   function select(tab){
+    closePlace();
     tabs.forEach(function(t){
       var on = t === tab;
       t.setAttribute('aria-selected', on ? 'true':'false');
@@ -602,7 +789,15 @@ footer{margin-top:36px;padding:16px 0;border-top:1px solid var(--border);
       if(n){ e.preventDefault(); n.focus(); select(n); }
     });
   });
-  // map: tapping a place or leg swaps the embedded map for that day
+  document.querySelectorAll('.stop[data-src], .place-option').forEach(function(el){
+    el.setAttribute('aria-haspopup','dialog');
+    el.setAttribute('aria-expanded','false');
+    var pin = el.querySelector('.pin');
+    if(pin) pin.textContent = '상세';
+    el.addEventListener('click', function(){ openPlace(el); });
+  });
+
+  // Place taps open details. Route taps and the detail action update the map.
   document.querySelectorAll('.panel').forEach(function(panel){
     var box = panel.querySelector('.mapbox');
     if(!box) return;
@@ -610,6 +805,8 @@ footer{margin-top:36px;padding:16px 0;border-top:1px solid var(--border);
     var cap   = box.querySelector('.mapbar span');
     var base  = frame.getAttribute('src');
     var baseCap = cap ? cap.textContent : '';
+    var stops = panel.querySelectorAll('.stop[data-src]');
+    var legs = panel.querySelectorAll('.leg[data-src]');
     var items = panel.querySelectorAll('.stop[data-src], .leg[data-src]');
 
     function show(el){
@@ -629,7 +826,10 @@ footer{margin-top:36px;padding:16px 0;border-top:1px solid var(--border);
       window.scrollTo({top: top < 0 ? 0 : top, behavior:'smooth'});
     }
 
-    items.forEach(function(el){
+    stops.forEach(function(el){
+      el.showOnMap = function(){ show(el); };
+    });
+    legs.forEach(function(el){
       el.addEventListener('click', function(){ show(el.classList.contains('is-active') ? null : el); });
     });
     var reset = box.querySelector('[data-reset]');
