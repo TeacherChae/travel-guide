@@ -1,0 +1,117 @@
+{
+  "checked_on": "2026-09-07",
+  "map_source": "https://www.google.com/maps/d/viewer?mid=19ZtKnx2kCHBcYlq_RxurtzoqA3U9Ffs",
+  "entries": [
+    {
+      "day": "p2",
+      "name": "Le Florentin",
+      "time": "12:00–12:40 목표",
+      "role": "점심 후보 · 예약 권장",
+      "reason": "노트르담 미사 후 콩코르드 쪽으로 이동해서 점심. 오랑주리 예약 13:00을 우선하고 12:40에는 식사를 마칩니다. 미사가 늦거나 대기·조리가 길면 주변 포장식으로 대체합니다.",
+      "source": "https://leflorentinbistrot.com/",
+      "hours": "공식: 매일 07:00–23:00 연속 영업. 예약 잔여석 미확인",
+      "from_saved": true,
+      "query": "48.86761,2.3244488"
+    },
+    {
+      "day": "p3",
+      "name": "Higuma",
+      "time": "13:15–14:00 목표",
+      "role": "점심 1순위 · 현장 대기",
+      "reason": "루브르에서 생트안 거리 쪽으로 약 10–15분 우회해 라멘·덮밥. 이후 사마리텐 방향으로 돌아옵니다. 대기가 20분 이상이면 박물관 인근 식당으로 대체하고 쇼핑 시간을 지킵니다.",
+      "source": "https://higuma.fr/",
+      "hours": "공식: 예약 받지 않음. 정확한 월요일 점심 영업시간은 방문 전 확인",
+      "from_saved": true,
+      "query": "48.8665886,2.3357844"
+    },
+    {
+      "day": "p3",
+      "name": "Fer à Cheval",
+      "time": "사마리텐 후 선택",
+      "role": "기념품 · 쇼핑 우회 후보",
+      "reason": "저장한 77 Rue de la Verrerie 매장 핀 기준 비누·생활용품 후보. 사마리텐에서 마레 쪽으로 15–20분 정도 추가 이동하는 선택지이며, 퐁뇌프 직행 산책과 둘 중 하나만 고릅니다. 영업 확인 없이는 필수 일정으로 잡지 않습니다.",
+      "source": "https://maps.app.goo.gl/uUTQR4Tohot6Ltw6A",
+      "hours": "공유 Commercial 목록의 위치 확인. 매장 최신 영업시간·취급 재고 미확인",
+      "from_saved": true,
+      "query": "48.8583549,2.3516334"
+    },
+    {
+      "day": "p3",
+      "name": "Il Gelato del Marchese",
+      "time": "17:00 전후 선택",
+      "role": "젤라토 · 숙소 복귀 전",
+      "reason": "퐁뇌프에서 오데옹 쪽으로 돌아갈 체력이 있으면 젤라토 하나. Fer à Cheval 우회를 택했다면 여기까지 모두 돌지 않습니다. 커피보다 디저트가 당기는 날의 대안입니다.",
+      "source": "https://www.visitparisregion.com/en/il-gelato-del-marchese",
+      "hours": "관광청 안내: 매일 12:00–24:00. 당일 변경 가능",
+      "from_saved": true,
+      "query": "48.85159,2.3380824"
+    },
+    {
+      "day": "p4",
+      "name": "Les Deux Magots",
+      "time": "08:30–09:00 선택",
+      "role": "아침·커피",
+      "reason": "숙소에서 생제르맹을 거쳐 오르세로 가는 아침 경유. 대기가 없을 때 커피·가벼운 아침만 먹고 09:00에 출발합니다. 오르세 10시 예약이 우선이며 늦으면 숙소 아침으로 대체합니다.",
+      "source": "https://lesdeuxmagots.fr/reserver/",
+      "hours": "공식: 매일 07:30–01:00",
+      "from_saved": true,
+      "query": "48.854052,2.3331062"
+    },
+    {
+      "day": "p7",
+      "name": "Pleincœur",
+      "time": "15:30–16:00 선택",
+      "role": "페이스트리·커피 후보",
+      "reason": "몽소에서 바티뇰 방향으로 약 20분 더 걸어가는 선택지. 페이스트리 중심 매장이므로 좌석이나 커피 메뉴가 여의치 않으면 포장합니다. 지치면 생략하고 풀만으로 바로 돌아갑니다.",
+      "source": "https://pleincoeur.com/notre-histoire/",
+      "hours": "공식: 64 rue des Batignolles, 매일 08:00–20:00",
+      "from_saved": true,
+      "query": "48.8864619,2.3186604"
+    },
+    {
+      "day": "p7",
+      "name": "Le Café du Commerce",
+      "time": "20:00 목표",
+      "role": "마지막 밤 저녁 · 예약 권장",
+      "reason": "트로카데로에서 에펠탑을 본 뒤 이동하는 15구 브라세리. 카페로 저장한 곳이 아니라 제대로 저녁을 먹는 곳입니다. 트로카데로에서 대중교통·택시 포함 30–40분 여유를 두고, 식사 후 풀만으로 돌아옵니다.",
+      "source": "https://www.lecafeducommerce.com/infos-pratiques/",
+      "hours": "공식: 매일 11:30–23:00 연속 영업. 실제 예약은 미완료",
+      "from_saved": true,
+      "query": "48.846418,2.2954771"
+    },
+    {
+      "day": "p8",
+      "name": "르봉 마르셰 백화점",
+      "time": "10:00–11:15",
+      "role": "쇼핑 우선 일정",
+      "reason": "저장한 백화점에서 의류·생활용품 등 비식품 쇼핑부터 합니다. 보르디에 버터 목적지는 옆 라 그랑드 에피스리입니다. 라 로슈·케 브랑리는 이번 귀국일에서 제외하고 쇼핑 시간을 확보합니다.",
+      "source": "https://www.lebonmarche.com/fr/lbm_page_contact.html",
+      "hours": "공식: 토요일 10:00 개장",
+      "from_saved": true,
+      "query": "48.851204,2.324485"
+    },
+    {
+      "day": "p8",
+      "name": "Marin Montagut",
+      "time": "11:15–11:45 선택",
+      "role": "기념품·공예품",
+      "reason": "르봉 마르셰에서 Rue Madame 쪽으로 약 15분 걸어가는 선택지. 식당 목록에 저장되어 있지만 식사가 아닌 엽서·생활소품 쇼핑으로 배치했습니다. 왕복 이동 약 30분까지 포함해 여유가 있을 때만 방문합니다.",
+      "source": "https://www.marinmontagut.com/en/collections/cartes-postales",
+      "hours": "공식: 48 rue Madame, 월–토 11:00–19:00",
+      "from_saved": true,
+      "query": "48.848174,2.3315587"
+    },
+    {
+      "day": "p8",
+      "name": "La Grande Épicerie · Bordier",
+      "time": "12:45–13:15 목표",
+      "role": "식품·버터 구매 · 재고 확인 필요",
+      "reason": "38 Rue de Sèvres 유제품 매대의 보르디에 취급을 확인했습니다. 원하는 맛·수량의 당일 재고와 보냉 포장은 전화 01 44 39 81 00으로 사전 확인하세요. 상온 선물부터 고르고 버터는 결제 직전에 집어 바로 호텔로 돌아갑니다.",
+      "source": "https://www.lagrandeepicerie.com/fr/la-cremerie-la-grande-epicerie-de-paris/lge_magasins_univers_cremerie.html",
+      "hours": "공식: Rue de Sèvres 매장 월–토 08:30–21:00. 제품별 재고·보냉 서비스 미확인",
+      "from_saved": false,
+      "query": "38 Rue de Sèvres, 75007 Paris"
+    }
+  ],
+  "thursday_meal": "달리그르 노천시장 11:30–12:30 후 주변에서 12:30–13:15 점심. 특정 식당 예약 없음. 15:00 박물관 목표."
+}
