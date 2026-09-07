@@ -141,13 +141,19 @@ button.leg:active{background:var(--surface-2)}
 .mapbox{position:sticky;top:53px;z-index:20;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
   box-shadow:var(--shadow);margin-bottom:10px;background:var(--surface)}
 .mapbox iframe{display:block;width:100%;height:240px;border:0;background:var(--surface)}
-.mapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;
+.mapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
   padding:10px 12px;border-top:1px solid var(--border);background:var(--bg)}
-.mapbar span{font-size:12.5px;color:var(--text-2)}
+.mapbar span{min-width:0;font-size:12.5px;color:var(--text-2)}
+.map-actions{display:flex;align-items:center;gap:6px;margin-left:auto}
 .maplink{flex:0 0 auto;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;border:0;
-  color:var(--brand);background:var(--brand-soft);border-radius:8px;padding:6px 11px}
+  color:var(--brand);background:var(--brand-soft);border-radius:8px;padding:6px 11px;text-decoration:none}
 .maplink:active{opacity:.6}
+.maplink:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 .mapoff{padding:14px 12px;font-size:13px;color:var(--text-3);text-align:center}
+.saved-mapbox{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);margin-bottom:12px;background:var(--surface)}
+.saved-mapbox iframe{display:block;width:100%;height:min(68vh,640px);min-height:440px;border:0;background:var(--surface)}
+.saved-map-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
 .note{border:1px solid var(--border);border-left:3px solid var(--brand);
   background:var(--surface);border-radius:8px;padding:12px 14px;margin-bottom:10px;
   font-size:13.5px;color:var(--text-2)}
@@ -216,6 +222,8 @@ body.has-dialog{overflow:hidden}
 .photo-credit:hover{text-decoration:underline}
 
 @media (max-width:600px){
+  .map-actions{width:100%;justify-content:flex-end}
+  .saved-mapbox iframe{height:68vh;min-height:420px}
   .place-dialog{width:calc(100% - 16px);max-height:calc(100dvh - 16px);margin:auto auto 8px;
     border-radius:20px 20px 14px 14px}
   .place-body{padding:17px 17px calc(17px + env(safe-area-inset-bottom))}
@@ -256,6 +264,7 @@ body.has-dialog{overflow:hidden}
     <button class="tab" role="tab" aria-selected="false" aria-controls="p6" id="b6">9/17 목</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="p7" id="b7">9/18 금</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="p8" id="b8">9/19 토</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="pm" id="b11">My Maps</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="pc" id="b9">비용</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="pi" id="b10">정보</button>
   </div>
@@ -267,7 +276,7 @@ body.has-dialog{overflow:hidden}
   <div class="panel-head"><h2>도착</h2><p>숙소 · 파리 5구 (26 Rue des Fossés Saint-Bernard)</p></div>
   <div class="mapbox">
     <iframe loading="lazy" title="숙소 → 마트 → 무프타르 → 투르넬 다리" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8480,2.3536+to:48.8433,2.3495+to:48.8507,2.3555&dirflg=w&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>숙소 → 마트 → 무프타르 → 투르넬 다리</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+    <div class="mapbar"><span>숙소 → 마트 → 무프타르 → 투르넬 다리</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
   </div>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8487,2.3565&z=16&hl=ko&output=embed" data-label="CDG → 5구 숙소">    <div class="stop-top"><span class="time">18:30</span><span class="stop-name">CDG → 5구 숙소</span><span class="pin">지도</span></div>
     <p class="stop-desc">RER B로 생미셸-노트르담. 입국심사와 수하물까지 감안하면 숙소 도착은 20시쯤입니다.</p>
@@ -297,7 +306,7 @@ body.has-dialog{overflow:hidden}
   <div class="panel-head"><h2>왼쪽 강변에서 에펠까지</h2><p>일요일 · 상점 휴무, 미술관 정상 개관</p></div>
   <div class="mapbox">
     <iframe loading="lazy" title="몽주 → 뤽상부르 → 오르세 → 오랑주리 → 에펠 → 크루즈" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8427,2.3521+to:48.8466,2.3363+to:48.8599,2.3266+to:48.8638,2.3227+to:48.8556,2.2986+to:48.8604,2.2936&dirflg=w&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>몽주 → 뤽상부르 → 오르세 → 오랑주리 → 에펠 → 크루즈</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+    <div class="mapbar"><span>몽주 → 뤽상부르 → 오르세 → 오랑주리 → 에펠 → 크루즈</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
   </div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8427,2.3521&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">숙소 → 마르셰 몽주 · 7분</span><span class="leg-cost free">무료</span></button>
   <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8427,2.3521&z=16&hl=ko&output=embed" data-label="마르셰 몽주">    <div class="stop-top"><span class="time">09:30</span><span class="stop-name">마르셰 몽주</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
@@ -320,7 +329,7 @@ body.has-dialog{overflow:hidden}
     <div class="badges"><span class="badge b-cost">€12.50/인</span><span class="badge b-book">예약 필수</span><span class="badge b-note">오르세 통합권 있음</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8638,2.3227&daddr=48.8556,2.2986&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">약 20분 · 8호선 École Militaire</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8556,2.2986&z=16&hl=ko&output=embed" data-label="샹드마르스 · 에펠탑">    <div class="stop-top"><span class="time">17:30</span><span class="stop-name">샹드마르스 · 에펠탑</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8556,2.2986&z=16&hl=ko&output=embed" data-label="샹드마르스 · 에펠탑">    <div class="stop-top"><span class="time">17:30</span><span class="stop-name">샹드마르스 · 에펠탑</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
     <p class="stop-desc">탑 아래 잔디밭에서 올려다보는 각도. 저녁은 이 근처에서 해결하면 크루즈까지 걸어갑니다.</p>
     <div class="badges"><span class="badge b-free">무료</span></div>
   </button>
@@ -335,10 +344,10 @@ body.has-dialog{overflow:hidden}
 
 <!-- 9/14 -->
 <section class="panel" id="p3" role="tabpanel" aria-labelledby="b3" hidden>
-  <div class="panel-head"><h2>루브르에서 몽소까지</h2><p>월요일 휴관 — 오르세 · 피카소 · 로댕 · 마르모탕</p></div>
+  <div class="panel-head"><h2>루브르와 1구</h2><p>월요일 휴관 — 오르세 · 피카소 · 로댕 · 마르모탕</p></div>
   <div class="mapbox">
-    <iframe loading="lazy" title="루브르 → 팔레 루아얄 → 카르티에 → 라파예트 → 몽소" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8606,2.3376+to:48.8624,2.3373+to:48.8736,2.3321+to:48.8797,2.3090&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>루브르 → 팔레 루아얄 → 카르티에 → 라파예트 → 몽소</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+    <iframe loading="lazy" title="숙소 → 루브르 → 팔레 루아얄 → 카르티에 → 라파예트" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8606,2.3376+to:48.8624,2.3373+to:48.8736,2.3321&dirflg=r&hl=ko&output=embed"></iframe>
+    <div class="mapbar"><span>숙소 → 루브르 → 팔레 루아얄 → 카르티에 → 라파예트</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
   </div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8606,2.3376&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 루브르 · 약 20분</span><span class="leg-cost">나비고 / €2.55</span></button>
   <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8606,2.3376&z=16&hl=ko&output=embed" data-label="루브르">    <div class="stop-top"><span class="time">09:00</span><span class="stop-name">루브르</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
@@ -365,106 +374,91 @@ body.has-dialog{overflow:hidden}
     <p class="stop-desc">돔 천장과 옥상 테라스. 옥상에서 오페라 가르니에 지붕이 정면으로 보입니다. 월–토 10:00–20:30.</p>
     <div class="badges"><span class="badge b-free">입장·옥상 무료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8736,2.3321&daddr=48.8797,2.3090&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">약 15분 · 2호선 Monceau</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8797,2.3090&z=16&hl=ko&output=embed" data-label="몽소 공원">    <div class="stop-top"><span class="time">18:30</span><span class="stop-name">몽소 공원</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">매일 07:00–24:00. 8구 주택가 한복판이라 관광객이 적고 동네 사람들이 씁니다. 로마 열주가 선 수경 시설과 검정·금빛 철문이 얼굴입니다. 벤치가 많아 하루 끝에 앉아 쉬기 좋습니다.</p>
-    <div class="badges"><span class="badge b-free">무료</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8797,2.3090&daddr=48.8487,2.3565&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">몽소 → 숙소 · 약 35분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <div class="note "><b>오페라 가르니에 내부 관람은 뺐습니다.</b> 일곱 곳이면 하루가 빡빡해지고, 어차피 라파예트 옥상에서 그 지붕을 정면으로 봅니다. 꼭 들어가고 싶으시면 라파예트를 빼고 바꾸세요. 루브르에서 몽소까지 지하철은 마지막 한 번뿐입니다.</div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8736,2.3321&daddr=48.8487,2.3565&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">라파예트 → 숙소 · 약 25분</span><span class="leg-cost">나비고 / €2.55</span></button>
+  <div class="note "><b>몽소 공원은 수요일 이후로 옮겼습니다.</b> 월요일은 루브르와 1구·9구를 묶고, 8구의 몽소는 목요일 동쪽 이동 동선에 넣습니다.</div>
 </section>
 
 <!-- 9/15 -->
 <section class="panel" id="p4" role="tabpanel" aria-labelledby="b4" hidden>
-  <div class="panel-head"><h2>시장과 마레</h2><p>화요일 휴관 — 루브르 · 오랑주리</p></div>
+  <div class="panel-head"><h2>16구의 모네와 건축</h2><p>화요일 · 마르모탕과 라 로슈를 한 동네에서</p></div>
   <div class="mapbox">
-    <iframe loading="lazy" title="달리그르 → 쿨레 베르트 → 보주 → 장팡 루즈 → 피카소 → 아랍세계연구소" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8500,2.3790+to:48.8495,2.3715+to:48.8556,2.3655+to:48.8629,2.3620+to:48.8599,2.3623+to:48.8489,2.3572&dirflg=w&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>달리그르 → 쿨레 베르트 → 보주 → 장팡 루즈 → 피카소 → 아랍세계연구소</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+    <iframe loading="lazy" title="숙소 → 마르모탕 모네 → 라 로슈 저택" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8593,2.2672+to:48.8519,2.2653&dirflg=r&hl=ko&output=embed"></iframe>
+    <div class="mapbar"><span>숙소 → 마르모탕 모네 → 라 로슈 저택</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
   </div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8500,2.3790&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 달리그르 · 약 15분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8500,2.3790&z=16&hl=ko&output=embed" data-label="마르셰 달리그르">    <div class="stop-top"><span class="time">09:00</span><span class="stop-name">마르셰 달리그르</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">12구. 관광객이 거의 없고 동네 사람들이 장 보러 오는 시장입니다. 노천 청과 노점이 달리그르 거리 양쪽으로 늘어서고, 안쪽에 보보 실내 시장과 벼룩시장이 붙어 있습니다. <b>월요일 휴무</b>, 오전에만 제대로 섭니다.</p>
-    <div class="badges"><span class="badge b-free">입장 무료</span><span class="badge b-note">현지인 시장</span></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8593,2.2672&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 마르모탕 · 약 40분</span><span class="leg-cost">나비고 / €2.55</span></button>
+  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8593,2.2672&z=16&hl=ko&output=embed" data-label="마르모탕 모네">    <div class="stop-top"><span class="time">10:00</span><span class="stop-name">마르모탕 모네</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+    <p class="stop-desc">모네의 작품과 인상, 해돋이를 볼 수 있는 16구 미술관. 화–일 10:00–18:00, 마지막 입장 17:00. 예약은 필수가 아닙니다.</p>
+    <div class="badges"><span class="badge b-cost">€27/인 (통합권 기준)</span><span class="badge b-note">공식 확인 완료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8500,2.3790&daddr=48.8495,2.3715&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">7분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8495,2.3715&z=16&hl=ko&output=embed" data-label="쿨레 베르트 르네뒤몽">    <div class="stop-top"><span class="time">10:30</span><span class="stop-name">쿨레 베르트 르네뒤몽</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">1960년대에 버려진 뱅센 철도 고가를 5km 선형 공원으로 바꾼 곳입니다. 뉴욕 하이라인보다 20년 앞섰습니다. 고가 위에서 파리 뒷마당과 골목을 내려다보게 되고, 아래로 내려가면 노천 체육시설도 있습니다. 전 구간은 1시간 15분, 바스티유 쪽 일부만 걸어도 충분합니다.</p>
-    <div class="badges"><span class="badge b-free">무료</span><span class="badge b-note">조경·도시설계</span></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8593,2.2672&daddr=48.8519,2.2653&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">마르모탕 → 라 로슈 · 15분</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8519,2.2653&z=16&hl=ko&output=embed" data-label="라 로슈 저택">    <div class="stop-top"><span class="time">12:00</span><span class="stop-name">라 로슈 저택</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">르코르뷔지에 1923–25년 작. 화–토 10:00–18:00, 일·월 휴관. 방문 전 공식 예약 가능 여부를 확인하세요.</p>
+    <div class="badges"><span class="badge b-cost">€15/인</span><span class="badge b-note">르코르뷔지에</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8495,2.3715&daddr=48.8556,2.3655&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">12분 · 바스티유 지나</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8556,2.3655&z=16&hl=ko&output=embed" data-label="보주 광장">    <div class="stop-top"><span class="time">12:00</span><span class="stop-name">보주 광장</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">17세기 정방형 광장에서 시작해 생폴 거리 골목으로.</p>
-    <div class="badges"><span class="badge b-free">무료</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.3655&daddr=48.8629,2.3620&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">12분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8629,2.3620&z=16&hl=ko&output=embed" data-label="마르셰 데 장팡 루즈">    <div class="stop-top"><span class="time">12:45</span><span class="stop-name">마르셰 데 장팡 루즈</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">1615년에 열린, 파리에서 가장 오래된 지붕 시장. 여러 나라 가판이 모여 있습니다. 월요일 휴무.</p>
-    <div class="badges"><span class="badge b-free">입장 무료</span><span class="badge b-cost">식사 1인 €12–18</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8629,2.3620&daddr=48.8599,2.3623&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">5분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8599,2.3623&z=16&hl=ko&output=embed" data-label="피카소 미술관">    <div class="stop-top"><span class="time">14:30</span><span class="stop-name">피카소 미술관</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">17세기 저택(Hôtel Salé)을 개수한 건물 자체가 볼거리. 화 09:30–18:00.</p>
-    <div class="badges"><span class="badge b-cost">약 €16/인 (확인 필요)</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8599,2.3623&daddr=48.8489,2.3572&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">22분 · 지하철이면 15분</span><span class="leg-cost">무료 / 나비고</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8489,2.3572&z=16&hl=ko&output=embed" data-label="아랍세계연구소 옥상">    <div class="stop-top"><span class="time">18:00</span><span class="stop-name">아랍세계연구소 옥상</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">장 누벨 1987년 작. 남쪽 파사드 전체가 카메라 조리개처럼 빛에 반응해 열리고 닫힙니다. 옥상에서 세느강과 노트르담이 정면. 숙소 바로 옆.</p>
-    <div class="badges"><span class="badge b-free">옥상 무료</span><span class="badge b-note">현대건축</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8489,2.3572&daddr=48.8487,2.3565&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">2분 · 숙소 복귀</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8519,2.2653&daddr=48.8487,2.3565&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">라 로슈 → 숙소 · 약 40분</span><span class="leg-cost">나비고 / €2.55</span></button>
+  <div class="note warn"><b>수요일 전 필수 미술관을 채우는 날입니다.</b> 루브르와 오르세·에펠 주변은 각각 월요일·일요일에 배치하고, 마르모탕은 화요일에 16구의 라 로슈와 묶었습니다. 마레·피카소·아랍세계연구소는 후보에서 내려두고 이후 우선순위를 다시 정합니다.</div>
 </section>
 
 <!-- 9/16 -->
 <section class="panel" id="p5" role="tabpanel" aria-labelledby="b5" hidden>
   <div class="panel-head"><h2>지베르니</h2><p>예약 완료 · 종일</p></div>
   <div class="mapbox">
-    <iframe loading="lazy" title="생라자르역 → 지베르니" src="https://maps.google.com/maps?saddr=48.8772,2.3253&daddr=49.0754,1.5337&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>생라자르역 → 지베르니</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+    <iframe loading="lazy" title="숙소 → 생라자르역 → 지베르니 → 숙소" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8772,2.3253+to:49.0754,1.5337+to:48.8487,2.3565&dirflg=r&hl=ko&output=embed"></iframe>
+    <div class="mapbar"><span>숙소 → 생라자르역 → 지베르니 → 숙소</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
   </div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8772,2.3253&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 생라자르역 · 약 30분</span><span class="leg-cost">나비고 / €2.55</span></button>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8772,2.3253&z=16&hl=ko&output=embed" data-label="생라자르역">    <div class="stop-top"><span class="time">08:30</span><span class="stop-name">생라자르역</span><span class="pin">지도</span></div>
-    <p class="stop-desc">루앙(Rouen Rive Droite) 방면 열차, 빠른 편은 45분 이내. 오전 8:20, 9:20 이후로는 대략 두 시간 간격입니다.</p>
+    <p class="stop-desc">루앙(Rouen Rive Droite) 방면 열차. 빠른 편은 45분 이내이며, 셔틀 시각표에 맞춰 열차를 고릅니다.</p>
     <div class="badges"><span class="badge b-cost">편도 약 €15/인 · 왕복 2인 €60</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8772,2.3253&daddr=49.0754,1.5337&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">기차 + 셔틀</span><span class="leg-meta">열차 45분 + SNGO 셔틀 15분</span><span class="leg-cost">€15/인 + 셔틀 €8</span></button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=48.8487,2.3565&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">셔틀 + 기차 + 지하철</span><span class="leg-meta">지베르니 → 숙소 · 약 2시간</span><span class="leg-cost">€15/인 + 나비고</span></button>
-  <div class="note danger"><b>열차를 먼저 고르지 마세요.</b> 셔틀이 하루 몇 편뿐이고 오전엔 역→마을, 오후엔 마을→역으로 몰려 있습니다. sngo.fr에서 셔틀 시각표를 먼저 보고 열차를 맞추세요. 셔틀 요금은 기사에게 현금으로만 냅니다.</div>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0754,1.5337&z=16&hl=ko&output=embed" data-label="모네의 집과 정원" data-tier="1">    <div class="stop-top"><span class="time">10:30</span><span class="stop-name">모네의 집과 정원</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">매일 10:00–18:00 (마지막 입장 17:30), 11월 1일까지 개장. 수련 연못은 집 건너편, 지하도로 연결됩니다.</p>
+    <p class="stop-desc">매일 10:00–18:00 (마지막 입장 17:30), 11월 1일까지 개장. 수련 연못은 집 건너편입니다.</p>
     <div class="badges"><span class="badge b-cost">€12/인</span><span class="badge b-free">예약 완료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=49.0742,1.5330&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">5분 · 마을 안</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0742,1.5330&z=16&hl=ko&output=embed" data-label="지베르니 인상주의 미술관" data-tier="2">    <div class="stop-top"><span class="time">14:00</span><span class="stop-name">지베르니 인상주의 미술관</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">현장에서 모네 하우스 통합권을 팝니다.</p>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=49.0742,1.5330&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">모네의 집 → 마을 미술관 · 5분</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0742,1.5330&z=16&hl=ko&output=embed" data-label="지베르니 인상주의 미술관" data-tier="2">    <div class="stop-top"><span class="time">14:00</span><span class="stop-name">지베르니 인상주의 미술관</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">현장에서 모네 하우스 통합권을 팝니다. 체력과 셔틀 시간에 따라 생략할 수 있습니다.</p>
     <div class="badges"><span class="badge b-cost">통합권 €25/인</span></div>
   </button>
+  <div class="note danger"><b>열차를 먼저 고르지 마세요.</b> SNGO 셔틀 시각표를 먼저 확인하고, 오후 귀환 셔틀에 맞춰 마을 체류 시간을 정하세요. 셔틀 요금은 기사에게 현금으로만 냅니다.</div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=48.8487,2.3565&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">셔틀 + 기차 + 지하철</span><span class="leg-meta">지베르니 → 숙소 · 약 2시간</span><span class="leg-cost">€15/인 + 나비고</span></button>
 </section>
 
 <!-- 9/17 -->
 <section class="panel" id="p6" role="tabpanel" aria-labelledby="b6" hidden>
-  <div class="panel-head"><h2>16구 하루</h2><p>목요일 · 르코르뷔지에 → 모네 → 게리</p></div>
+  <div class="panel-head"><h2>서쪽 공원에서 동쪽 식물원까지</h2><p>목요일 초안 · 몽소 → 자연사 → 식물원 → 12구</p></div>
   <div class="mapbox">
-    <iframe loading="lazy" title="라 로슈 → 마르모탕 → 루이비통 재단" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8519,2.2653+to:48.8593,2.2672+to:48.8766,2.2635&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>라 로슈 → 마르모탕 → 루이비통 재단</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+    <iframe loading="lazy" title="숙소 → 몽소 공원 → 진화과학박물관 → 식물원 → 쿨레 베르트 → 달리그르" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8797,2.3090+to:48.8417,2.3559+to:48.8435,2.3600+to:48.8495,2.3715+to:48.8500,2.3790+to:48.8487,2.3565&dirflg=r&hl=ko&output=embed"></iframe>
+    <div class="mapbar"><span>숙소 → 몽소 공원 → 진화과학박물관 → 식물원 → 쿨레 베르트 → 달리그르</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
   </div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8519,2.2653&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 자스맹역 · 약 40분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8519,2.2653&z=16&hl=ko&output=embed" data-label="라 로슈 저택">    <div class="stop-top"><span class="time">10:00</span><span class="stop-name">라 로슈 저택</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">르코르뷔지에 1923–25년 작, 유네스코 세계유산. "살기 위한 기계"라는 순수주의 선언이 실물로 서 있습니다. 곡면 갤러리와 경사로, 자유로운 평면을 직접 걸어볼 수 있습니다. 화–토 10:00–18:00, 일·월 휴관.</p>
-    <div class="badges"><span class="badge b-cost">€15/인</span><span class="badge b-note">르코르뷔지에</span></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8797,2.3090&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 몽소 공원 · 약 25분</span><span class="leg-cost">나비고 / €2.55</span></button>
+  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8797,2.3090&z=16&hl=ko&output=embed" data-label="몽소 공원">    <div class="stop-top"><span class="time">08:30</span><span class="stop-name">몽소 공원</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+    <p class="stop-desc">9월에는 07:00부터 21:00까지. 8구의 조용한 공원에서 하루를 시작합니다.</p>
+    <div class="badges"><span class="badge b-free">무료</span><span class="badge b-note">공식 시간 확인 완료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8519,2.2653&daddr=48.8593,2.2672&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">15분 · 라 뮈에트 방향</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8593,2.2672&z=16&hl=ko&output=embed" data-label="마르모탕 모네">    <div class="stop-top"><span class="time">12:00</span><span class="stop-name">마르모탕 모네</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">『인상, 해돋이』가 있는 곳. 큰 미술관들에 비해 한산하고 지하 모네 전시실이 특히 좋습니다. 목 10:00–21:00. 점심은 라 뮈에트 쪽에서.</p>
-    <div class="badges"><span class="badge b-cost">€27/인 (통합권 기준)</span><span class="badge b-note">모네 여정 마무리</span></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8797,2.3090&daddr=48.8417,2.3559&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">몽소 → 진화과학박물관 · 약 30분</span><span class="leg-cost">나비고 / €2.55</span></button>
+  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8417,2.3559&z=16&hl=ko&output=embed" data-label="진화과학 박물관">    <div class="stop-top"><span class="time">10:30</span><span class="stop-name">진화과학 박물관</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">Jardin des Plantes 안의 Grande Galerie de l'Évolution. 화요일을 제외하고 10:00–18:00 운영, 입장료는 공식 사이트에서 확인하세요.</p>
+    <div class="badges"><span class="badge b-cost">€10–16/인</span><span class="badge b-note">자연사·동물 표본</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8593,2.2672&daddr=48.8766,2.2635&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">25분 · 불로뉴 숲 통과</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8766,2.2635&z=16&hl=ko&output=embed" data-label="루이비통 재단">    <div class="stop-top"><span class="time">15:00</span><span class="stop-name">루이비통 재단</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">프랭크 게리 2014년 작. 유리 돛 열두 장이 겹친 구조로, 밖에서 보면 해체된 비행선 같습니다. 옥상 테라스를 층층이 오르내리며 구조를 안에서 봅니다. 목 11:00–20:00, 화요일 휴관. 자르댕 다클리마타시옹 쪽 입구가 줄이 짧습니다.</p>
-    <div class="badges"><span class="badge b-cost">요금 확인 필요</span><span class="badge b-book">예약 권장</span><span class="badge b-note">게리</span></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8417,2.3559&daddr=48.8435,2.3600&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">박물관 → 파리 식물원 · 5분</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8435,2.3600&z=16&hl=ko&output=embed" data-label="파리 식물원">    <div class="stop-top"><span class="time">13:00</span><span class="stop-name">파리 식물원</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">9월 운영시간은 07:30–20:00. 식물원 산책과 점심을 함께 잡고, 원하는 온실만 골라 봅니다.</p>
+    <div class="badges"><span class="badge b-free">정원 무료</span><span class="badge b-note">공식 시간 확인 완료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8766,2.2635&daddr=48.8487,2.3565&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">불로뉴 → 숙소 · 약 50분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <div class="note "><b>세 곳 모두 16구에 모여 있어 사이 이동은 전부 도보입니다.</b> 르코르뷔지에(1925) → 모네 → 게리(2014) 순서라 하루가 한 세기를 가로지릅니다. 케 브랑리는 풀만 코앞이라 마지막 날로 옮겼습니다.</div>
-  <div class="note warn">원래 비워둔 날이라 세 곳 다 <b>여유되면</b> 등급입니다. 우선순위를 올리시려면 말씀해주세요.</div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8435,2.3600&daddr=48.8495,2.3715&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">식물원 → 쿨레 베르트 · 약 18분</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8495,2.3715&z=16&hl=ko&output=embed" data-label="쿨레 베르트 르네뒤몽">    <div class="stop-top"><span class="time">15:00</span><span class="stop-name">쿨레 베르트 르네뒤몽</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">바스티유 쪽 고가 산책로만 걸어도 충분합니다. 전 구간을 걷지 않고 45–60분 정도로 끊습니다.</p>
+    <div class="badges"><span class="badge b-free">무료</span><span class="badge b-note">조경·도시설계</span></div>
+  </button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8495,2.3715&daddr=48.8500,2.3790&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">쿨레 베르트 → 달리그르 · 약 10분</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8500,2.3790&z=16&hl=ko&output=embed" data-label="마르셰 달리그르">    <div class="stop-top"><span class="time">17:00</span><span class="stop-name">마르셰 달리그르</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">12구의 시장. 목요일 오후에는 노천 시장보다 주변 상점과 저녁 식사 후보를 보는 용도로 둡니다.</p>
+    <div class="badges"><span class="badge b-free">입장 무료</span><span class="badge b-note">오전 방문이 더 적합</span></div>
+  </button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8500,2.3790&daddr=48.8487,2.3565&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">달리그르 → 숙소 · 약 12분</span><span class="leg-cost free">무료</span></button>
+  <div class="note warn"><b>목요일 초안입니다.</b> 서쪽의 몽소에서 시작해 5구를 거쳐 12구로 흐르는 동선입니다. 박물관·식물원·쿨레 베르트 중 체력이 부족하면 달리그르를 먼저 뺍니다.</div>
 </section>
 
 <!-- 9/18 -->
@@ -472,7 +466,7 @@ body.has-dialog{overflow:hidden}
   <div class="panel-head"><h2>시테섬, 그리고 에펠</h2><p>숙소 이동 · 풀만 파리 투르 에펠</p></div>
   <div class="mapbox">
     <iframe loading="lazy" title="9/18 동선" src="https://maps.google.com/maps?saddr=48.8530,2.3499&daddr=48.8554,2.3450+to:48.8556,2.2929+to:48.8628,2.2876&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>노트르담 → 생트샤펠 → 풀만 → 트로카데로</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+    <div class="mapbar"><span>노트르담 → 생트샤펠 → 풀만 → 트로카데로</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
   </div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8530,2.3499&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">숙소 → 노트르담 · 10분</span><span class="leg-cost free">무료</span></button>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8530,2.3499&z=16&hl=ko&output=embed" data-label="노트르담" data-tier="1">    <div class="stop-top"><span class="time">09:00</span><span class="stop-name">노트르담</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
@@ -507,7 +501,7 @@ body.has-dialog{overflow:hidden}
   <div class="panel-head"><h2>에펠탑 주변에서 마무리</h2><p>풀만 반경 · 20:35 CDG 출발</p></div>
   <div class="mapbox">
     <iframe loading="lazy" title="풀만 → 케 브랑리 → 풀만 → CDG" src="https://maps.google.com/maps?saddr=48.8556,2.2929&daddr=48.8609,2.2979+to:48.8556,2.2929+to:49.0097,2.5479&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>풀만 → 케 브랑리 → 풀만 → CDG</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+    <div class="mapbar"><span>풀만 → 케 브랑리 → 풀만 → CDG</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
   </div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.2929&daddr=48.8609,2.2979&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">풀만 → 케 브랑리 · 10분</span><span class="leg-cost free">무료</span></button>
   <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8609,2.2979&z=16&hl=ko&output=embed" data-label="케 브랑리 미술관">    <div class="stop-top"><span class="time">10:30</span><span class="stop-name">케 브랑리 미술관</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
@@ -528,6 +522,18 @@ body.has-dialog{overflow:hidden}
   <div class="note warn">이 주말이 <b>유럽 문화유산의 날</b>과 겹칠 가능성이 높습니다. 시내가 붐비니 공항은 계획보다 일찍 나서세요.</div>
 </section>
 
+<!-- My Maps -->
+<section class="panel" id="pm" role="tabpanel" aria-labelledby="b11" hidden>
+  <div class="panel-head"><h2>저장 스팟</h2><p>Google My Maps의 분류별 장소 · 지도에서 레이어를 켜고 끌 수 있습니다</p></div>
+  <div class="saved-mapbox">
+    <iframe loading="lazy" title="Google My Maps 저장 스팟" src="https://www.google.com/maps/d/embed?mid=19ZtKnx2kCHBcYlq_RxurtzoqA3U9Ffs&amp;ehbc=2E312F" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+  <div class="saved-map-actions">
+    <a class="maplink" href="https://www.google.com/maps/d/viewer?mid=19ZtKnx2kCHBcYlq_RxurtzoqA3U9Ffs" target="_blank" rel="noopener noreferrer">Google Maps에서 크게 열기 ↗</a>
+  </div>
+  <div class="note warn"><b>공개 지도입니다.</b> 숙소처럼 정확한 위치를 공개하면 곤란한 장소가 있으면 My Maps에서 해당 레이어를 숨기거나 위치를 주변 지점으로 바꾸세요.</div>
+</section>
+
 <!-- 비용 -->
 <section class="panel" id="pc" role="tabpanel" aria-labelledby="b9" hidden>
   <div class="panel-head"><h2>비용</h2><p>2인 기준 · 입장료와 교통비만, 식비·숙박 제외</p></div>
@@ -541,9 +547,9 @@ body.has-dialog{overflow:hidden}
     <tr><td>생트샤펠</td><td class="n">€44</td></tr>
     <tr><td>피카소 (추정)</td><td class="n">€32</td></tr>
     <tr><td>지베르니 모네 하우스</td><td class="n">€24</td></tr>
-    <tr><td>마르모탕 모네 (9/17 선택)</td><td class="n">€54</td></tr>
-    <tr><td>라 로슈 저택 (9/17 선택)</td><td class="n">€30</td></tr>
-    <tfoot><tr><td>합계 (9/17 포함)</td><td class="n">약 €309</td></tr></tfoot>
+    <tr><td>마르모탕 모네 (9/15)</td><td class="n">€54</td></tr>
+    <tr><td>라 로슈 저택 (9/15 선택)</td><td class="n">€30</td></tr>
+    <tfoot><tr><td>기재된 항목 합계</td><td class="n">약 €309</td></tr></tfoot>
   </table>
   <div class="note">노트르담, 튈르리, 팔레 루아얄, 뤽상부르, 보주 광장, 아랍세계연구소 옥상, 갤러리 라파예트 옥상, 두 시장은 전부 무료입니다.</div>
 
@@ -848,6 +854,29 @@ body.has-dialog{overflow:hidden}
   });
 
   // Place taps open details. Route taps and the detail action update the map.
+  function googleMapsUrl(src){
+    var legacy = new URL(src, window.location.href);
+    var place = legacy.searchParams.get('q');
+    if(place){
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(place);
+    }
+
+    var origin = legacy.searchParams.get('saddr');
+    var route = legacy.searchParams.get('daddr');
+    if(!origin || !route) return src;
+
+    var stops = route.split(/\s+to:/);
+    var destination = stops.pop();
+    var target = new URL('https://www.google.com/maps/dir/');
+    target.searchParams.set('api', '1');
+    target.searchParams.set('origin', origin);
+    target.searchParams.set('destination', destination);
+    if(stops.length) target.searchParams.set('waypoints', stops.join('|'));
+    if(legacy.searchParams.get('dirflg') === 'w') target.searchParams.set('travelmode', 'walking');
+    if(legacy.searchParams.get('dirflg') === 'r') target.searchParams.set('travelmode', 'transit');
+    return target.toString();
+  }
+
   document.querySelectorAll('.panel').forEach(function(panel){
     var box = panel.querySelector('.mapbox');
     if(!box) return;
@@ -855,6 +884,7 @@ body.has-dialog{overflow:hidden}
     var cap   = box.querySelector('.mapbar span');
     var base  = frame.getAttribute('src');
     var baseCap = cap ? cap.textContent : '';
+    var openMap = box.querySelector('[data-open-map]');
     var stops = panel.querySelectorAll('.stop[data-src]');
     var legs = panel.querySelectorAll('.leg[data-src]');
     var items = panel.querySelectorAll('.stop[data-src], .leg[data-src]');
@@ -872,6 +902,7 @@ body.has-dialog{overflow:hidden}
         frame.src = base;
         if(cap) cap.textContent = baseCap;
       }
+      if(openMap) openMap.href = googleMapsUrl(el ? el.getAttribute('data-src') : base);
       var top = box.getBoundingClientRect().top + window.pageYOffset - 60;
       window.scrollTo({top: top < 0 ? 0 : top, behavior:'smooth'});
     }
@@ -884,6 +915,7 @@ body.has-dialog{overflow:hidden}
     });
     var reset = box.querySelector('[data-reset]');
     if(reset) reset.addEventListener('click', function(){ show(null); });
+    if(openMap) openMap.href = googleMapsUrl(base);
   });
 
   document.querySelectorAll('.chk').forEach(function(row){
