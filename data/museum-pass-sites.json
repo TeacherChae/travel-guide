@@ -1,0 +1,336 @@
+{
+  "checked_on": "2026-09-07",
+  "source": "https://www.parismuseumpass.fr/en/liste-sites",
+  "sites": [
+    {
+      "name": "개선문",
+      "url": "https://www.parismuseumpass.fr/en/musees/arc-de-triomphe",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "퐁피두 센터 · 국립현대미술관",
+      "url": "https://www.parismuseumpass.fr/en/musees/centre-pompidou-musee-national-art-moderne",
+      "area": "Paris",
+      "closed_until_2030": true
+    },
+    {
+      "name": "속죄 예배당",
+      "url": "https://www.parismuseumpass.fr/en/musees/chapelle-expiatoire",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "건축·문화유산 박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/cite-architecture-patrimoine",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "과학산업관",
+      "url": "https://www.parismuseumpass.fr/en/musees/cite-sciences-industrie",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "콩시에르주리",
+      "url": "https://www.parismuseumpass.fr/en/musees/conciergerie",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "시테섬 지하 고고학 유적",
+      "url": "https://www.parismuseumpass.fr/en/musees/crypte-archeologique",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "오텔 드 라 마린",
+      "url": "https://www.parismuseumpass.fr/en/musees/hotel-de-la-marine",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "시네마테크 프랑세즈 · 멜리에스 박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/la-cinematheque-francaise-musee-melies",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "유대 예술·역사박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-art-histoire-du-judaisme",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "오르세 미술관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-orsay",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "클뤼니 중세박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-cluny-moyen-age",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "군사박물관 · 나폴레옹 무덤",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-armee-tombeau-napoleon",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "이민역사박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-histoire-immigration",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "아랍세계연구소 박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-institut-monde-arabe",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "오랑주리 미술관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-orangerie",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "해방훈장 박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-ordre-liberation",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "기메 아시아미술관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-arts-asiatiques-guimet",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "장식미술관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-arts-decoratifs",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "공예·기술박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-arts-et-metiers",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "입체지도 박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-des-plans-reliefs",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "루브르 박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-du-louvre",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "케 브랑리 미술관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-quai-branly",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "귀스타브 모로 미술관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-gustave-moreau",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "장자크 에네르 미술관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-jean-jacques-henner",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "국립해양박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-marine",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "들라크루아 미술관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-eugene-delacroix",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "니심 드 카몽도 미술관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-nissim-de-camondo",
+      "area": "Paris",
+      "closed_until_2030": true
+    },
+    {
+      "name": "피카소 미술관 · 파리",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-picasso-paris",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "로댕 미술관 · 파리",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-rodin-paris",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "팡테옹",
+      "url": "https://www.parismuseumpass.fr/en/musees/pantheon",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "파리 필하모니 · 음악박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/philharmonie-paris-musee-musique",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "생트샤펠",
+      "url": "https://www.parismuseumpass.fr/en/musees/sainte-chapelle",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "노트르담 대성당 타워",
+      "url": "https://www.parismuseumpass.fr/en/musees/tours-de-notre-dame-de-paris",
+      "area": "Paris",
+      "closed_until_2030": false
+    },
+    {
+      "name": "생드니 대성당",
+      "url": "https://www.parismuseumpass.fr/en/musees/basilique-cathedrale-saint-denis",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "샹쉬르마른 성",
+      "url": "https://www.parismuseumpass.fr/en/musees/chateau-de-champs-sur-marne",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "샹티이 성",
+      "url": "https://www.parismuseumpass.fr/en/musees/chateau-de-chantilly",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "콩피에뉴 성",
+      "url": "https://www.parismuseumpass.fr/en/musees/chateau-de-compiegne",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "퐁텐블로 성",
+      "url": "https://www.parismuseumpass.fr/en/musees/chateau-de-fontainebleau",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "메종 성",
+      "url": "https://www.parismuseumpass.fr/en/musees/chateau-de-maisons",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "피에르퐁 성",
+      "url": "https://www.parismuseumpass.fr/en/musees/chateau-de-pierrefonds",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "랑부예 성",
+      "url": "https://www.parismuseumpass.fr/en/musees/chateau-de-rambouillet",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "베르사유 궁전·트리아농",
+      "url": "https://www.parismuseumpass.fr/en/musees/chateau-de-versailles-et-de-trianon",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "뱅센 성",
+      "url": "https://www.parismuseumpass.fr/en/musees/chateau-de-vincennes",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "국제 프랑스어 도시 · 빌레르코트레 성",
+      "url": "https://www.parismuseumpass.fr/en/musees/cite-internationale-langue-fran%C3%A7aise-chateau-villers-cotterets",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "샬리 수도원 영지",
+      "url": "https://www.parismuseumpass.fr/en/musees/domaine-chaalis",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "국립고고학박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-archeologie-nationale-saint-germain-en-laye",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "항공우주박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-air-espace",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "르네상스박물관 · 에쿠앙 성",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-renaissance-chateau-ecouen",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "포르루아얄데샹 박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-port-royal-des-champs",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "말메종 성 박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-chateau-de-malmaison",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "블레랑쿠르 성 프랑스·미국 박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-franco-americain-du-chateau-blerancourt",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "로댕 미술관 · 뫼동",
+      "url": "https://www.parismuseumpass.fr/en/musees/musee-rodin-meudon",
+      "area": "Region",
+      "closed_until_2030": false
+    },
+    {
+      "name": "세브르 · 도자기 제작소·박물관",
+      "url": "https://www.parismuseumpass.fr/en/musees/sevres-manufacture-et-musee",
+      "area": "Region",
+      "closed_until_2030": true
+    },
+    {
+      "name": "빌라 사보아",
+      "url": "https://www.parismuseumpass.fr/en/musees/villa-savoye",
+      "area": "Region",
+      "closed_until_2030": false
+    }
+  ]
+}
