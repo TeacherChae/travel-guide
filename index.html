@@ -141,13 +141,19 @@ button.leg:active{background:var(--surface-2)}
 .mapbox{position:sticky;top:53px;z-index:20;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
   box-shadow:var(--shadow);margin-bottom:10px;background:var(--surface)}
 .mapbox iframe{display:block;width:100%;height:240px;border:0;background:var(--surface)}
-.mapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;
+.mapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
   padding:10px 12px;border-top:1px solid var(--border);background:var(--bg)}
-.mapbar span{font-size:12.5px;color:var(--text-2)}
+.mapbar span{min-width:0;font-size:12.5px;color:var(--text-2)}
+.map-actions{display:flex;align-items:center;gap:6px;margin-left:auto}
 .maplink{flex:0 0 auto;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;border:0;
-  color:var(--brand);background:var(--brand-soft);border-radius:8px;padding:6px 11px}
+  color:var(--brand);background:var(--brand-soft);border-radius:8px;padding:6px 11px;text-decoration:none}
 .maplink:active{opacity:.6}
+.maplink:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 .mapoff{padding:14px 12px;font-size:13px;color:var(--text-3);text-align:center}
+.saved-mapbox{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);margin-bottom:12px;background:var(--surface)}
+.saved-mapbox iframe{display:block;width:100%;height:min(68vh,640px);min-height:440px;border:0;background:var(--surface)}
+.saved-map-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
 .note{border:1px solid var(--border);border-left:3px solid var(--brand);
   background:var(--surface);border-radius:8px;padding:12px 14px;margin-bottom:10px;
   font-size:13.5px;color:var(--text-2)}
@@ -216,6 +222,8 @@ body.has-dialog{overflow:hidden}
 .photo-credit:hover{text-decoration:underline}
 
 @media (max-width:600px){
+  .map-actions{width:100%;justify-content:flex-end}
+  .saved-mapbox iframe{height:68vh;min-height:420px}
   .place-dialog{width:calc(100% - 16px);max-height:calc(100dvh - 16px);margin:auto auto 8px;
     border-radius:20px 20px 14px 14px}
   .place-body{padding:17px 17px calc(17px + env(safe-area-inset-bottom))}
@@ -256,6 +264,8 @@ body.has-dialog{overflow:hidden}
     <button class="tab" role="tab" aria-selected="false" aria-controls="p6" id="b6">9/17 목</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="p7" id="b7">9/18 금</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="p8" id="b8">9/19 토</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="pm" id="b11">My Maps</button>
+    <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="ppass" id="bpass">Museum Pass</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="pc" id="b9">비용</button>
     <button class="tab" role="tab" aria-selected="false" aria-controls="pi" id="b10">정보</button>
   </div>
@@ -266,14 +276,14 @@ body.has-dialog{overflow:hidden}
 <section class="panel" id="p1" role="tabpanel" aria-labelledby="b1">
   <div class="panel-head"><h2>도착</h2><p>숙소 · 파리 5구 (26 Rue des Fossés Saint-Bernard)</p></div>
   <div class="mapbox">
-    <iframe loading="lazy" title="숙소 → 마트 → 무프타르 → 투르넬 다리" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8480,2.3536+to:48.8433,2.3495+to:48.8507,2.3555&dirflg=w&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>숙소 → 마트 → 무프타르 → 투르넬 다리</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+    <iframe loading="lazy" title="CDG → 숙소 → 마트 → 무프타르 → 투르넬 다리 → 숙소" src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618+to:48.8480,2.3536+to:48.8433,2.3495+to:48.8507,2.3555+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe>
+    <div class="mapbar"><span>CDG → 숙소 → 마트 → 무프타르 → 투르넬 다리 → 숙소</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
   </div>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8487,2.3565&z=16&hl=ko&output=embed" data-label="CDG → 5구 숙소">    <div class="stop-top"><span class="time">18:30</span><span class="stop-name">CDG → 5구 숙소</span><span class="pin">지도</span></div>
-    <p class="stop-desc">RER B로 생미셸-노트르담. 입국심사와 수하물까지 감안하면 숙소 도착은 20시쯤입니다.</p>
-    <div class="badges"><span class="badge b-cost">RER €14/인 · 2인 €28</span><span class="badge b-note">택시 정액제 €56</span></div>
+  <button type="button" class="stop" data-src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="CDG → 5구 숙소">    <div class="stop-top"><span class="time">18:30</span><span class="stop-name">CDG → 5구 숙소</span><span class="pin">지도</span></div>
+    <p class="stop-desc">18:30은 CDG 항공편 도착 예정 시각입니다. 입국심사·짐 찾기 후 RER B 파리 방면으로 Saint-Michel–Notre-Dame까지 이동하고 숙소(26 Rue des Fossés Saint-Bernard)까지 걷는 안입니다. Gare de l’Est는 이 경로의 목적지나 필수 환승역이 아닙니다. 도착 터미널의 RER 안내와 당일 운행을 확인하세요. 짐이 많으면 공식 택시 승강장에서 숙소로 바로 이동하는 것도 대안입니다. 숙소 도착 시각은 입국·교통 상황에 따라 달라집니다.</p>
+    <div class="badges"><span class="badge b-note">공항 교통표 별도 · 요금 확인</span><span class="badge b-note">도착 터미널 확인 필요</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8480,2.3536&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">2분 · 같은 길</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8480,2.3536&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">2분 · 같은 길</span><span class="leg-cost free">무료</span></button>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8480,2.3536&z=16&hl=ko&output=embed" data-label="앵테르마르셰 익스프레스" data-tier="2">    <div class="stop-top"><span class="time">20:00</span><span class="stop-name">앵테르마르셰 익스프레스</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
     <p class="stop-desc">36 Rue des Fossés Saint-Bernard. 매일 22시까지, 일요일도 22시까지. 이 동네에서 드물게 큰 편이고 신선식품과 주류 구색이 괜찮습니다. 물과 아침거리만 사두면 편합니다.</p>
     <div class="badges"><span class="badge b-note">~22:00</span><span class="badge b-note">모노프(생제르맹 5번지)는 23시까지</span></div>
@@ -288,244 +298,279 @@ body.has-dialog{overflow:hidden}
     <p class="stop-desc">다리 위에서 보는 노트르담 후면이 제일 예쁩니다. 숙소까지 도보 8분.</p>
     <div class="badges"><span class="badge b-free">무료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8507,2.3555&daddr=48.8487,2.3565&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">8분 · 숙소 복귀</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8507,2.3555&daddr=48.8484866,2.3540618&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">8분 · 숙소 복귀</span><span class="leg-cost free">무료</span></button>
+  <div class="note">공항 카드의 상세 → 지도에서 보기를 누르면 CDG에서 실제 숙소 좌표로 가는 대중교통 경로를 엽니다. 공항 좌표는 대표 지점이므로 Google Maps에서 실제 도착 터미널·출발 시각을 확인하세요. 전체 지도는 개략 동선이고, 시내 도보 구간은 각 경로 버튼에서 확인합니다.</div>
   <div class="note warn">파리 마트는 표기 시간보다 20~30분 일찍 정리를 시작한다는 후기가 많습니다. 21시 30분에 가겠다는 계산은 위험합니다.</div>
+<div class="note"><b>생활 장보기는 숙소 근처에서 작게.</b> 앵테르마르셰(36 Rue des Fossés Saint-Bernard)는 토요일 밤 물·일요일 숙소 예배 전 아침거리, 화요일 밤 지베르니 간식 보충용입니다. 공식 주간표는 월–토 08:00–22:00, 일 09:00–22:00이나 첫날은 비행 지연을 감안해 도착 후 영업을 확인하세요. <a href="https://www.intermarche.com/magasins/09037/Paris-75005/infos-pratiques" target="_blank" rel="noopener noreferrer">매장 안내 ↗</a></div>
 </section>
 
 <!-- 9/13 -->
 <section class="panel" id="p2" role="tabpanel" aria-labelledby="b2" hidden>
-  <div class="panel-head"><h2>왼쪽 강변에서 에펠까지</h2><p>일요일 · 상점 휴무, 미술관 정상 개관</p></div>
-  <div class="mapbox">
-    <iframe loading="lazy" title="몽주 → 뤽상부르 → 오르세 → 오랑주리 → 에펠 → 크루즈" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8427,2.3521+to:48.8466,2.3363+to:48.8599,2.3266+to:48.8638,2.3227+to:48.8556,2.2986+to:48.8604,2.2936&dirflg=w&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>몽주 → 뤽상부르 → 오르세 → 오랑주리 → 에펠 → 크루즈</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+  <div class="panel-head"><h2>예배와 모네의 하루</h2><p>노트르담 → 오랑주리 → 마르모탕 → 크루즈</p></div>
+  <div class="mapbox"><iframe loading="lazy" title="노트르담 → 오랑주리 → 마르모탕 → 크루즈" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8530,2.3499+to:48.8638,2.3227+to:48.8593,2.2672+to:48.8604,2.2936+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>노트르담 → 오랑주리 → 마르모탕 → 크루즈</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+  <div class="stop" data-tier="1">
+    <div class="stop-top"><span class="time">07:00–08:30</span><span class="stop-name">숙소 · 한국 교회 라이브 예배</span><span class="tier tier-1">꼭</span></div>
+    <p class="stop-desc">한국 시간 일요일 14:00 예배를 파리 시간 07:00에 숙소에서 드립니다. Europe/Paris 기준 2026년 9월 13일은 한국보다 7시간 느립니다.</p>
+    <div class="badges"><span class="badge b-free">온라인</span><span class="badge b-note">약 90분</span></div>
   </div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8427,2.3521&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">숙소 → 마르셰 몽주 · 7분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8427,2.3521&z=16&hl=ko&output=embed" data-label="마르셰 몽주">    <div class="stop-top"><span class="time">09:30</span><span class="stop-name">마르셰 몽주</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">숙소 도보 7분. 수·금·일 오전 7:30–12:00만 엽니다. 치즈와 페이스트리로 아침.</p>
-    <div class="badges"><span class="badge b-free">입장 무료</span><span class="badge b-note">숙소 근처 시장</span></div>
+  <div class="note"><b>08:30–09:10 아침 식사·외출 준비.</b> 전날 숙소에서 스트리밍 링크와 와이파이 연결을 확인합니다.</div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8530,2.3499&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">09:10 출발 · 09:30 전후 도착 목표</span><span class="leg-cost">무료</span></button>
+  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8530,2.3499&z=16&hl=ko&output=embed" data-label="노트르담">    <div class="stop-top"><span class="time">10:00–11:15</span><span class="stop-name">노트르담 · 그레고리오 미사</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+    <p class="stop-desc">10:00 그레고리오 미사로 라틴어 전례와 성가를 경험합니다. 미사 참석자 전용 줄은 최후의 심판 문 맞은편에서 시작 20–30분 전에 열립니다. 종료는 약 11:15로 예상하며 변동될 수 있습니다. 영성체 때는 자리에 머무릅니다.</p>
+    <div class="badges"><span class="badge b-free">미사 무료</span><span class="badge b-note">라틴어 · 예약 불필요</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8427,2.3521&daddr=48.8466,2.3363&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">15분 · 팡테옹 지나</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8466,2.3363&z=16&hl=ko&output=embed" data-label="뤽상부르 · 생제르맹">    <div class="stop-top"><span class="time">10:30</span><span class="stop-name">뤽상부르 · 생제르맹</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">일요일이라 상점은 닫혀 있지만 공원과 카페는 그대로입니다. 커피 한 잔 하고 강 쪽으로 내려가면 됩니다.</p>
-    <div class="badges"><span class="badge b-free">무료</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8466,2.3363&daddr=48.8599,2.3266&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">20분 · 강변으로</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8599,2.3266&z=16&hl=ko&output=embed" data-label="오르세 미술관">    <div class="stop-top"><span class="time">11:30</span><span class="stop-name">오르세 미술관</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">5층 인상주의부터 역순으로 내려오면 덜 지칩니다. 일 09:30–18:00. 점심은 미술관 안이나 강변에서.</p>
-    <div class="badges"><span class="badge b-cost">€18/인</span><span class="badge b-book">예약 필수</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8599,2.3266&daddr=48.8638,2.3227&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">15분 · 튈르리 가로질러</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8638,2.3227&z=16&hl=ko&output=embed" data-label="오랑주리">    <div class="stop-top"><span class="time">15:00</span><span class="stop-name">오랑주리</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">모네 수련이 걸린 타원형 방 두 개. 18:00까지라 이 시간이 마지막입니다.</p>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8530,2.3499&daddr=48.8638,2.3227&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">미사 후 이동·점심 · 도보 약 45–50분 (추정)</span><span class="leg-cost">무료</span></button>
+<div class="note">11:15–13:00 이동·점심·입장 여유. 오랑주리 예약 목표는 13:00입니다.</div>
+  <div class="card" data-dining="Le Florentin"><span class="label">12:00–12:40 목표 · 점심 후보 · 예약 권장</span><h4>Le Florentin</h4><p>노트르담 미사 후 콩코르드 쪽으로 이동해서 점심. 오랑주리 예약 13:00을 우선하고 12:40에는 식사를 마칩니다. 미사가 늦거나 대기·조리가 길면 주변 포장식으로 대체합니다.</p><p>공식: 매일 07:00–23:00 연속 영업. 예약 잔여석 미확인 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.86761%2C2.3244488" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://leflorentinbistrot.com/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8638,2.3227&z=16&hl=ko&output=embed" data-label="오랑주리">    <div class="stop-top"><span class="time">13:00–14:15</span><span class="stop-name">오랑주리</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+    <p class="stop-desc">모네 수련이 걸린 타원형 방 두 개. 일요일 09:00–18:00 운영, 마지막 입장 17:15. 13:00 예약 목표. 14:15 출발해 마르모탕으로 이동합니다.</p>
     <div class="badges"><span class="badge b-cost">€12.50/인</span><span class="badge b-book">예약 필수</span><span class="badge b-note">오르세 통합권 있음</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8638,2.3227&daddr=48.8556,2.2986&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">약 20분 · 8호선 École Militaire</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8556,2.2986&z=16&hl=ko&output=embed" data-label="샹드마르스 · 에펠탑">    <div class="stop-top"><span class="time">17:30</span><span class="stop-name">샹드마르스 · 에펠탑</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">탑 아래 잔디밭에서 올려다보는 각도. 저녁은 이 근처에서 해결하면 크루즈까지 걸어갑니다.</p>
-    <div class="badges"><span class="badge b-free">무료</span></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8638,2.3227&daddr=48.8593,2.2672&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">14:15 출발 · 환승·도보 포함 45–60분 여유 (추정)</span><span class="leg-cost">교통표 별도</span></button>
+  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8593,2.2672&z=16&hl=ko&output=embed" data-label="마르모탕 모네">    <div class="stop-top"><span class="time">15:30–17:00</span><span class="stop-name">마르모탕 모네</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+    <p class="stop-desc">모네의 작품과 인상, 해돋이를 볼 수 있는 16구 미술관. 화–일 10:00–18:00, 마지막 입장 17:00. 예약은 필수가 아닙니다.</p>
+    <div class="badges"><span class="badge b-cost">€27/인 (통합권 기준)</span><span class="badge b-note">공식 확인 완료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.2986&daddr=48.8604,2.2936&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">8분 · 부르도네 선착장</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8593,2.2672&daddr=48.8604,2.2936&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">관람 후 에펠 선착장 주변 이동 · 약 40–50분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
+<div class="note">18:00–20:15 선착장 근처에서 저녁·휴식. 저장 식당을 위해 먼 우회를 하지 않고 당일 근처에서 고릅니다. 샹드마르스 본 방문은 화요일입니다.</div>
   <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8604,2.2936&z=16&hl=ko&output=embed" data-label="바토 파리지앵">    <div class="stop-top"><span class="time">21:00</span><span class="stop-name">바토 파리지앵</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">에펠탑 바로 아래에서 출발해 한 시간 뒤 같은 자리로 돌아옵니다. 운항 10:00–23:00. 조명이 켜진 뒤라 야간이 낫고, 물 위에서 정각 반짝임을 봅니다.</p>
+    <p class="stop-desc">에펠탑 아래에서 출발하는 야간 크루즈. 21:00 탑승 목표이며 예약 완료를 뜻하지 않습니다. 탑승 안내에 맞춰 미리 도착합니다.</p>
     <div class="badges"><span class="badge b-book">예약 권장</span><span class="badge b-note">디너 크루즈는 별도</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8604,2.2936&daddr=48.8487,2.3565&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">선착장 → 숙소 · 약 35분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <div class="note "><b>한 방향으로만 갑니다.</b> 5구에서 출발해 6구 → 7구 → 1구 → 7구 순으로 서쪽으로 흐르고, 되돌아오는 구간은 밤에 한 번뿐입니다. 오르세까지 전부 도보라 지하철은 오랑주리 이후에만 씁니다.</div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8604,2.2936&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">크루즈 후 숙소 복귀 · 약 35–45분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
+<div class="note warn">미사 입장·종료 시각과 미술관 예약 가능 시간은 보장되지 않습니다. 두 미술관 예약을 확인한 뒤 확정하세요. 월요일 마르모탕·화요일 오랑주리 휴관 때문에 일요일에 묶었습니다.</div>
 </section>
 
 <!-- 9/14 -->
 <section class="panel" id="p3" role="tabpanel" aria-labelledby="b3" hidden>
-  <div class="panel-head"><h2>루브르에서 몽소까지</h2><p>월요일 휴관 — 오르세 · 피카소 · 로댕 · 마르모탕</p></div>
-  <div class="mapbox">
-    <iframe loading="lazy" title="루브르 → 팔레 루아얄 → 카르티에 → 라파예트 → 몽소" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8606,2.3376+to:48.8624,2.3373+to:48.8736,2.3321+to:48.8797,2.3090&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>루브르 → 팔레 루아얄 → 카르티에 → 라파예트 → 몽소</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
-  </div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8606,2.3376&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 루브르 · 약 20분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8606,2.3376&z=16&hl=ko&output=embed" data-label="루브르">    <div class="stop-top"><span class="time">09:00</span><span class="stop-name">루브르</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+  <div class="panel-head"><h2>루브르와 사마리텐·강변</h2><p>루브르 → 점심 → 사마리텐 → 퐁뇌프</p></div>
+  <div class="mapbox"><iframe loading="lazy" title="루브르 → 점심 → 사마리텐 → 퐁뇌프" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8606,2.3376+to:48.8592564,2.3424255+to:48.8572,2.3413+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>루브르 → 점심 → 사마리텐 → 퐁뇌프</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8606,2.3376&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">숙소 → 루브르 · 약 20–30분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
+  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8606,2.3376&z=16&hl=ko&output=embed" data-label="루브르">    <div class="stop-top"><span class="time">09:00–13:00</span><span class="stop-name">루브르</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
     <p class="stop-desc">개장 시각에 들어가는 게 유일한 방법입니다. 월 09:00–18:00, 반나절로 끊으세요. 한 번 나가면 재입장이 안 되니 커피는 안에서. 카루젤 입구가 보안 줄이 짧습니다.</p>
     <div class="badges"><span class="badge b-cost">€32/인</span><span class="badge b-book">예약 필수</span><span class="badge b-note">화요일 휴관</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8606,2.3376&daddr=48.8635,2.3275&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">5분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8635,2.3275&z=16&hl=ko&output=embed" data-label="튈르리 정원">    <div class="stop-top"><span class="time">13:00</span><span class="stop-name">튈르리 정원</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">루브르 바로 옆. 점심은 이 근처에서.</p>
-    <div class="badges"><span class="badge b-free">무료</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8635,2.3275&daddr=48.8650,2.3378&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">10분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8650,2.3378&z=16&hl=ko&output=embed" data-label="팔레 루아얄 정원">    <div class="stop-top"><span class="time">14:00</span><span class="stop-name">팔레 루아얄 정원</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">뷔렌 기둥이 있는 안뜰. 카르티에 재단이 바로 앞입니다.</p>
-    <div class="badges"><span class="badge b-free">무료</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8650,2.3378&daddr=48.8624,2.3373&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">2분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8624,2.3373&z=16&hl=ko&output=embed" data-label="카르티에 재단">    <div class="stop-top"><span class="time">14:30</span><span class="stop-name">카르티에 재단</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">2025년 10월 팔레 루아얄로 이전. 1855년 그랑 마가쟁 뒤 루브르 건물을 장 누벨이 개수했고, 내부가 <b>11단계 높이로 오르내리는 가동 플랫폼 다섯 장</b>으로 되어 있습니다. 전시마다 층 구성 자체가 바뀝니다. <b>월요일 휴관이라 9/14에는 닫혀 있습니다.</b> 굳이 넣는다면 화요일 22시까지 여니 9/15 저녁이지만, 1구라 마레 동선에서 벗어납니다.</p>
-    <div class="badges"><span class="badge b-cost">€15/인</span><span class="badge b-note">월요일 휴관</span><span class="badge b-note">현대건축</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8624,2.3373&daddr=48.8736,2.3321&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">15분 · 오페라 가르니에 외관 지나</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8736,2.3321&z=16&hl=ko&output=embed" data-label="갤러리 라파예트">    <div class="stop-top"><span class="time">16:30</span><span class="stop-name">갤러리 라파예트</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">돔 천장과 옥상 테라스. 옥상에서 오페라 가르니에 지붕이 정면으로 보입니다. 월–토 10:00–20:30.</p>
-    <div class="badges"><span class="badge b-free">입장·옥상 무료</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8736,2.3321&daddr=48.8797,2.3090&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">약 15분 · 2호선 Monceau</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8797,2.3090&z=16&hl=ko&output=embed" data-label="몽소 공원">    <div class="stop-top"><span class="time">18:30</span><span class="stop-name">몽소 공원</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">매일 07:00–24:00. 8구 주택가 한복판이라 관광객이 적고 동네 사람들이 씁니다. 로마 열주가 선 수경 시설과 검정·금빛 철문이 얼굴입니다. 벤치가 많아 하루 끝에 앉아 쉬기 좋습니다.</p>
-    <div class="badges"><span class="badge b-free">무료</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8797,2.3090&daddr=48.8487,2.3565&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">몽소 → 숙소 · 약 35분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <div class="note "><b>오페라 가르니에 내부 관람은 뺐습니다.</b> 일곱 곳이면 하루가 빡빡해지고, 어차피 라파예트 옥상에서 그 지붕을 정면으로 봅니다. 꼭 들어가고 싶으시면 라파예트를 빼고 바꾸세요. 루브르에서 몽소까지 지하철은 마지막 한 번뿐입니다.</div>
+<div class="note">13:00–14:15 히구마 점심 후보·이동 여유. 오후는 예약 없는 쇼핑·산책으로 여유를 둡니다.</div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8606,2.3376&daddr=48.8592564,2.3424255&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">사마리텐 방향 · 약 10–15분 (추정)</span><span class="leg-cost">무료</span></button>
+  <div class="card" data-dining="Higuma"><span class="label">13:15–14:00 목표 · 점심 1순위 · 현장 대기</span><h4>Higuma</h4><p>루브르에서 생트안 거리 쪽으로 약 10–15분 우회해 라멘·덮밥. 이후 사마리텐 방향으로 돌아옵니다. 대기가 20분 이상이면 박물관 인근 식당으로 대체하고 쇼핑 시간을 지킵니다.</p><p>공식: 예약 받지 않음. 정확한 월요일 점심 영업시간은 방문 전 확인 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.8665886%2C2.3357844" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://higuma.fr/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+<button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8592564,2.3424255&z=16&hl=ko&output=embed" data-label="La Samaritaine"><div class="stop-top"><span class="time">14:30</span><span class="stop-name">La Samaritaine</span><span class="tier tier-2">여유되면</span><span class="pin">상세</span></div><p class="stop-desc">저장한 쇼핑 스팟. 9 Rue de la Monnaie. 공식 운영시간은 매일 10:00–20:00. 쇼핑하거나 건물 내부를 둘러봅니다.</p></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8592564,2.3424255&daddr=48.8572,2.3413&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">사마리텐 → 퐁뇌프 · 약 5–10분 (추정)</span><span class="leg-cost">무료</span></button>
+  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8572,2.3413&z=16&hl=ko&output=embed" data-label="퐁뇌프 · 센강 산책"><div class="stop-top"><span class="time">16:00</span><span class="stop-name">퐁뇌프 · 센강 산책</span><span class="tier tier-2">여유되면</span><span class="pin">상세</span></div><p class="stop-desc">강변과 시테섬 주변을 가볍게 걷습니다. 체력이 부족하면 산책을 줄이고 숙소로 복귀합니다.</p></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8572,2.3413&daddr=48.8484866,2.3540618&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">퐁뇌프 → 숙소 · 약 25–30분 (추정)</span><span class="leg-cost">무료</span></button>
+<div class="note">팔레 루아얄·카르티에·라파예트는 일정에서 제외했습니다.</div>
+<div class="card" data-dining="Fer à Cheval"><span class="label">사마리텐 후 선택 · 기념품 · 쇼핑 우회 후보</span><h4>Fer à Cheval</h4><p>저장한 77 Rue de la Verrerie 매장 핀 기준 비누·생활용품 후보. 사마리텐에서 마레 쪽으로 15–20분 정도 추가 이동하는 선택지이며, 퐁뇌프 직행 산책과 둘 중 하나만 고릅니다. 영업 확인 없이는 필수 일정으로 잡지 않습니다.</p><p>공유 Commercial 목록의 위치 확인. 매장 최신 영업시간·취급 재고 미확인 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.8583549%2C2.3516334" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://maps.app.goo.gl/uUTQR4Tohot6Ltw6A" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+<div class="card" data-dining="Il Gelato del Marchese"><span class="label">17:00 전후 선택 · 젤라토 · 숙소 복귀 전</span><h4>Il Gelato del Marchese</h4><p>퐁뇌프에서 오데옹 쪽으로 돌아갈 체력이 있으면 젤라토 하나. Fer à Cheval 우회를 택했다면 여기까지 모두 돌지 않습니다. 커피보다 디저트가 당기는 날의 대안입니다.</p><p>관광청 안내: 매일 12:00–24:00. 당일 변경 가능 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.85159%2C2.3380824" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://www.visitparisregion.com/en/il-gelato-del-marchese" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
 </section>
 
 <!-- 9/15 -->
 <section class="panel" id="p4" role="tabpanel" aria-labelledby="b4" hidden>
-  <div class="panel-head"><h2>시장과 마레</h2><p>화요일 휴관 — 루브르 · 오랑주리</p></div>
-  <div class="mapbox">
-    <iframe loading="lazy" title="달리그르 → 쿨레 베르트 → 보주 → 장팡 루즈 → 피카소 → 아랍세계연구소" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8500,2.3790+to:48.8495,2.3715+to:48.8556,2.3655+to:48.8629,2.3620+to:48.8599,2.3623+to:48.8489,2.3572&dirflg=w&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>달리그르 → 쿨레 베르트 → 보주 → 장팡 루즈 → 피카소 → 아랍세계연구소</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
-  </div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8500,2.3790&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 달리그르 · 약 15분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8500,2.3790&z=16&hl=ko&output=embed" data-label="마르셰 달리그르">    <div class="stop-top"><span class="time">09:00</span><span class="stop-name">마르셰 달리그르</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">12구. 관광객이 거의 없고 동네 사람들이 장 보러 오는 시장입니다. 노천 청과 노점이 달리그르 거리 양쪽으로 늘어서고, 안쪽에 보보 실내 시장과 벼룩시장이 붙어 있습니다. <b>월요일 휴무</b>, 오전에만 제대로 섭니다.</p>
-    <div class="badges"><span class="badge b-free">입장 무료</span><span class="badge b-note">현지인 시장</span></div>
+  <div class="panel-head"><h2>오르세와 에펠탑 주변 공원</h2><p>오르세 → 점심 → 샹드마르스</p></div>
+  <div class="mapbox"><iframe loading="lazy" title="오르세 → 점심 → 샹드마르스" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8599,2.3266+to:48.8556,2.2986+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>오르세 → 점심 → 샹드마르스</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+<div class="card" data-dining="Les Deux Magots"><span class="label">08:30–09:00 선택 · 아침·커피</span><h4>Les Deux Magots</h4><p>숙소에서 생제르맹을 거쳐 오르세로 가는 아침 경유. 대기가 없을 때 커피·가벼운 아침만 먹고 09:00에 출발합니다. 오르세 10시 예약이 우선이며 늦으면 숙소 아침으로 대체합니다.</p><p>공식: 매일 07:30–01:00 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.854052%2C2.3331062" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://lesdeuxmagots.fr/reserver/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8599,2.3266&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">숙소 → 오르세 · 대중교통 약 25–35분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
+  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8599,2.3266&z=16&hl=ko&output=embed" data-label="오르세 미술관">    <div class="stop-top"><span class="time">10:00–13:30</span><span class="stop-name">오르세 미술관</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+    <p class="stop-desc">5층 인상주의부터 역순으로 내려오면 덜 지칩니다. 화요일 오전 관람. 10:00 예약 목표로 잡고 당일 운영시간은 공식 사이트에서 다시 확인합니다.</p>
+    <div class="badges"><span class="badge b-cost">€18/인</span><span class="badge b-book">예약 필수</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8500,2.3790&daddr=48.8495,2.3715&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">7분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8495,2.3715&z=16&hl=ko&output=embed" data-label="쿨레 베르트 르네뒤몽">    <div class="stop-top"><span class="time">10:30</span><span class="stop-name">쿨레 베르트 르네뒤몽</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">1960년대에 버려진 뱅센 철도 고가를 5km 선형 공원으로 바꾼 곳입니다. 뉴욕 하이라인보다 20년 앞섰습니다. 고가 위에서 파리 뒷마당과 골목을 내려다보게 되고, 아래로 내려가면 노천 체육시설도 있습니다. 전 구간은 1시간 15분, 바스티유 쪽 일부만 걸어도 충분합니다.</p>
-    <div class="badges"><span class="badge b-free">무료</span><span class="badge b-note">조경·도시설계</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8495,2.3715&daddr=48.8556,2.3655&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">12분 · 바스티유 지나</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8556,2.3655&z=16&hl=ko&output=embed" data-label="보주 광장">    <div class="stop-top"><span class="time">12:00</span><span class="stop-name">보주 광장</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">17세기 정방형 광장에서 시작해 생폴 거리 골목으로.</p>
+<div class="note">13:30–14:30 점심·휴식. 오후는 추가 미술관 없이 공원 산책으로 마무리합니다.</div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8599,2.3266&daddr=48.8556,2.2986&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">오르세 → 샹드마르스 · 약 30분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
+  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8556,2.2986&z=16&hl=ko&output=embed" data-label="샹드마르스 · 에펠탑">    <div class="stop-top"><span class="time">15:30</span><span class="stop-name">샹드마르스 · 에펠탑</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+    <p class="stop-desc">탑에 오르지 않고 샹드마르스 공원에서 올려다봅니다. 공원과 에펠탑 주변을 여유롭게 산책합니다. 크루즈는 일요일에 별도로 배치했습니다.</p>
     <div class="badges"><span class="badge b-free">무료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.3655&daddr=48.8629,2.3620&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">12분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8629,2.3620&z=16&hl=ko&output=embed" data-label="마르셰 데 장팡 루즈">    <div class="stop-top"><span class="time">12:45</span><span class="stop-name">마르셰 데 장팡 루즈</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">1615년에 열린, 파리에서 가장 오래된 지붕 시장. 여러 나라 가판이 모여 있습니다. 월요일 휴무.</p>
-    <div class="badges"><span class="badge b-free">입장 무료</span><span class="badge b-cost">식사 1인 €12–18</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8629,2.3620&daddr=48.8599,2.3623&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">5분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8599,2.3623&z=16&hl=ko&output=embed" data-label="피카소 미술관">    <div class="stop-top"><span class="time">14:30</span><span class="stop-name">피카소 미술관</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">17세기 저택(Hôtel Salé)을 개수한 건물 자체가 볼거리. 화 09:30–18:00.</p>
-    <div class="badges"><span class="badge b-cost">약 €16/인 (확인 필요)</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8599,2.3623&daddr=48.8489,2.3572&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">22분 · 지하철이면 15분</span><span class="leg-cost">무료 / 나비고</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8489,2.3572&z=16&hl=ko&output=embed" data-label="아랍세계연구소 옥상">    <div class="stop-top"><span class="time">18:00</span><span class="stop-name">아랍세계연구소 옥상</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">장 누벨 1987년 작. 남쪽 파사드 전체가 카메라 조리개처럼 빛에 반응해 열리고 닫힙니다. 옥상에서 세느강과 노트르담이 정면. 숙소 바로 옆.</p>
-    <div class="badges"><span class="badge b-free">옥상 무료</span><span class="badge b-note">현대건축</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8489,2.3572&daddr=48.8487,2.3565&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">2분 · 숙소 복귀</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.2986&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">샹드마르스 → 숙소 · 약 35–45분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
+<div class="note">라 로슈는 제외했습니다. 다음 날 지베르니에 대비해 저녁은 유동적으로 잡습니다.</div>
+<div class="note"><b>점심은 이동을 줄입니다.</b> 오르세 관람 후 박물관 카페 또는 샹드마르스 방향에서 가볍게 해결합니다. 저장한 식당을 넣으려고 마레·몽파르나스까지 돌아가지 않습니다. 수요일 기차용 물·아침거리는 오늘 숙소 복귀 때 미리 삽니다.</div>
 </section>
 
 <!-- 9/16 -->
 <section class="panel" id="p5" role="tabpanel" aria-labelledby="b5" hidden>
   <div class="panel-head"><h2>지베르니</h2><p>예약 완료 · 종일</p></div>
   <div class="mapbox">
-    <iframe loading="lazy" title="생라자르역 → 지베르니" src="https://maps.google.com/maps?saddr=48.8772,2.3253&daddr=49.0754,1.5337&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>생라자르역 → 지베르니</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+    <iframe loading="lazy" title="숙소 → 생라자르역 → 지베르니 → 숙소" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8772,2.3253+to:49.0754,1.5337+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe>
+    <div class="mapbar"><span>숙소 → 생라자르역 → 지베르니 → 숙소</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
   </div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8772,2.3253&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 생라자르역 · 약 30분</span><span class="leg-cost">나비고 / €2.55</span></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8772,2.3253&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 생라자르역 · 약 30분</span><span class="leg-cost">나비고 / €2.55</span></button>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8772,2.3253&z=16&hl=ko&output=embed" data-label="생라자르역">    <div class="stop-top"><span class="time">08:30</span><span class="stop-name">생라자르역</span><span class="pin">지도</span></div>
-    <p class="stop-desc">루앙(Rouen Rive Droite) 방면 열차, 빠른 편은 45분 이내. 오전 8:20, 9:20 이후로는 대략 두 시간 간격입니다.</p>
+    <p class="stop-desc">루앙(Rouen Rive Droite) 방면 열차. 빠른 편은 45분 이내이며, 셔틀 시각표에 맞춰 열차를 고릅니다.</p>
     <div class="badges"><span class="badge b-cost">편도 약 €15/인 · 왕복 2인 €60</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8772,2.3253&daddr=49.0754,1.5337&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">기차 + 셔틀</span><span class="leg-meta">열차 45분 + SNGO 셔틀 15분</span><span class="leg-cost">€15/인 + 셔틀 €8</span></button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=48.8487,2.3565&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">셔틀 + 기차 + 지하철</span><span class="leg-meta">지베르니 → 숙소 · 약 2시간</span><span class="leg-cost">€15/인 + 나비고</span></button>
-  <div class="note danger"><b>열차를 먼저 고르지 마세요.</b> 셔틀이 하루 몇 편뿐이고 오전엔 역→마을, 오후엔 마을→역으로 몰려 있습니다. sngo.fr에서 셔틀 시각표를 먼저 보고 열차를 맞추세요. 셔틀 요금은 기사에게 현금으로만 냅니다.</div>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0754,1.5337&z=16&hl=ko&output=embed" data-label="모네의 집과 정원" data-tier="1">    <div class="stop-top"><span class="time">10:30</span><span class="stop-name">모네의 집과 정원</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">매일 10:00–18:00 (마지막 입장 17:30), 11월 1일까지 개장. 수련 연못은 집 건너편, 지하도로 연결됩니다.</p>
+    <p class="stop-desc">매일 10:00–18:00 (마지막 입장 17:30), 11월 1일까지 개장. 수련 연못은 집 건너편입니다.</p>
     <div class="badges"><span class="badge b-cost">€12/인</span><span class="badge b-free">예약 완료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=49.0742,1.5330&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">5분 · 마을 안</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0742,1.5330&z=16&hl=ko&output=embed" data-label="지베르니 인상주의 미술관" data-tier="2">    <div class="stop-top"><span class="time">14:00</span><span class="stop-name">지베르니 인상주의 미술관</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">현장에서 모네 하우스 통합권을 팝니다.</p>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=49.0742,1.5330&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">모네의 집 → 마을 미술관 · 5분</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0742,1.5330&z=16&hl=ko&output=embed" data-label="지베르니 인상주의 미술관" data-tier="2">    <div class="stop-top"><span class="time">14:00</span><span class="stop-name">지베르니 인상주의 미술관</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">현장에서 모네 하우스 통합권을 팝니다. 체력과 셔틀 시간에 따라 생략할 수 있습니다.</p>
     <div class="badges"><span class="badge b-cost">통합권 €25/인</span></div>
   </button>
+  <div class="note danger"><b>열차를 먼저 고르지 마세요.</b> SNGO 셔틀 시각표를 먼저 확인하고, 오후 귀환 셔틀에 맞춰 마을 체류 시간을 정하세요. 셔틀 요금은 기사에게 현금으로만 냅니다.</div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">셔틀 + 기차 + 지하철</span><span class="leg-meta">지베르니 → 숙소 · 약 2시간</span><span class="leg-cost">€15/인 + 나비고</span></button>
+<div class="note"><b>오늘은 저장한 파리 식당을 억지로 연결하지 않습니다.</b> 전날 물·빵·간식을 준비하고 점심은 지베르니 현지에서 해결합니다. 복귀 열차 시각에 맞춰 저녁을 유동적으로 잡습니다.</div>
 </section>
 
 <!-- 9/17 -->
 <section class="panel" id="p6" role="tabpanel" aria-labelledby="b6" hidden>
-  <div class="panel-head"><h2>16구 하루</h2><p>목요일 · 르코르뷔지에 → 모네 → 게리</p></div>
-  <div class="mapbox">
-    <iframe loading="lazy" title="라 로슈 → 마르모탕 → 루이비통 재단" src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8519,2.2653+to:48.8593,2.2672+to:48.8766,2.2635&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>라 로슈 → 마르모탕 → 루이비통 재단</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
-  </div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8519,2.2653&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 자스맹역 · 약 40분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8519,2.2653&z=16&hl=ko&output=embed" data-label="라 로슈 저택">    <div class="stop-top"><span class="time">10:00</span><span class="stop-name">라 로슈 저택</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">르코르뷔지에 1923–25년 작, 유네스코 세계유산. "살기 위한 기계"라는 순수주의 선언이 실물로 서 있습니다. 곡면 갤러리와 경사로, 자유로운 평면을 직접 걸어볼 수 있습니다. 화–토 10:00–18:00, 일·월 휴관.</p>
-    <div class="badges"><span class="badge b-cost">€15/인</span><span class="badge b-note">르코르뷔지에</span></div>
+<div class="panel-head"><h2>오전 시장에서 오후 자연사까지</h2><p>목요일 · 생트샤펠 → 달리그르 → 쿨레 베르트 → 박물관·식물원</p></div>
+<div class="mapbox"><iframe loading="lazy" title="숙소 → 생트샤펠 → 달리그르 → 쿨레 베르트 → 진화과학박물관 → 식물원 → 숙소" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8554,2.3450+to:48.8500,2.3790+to:48.8495,2.3715+to:48.8417,2.3559+to:48.8435,2.3600+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>숙소 → 생트샤펠 → 달리그르 → 쿨레 베르트 → 진화과학박물관 → 식물원 → 숙소</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8554,2.3450&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">09:00 전후 출발 · 09:30 보안 대기 목표</span><span class="leg-cost">무료</span></button>
+<button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8554,2.3450&z=16&hl=ko&output=embed" data-label="생트샤펠" data-tier="1">    <div class="stop-top"><span class="time">10:00–10:45</span><span class="stop-name">생트샤펠</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+    <p class="stop-desc">시테섬의 스테인드글라스. 예약 시간을 잡아두고 보안 줄까지 감안해 30분 일찍 도착하세요.</p>
+    <div class="badges"><span class="badge b-cost">€22/인</span><span class="badge b-book">예약 필수</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8519,2.2653&daddr=48.8593,2.2672&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">15분 · 라 뮈에트 방향</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8593,2.2672&z=16&hl=ko&output=embed" data-label="마르모탕 모네">    <div class="stop-top"><span class="time">12:00</span><span class="stop-name">마르모탕 모네</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">『인상, 해돋이』가 있는 곳. 큰 미술관들에 비해 한산하고 지하 모네 전시실이 특히 좋습니다. 목 10:00–21:00. 점심은 라 뮈에트 쪽에서.</p>
-    <div class="badges"><span class="badge b-cost">€27/인 (통합권 기준)</span><span class="badge b-note">모네 여정 마무리</span></div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8554,2.3450&daddr=48.8500,2.3790&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">10:45 전후 출발 · 이동 약 30–45분 여유 (추정)</span><span class="leg-cost">교통표 별도</span></button>
+<button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8500,2.3790&z=16&hl=ko&output=embed" data-label="마르셰 달리그르">    <div class="stop-top"><span class="time">11:30–12:30</span><span class="stop-name">달리그르 노천시장 · 보보 실내시장</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">노천 식료품 가판과 광장의 중고품 노점을 오전에 구경합니다. 목요일 노천은 07:30–13:30, 보보 실내시장은 오전 08:00–13:00 운영입니다. 개별 상인과 노점 운영은 다를 수 있습니다. 과일·간단한 먹거리는 당일 소비할 양만 삽니다.</p>
+    <div class="badges"><span class="badge b-free">입장 무료</span><span class="badge b-note">노천 13:30 종료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8593,2.2672&daddr=48.8766,2.2635&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">25분 · 불로뉴 숲 통과</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8766,2.2635&z=16&hl=ko&output=embed" data-label="루이비통 재단">    <div class="stop-top"><span class="time">15:00</span><span class="stop-name">루이비통 재단</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">프랭크 게리 2014년 작. 유리 돛 열두 장이 겹친 구조로, 밖에서 보면 해체된 비행선 같습니다. 옥상 테라스를 층층이 오르내리며 구조를 안에서 봅니다. 목 11:00–20:00, 화요일 휴관. 자르댕 다클리마타시옹 쪽 입구가 줄이 짧습니다.</p>
-    <div class="badges"><span class="badge b-cost">약 €18/인</span><span class="badge b-book">예약 권장</span><span class="badge b-note">게리</span></div>
+<div class="card"><h4>12:30–13:15 · 시장 주변 점심</h4><p>시장을 먼저 둘러본 뒤 주변에서 간단히 점심을 먹습니다. 노천시장에 원하는 즉석식사가 있다고 가정하지 않고 근처 영업 중인 식당·빵집도 대안으로 둡니다. 긴 코스나 대기줄은 피합니다.</p></div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8500,2.3790&daddr=48.8495,2.3715&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">시장 → 바스티유 쪽 산책로 입구 · 약 10–15분 (추정)</span><span class="leg-cost">무료</span></button>
+<button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8495,2.3715&z=16&hl=ko&output=embed" data-label="쿨레 베르트 르네뒤몽">    <div class="stop-top"><span class="time">13:30–14:15</span><span class="stop-name">쿨레 베르트 르네뒤몽</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">바스티유 쪽 고가 산책로만 걸어도 충분합니다. 14:15까지 바스티유 쪽 출입구로 돌아오는 짧은 구간만 걷습니다. 전 구간을 종주하지 않고 박물관 이동 시간을 확보합니다.</p>
+    <div class="badges"><span class="badge b-free">무료</span><span class="badge b-note">조경·도시설계</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8766,2.2635&daddr=48.8487,2.3565&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">불로뉴 → 숙소 · 약 50분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <div class="note "><b>세 곳 모두 16구에 모여 있어 사이 이동은 전부 도보입니다.</b> 르코르뷔지에(1925) → 모네 → 게리(2014) 순서라 하루가 한 세기를 가로지릅니다.</div>
-  <div class="note warn">원래 비워둔 날이라 세 곳 다 <b>여유되면</b> 등급입니다. 우선순위를 올리시려면 말씀해주세요.</div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8495,2.3715&daddr=48.8417,2.3559&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">14:15 출발 · 박물관까지 도보 약 30–40분 (추정)</span><span class="leg-cost">무료</span></button>
+<button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8417,2.3559&z=16&hl=ko&output=embed" data-label="진화과학 박물관">    <div class="stop-top"><span class="time">15:00–17:00</span><span class="stop-name">진화과학 박물관</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">Jardin des Plantes 안의 Grande Galerie de l'Évolution. 화요일을 제외하고 10:00–18:00 운영, 입장료는 공식 사이트에서 확인하세요.</p>
+    <div class="badges"><span class="badge b-cost">€10–16/인</span><span class="badge b-note">자연사·동물 표본</span></div>
+  </button>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8417,2.3559&daddr=48.8435,2.3600&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">박물관 → 야외 식물원 · 약 5분</span><span class="leg-cost">무료</span></button>
+<button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8435,2.3600&z=16&hl=ko&output=embed" data-label="파리 식물원">    <div class="stop-top"><span class="time">17:00–18:00</span><span class="stop-name">파리 식물원</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
+    <p class="stop-desc">9월 운영시간은 07:30–20:00. 박물관 관람 후 야외 정원만 가볍게 산책합니다. 온실 등 별도 시설은 입장료·마감이 다르므로 기본 일정에 넣지 않습니다.</p>
+    <div class="badges"><span class="badge b-free">정원 무료</span><span class="badge b-note">공식 시간 확인 완료</span></div>
+  </button>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8435,2.3600&daddr=48.8484866,2.3540618&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">식물원 → 숙소 · 도보 약 10–20분 (추정)</span><span class="leg-cost">무료</span></button>
+<div class="note warn"><b>목요일 오전 시장을 우선합니다.</b> 생트샤펠 입장이 늦어져도 노천시장 13:30 마감 전에 도착하도록 이동 상황을 확인하세요. 늦어지면 쿨레 베르트를 줄여 박물관 15:00 입장 목표를 지킵니다. 박물관 시간은 예약 완료가 아닙니다.</div>
+<div class="note">생트샤펠은 9/17 10:00 예약 목표. 일요일 13:00 개시 4일권(96시간)은 목요일 13:00까지라 포함됩니다. 48시간권은 범위 밖입니다.</div>
+<div class="note"><b>저녁은 숙소 쪽에서 유동적으로.</b> 12구로 다시 돌아가는 Septime La Cave·Le Quincy 저녁 후보는 이번 목요일에서 제외했습니다. 저장 스팟 목록에는 그대로 남아 있습니다.</div>
+<p><a href="https://www.paris.fr/lieux/marche-d-aligre-5481" target="_blank" rel="noopener noreferrer">달리그르 노천시장 운영 ↗</a> · <a href="https://www.paris.fr/lieux/marche-couvert-beauvau-5480" target="_blank" rel="noopener noreferrer">보보 실내시장 운영 ↗</a></p>
 </section>
 
 <!-- 9/18 -->
 <section class="panel" id="p7" role="tabpanel" aria-labelledby="b7" hidden>
-  <div class="panel-head"><h2>시테섬, 그리고 에펠</h2><p>숙소 이동 · 풀만 파리 투르 에펠</p></div>
-  <div class="mapbox">
-    <iframe loading="lazy" title="9/18 동선" src="https://maps.google.com/maps?saddr=48.8530,2.3499&daddr=48.8554,2.3450+to:48.8556,2.2929+to:48.8628,2.2876&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>노트르담 → 생트샤펠 → 풀만 → 트로카데로</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
-  </div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8487,2.3565&daddr=48.8530,2.3499&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">숙소 → 노트르담 · 10분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8530,2.3499&z=16&hl=ko&output=embed" data-label="노트르담" data-tier="1">    <div class="stop-top"><span class="time">09:00</span><span class="stop-name">노트르담</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">2024년 재개관. 오전 일찍이 대기가 짧습니다. 무료 시간 예약을 잡아두면 더 수월합니다.</p>
-    <div class="badges"><span class="badge b-free">입장 무료</span></div>
+  <div class="panel-head"><h2>짐을 맡기고 몽소로</h2><p>금요일 · 11:00 체크아웃 후 풀만부터 방문</p></div>
+  <div class="mapbox"><iframe loading="lazy" title="숙소 체크아웃 → 풀만 짐 보관 → 몽소 → 풀만 → 트로카데로" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8556,2.2929+to:48.8797,2.3090+to:48.8556,2.2929+to:48.8628,2.2876+to:48.846418,2.2954771+to:48.8556,2.2929&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>숙소 체크아웃 → 풀만 짐 보관 → 몽소 → 풀만 → 트로카데로</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+  <div class="stop"><div class="stop-top"><span class="time">11:00</span><span class="stop-name">5구 숙소 체크아웃</span></div><p class="stop-desc">11시까지 짐 정리와 체크아웃을 마치고 풀만 파리 투르 에펠로 바로 이동합니다.</p></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8556,2.2929&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">차량·대중교통</span><span class="leg-meta">짐과 함께 호텔 이동 · 약 40–60분 여유 (추정)</span><span class="leg-cost">교통비 별도</span></button>
+  <div class="stop"><div class="stop-top"><span class="time">12:00 목표</span><span class="stop-name">풀만 · 체크인 전 짐 보관</span></div><p class="stop-desc">프런트에 예약을 확인하고 큰 짐부터 맡깁니다. 객실 체크인과 별개이며, 사전 짐 보관 가능 여부·비용은 호텔에 확인해야 합니다.</p></div>
+  <div class="stop"><div class="stop-top"><span class="time">12:15–13:00</span><span class="stop-name">점심·이동 준비</span></div><p class="stop-desc">짐 보관을 마친 뒤 점심을 먹고 몽소로 출발합니다. 식당은 추후 선정합니다.</p></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.2929&daddr=48.8797,2.3090&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">차량·대중교통</span><span class="leg-meta">풀만 → 몽소 · 대중교통 약 35–45분 (추정)</span><span class="leg-cost">교통비 별도</span></button>
+  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8797,2.3090&z=16&hl=ko&output=embed" data-label="몽소 공원">    <div class="stop-top"><span class="time">14:00–15:30</span><span class="stop-name">몽소 공원</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+    <p class="stop-desc">9월에는 07:00부터 21:00까지. 짐을 호텔에 맡긴 뒤 8구 공원에서 여유롭게 산책합니다.</p>
+    <div class="badges"><span class="badge b-free">무료</span><span class="badge b-note">공식 시간 확인 완료</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8530,2.3499&daddr=48.8554,2.3450&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">8분 · 시테섬 안</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8554,2.3450&z=16&hl=ko&output=embed" data-label="생트샤펠" data-tier="1">    <div class="stop-top"><span class="time">11:00</span><span class="stop-name">생트샤펠</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">2층 상부 예배당의 스테인드글라스가 본명. 현직 법원 보안구역 안이라 검색이 까다롭고, 패스가 있어도 보안 줄은 똑같이 섭니다. 30분 일찍 도착하세요.</p>
-    <div class="badges"><span class="badge b-cost">€20/인</span><span class="badge b-book">예약 필수</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8554,2.3450&daddr=48.8556,2.2929&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">약 35분 · 짐 있으면 택시</span><span class="leg-cost">나비고 / 택시 €20–25</span></button>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8556,2.2929&z=16&hl=ko&output=embed" data-label="풀만 체크인">    <div class="stop-top"><span class="time">15:00</span><span class="stop-name">풀만 체크인</span><span class="pin">지도</span></div>
-    <p class="stop-desc">짐을 옮기는 날이니 오후는 여유를 두세요. 여기서 트로카데로와 샹드마르스가 모두 도보권입니다.</p>
+<div class="card" data-dining="Pleincœur"><span class="label">15:30–16:00 선택 · 페이스트리·커피 후보</span><h4>Pleincœur</h4><p>몽소에서 바티뇰 방향으로 약 20분 더 걸어가는 선택지. 페이스트리 중심 매장이므로 좌석이나 커피 메뉴가 여의치 않으면 포장합니다. 지치면 생략하고 풀만으로 바로 돌아갑니다.</p><p>공식: 64 rue des Batignolles, 매일 08:00–20:00 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.8864619%2C2.3186604" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://pleincoeur.com/notre-histoire/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8797,2.3090&daddr=48.8556,2.2929&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">차량·대중교통</span><span class="leg-meta">몽소 또는 Pleincœur → 풀만 · 약 40–60분 여유 (추정)</span><span class="leg-cost">교통비 별도</span></button>
+  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8556,2.2929&z=16&hl=ko&output=embed" data-label="풀만 체크인">    <div class="stop-top"><span class="time">17:00</span><span class="stop-name">풀만 체크인</span><span class="pin">지도</span></div>
+    <p class="stop-desc">몽소·선택 카페에서 돌아와 체크인하고 맡긴 짐을 찾습니다. 객실 이용 가능 시각은 예약 조건에 따릅니다. 저녁 산책 전 휴식합니다.</p>
     <div class="badges"><span class="badge b-note">18 Av. de Suffren</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.2929&daddr=48.8628,2.2876&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">15분 · 이에나 다리 건너</span><span class="leg-cost free">무료</span></button>
+<div class="note warn">11시 체크아웃은 기존 숙소 기준입니다. 풀만에는 먼저 짐만 맡기고, 몽소 방문 후 객실 체크인을 합니다. 짐 보관이 불가하면 프런트와 대안을 정한 뒤 출발하세요.</div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.2929&daddr=48.8628,2.2876&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">풀만 → 트로카데로 · 15분</span><span class="leg-cost free">무료</span></button>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8628,2.2876&z=16&hl=ko&output=embed" data-label="트로카데로 광장" data-tier="1">    <div class="stop-top"><span class="time">19:00</span><span class="stop-name">트로카데로 광장</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">에펠탑을 정면에서 대칭으로 보는 자리. 사진에서 보던 그 구도입니다. 해는 20시쯤 지고, 어두워지면 매 정각 5분간 반짝입니다. 사람이 많은 만큼 소매치기도 많으니 가방 조심.</p>
-    <div class="badges"><span class="badge b-free">무료</span><span class="badge b-note">샹드마르스·비르아켐 다리도 대안</span></div>
+    <p class="stop-desc">에펠탑을 정면에서 보는 저녁 산책. 어두워지면 매 정각 반짝임을 봅니다.</p>
+    <div class="badges"><span class="badge b-free">무료</span><span class="badge b-note">소매치기 주의</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8628,2.2876&daddr=48.8570,2.2950&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">12분 · 이에나 다리 되건너</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8570,2.2950&z=16&hl=ko&output=embed" data-label="저녁" data-tier="2">    <div class="stop-top"><span class="time">20:00</span><span class="stop-name">저녁 · 에펠탑 근처</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">마지막 밤. 예약 미리 해두세요. 드레스코드가 있는 곳이면 옷도 미리 챙겨두시고요.</p>
-    <div class="badges"><span class="badge b-book">예약 필요</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8570,2.2950&daddr=48.8556,2.2929&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">저녁 → 풀만 · 10분</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8628,2.2876&daddr=48.846418,2.2954771&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">트로카데로 → Le Café du Commerce · 대중교통 30–40분 여유 (추정)</span><span class="leg-cost free">무료</span></button>
+<div class="card" data-dining="Le Café du Commerce"><span class="label">20:00 목표 · 마지막 밤 저녁 · 예약 권장</span><h4>Le Café du Commerce</h4><p>트로카데로에서 에펠탑을 본 뒤 이동하는 15구 브라세리. 카페로 저장한 곳이 아니라 제대로 저녁을 먹는 곳입니다. 트로카데로에서 대중교통·택시 포함 30–40분 여유를 두고, 식사 후 풀만으로 돌아옵니다.</p><p>공식: 매일 11:30–23:00 연속 영업. 실제 예약은 미완료 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.846418%2C2.2954771" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://www.lecafeducommerce.com/infos-pratiques/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.846418,2.2954771&daddr=48.8556,2.2929&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">Le Café du Commerce → 풀만 · 도보 약 20분 (추정)</span><span class="leg-cost free">무료</span></button>
 </section>
 
 <!-- 9/19 -->
 <section class="panel" id="p8" role="tabpanel" aria-labelledby="b8" hidden>
-  <div class="panel-head"><h2>마지막 쇼핑과 출국</h2><p>르봉 마르셰 · 20:35 CDG 출발</p></div>
-  <div class="mapbox">
-    <iframe loading="lazy" title="풀만 → 르봉 마르셰 → 풀만 → CDG" src="https://maps.google.com/maps?saddr=48.8556,2.2929&daddr=48.8511,2.3247+to:48.8556,2.2929+to:49.0097,2.5479&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>풀만 → 르봉 마르셰 → 풀만 → CDG</span><button type="button" class="maplink" data-reset>이 날 전체</button></div>
+<div class="panel-head"><h2>쇼핑과 보르디에, 그리고 귀국</h2><p>토요일 · 짐은 호텔에 · 20:35 CDG 출발</p></div>
+<div class="mapbox"><iframe loading="lazy" title="풀만 → 르봉 마르셰·라 그랑드 에피스리 → 풀만 짐 회수 → CDG" src="https://maps.google.com/maps?saddr=48.8556%2C2.2929&amp;daddr=48.851204%2C2.324485+to%3A38+Rue+de+S%C3%A8vres%2C+75007+Paris+to%3A48.8556%2C2.2929+to%3A49.0097%2C2.5479&amp;dirflg=r&amp;hl=ko&amp;output=embed"></iframe><div class="mapbar"><span>풀만 → 르봉 마르셰·라 그랑드 에피스리 → 풀만 짐 회수 → CDG</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+<div class="card"><h4>09:00 전후 · 체크아웃·짐 보관</h4><p>아침을 먹고 풀만에서 조기 체크아웃 후 큰 짐을 맡깁니다. 체크아웃 당일 보관 가능 여부·비용은 미리 확인합니다.</p></div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556%2C2.2929&amp;daddr=48.851204%2C2.324485&amp;dirflg=r&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">차량·대중교통</span><span class="leg-meta">09:15 출발 · 10:00 매장 도착 목표, 30–45분 여유 (추정)</span><span class="leg-cost">교통비 별도</span></button>
+<div class="card" data-dining="르봉 마르셰 백화점"><span class="label">10:00–11:15 · 쇼핑 우선 일정</span><h4>르봉 마르셰 백화점</h4><p>저장한 백화점에서 의류·생활용품 등 비식품 쇼핑부터 합니다. 보르디에 버터 목적지는 옆 라 그랑드 에피스리입니다. 라 로슈·케 브랑리는 이번 귀국일에서 제외하고 쇼핑 시간을 확보합니다.</p><p>공식: 토요일 10:00 개장 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.851204%2C2.324485" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://www.lebonmarche.com/fr/lbm_page_contact.html" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+<div class="card" data-dining="Marin Montagut"><span class="label">11:15–11:45 선택 · 기념품·공예품</span><h4>Marin Montagut</h4><p>르봉 마르셰에서 Rue Madame 쪽으로 약 15분 걸어가는 선택지. 식당 목록에 저장되어 있지만 식사가 아닌 엽서·생활소품 쇼핑으로 배치했습니다. 왕복 이동 약 30분까지 포함해 여유가 있을 때만 방문합니다.</p><p>공식: 48 rue Madame, 월–토 11:00–19:00 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.848174%2C2.3315587" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://www.marinmontagut.com/en/collections/cartes-postales" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+<div class="card"><h4>12:00–12:45 · 점심</h4><p>라 그랑드 에피스리의 포장식 등으로 간단히 해결합니다. 토요일에는 대기 긴 식당을 추가하지 않습니다. 버터는 점심 이후에 구매합니다.</p></div>
+<div class="card" data-dining="La Grande Épicerie · Bordier"><span class="label">12:45–13:15 목표 · 식품·버터 구매 · 재고 확인 필요</span><h4>La Grande Épicerie · Bordier</h4><p>38 Rue de Sèvres 유제품 매대의 보르디에 취급을 확인했습니다. 원하는 맛·수량의 당일 재고와 보냉 포장은 전화 01 44 39 81 00으로 사전 확인하세요. 상온 선물부터 고르고 버터는 결제 직전에 집어 바로 호텔로 돌아갑니다.</p><p>공식: Rue de Sèvres 매장 월–토 08:30–21:00. 제품별 재고·보냉 서비스 미확인 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=38+Rue+de+S%C3%A8vres%2C+75007+Paris" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://www.lagrandeepicerie.com/fr/la-cremerie-la-grande-epicerie-de-paris/lge_magasins_univers_cremerie.html" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=38+Rue+de+S%C3%A8vres%2C+75007+Paris&amp;daddr=48.8556%2C2.2929&amp;dirflg=r&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">차량·대중교통</span><span class="leg-meta">13:15 출발 → 14:00 전후 풀만 복귀 목표 (추정)</span><span class="leg-cost">교통비 별도</span></button>
+<div class="card"><h4>14:00–14:30 · 풀만 짐 회수·포장</h4><p>맡긴 캐리어를 찾고 구매품을 정리합니다. 호텔 냉장 보관이 가능하다고 가정하지 않습니다. 한국 도착까지 보냉할 수단을 확보하지 못하면 냉장 버터는 현지 소비용만 사고 상온 식품 선물로 대체합니다.</p></div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556%2C2.2929&amp;daddr=49.0097%2C2.5479&amp;dirflg=r&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">차량·대중교통</span><span class="leg-meta">14:30–15:00 공항 출발 · 교통 지연 여유 포함</span><span class="leg-cost">교통비 별도</span></button>
+<div class="card"><h4>16:00–17:00 목표 · CDG 도착</h4><p>20:35 출발. 항공사 체크인 마감과 교통 상황을 확인합니다. 면세 환급이 있으면 물건을 보여줄 수 있게 두고 수하물을 부치기 전에 처리합니다.</p></div>
+<div class="note warn"><b>버터는 냉장 운송과 검역을 먼저 확인.</b> 당일 구매만으로 밤 비행·한국 도착까지 안전한 보냉이 보장되지는 않습니다. 버터 등 유제품의 한국 반입 가능 조건·검역 신고, 기내 반입과 냉매 규정은 관계 기관·항공사에 확인하세요. 호텔 냉장고·냉동고 이용이나 공항 보안 통과를 보장하지 않습니다. <a href="https://www.airport.kr/ap_ko/913/subview.do" target="_blank" rel="noopener noreferrer">입국 검역 안내 ↗</a></div>
+<div class="note">9/19 문화유산의 날 혼잡을 고려해 추가 미술관은 넣지 않습니다. 쇼핑이 늦어지면 Marin Montagut을 생략하고 14시 호텔 복귀를 지킵니다.</div>
+</section>
+
+<!-- My Maps -->
+<section class="panel" id="pm" role="tabpanel" aria-labelledby="b11" hidden>
+  <div class="panel-head"><h2>저장 스팟</h2><p>Google My Maps의 분류별 장소 · 지도에서 레이어를 켜고 끌 수 있습니다</p></div>
+  <div class="saved-mapbox">
+    <iframe loading="lazy" title="Google My Maps 저장 스팟" src="https://www.google.com/maps/d/embed?mid=19ZtKnx2kCHBcYlq_RxurtzoqA3U9Ffs&amp;ehbc=2E312F" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.2929&daddr=48.8511,2.3247&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">풀만 → 세브르-바빌론 · 약 15분</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8511,2.3247&z=16&hl=ko&output=embed" data-label="르봉 마르셰">    <div class="stop-top"><span class="time">10:30</span><span class="stop-name">르봉 마르셰</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">1852년에 문을 연 세계 최초의 백화점. 부시코가 정찰제와 반품을 처음 도입한 곳이고, 에펠이 관여한 철골 구조가 지금도 남아 있습니다. 토 10:00–19:45. 옆 건물 <b>라 그랑드 에피스리(38 rue de Sèvres, 토 08:30–21:00)</b>가 선물용 식료품 사기에 파리에서 제일 좋습니다.</p>
-    <div class="badges"><span class="badge b-free">입장 무료</span><span class="badge b-book">détaxe 창구 있음</span><span class="badge b-note">선물·마지막 쇼핑</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8511,2.3247&daddr=48.8556,2.2929&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">약 15분 · 짐 회수하러 복귀</span><span class="leg-cost">나비고 / €2.55</span></button>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8556,2.2929&z=16&hl=ko&output=embed" data-label="점심 · 짐 회수">    <div class="stop-top"><span class="time">13:00</span><span class="stop-name">점심 · 짐 회수</span><span class="pin">지도</span></div>
-    <p class="stop-desc">풀만에 맡긴 짐을 찾고 환복까지 여기서 끝내세요. 점심은 근처에서 가볍게. 공항에서 하려면 줄이 깁니다.</p>
-    <div class="badges"><span class="badge b-note">체크아웃은 오전에</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.2929&daddr=49.0097,2.5479&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">RER B</span><span class="leg-meta">풀만 → CDG · 약 60분 · 짐 많으면 택시</span><span class="leg-cost">공항표 €14/인 · 택시 €56</span></button>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0097,2.5479&z=16&hl=ko&output=embed" data-label="CDG 공항">    <div class="stop-top"><span class="time">15:30</span><span class="stop-name">CDG 공항</span><span class="pin">지도</span></div>
-    <p class="stop-desc">20:35 출발. 르봉 마르셰에서 받은 détaxe 서류를 체크인 <b>전에</b> PABLO 키오스크에서 승인받으세요. 세관이 실물을 요구할 수 있으니 환급 대상은 부치지 말고 손에 드세요.</p>
-    <div class="badges"><span class="badge b-note">3시간 전 도착</span></div>
-  </button>
-  <div class="note "><b>몽마르트르는 뺐습니다.</b> 풀만이 15구인데 사크레쾨르는 18구라, 갔다가 짐 찾으러 되돌아오는 왕복이 생깁니다. 마지막 날에 파리를 가로지르는 건 피하는 게 낫습니다. 르봉 마르셰는 지하철로 15분이고, 선물 쇼핑과 détaxe 서류를 한자리에서 끝낼 수 있습니다.</div>
-  <div class="note warn">이 주말이 <b>유럽 문화유산의 날</b>과 겹칠 가능성이 높습니다. 시내가 붐비니 공항은 계획보다 일찍 나서세요.</div>
+  <div class="saved-map-actions">
+    <a class="maplink" href="https://www.google.com/maps/d/viewer?mid=19ZtKnx2kCHBcYlq_RxurtzoqA3U9Ffs" target="_blank" rel="noopener noreferrer">Google Maps에서 크게 열기 ↗</a>
+  </div>
+  <div class="note warn"><b>공개 지도입니다.</b> 숙소처럼 정확한 위치를 공개하면 곤란한 장소가 있으면 My Maps에서 해당 장소를 삭제하거나 이름·주소·좌표를 함께 익명화하세요. 레이어 숨김은 비공개 설정이 아닙니다.</div>
+</section>
+
+<!-- Museum Pass: official list snapshot, see data/museum-pass-sites.json -->
+<section class="panel" id="ppass" role="tabpanel" aria-labelledby="bpass" hidden>
+  <div class="panel-head"><h2>Museum Pass · 전체 대상 시설</h2><p>2026-09-07 공식 목록 대조 · 총 55곳 · 파리 34곳 / 근교 21곳</p></div>
+  <div class="note"><b>4일권은 96시간입니다.</b> 9/13 일요일 13:00에 개시하면 9/17 목요일 13:00까지 유효하므로, 목요일 10:00 생트샤펠도 범위 안에 들어갑니다. 날짜가 5개에 걸쳐도 시간으로 계산합니다.</div>
+  <table><caption>일요일 9/13 13:00 개시 예시 · 1인</caption><tr><th>종류</th><th>가격</th><th>만료</th></tr><tr><td>2일 · 48시간</td><td>€85</td><td>9/15 화 13:00</td></tr><tr><td>4일 · 96시간</td><td>€105</td><td>9/17 목 13:00</td></tr><tr><td>6일 · 144시간</td><td>€125</td><td>9/19 토 13:00</td></tr></table>
+  <div class="note warn"><b>목록 포함 ≠ 당일 입장 가능.</b> 휴관 중인 시설도 누락 없이 포함했습니다. 예약·보안 검색·특별전 및 일부 구역의 적용 범위는 공식 상세 안내를 확인하세요. 별도 시간 예약이 필요할 수 있으며 패스는 즉시 입장을 보장하지 않습니다. 이 목록은 자동 갱신되지 않습니다.</div>
+  <p><a href="https://www.parismuseumpass.fr/en/liste-sites" target="_blank" rel="noopener noreferrer">공식 전체 목록 ↗</a> · <a href="https://www.parismuseumpass.fr/en/pass" target="_blank" rel="noopener noreferrer">가격·이용 조건 ↗</a></p>
+<h3 class="sec">파리 · 34곳</h3>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/arc-de-triomphe"><h4>01. 개선문</h4><a href="https://www.parismuseumpass.fr/en/musees/arc-de-triomphe" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/centre-pompidou-musee-national-art-moderne"><h4>02. 퐁피두 센터 · 국립현대미술관</h4><p><span class="badge b-book">공사 휴관 · 공식 안내상 2030년까지</span></p><a href="https://www.parismuseumpass.fr/en/musees/centre-pompidou-musee-national-art-moderne" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/chapelle-expiatoire"><h4>03. 속죄 예배당</h4><a href="https://www.parismuseumpass.fr/en/musees/chapelle-expiatoire" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/cite-architecture-patrimoine"><h4>04. 건축·문화유산 박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/cite-architecture-patrimoine" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/cite-sciences-industrie"><h4>05. 과학산업관</h4><a href="https://www.parismuseumpass.fr/en/musees/cite-sciences-industrie" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/conciergerie"><h4>06. 콩시에르주리</h4><a href="https://www.parismuseumpass.fr/en/musees/conciergerie" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/crypte-archeologique"><h4>07. 시테섬 지하 고고학 유적</h4><a href="https://www.parismuseumpass.fr/en/musees/crypte-archeologique" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/hotel-de-la-marine"><h4>08. 오텔 드 라 마린</h4><a href="https://www.parismuseumpass.fr/en/musees/hotel-de-la-marine" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/la-cinematheque-francaise-musee-melies"><h4>09. 시네마테크 프랑세즈 · 멜리에스 박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/la-cinematheque-francaise-musee-melies" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-art-histoire-du-judaisme"><h4>10. 유대 예술·역사박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-art-histoire-du-judaisme" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-orsay"><h4>11. 오르세 미술관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-orsay" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-cluny-moyen-age"><h4>12. 클뤼니 중세박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-cluny-moyen-age" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-armee-tombeau-napoleon"><h4>13. 군사박물관 · 나폴레옹 무덤</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-armee-tombeau-napoleon" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-histoire-immigration"><h4>14. 이민역사박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-histoire-immigration" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-institut-monde-arabe"><h4>15. 아랍세계연구소 박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-institut-monde-arabe" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-orangerie"><h4>16. 오랑주리 미술관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-orangerie" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-ordre-liberation"><h4>17. 해방훈장 박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-ordre-liberation" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-arts-asiatiques-guimet"><h4>18. 기메 아시아미술관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-arts-asiatiques-guimet" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-arts-decoratifs"><h4>19. 장식미술관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-arts-decoratifs" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-arts-et-metiers"><h4>20. 공예·기술박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-arts-et-metiers" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-des-plans-reliefs"><h4>21. 입체지도 박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-des-plans-reliefs" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-du-louvre"><h4>22. 루브르 박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-du-louvre" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-quai-branly"><h4>23. 케 브랑리 미술관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-quai-branly" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-gustave-moreau"><h4>24. 귀스타브 모로 미술관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-gustave-moreau" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-jean-jacques-henner"><h4>25. 장자크 에네르 미술관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-jean-jacques-henner" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-marine"><h4>26. 국립해양박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-marine" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-eugene-delacroix"><h4>27. 들라크루아 미술관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-eugene-delacroix" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-nissim-de-camondo"><h4>28. 니심 드 카몽도 미술관</h4><p><span class="badge b-book">공사 휴관 · 공식 안내상 2030년까지</span></p><a href="https://www.parismuseumpass.fr/en/musees/musee-nissim-de-camondo" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-picasso-paris"><h4>29. 피카소 미술관 · 파리</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-picasso-paris" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-rodin-paris"><h4>30. 로댕 미술관 · 파리</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-rodin-paris" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/pantheon"><h4>31. 팡테옹</h4><a href="https://www.parismuseumpass.fr/en/musees/pantheon" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/philharmonie-paris-musee-musique"><h4>32. 파리 필하모니 · 음악박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/philharmonie-paris-musee-musique" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/sainte-chapelle"><h4>33. 생트샤펠</h4><a href="https://www.parismuseumpass.fr/en/musees/sainte-chapelle" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/tours-de-notre-dame-de-paris"><h4>34. 노트르담 대성당 타워</h4><a href="https://www.parismuseumpass.fr/en/musees/tours-de-notre-dame-de-paris" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<h3 class="sec">파리 근교·주변 지역 · 21곳</h3>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/basilique-cathedrale-saint-denis"><h4>35. 생드니 대성당</h4><a href="https://www.parismuseumpass.fr/en/musees/basilique-cathedrale-saint-denis" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/chateau-de-champs-sur-marne"><h4>36. 샹쉬르마른 성</h4><a href="https://www.parismuseumpass.fr/en/musees/chateau-de-champs-sur-marne" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/chateau-de-chantilly"><h4>37. 샹티이 성</h4><a href="https://www.parismuseumpass.fr/en/musees/chateau-de-chantilly" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/chateau-de-compiegne"><h4>38. 콩피에뉴 성</h4><a href="https://www.parismuseumpass.fr/en/musees/chateau-de-compiegne" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/chateau-de-fontainebleau"><h4>39. 퐁텐블로 성</h4><a href="https://www.parismuseumpass.fr/en/musees/chateau-de-fontainebleau" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/chateau-de-maisons"><h4>40. 메종 성</h4><a href="https://www.parismuseumpass.fr/en/musees/chateau-de-maisons" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/chateau-de-pierrefonds"><h4>41. 피에르퐁 성</h4><a href="https://www.parismuseumpass.fr/en/musees/chateau-de-pierrefonds" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/chateau-de-rambouillet"><h4>42. 랑부예 성</h4><a href="https://www.parismuseumpass.fr/en/musees/chateau-de-rambouillet" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/chateau-de-versailles-et-de-trianon"><h4>43. 베르사유 궁전·트리아농</h4><a href="https://www.parismuseumpass.fr/en/musees/chateau-de-versailles-et-de-trianon" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/chateau-de-vincennes"><h4>44. 뱅센 성</h4><a href="https://www.parismuseumpass.fr/en/musees/chateau-de-vincennes" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/cite-internationale-langue-fran%C3%A7aise-chateau-villers-cotterets"><h4>45. 국제 프랑스어 도시 · 빌레르코트레 성</h4><a href="https://www.parismuseumpass.fr/en/musees/cite-internationale-langue-fran%C3%A7aise-chateau-villers-cotterets" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/domaine-chaalis"><h4>46. 샬리 수도원 영지</h4><a href="https://www.parismuseumpass.fr/en/musees/domaine-chaalis" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-archeologie-nationale-saint-germain-en-laye"><h4>47. 국립고고학박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-archeologie-nationale-saint-germain-en-laye" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-air-espace"><h4>48. 항공우주박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-air-espace" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-renaissance-chateau-ecouen"><h4>49. 르네상스박물관 · 에쿠앙 성</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-renaissance-chateau-ecouen" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-port-royal-des-champs"><h4>50. 포르루아얄데샹 박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-port-royal-des-champs" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-chateau-de-malmaison"><h4>51. 말메종 성 박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-chateau-de-malmaison" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-franco-americain-du-chateau-blerancourt"><h4>52. 블레랑쿠르 성 프랑스·미국 박물관</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-franco-americain-du-chateau-blerancourt" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/musee-rodin-meudon"><h4>53. 로댕 미술관 · 뫼동</h4><a href="https://www.parismuseumpass.fr/en/musees/musee-rodin-meudon" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/sevres-manufacture-et-musee"><h4>54. 세브르 · 도자기 제작소·박물관</h4><p><span class="badge b-book">공사 휴관 · 공식 안내상 2030년까지</span></p><a href="https://www.parismuseumpass.fr/en/musees/sevres-manufacture-et-musee" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
+<div class="card" data-pass-site="https://www.parismuseumpass.fr/en/musees/villa-savoye"><h4>55. 빌라 사보아</h4><a href="https://www.parismuseumpass.fr/en/musees/villa-savoye" target="_blank" rel="noopener noreferrer">패스 적용 범위·예약·운영 안내 ↗</a></div>
 </section>
 
 <!-- 비용 -->
@@ -541,11 +586,8 @@ body.has-dialog{overflow:hidden}
     <tr><td>생트샤펠</td><td class="n">€40</td></tr>
     <tr><td>피카소</td><td class="n">€32</td></tr>
     <tr><td>지베르니 모네 하우스</td><td class="n">€24</td></tr>
-    <tr><td>마르모탕 모네</td><td class="n">€54</td></tr>
-    <tr><td>라 로슈 저택</td><td class="n">€30</td></tr>
-    <tr><td>루이비통 재단 (추정)</td><td class="n">€36</td></tr>
-    <tr><td>카르티에 재단</td><td class="n">€30</td></tr>
-    <tfoot><tr><td>합계</td><td class="n">약 €371</td></tr></tfoot>
+    <tr><td>마르모탕 모네 (9/13)</td><td class="n">€54</td></tr>
+    <tfoot><tr><td>기재된 항목 합계</td><td class="n">약 €279</td></tr></tfoot>
   </table>
   <div class="note">노트르담, 튈르리, 팔레 루아얄, 뤽상부르, 보주 광장, 아랍세계연구소 옥상, 갤러리 라파예트 옥상, 두 시장은 전부 무료입니다.</div>
 
@@ -569,8 +611,8 @@ body.has-dialog{overflow:hidden}
     <tr><td>6일</td><td class="n">€125</td><td class="n">€20.8</td></tr>
   </table>
   <div class="card">
-    <p>대상은 루브르·오르세·오랑주리·생트샤펠·피카소로, 2인 정가 합계가 약 €201입니다. 4일권 2인은 €210이라 거의 본전이에요.</p>
-    <p><b>문제는 날짜가 흩어져 있다는 것.</b> 9/13, 9/14, 9/15, 9/18에 걸쳐 있어 4일권(연속 4일)으로도 못 묶습니다. 9/18 생트샤펠을 앞당기거나, 패스를 포기하고 개별 구매하는 게 낫습니다.</p>
+    <p>4일권은 1인 €105, 2인 €210입니다. 패스 대상 시설과 별도 결제가 필요한 장소를 구분해 실제 방문 계획으로 비교하세요.</p>
+    <p><b>4일권으로 목요일 오전까지 포함 가능합니다.</b> 일요일 13:00 개시 → 목요일 13:00 만료(96시간). 목요일 10:00 생트샤펠은 범위 안입니다. Museum Pass 탭에서 전체 대상 시설을 확인하세요.</p>
     <p>패스가 있어도 예약은 별도이고, 예약 자체는 무료입니다.</p>
   </div>
 </section>
@@ -583,9 +625,9 @@ body.has-dialog{overflow:hidden}
   <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
     <div><div class="chk-t">루브르 시간 예약</div><div class="chk-s">ticket.louvre.fr · 9/14 오전</div></div></div>
   <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">오르세 · 오랑주리 예약</div><div class="chk-s">9/13 · 패스 소지자도 필요</div></div></div>
+    <div><div class="chk-t">오르세 · 오랑주리 예약</div><div class="chk-s">오르세 9/15 10:00 · 오랑주리 9/13 13:00 예약 목표</div></div></div>
   <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">생트샤펠 예약</div><div class="chk-s">tickets.monuments-nationaux.fr · 9/18 오전</div></div></div>
+    <div><div class="chk-t">생트샤펠 예약</div><div class="chk-s">sainte-chapelle.fr · 9/17 10:00 예약 목표</div></div></div>
   <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
     <div><div class="chk-t">9/18 저녁 레스토랑</div><div class="chk-s">에펠탑 근처 · 드레스코드 확인</div></div></div>
   <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
@@ -692,6 +734,7 @@ body.has-dialog{overflow:hidden}
     <p>여권 사본과 항공권 사본을 클라우드에도 하나 올려두세요.</p>
   </div>
   <div class="note warn"><b>소매치기.</b> 지하철, 몽마르트르, 에펠탑 주변이 특히 심합니다. 배낭은 앞으로 메고 지갑은 나눠 넣으세요.</div>
+<div class="card"><h4>식사·카페는 일정의 여유에 맞춰</h4><p>정해둔 미술관 입장과 공항 출발이 우선입니다. 식사 시간은 목표이며 예약 완료를 뜻하지 않습니다. 개별 카드에서 저장 장소의 역할·우회 여부·영업 확인 수준을 확인하세요. 기본 전체 지도는 핵심 관광 동선이고, 선택 식당·카페는 카드의 지도 링크로 확인합니다.</p><p>목요일 11:30 시장은 달리그르 노천시장입니다. 13:30 종료 전에 방문합니다. 마레의 Chez Alain Miam Miam·Chez Janou·Big love, 멀리 있는 La Gare - Le Gore·RAIMO, 리스본 카페는 이번 동선에서 제외했습니다.</p></div>
 </section>
 
 <footer>파리 · 9월 12–19일 · 2인</footer>
@@ -749,7 +792,7 @@ body.has-dialog{overflow:hidden}
     '생라자르역': photo('Gare de Paris-Saint-Lazare 001.jpg'),
     '모네의 집과 정원': photo('La maison de Claude Monet (Giverny) (48744281997).jpg'),
     '지베르니 인상주의 미술관': photo('Musée des impressionnismes Giverny 01.jpg'),
-    '노트르담': photo('Notre-Dame de Paris, 4 October 2017.jpg'),
+    '노트르담 · 그레고리오 미사': photo('Notre-Dame de Paris, 4 October 2017.jpg'),
     '생트샤펠': photo('Sainte Chapelle - Upper level 1.jpg'),
     '풀만 체크인': photo('Pullman Eiffel Tower Hotel Paris France 1.jpg'),
     '트로카데로 광장': photo('Vue de la tour Eiffel depuis le Trocadéro.jpg'),
@@ -877,6 +920,29 @@ body.has-dialog{overflow:hidden}
   });
 
   // Place taps open details. Route taps and the detail action update the map.
+  function googleMapsUrl(src){
+    var legacy = new URL(src, window.location.href);
+    var place = legacy.searchParams.get('q');
+    if(place){
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(place);
+    }
+
+    var origin = legacy.searchParams.get('saddr');
+    var route = legacy.searchParams.get('daddr');
+    if(!origin || !route) return src;
+
+    var stops = route.split(/\s+to:/);
+    var destination = stops.pop();
+    var target = new URL('https://www.google.com/maps/dir/');
+    target.searchParams.set('api', '1');
+    target.searchParams.set('origin', origin);
+    target.searchParams.set('destination', destination);
+    if(stops.length) target.searchParams.set('waypoints', stops.join('|'));
+    if(legacy.searchParams.get('dirflg') === 'w') target.searchParams.set('travelmode', 'walking');
+    if(legacy.searchParams.get('dirflg') === 'r') target.searchParams.set('travelmode', 'transit');
+    return target.toString();
+  }
+
   document.querySelectorAll('.panel').forEach(function(panel){
     var box = panel.querySelector('.mapbox');
     if(!box) return;
@@ -884,6 +950,7 @@ body.has-dialog{overflow:hidden}
     var cap   = box.querySelector('.mapbar span');
     var base  = frame.getAttribute('src');
     var baseCap = cap ? cap.textContent : '';
+    var openMap = box.querySelector('[data-open-map]');
     var stops = panel.querySelectorAll('.stop[data-src]');
     var legs = panel.querySelectorAll('.leg[data-src]');
     var items = panel.querySelectorAll('.stop[data-src], .leg[data-src]');
@@ -901,6 +968,7 @@ body.has-dialog{overflow:hidden}
         frame.src = base;
         if(cap) cap.textContent = baseCap;
       }
+      if(openMap) openMap.href = googleMapsUrl(el ? el.getAttribute('data-src') : base);
       var top = box.getBoundingClientRect().top + window.pageYOffset - 60;
       window.scrollTo({top: top < 0 ? 0 : top, behavior:'smooth'});
     }
@@ -913,6 +981,7 @@ body.has-dialog{overflow:hidden}
     });
     var reset = box.querySelector('[data-reset]');
     if(reset) reset.addEventListener('click', function(){ show(null); });
+    if(openMap) openMap.href = googleMapsUrl(base);
   });
 
   document.querySelectorAll('.chk').forEach(function(row){
