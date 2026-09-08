@@ -186,6 +186,10 @@ tr:last-child td{border-bottom:none}
 td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
 tfoot td{background:var(--surface);font-weight:700;color:var(--text)}
 
+/* dining map controls */
+.dining-map-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:12px}
+.card[data-dining].is-active{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+
 /* daily budgets: one ledger supplies cards, daily totals and the cost overview */
 .daily-budget{margin-top:28px;padding:18px;border:1px solid var(--border-strong);border-radius:var(--radius);background:var(--surface);scroll-margin-top:72px}
 .daily-budget h3{margin:0 0 12px;font-size:16px}
@@ -404,50 +408,54 @@ body.has-dialog{overflow:hidden}
 
 <!-- 9/14 -->
 <section class="panel" id="p3" role="tabpanel" aria-labelledby="b3" hidden>
-  <div class="panel-head"><h2>루브르와 사마리텐·강변</h2><p>루브르 → 점심 → 사마리텐 → 퐁뇌프</p></div>
+  <div class="panel-head"><h2>루브르와 들라크루아, 저녁 후 젤라토</h2><p>루브르 → 옥동식 → Fer à Cheval → 퐁뇌프 → 들라크루아 → 저녁·젤라토</p></div>
   <div class="day-itinerary">
-  <div class="mapbox"><iframe loading="lazy" title="루브르 → 점심 → 사마리텐 → 퐁뇌프" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8606,2.3376+to:48.8592564,2.3424255+to:48.8572,2.3413+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>루브르 → 점심 → 사마리텐 → 퐁뇌프</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8606,2.3376&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">숙소 → 루브르 · 약 20–30분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
-  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8606,2.3376&z=16&hl=ko&output=embed" data-label="루브르">    <div class="stop-top"><span class="time">09:00–13:00</span><span class="stop-name">루브르</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">개장 시각에 들어가는 게 유일한 방법입니다. 월 09:00–18:00, 반나절로 끊으세요. 한 번 나가면 재입장이 안 되니 커피는 안에서. 카루젤 입구가 보안 줄이 짧습니다.</p>
-    <div class="badges"><span class="badge b-cost">€32/인</span><span class="badge b-book">예약 필수</span><span class="badge b-note">화요일 휴관</span></div>
-  </button>
-<div class="note">13:00–14:15 히구마 점심 후보·이동 여유. 오후는 예약 없는 쇼핑·산책으로 여유를 둡니다.</div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8606,2.3376&daddr=48.8592564,2.3424255&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">사마리텐 방향 · 약 10–15분 (추정)</span><span class="leg-cost">무료</span></button>
-  <div class="card" data-dining="Higuma"><span class="label">13:15–14:00 목표 · 점심 1순위 · 현장 대기</span><h4>Higuma</h4><p>루브르에서 생트안 거리 쪽으로 약 10–15분 우회해 라멘·덮밥. 이후 사마리텐 방향으로 돌아옵니다. 대기가 20분 이상이면 박물관 인근 식당으로 대체하고 쇼핑 시간을 지킵니다.</p><p>공식: 예약 받지 않음. 정확한 월요일 점심 영업시간은 방문 전 확인 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.8665886%2C2.3357844" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://higuma.fr/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
-<button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8592564,2.3424255&z=16&hl=ko&output=embed" data-label="La Samaritaine"><div class="stop-top"><span class="time">14:30</span><span class="stop-name">La Samaritaine</span><span class="tier tier-2">여유되면</span><span class="pin">상세</span></div><p class="stop-desc">저장한 쇼핑 스팟. 9 Rue de la Monnaie. 공식 운영시간은 매일 10:00–20:00. 쇼핑하거나 건물 내부를 둘러봅니다.</p></button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8592564,2.3424255&daddr=48.8572,2.3413&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">사마리텐 → 퐁뇌프 · 약 5–10분 (추정)</span><span class="leg-cost">무료</span></button>
-  <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8572,2.3413&z=16&hl=ko&output=embed" data-label="퐁뇌프 · 센강 산책"><div class="stop-top"><span class="time">16:00</span><span class="stop-name">퐁뇌프 · 센강 산책</span><span class="tier tier-2">여유되면</span><span class="pin">상세</span></div><p class="stop-desc">강변과 시테섬 주변을 가볍게 걷습니다. 체력이 부족하면 산책을 줄이고 숙소로 복귀합니다.</p></button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8572,2.3413&daddr=48.8484866,2.3540618&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">퐁뇌프 → 숙소 · 약 25–30분 (추정)</span><span class="leg-cost">무료</span></button>
-<div class="note">팔레 루아얄·카르티에·라파예트는 일정에서 제외했습니다.</div>
-<div class="card" data-dining="Fer à Cheval"><span class="label">사마리텐 후 선택 · 기념품 · 쇼핑 우회 후보</span><h4>Fer à Cheval</h4><p>저장한 77 Rue de la Verrerie 매장 핀 기준 비누·생활용품 후보. 사마리텐에서 마레 쪽으로 15–20분 정도 추가 이동하는 선택지이며, 퐁뇌프 직행 산책과 둘 중 하나만 고릅니다. 영업 확인 없이는 필수 일정으로 잡지 않습니다.</p><p>공유 Commercial 목록의 위치 확인. 매장 최신 영업시간·취급 재고 미확인 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.8583549%2C2.3516334" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://maps.app.goo.gl/uUTQR4Tohot6Ltw6A" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
-<div class="card" data-dining="Il Gelato del Marchese"><span class="label">17:00 전후 선택 · 젤라토 · 숙소 복귀 전</span><h4>Il Gelato del Marchese</h4><p>퐁뇌프에서 오데옹 쪽으로 돌아갈 체력이 있으면 젤라토 하나. Fer à Cheval 우회를 택했다면 여기까지 모두 돌지 않습니다. 커피보다 디저트가 당기는 날의 대안입니다.</p><p>관광청 안내: 매일 12:00–24:00. 당일 변경 가능 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.85159%2C2.3380824" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://www.visitparisregion.com/en/il-gelato-del-marchese" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
-</div>
-<aside class="daily-budget" aria-labelledby="budget-title-p3"><h3 id="budget-title-p3">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
+  <div class="mapbox"><iframe loading="lazy" title="전체 도보 개략도 · 루브르 → 옥동식 → Fer à Cheval → 퐁뇌프 → 들라크루아 → 저녁·젤라토" src="https://maps.google.com/maps?saddr=48.8484866%2C2.3540618&amp;daddr=48.8606%2C2.3376+to%3AOKDONGSIK%2C+3+Rue+de+la+Michodi%C3%A8re%2C+75002+Paris+to%3A48.8583549%2C2.3516334+to%3A48.8572%2C2.3413+to%3AMus%C3%A9e+national+Eug%C3%A8ne-Delacroix%2C+6+Rue+de+Furstemberg%2C+75006+Paris+to%3ABouillon+Racine%2C+3+Rue+Racine%2C+75006+Paris+to%3A48.85159%2C2.3380824+to%3A48.8484866%2C2.3540618&amp;dirflg=w&amp;hl=ko&amp;output=embed"></iframe><div class="mapbar"><span>전체 도보 개략도 · 실제 교통은 구간별 확인</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+<div class="note">전체 지도는 장소의 연결을 보기 위한 <b>도보 개략도</b>입니다. 하루 종일 걷는 일정이 아니며, 실제 도보·대중교통 경로는 아래 구간 버튼을 사용하세요.</div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866%2C2.3540618&amp;daddr=48.8606%2C2.3376&amp;dirflg=r&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">숙소 → 루브르 · 약 20–30분 (추정)</span><span class="leg-cost">€2.55/인 · 철도 기준</span></button>
+<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8606%2C2.3376&amp;z=16&amp;hl=ko&amp;output=embed" data-label="루브르"><div class="stop-top"><span class="time">09:00–13:00</span><span class="stop-name">루브르</span><span class="tier tier-1">꼭</span><span class="pin">상세</span></div><p class="stop-desc">월요일 오전 관람 계획입니다. 예약표의 입장 시각을 확인하고 관람을 13:00까지 마칩니다. 같은 날 들라크루아에 사용할 루브르 입장권을 보관하세요. 퇴장 후 재입장은 불가합니다.</p><div class="badges"><span class="badge b-cost">€32/인 · 비EEA 일반권</span><span class="badge b-book">시간 예약 확인</span></div></button>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8606%2C2.3376&amp;daddr=OKDONGSIK%2C+3+Rue+de+la+Michodi%C3%A8re%2C+75002+Paris&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">루브르 → 옥동식 파리 · 약 15–20분 (추정)</span><span class="leg-cost free">무료</span></button>
+<div class="card" data-dining="옥동식 파리" data-src="https://maps.google.com/maps?q=OKDONGSIK%2C+3+Rue+de+la+Michodi%C3%A8re%2C+75002+Paris&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">13:20–14:10 · 점심 · 돼지곰탕</span><h4>옥동식 파리</h4><p>3 Rue de la Michodière의 파리점입니다. 루브르 뒤 가까운 2구에서 점심을 먹고 Fer à Cheval로 이동합니다. 입장·대기가 길면 14:10 종료를 우선하고 인근 식사로 대체합니다. 예약·대기 방식과 주문 마감은 공식 안내에서 확인하지 못했습니다.</p><p>공식: 월–토 11:30–14:30 / 17:00–21:00, 일요일 휴무. 파리 메뉴 가격 미공개 · 확인 2026-09-09</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="옥동식 파리 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=OKDONGSIK%2C+3+Rue+de+la+Michodi%C3%A8re%2C+75002+Paris" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://www.okdongsik.net/paris" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
+<div class="note">기존 히구마는 저장 목록의 점심 대안으로만 남깁니다. 옥동식과 두 끼를 연속으로 먹거나 두 식사비를 합산하지 않습니다.</div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=OKDONGSIK%2C+3+Rue+de+la+Michodi%C3%A8re%2C+75002+Paris&amp;daddr=48.8583549%2C2.3516334&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">옥동식 → Fer à Cheval · 약 25–30분 (추정)</span><span class="leg-cost free">무료</span></button>
+<div class="card" data-dining="Fer à Cheval" data-src="https://maps.google.com/maps?q=48.8583549%2C2.3516334&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">14:40–15:00 · 방문 유지 · 비누 구매는 선택</span><h4>Fer à Cheval</h4><p>저장한 77 Rue de la Verrerie 매장 핀을 유지합니다. 사마리텐은 방문하지 않고 이곳에 들른 뒤 퐁뇌프를 거쳐 들라크루아로 갑니다. 매장 영업을 당일 확인하고 닫았으면 다음 동선으로 바로 이동합니다.</p><p>저장 위치는 확인. 매장 최신 영업시간·재고·현장 판매가는 미확인. 제조사 가격은 예산 참고용.</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="Fer à Cheval 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=48.8583549%2C2.3516334" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://savon-de-marseille.com/" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8583549%2C2.3516334&amp;daddr=48.8572%2C2.3413&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">Fer à Cheval → 퐁뇌프 · 약 12–15분 (추정)</span><span class="leg-cost free">무료</span></button>
+<button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8572%2C2.3413&amp;z=16&amp;hl=ko&amp;output=embed" data-label="퐁뇌프 · 센강 산책"><div class="stop-top"><span class="time">15:15–15:30</span><span class="stop-name">퐁뇌프 · 센강 산책</span><span class="tier tier-2">여유되면</span><span class="pin">상세</span></div><p class="stop-desc">들라크루아로 강을 건너가는 길에 짧게 걷습니다. 박물관 방문 시각이 우선이므로 늦어지면 산책을 줄입니다.</p><div class="badges"><span class="badge b-free">산책 무료</span></div></button>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8572%2C2.3413&amp;daddr=Mus%C3%A9e+national+Eug%C3%A8ne-Delacroix%2C+6+Rue+de+Furstemberg%2C+75006+Paris&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">퐁뇌프 → 들라크루아 · 약 10–15분 (추정)</span><span class="leg-cost free">무료</span></button>
+<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=Mus%C3%A9e+national+Eug%C3%A8ne-Delacroix%2C+6+Rue+de+Furstemberg%2C+75006+Paris&amp;z=16&amp;hl=ko&amp;output=embed" data-label="들라크루아 미술관"><div class="stop-top"><span class="time">15:45–16:45</span><span class="stop-name">들라크루아 미술관</span><span class="tier tier-1">꼭</span><span class="pin">상세</span></div><p class="stop-desc">6 Rue de Furstemberg에 있는 화가의 집·작업실·정원입니다. 월요일 12:00–17:30 운영. 같은 날 유효한 루브르 입장권으로 연계 입장하는 기준이며 보편적인 무료 미술관은 아닙니다. 루브르 표가 없으면 일반권 €9/인과 입장 조건을 확인하세요. PMP 시간 예약 불필요이며, 마지막 입장은 17:00입니다.</p><div class="badges"><span class="badge b-cost">루브르 당일권 연계 · 추가 €0</span><span class="badge b-note">화요일 휴관</span></div></button>
+<p><a href="https://www.louvre.fr/visiter/horaires-tarifs" target="_blank" rel="noopener noreferrer">들라크루아 시간·루브르 연계 조건 (2026-09-09) ↗</a> · <a href="https://www.parismuseumpass.fr/en/musees/musee-eugene-delacroix" target="_blank" rel="noopener noreferrer">PMP 예약 불필요 안내 ↗</a></p>
+<div class="note">16:45 이후 생제르맹 주변에서 쉬고 저녁으로 이동합니다. 추가 유료 관람은 넣지 않습니다.</div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=Mus%C3%A9e+national+Eug%C3%A8ne-Delacroix%2C+6+Rue+de+Furstemberg%2C+75006+Paris&amp;daddr=Bouillon+Racine%2C+3+Rue+Racine%2C+75006+Paris&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">들라크루아 → Bouillon Racine · 약 10–15분 (추정)</span><span class="leg-cost free">무료</span></button>
+<div class="card" data-dining="Bouillon Racine" data-src="https://maps.google.com/maps?q=Bouillon+Racine%2C+3+Rue+Racine%2C+75006+Paris&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">18:30–19:45 · 저녁 추천 · 예약 권장</span><h4>Bouillon Racine</h4><p>3 Rue Racine의 아르누보 실내에서 프랑스식 저녁을 먹는 안입니다. 메인과 음료 위주로 주문하고 디저트는 다음 젤라토로 남겨둡니다. 저렴한 점심 정식 가격을 저녁 예산에 적용하지 않습니다. 실제 예약은 미완료입니다.</p><p>공식: 매일 12:00–23:00. 메인 예: 양고기 €26, 생선 €27. 음료는 별도 추정 · 확인 2026-09-09</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="Bouillon Racine 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=Bouillon+Racine%2C+3+Rue+Racine%2C+75006+Paris" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://www.bouillonracine.fr/en/menus/" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=Bouillon+Racine%2C+3+Rue+Racine%2C+75006+Paris&amp;daddr=48.85159%2C2.3380824&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">저녁 식당 → 젤라토 · 약 5–7분 (추정)</span><span class="leg-cost free">무료</span></button>
+<div class="card" data-dining="Il Gelato del Marchese" data-src="https://maps.google.com/maps?q=48.85159%2C2.3380824&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">20:00–20:20 · 저녁 후 젤라토</span><h4>Il Gelato del Marchese</h4><p>저녁 식사 뒤 오데옹의 2 Rue de Condé로 이동합니다. Fer à Cheval과 택일하지 않고 같은 날 방문하는 안입니다. 늦은 영업시간 정보가 출처별로 달라 당일 영업을 확인하고, 닫았으면 생략합니다.</p><p>지역 관광청 안내 12:00–24:00. 실제 월요일 저녁 영업·메뉴 가격은 당일 확인 필요 · 조회 2026-09-09</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="Il Gelato del Marchese 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=48.85159%2C2.3380824" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://www.visitparisregion.com/en/il-gelato-del-marchese" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.85159%2C2.3380824&amp;daddr=48.8484866%2C2.3540618&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">젤라토 → 5구 숙소 · 약 20–25분 (추정)</span><span class="leg-cost free">무료</span></button>
+<div class="note">전체 지도는 주요 경유지를 이어 놓은 개략 동선입니다. 교통수단은 각 구간 버튼으로 확인하세요. 사마리텐은 일별 동선에서 제외하되 원본 저장 장소 CSV는 보존했습니다.</div>
+  </div>
+  <aside class="daily-budget" aria-labelledby="budget-title-p3"><h3 id="budget-title-p3">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/15 -->
 <section class="panel" id="p4" role="tabpanel" aria-labelledby="b4" hidden>
-  <div class="panel-head"><h2>오르세와 에펠탑 주변 공원</h2><p>오르세 → 점심 → 샹드마르스</p></div>
+  <div class="panel-head"><h2>로댕의 조각정원과 오르세</h2><p>아침 → 로댕 10:00 → 점심 → 오르세 13:30 → 에펠탑 주변 선택</p></div>
   <div class="day-itinerary">
-  <div class="mapbox"><iframe loading="lazy" title="오르세 → 점심 → 샹드마르스" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8599,2.3266+to:48.8556,2.2986+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>오르세 → 점심 → 샹드마르스</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
-<div class="card" data-dining="Les Deux Magots"><span class="label">08:30–09:00 선택 · 아침·커피</span><h4>Les Deux Magots</h4><p>숙소에서 생제르맹을 거쳐 오르세로 가는 아침 경유. 대기가 없을 때 커피·가벼운 아침만 먹고 09:00에 출발합니다. 오르세 10시 예약이 우선이며 늦으면 숙소 아침으로 대체합니다.</p><p>공식: 매일 07:30–01:00 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.854052%2C2.3331062" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://lesdeuxmagots.fr/reserver/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8599,2.3266&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">숙소 → 오르세 · 대중교통 약 25–35분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
-  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8599,2.3266&z=16&hl=ko&output=embed" data-label="오르세 미술관">    <div class="stop-top"><span class="time">10:00–13:30</span><span class="stop-name">오르세 미술관</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">5층 인상주의부터 역순으로 내려오면 덜 지칩니다. 화요일 오전 관람. 10:00 예약 목표로 잡고 당일 운영시간은 공식 사이트에서 다시 확인합니다.</p>
-    <div class="badges"><span class="badge b-cost">€16/인 · 온라인</span><span class="badge b-book">예약 필수</span></div>
-  </button>
-<div class="note">13:30–14:30 점심·휴식. 오후는 추가 미술관 없이 공원 산책으로 마무리합니다.</div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8599,2.3266&daddr=48.8556,2.2986&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">오르세 → 샹드마르스 · 약 30분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
-  <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8556,2.2986&z=16&hl=ko&output=embed" data-label="샹드마르스 · 에펠탑">    <div class="stop-top"><span class="time">15:30</span><span class="stop-name">샹드마르스 · 에펠탑</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">탑에 오르지 않고 샹드마르스 공원에서 올려다봅니다. 공원과 에펠탑 주변을 여유롭게 산책합니다. 크루즈는 일요일에 별도로 배치했습니다.</p>
-    <div class="badges"><span class="badge b-free">무료</span></div>
-  </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.2986&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">샹드마르스 → 숙소 · 약 35–45분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
-<div class="note">라 로슈는 제외했습니다. 다음 날 지베르니에 대비해 저녁은 유동적으로 잡습니다.</div>
-<div class="note"><b>점심은 이동을 줄입니다.</b> 오르세 관람 후 박물관 카페 또는 샹드마르스 방향에서 가볍게 해결합니다. 저장한 식당을 넣으려고 마레·몽파르나스까지 돌아가지 않습니다. 수요일 기차용 물·아침거리는 오늘 숙소 복귀 때 미리 삽니다.</div>
-</div>
-<aside class="daily-budget" aria-labelledby="budget-title-p4"><h3 id="budget-title-p4">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
+  <div class="mapbox"><iframe loading="lazy" title="전체 도보 개략도 · 아침 → 로댕 10:00 → 점심 → 오르세 13:30 → 에펠탑 주변 선택" src="https://maps.google.com/maps?saddr=48.8484866%2C2.3540618&amp;daddr=48.854052%2C2.3331062+to%3A48.8553072%2C2.3158354+to%3A48.8599%2C2.3266+to%3A48.8556%2C2.2986+to%3A48.8484866%2C2.3540618&amp;dirflg=w&amp;hl=ko&amp;output=embed"></iframe><div class="mapbar"><span>전체 도보 개략도 · 실제 교통은 구간별 확인</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+<div class="note">전체 지도는 장소의 연결을 보기 위한 <b>도보 개략도</b>입니다. 하루 종일 걷는 일정이 아니며, 실제 도보·대중교통 경로는 아래 구간 버튼을 사용하세요.</div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866%2C2.3540618&amp;daddr=48.854052%2C2.3331062&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">08:05 전후 출발 · 숙소 → 생제르맹 · 약 20–25분 (추정)</span><span class="leg-cost free">무료</span></button>
+<div class="card" data-dining="Les Deux Magots" data-src="https://maps.google.com/maps?q=48.854052%2C2.3331062&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">08:30–09:00 · 아침·커피 기준안</span><h4>Les Deux Magots</h4><p>생제르맹에서 가벼운 아침을 먹고 로댕으로 걸어갑니다. 대기가 길면 근처 간단한 아침으로 대체합니다. 로댕은 10:00 개관이므로 이동 후 여유 있게 입장을 준비합니다.</p><p>공식 안내: 매일 07:30–01:00 · 영업 확인 2026-09-07, 동선 갱신 2026-09-09</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="Les Deux Magots 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=48.854052%2C2.3331062" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://lesdeuxmagots.fr/reserver/" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.854052%2C2.3331062&amp;daddr=48.8553072%2C2.3158354&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">생제르맹 → 로댕 · 약 20–25분 (추정)</span><span class="leg-cost free">무료</span></button>
+<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8553072%2C2.3158354&amp;z=16&amp;hl=ko&amp;output=embed" data-label="로댕 미술관"><div class="stop-top"><span class="time">10:00–11:30</span><span class="stop-name">로댕 미술관</span><span class="tier tier-1">꼭</span><span class="pin">상세</span></div><p class="stop-desc">77 rue de Varenne의 파리 미술관과 조각정원입니다. 화–일 10:00–18:30 운영. 주요 실내·정원을 보고 오르세로 이동합니다. Carte Blanche에는 로댕 일반 입장이 포함되지 않아 €14/인 별도입니다. Paris Museum Pass 대상이며 PMP 시간 예약 불필요입니다. 예약 면제가 대기 없는 즉시 입장을 보장하지는 않습니다.</p><div class="badges"><span class="badge b-cost">€14/인 · 2인 €28</span><span class="badge b-note">월요일 휴관</span><span class="badge b-note">Carte Blanche 입장 미포함</span></div></button>
+<p><a href="https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques" target="_blank" rel="noopener noreferrer">로댕 운영·요금 (2026-09-09) ↗</a> · <a href="https://www.musee-orsay.fr/fr/vous-etes/adherents-carte-blanche/actualites-carte-blanche" target="_blank" rel="noopener noreferrer">Carte Blanche의 로댕 제휴 범위 ↗</a> · <a href="https://www.parismuseumpass.fr/en/musees/musee-rodin-paris" target="_blank" rel="noopener noreferrer">PMP 예약 불필요 안내 ↗</a></p>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8553072%2C2.3158354&amp;daddr=48.8599%2C2.3266&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">로댕 → 오르세 · 약 15–20분 (추정), 중간 점심·휴식</span><span class="leg-cost free">무료</span></button>
+<div class="note"><b>11:45–12:45 점심·휴식, 13:00 전후 오르세 도착 목표.</b> 미술관 사이에서 가볍게 먹습니다. 점심 식당은 미정이며 관람과 별도 식비로 계산합니다.</div>
+<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8599%2C2.3266&amp;z=16&amp;hl=ko&amp;output=embed" data-label="오르세 미술관"><div class="stop-top"><span class="time">13:30–17:00</span><span class="stop-name">오르세 미술관</span><span class="tier tier-1">꼭</span><span class="pin">상세</span></div><p class="stop-desc">사용자가 확인한 일반 예매 화면을 기준으로 오후 관람을 계획합니다. 13:30은 예약 목표이지 예약 완료나 개장 시각 확정을 뜻하지 않습니다. Paris Museum Pass도 무료 시간 슬롯 예약 필수입니다(2026-03-10부터 공사 기간). 반면 Carte Blanche 일반 관람은 시간 예약 면제입니다. 실제 당일 운영 조건은 별도 확인하세요.</p><div class="badges"><span class="badge b-cost">€16/인 · 온라인 일반권</span><span class="badge b-book">PMP도 시간 예약 필수</span></div></button>
+<p><a href="https://billetterie.musee-orsay.fr/admission-to-the-musee-d-orsay-visite-css5-museeorsay-lgen-pg51-ei1100509.html" target="_blank" rel="noopener noreferrer">오르세 PMP 무료 슬롯 예약 안내 (2026-09-09) ↗</a> · <a href="https://www.musee-orangerie.fr/fr/vous-etes/adherents-carte-blanche/nous-repondons-vos-questions-orangerie" target="_blank" rel="noopener noreferrer">Carte Blanche 예약 면제 ↗</a></p>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8599%2C2.3266&amp;daddr=48.8556%2C2.2986&amp;dirflg=r&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">관람 후 공원으로 이동 · 약 25–35분 (추정)</span><span class="leg-cost">€2.55/인 · 철도 기준</span></button>
+<button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8556%2C2.2986&amp;z=16&amp;hl=ko&amp;output=embed" data-label="샹드마르스 · 에펠탑"><div class="stop-top"><span class="time">17:45</span><span class="stop-name">샹드마르스 · 에펠탑</span><span class="tier tier-2">여유되면</span><span class="pin">상세</span></div><p class="stop-desc">두 미술관 뒤 체력이 남을 때만 탑 외관과 공원을 봅니다. 탑에 오르는 표는 포함하지 않습니다. 피곤하면 이 산책을 생략하고 숙소로 돌아가세요.</p><div class="badges"><span class="badge b-free">공원 산책 무료</span></div></button>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556%2C2.2986&amp;daddr=48.8484866%2C2.3540618&amp;dirflg=r&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">샹드마르스 → 숙소 · 약 35–45분 (추정)</span><span class="leg-cost">€2.55/인 · 철도 기준</span></button>
+<div class="note">저녁은 숙소 쪽에서 유동적으로 먹고, 수요일 지베르니용 물·아침거리를 장봅니다. 일요일 크루즈 일정은 그대로 유지합니다.</div>
+  </div>
+  <aside class="daily-budget" aria-labelledby="budget-title-p4"><h3 id="budget-title-p4">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/16 -->
@@ -662,19 +670,24 @@ body.has-dialog{overflow:hidden}
     <tfoot><tr><td>8일 합계</td><td class="n" data-trip-total></td><td><span data-arrival-summary></span></td></tr></tfoot>
   </table>
   <div class="note">첫째 날 RER B/택시 선택이 위 합계에도 반영됩니다. 출국일은 별도로 RER B 기준: 택시로 바꾸면 €37 추가, 사전 예약 호출료 €7은 별도입니다. <a href="https://www.service-public.gouv.fr/particuliers/actualites/A15396" target="_blank" rel="noopener noreferrer">2026 공식 택시 요금 ↗</a></div>
-  <div class="note warn"><b>여행 전체 결제액은 아닙니다.</b> 항공·숙박·도시세·미확인 짐 보관료·개인 쇼핑·팁·환전/카드 수수료를 제외합니다. 열차·크루즈·식사 범위는 예산 가정이지 견적이나 상한 보장이 아닙니다. 스마트폰 또는 기존 교통카드 기준이며 새 카드 구매비도 별도입니다. 확인·산정일 2026-09-08.</div>
+  <div class="note warn"><b>여행 전체 결제액은 아닙니다.</b> 항공·숙박·도시세·미확인 짐 보관료·개인 쇼핑·팁·환전/카드 수수료를 제외합니다. 열차·크루즈·식사 범위는 예산 가정이지 견적이나 상한 보장이 아닙니다. 스마트폰 또는 기존 교통카드 기준이며 새 카드 구매비도 별도입니다. 예산 갱신 2026-09-09 · 출처별 확인일은 각 날짜 상세 참고.</div>
 
-  <h3 class="sec">뮤지엄 패스</h3>
+  <h3 class="sec">뮤지엄 패스 · 현재 일정 비교</h3>
+  <p>비EEA 일반 성인 2인, 할인 미적용 · 공식 요금 확인 2026-09-09. 아래는 패스로 대체할 입장료만 비교하며 여행 전체 예산이 아닙니다.</p>
   <table>
-    <tr><th>기간</th><th style="text-align:right">가격</th><th style="text-align:right">하루당</th></tr>
-    <tr><td>2일</td><td class="n">€85</td><td class="n">€42.5</td></tr>
-    <tr><td>4일</td><td class="n">€105</td><td class="n">€26.3</td></tr>
-    <tr><td>6일</td><td class="n">€125</td><td class="n">€20.8</td></tr>
+    <thead><tr><th scope="col">선택</th><th scope="col">2인 합계</th></tr></thead>
+    <tbody>
+      <tr><td>현재 개별권</td><td class="n" data-pass-comparison="individual" data-cents="19300">€193</td></tr>
+      <tr><td>PMP 4일권 × 2</td><td class="n" data-pass-comparison="pmp" data-cents="21000">€210</td></tr>
+    </tbody>
   </table>
   <div class="card">
-    <p>4일권은 1인 €105, 2인 €210입니다. 패스 대상 시설과 별도 결제가 필요한 장소를 구분해 실제 방문 계획으로 비교하세요.</p>
-    <p><b>4일권으로 목요일 오전까지 포함 가능합니다.</b> 일요일 13:00 개시 → 목요일 13:00 만료(96시간). 목요일 10:00 생트샤펠은 범위 안입니다. Museum Pass 탭에서 전체 대상 시설을 확인하세요.</p>
-    <p>패스가 있어도 예약은 별도이고, 예약 자체는 무료입니다.</p>
+    <p><b>로댕을 추가해도 현재 개별권이 2인 €17 저렴합니다.</b> 루브르 €64 + 오랑주리 €25 + 오르세 €32 + 로댕 €28 + 생트샤펠 €44 + 들라크루아 €0 = €193. 들라크루아는 같은 날 루브르 입장권으로 연계하므로 €18을 다시 더하지 않습니다.</p>
+    <p><a href="https://www.louvre.fr/visiter/horaires-tarifs" target="_blank" rel="noopener noreferrer">루브르·들라크루아</a> · <a href="https://www.musee-orangerie.fr/fr/visite/tarifs-orangerie" target="_blank" rel="noopener noreferrer">오랑주리</a> · <a href="https://www.musee-orsay.fr/en/Visit/rates" target="_blank" rel="noopener noreferrer">오르세</a> · <a href="https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques" target="_blank" rel="noopener noreferrer">로댕</a> · <a href="https://www.sainte-chapelle.fr/en/visite/informations-pratiques" target="_blank" rel="noopener noreferrer">생트샤펠</a></p>
+    <p><b>다른 할인 대안도 있습니다.</b> 오르세+로댕 통합권 €25/인으로 두 표를 대체하면 위 합계는 €183. 한 분이 만 36세 미만이면 Carte Blanche Jeunes Duo 1년 €40으로 오르세·오랑주리를 대체해 €176입니다(회원+동반인 함께 방문, 로댕은 별도). 나이·구매 여부는 가정하지 않았습니다. <a href="https://www.musee-orsay.fr/fr/vous-etes/adherents-carte-blanche/tarifs-et-formules-dadhesion" target="_blank" rel="noopener noreferrer">Carte Blanche 요금·조건 ↗</a></p>
+    <p>오르세·오랑주리 현장 통합권 €20/인도 공식 요금표에 있으나 구매·예약 방식은 별도 확인이 필요합니다. 서로 겹치는 통합권·회원권을 함께 합산하지 않습니다. 위 대안은 기본 원장에 자동 적용되지 않습니다.</p>
+    <p><b>4일권은 96시간입니다.</b> 일요일 13:00 개시 → 목요일 13:00 만료: 목요일 10:00 생트샤펠까지 포함. 48시간권은 화요일 13:00에 만료되어 오르세 13:30과 목요일 방문을 모두 못 덮습니다. <a href="https://www.parismuseumpass.fr/en" target="_blank" rel="noopener noreferrer">공식 PMP 가격: 48시간 €85 / 96시간 €105 / 144시간 €125, 1인 ↗</a></p>
+    <p><b>오르세는 PMP로도 무료 시간 예약 필수.</b> 반면 들라크루아·로댕의 PMP 관람은 시간 예약 불필요입니다. 예약 면제와 입장료 포함은 다른 조건이며 각 날짜 카드의 공식 안내를 확인하세요.</p>
   </div>
 </section>
 
@@ -686,7 +699,7 @@ body.has-dialog{overflow:hidden}
   <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
     <div><div class="chk-t">루브르 시간 예약</div><div class="chk-s">ticket.louvre.fr · 9/14 오전</div></div></div>
   <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">오르세 · 오랑주리 예약</div><div class="chk-s">오르세 9/15 10:00 · 오랑주리 9/13 13:00 예약 목표</div></div></div>
+    <div><div class="chk-t">오르세 · 오랑주리 예약</div><div class="chk-s">오르세 9/15 13:30 · 오랑주리 9/13 13:00 목표. PMP도 오르세 무료 시간 예약 필요; Carte Blanche 일반 관람은 예약 면제</div></div></div>
   <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
     <div><div class="chk-t">생트샤펠 예약</div><div class="chk-s">tickets.monuments-nationaux.fr · 9/17 10:00 예약 목표</div></div></div>
   <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
@@ -1038,7 +1051,8 @@ body.has-dialog{overflow:hidden}
     var openMap = box.querySelector('[data-open-map]');
     var stops = panel.querySelectorAll('.stop[data-src]');
     var legs = panel.querySelectorAll('.leg[data-src]');
-    var items = panel.querySelectorAll('.stop[data-src], .leg[data-src]');
+    var items = panel.querySelectorAll('.stop[data-src], .leg[data-src], .card[data-dining][data-src]');
+    var diningCards = panel.querySelectorAll('.card[data-dining][data-src]');
     var arrivalTabs = [].slice.call(box.querySelectorAll('[data-arrival-mode][data-src]'));
     var arrivalPanels = [].slice.call(box.querySelectorAll('.arrival-route-panel'));
 
@@ -1047,7 +1061,7 @@ body.has-dialog{overflow:hidden}
       if(el){
         frame.src = el.getAttribute('data-src');
         if(cap){
-          var n = el.querySelector('.stop-name');
+          var n = el.querySelector('.stop-name') || el.querySelector('h4');
           var m = el.querySelector('.leg-mode'), mm = el.querySelector('.leg-meta');
           cap.textContent = n ? n.textContent : ((m?m.textContent+' · ':'')+(mm?mm.textContent:baseCap));
         }
@@ -1110,6 +1124,10 @@ body.has-dialog{overflow:hidden}
     legs.forEach(function(el){
       el.addEventListener('click', function(){ show(el.classList.contains('is-active') ? null : el); });
     });
+    diningCards.forEach(function(card){
+      var button = card.querySelector('.show-dining-map');
+      if(button) button.addEventListener('click', function(){ show(card.classList.contains('is-active') ? null : card); });
+    });
     var reset = box.querySelector('[data-reset]');
     if(reset) reset.addEventListener('click', function(){ show(null); });
     var overview = box.querySelector('[data-day-overview]');
@@ -1136,7 +1154,7 @@ body.has-dialog{overflow:hidden}
 </script>
 <script type="application/json" id="daily-budget-data">
 {
-  "people": 2, "currency": "EUR", "checked_on": "2026-09-08",
+  "people": 2, "currency": "EUR", "checked_on": "2026-09-09",
   "sources": {
     "airport": {
       "name": "IDFM · 공항표 2026",
@@ -1252,6 +1270,41 @@ body.has-dialog{overflow:hidden}
       "name": "La Grande Épicerie · Bordier 취급 (가격 미확인)",
       "url": "https://www.lagrandeepicerie.com/fr/la-cremerie-la-grande-epicerie-de-paris/lge_magasins_univers_cremerie.html",
       "checked_on": "2026-09-08"
+    },
+    "delacroix": {
+      "name": "루브르 · 들라크루아 연계 입장/시간",
+      "url": "https://www.louvre.fr/visiter/horaires-tarifs",
+      "checked_on": "2026-09-09"
+    },
+    "rodin": {
+      "name": "로댕 파리 · 일반권/오르세 통합권",
+      "url": "https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques",
+      "checked_on": "2026-09-09"
+    },
+    "carte-blanche-partners": {
+      "name": "Carte Blanche · 로댕 제휴 범위",
+      "url": "https://www.musee-orsay.fr/fr/vous-etes/adherents-carte-blanche/actualites-carte-blanche",
+      "checked_on": "2026-09-09"
+    },
+    "okdongsik": {
+      "name": "옥동식 파리 · 주소/영업시간 (메뉴 가격 미확인)",
+      "url": "https://www.okdongsik.net/paris",
+      "checked_on": "2026-09-09"
+    },
+    "racine": {
+      "name": "Bouillon Racine · 공식 음식 메뉴",
+      "url": "https://www.bouillonracine.fr/en/menus/",
+      "checked_on": "2026-09-09"
+    },
+    "racine-hours": {
+      "name": "Bouillon Racine · 주소/영업시간",
+      "url": "https://www.bouillonracine.fr/en/",
+      "checked_on": "2026-09-09"
+    },
+    "gelato-hours": {
+      "name": "지역 관광청 · 젤라토 안내 (당일 영업 확인 필요)",
+      "url": "https://www.visitparisregion.com/en/il-gelato-del-marchese",
+      "checked_on": "2026-09-09"
     }
   },
   "days": {
@@ -1272,26 +1325,27 @@ body.has-dialog{overflow:hidden}
       {"id": "cruise", "name": "바토 파리지앵 · 일반 유람선", "category": "입장·체험", "cents": 4000, "range": [3400, 4600], "status": "estimate", "basis": "식사 없는 약 1시간 유람선 €20 × 2인 예산 가정. 공식 페이지에서 9/13 결제 운임을 확보하지 못해 미확인 추정; 예약가로 교체.", "place": "바토 파리지앵", "sources": ["cruise"]},
       {"id": "sunday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1530, "range": [1530, 1530], "status": "estimate", "basis": "€2.55 × 3회 × 2인. 오랑주리→마르모탕→선착장→숙소의 세 이동을 메트로/RER로 잡은 기준안. 버스 이용 시 별도 표.", "sources": ["metro"]}
     ]},
-    "p3": {"date": "9/14 월", "note": "루브르 관람 후 기본 점심·저녁·커피를 포함. 선택 젤라토/비누 구매만 체크 시 추가하며, 사마리텐 의류·명품 구매는 제외합니다.", "items": [
+    "p3": {"date": "9/14 월", "note": "루브르 당일권 연계로 들라크루아 추가 입장료는 €0. 옥동식 점심·Bouillon Racine 저녁·식후 젤라토를 포함합니다. Fer à Cheval 방문은 유지하되 비누 구매만 선택 추가. 사마리텐 제외, 크루즈는 기존 일요일 유지.", "items": [
       {"id": "monday-breakfast", "name": "숙소 근처 아침·커피", "category": "식사", "cents": 1600, "range": [1200, 2200], "status": "estimate", "basis": "빵·간단한 음식 €4 + 커피 €4를 각 2개로 잡은 계획 추정. 호텔 조식 뷔페 아님. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "breakfast", "sources": ["florentin", "commerce"]},
       {"id": "louvre", "name": "루브르", "category": "입장·체험", "cents": 6400, "range": [6400, 6400], "status": "verified", "basis": "EEA 국적·거주가 아닌 일반 성인 €32 × 2인. 오디오 가이드 별도.", "place": "루브르", "sources": ["louvre"]},
-      {"id": "higuma", "name": "Higuma · 점심", "category": "식사", "cents": 3500, "range": [3000, 4500], "status": "estimate", "basis": "2026/05 공식 메뉴: 라멘+교자 세트 €15 × 2 + 차 €2.50 × 2 = €35. 메뉴 선택·음료 변경에 따라 범위 적용.", "place": "Higuma", "meal": "lunch", "sources": ["higuma"]},
-      {"id": "samaritaine", "name": "La Samaritaine", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "구경만 €0. 의류·명품 구매는 금액 편차가 커 일일 합계에서 제외; 별도 개인 쇼핑 예산 필요.", "place": "La Samaritaine"},
+      {"id": "okdongsik", "name": "옥동식 파리 · 점심", "category": "식사", "cents": 5000, "range": [4000, 6400], "status": "estimate", "basis": "곰탕 2인 식사에 음료/추가 메뉴 여유를 포함한 €50 계획 가정. 공식 파리점 주소·영업시간만 확인했고 파리 메뉴 단가·예약 방식·주문 마감은 미확인. 실제 주문액으로 교체하며 히구마를 추가 합산하지 않음.", "place": "옥동식 파리", "meal": "lunch", "sources": ["okdongsik"]},
+      {"id": "soap", "name": "Fer à Cheval · 비누 구매", "category": "선택 쇼핑", "cents": 2000, "range": [1200, 3500], "status": "estimate", "basis": "제조사 공식 비누 150g €4.95, 선물 세트 €20 등을 참고한 소품 예산 €20. 저장 매장(77 Rue de la Verrerie)의 현장가·재고는 미확인; 방문만 하면 €0. Fer à Cheval 방문은 동선에 유지하되 구매는 선택이며 체크할 때만 합산.", "place": "Fer à Cheval", "optional": true, "included": false, "sources": ["soap"]},
       {"id": "pont-neuf", "name": "퐁뇌프 · 센강 산책", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "야외 산책·구경만 €0. 별도 유료 시설·구매는 포함하지 않습니다.", "place": "퐁뇌프 · 센강 산책"},
+      {"id": "delacroix", "name": "들라크루아 미술관 · 루브르 당일권 연계", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "verified", "basis": "9/14 같은 날 유효한 루브르 입장권으로 연계 입장한다는 조건의 추가 비용 €0. 보편적 무료가 아님; 이 조건이 없으면 일반 €9×2=€18 추가. 루브르 입장권 비용은 이미 별도 항목에 한 번 포함.", "place": "들라크루아 미술관", "sources": ["louvre", "delacroix"]},
       {"id": "louvre-coffee", "name": "루브르 안 커피", "category": "카페·간식", "cents": 1200, "range": [1000, 1600], "status": "estimate", "basis": "관람 중 커피 €6 × 2잔 추정; 유료 관람 재입장을 전제로 하지 않음. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
-      {"id": "monday-dinner", "name": "숙소 주변 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7를 각 2개로 잡은 계획 추정. 식당 미정; 코스·와인병 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
-      {"id": "monday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 510, "range": [510, 510], "status": "estimate", "basis": "€2.55 × 1회 × 2인. 숙소→루브르 1회. 이후 도보 동선 기준.", "sources": ["metro"]},
-      {"id": "soap", "name": "Fer à Cheval · 비누 구매", "category": "선택 쇼핑", "cents": 2000, "range": [1200, 3500], "status": "estimate", "basis": "제조사 공식 비누 150g €4.95, 선물 세트 €20 등을 참고한 소품 예산 €20. 저장 매장(77 Rue de la Verrerie)의 현장가·재고는 미확인; 방문만 하면 €0.", "place": "Fer à Cheval", "optional": true, "included": false, "sources": ["soap"]},
-      {"id": "gelato", "name": "Il Gelato del Marchese", "category": "카페·간식", "cents": 1600, "range": [1000, 2000], "status": "estimate", "basis": "젤라토 €8 × 2개 계획 추정; 공식 최신 메뉴 가격 미확인.", "place": "Il Gelato del Marchese", "optional": true, "included": false}
+      {"id": "monday-dinner", "name": "Bouillon Racine · 저녁", "category": "식사", "cents": 7000, "range": [6000, 9000], "status": "estimate", "basis": "공식 메인 예: 양고기 €26 + 생선 €27 = €53. 음료는 2잔 합계 €16 추정 → €69를 반올림해 2인 €70. 디저트·3코스 메뉴는 제외하고 젤라토를 별도 계산. 점심 정식 가격을 저녁에 적용하지 않음.", "meal": "dinner", "sources": ["racine", "racine-hours"], "place": "Bouillon Racine"},
+      {"id": "gelato", "name": "Il Gelato del Marchese", "category": "카페·간식", "cents": 1600, "range": [1000, 2000], "status": "estimate", "basis": "저녁 뒤 젤라토 2개에 €16 계획 추정(범위 €10–20), 최신 공식 메뉴 가격 미확인. 당일 저녁 영업 확인 후 방문하며 생략하면 체크 해제. Fer à Cheval 방문과 택일하지 않음.", "place": "Il Gelato del Marchese", "optional": true, "included": true, "sources": ["gelato-hours"]},
+      {"id": "monday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 510, "range": [510, 510], "status": "estimate", "basis": "€2.55 × 1회 × 2인. 숙소→루브르 1회. 이후 도보 동선 기준.", "sources": ["metro"]}
     ]},
-    "p4": {"date": "9/15 화", "note": "Les Deux Magots를 아침·커피 기준안으로 포함했습니다. 일반 조식을 또 더하지 않습니다. 저녁 장보기는 수요일 기차용 아침·간식입니다.", "items": [
+    "p4": {"date": "9/15 화", "note": "로댕 오전·오르세 오후의 개별 일반권 기준. Carte Blanche 구매를 가정하지 않으며 로댕은 별도 요금입니다. Les Deux Magots 아침을 중복 합산하지 않고, 다음 날 아침·간식은 저녁 장보기에만 반영합니다.", "items": [
       {"id": "deux-magots", "name": "Les Deux Magots · 아침·커피", "category": "식사", "cents": 2800, "range": [2000, 4600], "status": "estimate", "basis": "공식 조식 Classique €14 × 2 = €28 (따뜻한 음료·페이스트리·타르틴). 간단한 커피+크루아상은 €20/2인, Complet 2세트는 €46. 일반 아침을 중복 합산하지 않음.", "place": "Les Deux Magots", "meal": "breakfast", "sources": ["deux-magots"]},
+      {"id": "rodin", "name": "로댕 미술관 · 파리", "category": "입장·체험", "cents": 2800, "range": [2800, 2800], "status": "verified", "basis": "일반권 €14×2=€28. Carte Blanche는 로댕 일반 입장을 포함하지 않으며 제휴는 별도 개방 행사·로댕 회원권 할인입니다. Paris Museum Pass 대상 여부와 구분. 오르세+로댕 통합권 €25/인은 별도 대안이고 현재 개별권 위에 더하지 않음.", "place": "로댕 미술관", "sources": ["rodin", "carte-blanche-partners"]},
+      {"id": "orsay-lunch", "name": "로댕·오르세 사이 점심", "category": "식사", "cents": 4400, "range": [3400, 5600], "status": "estimate", "basis": "관람 사이 메인/간편식 €17 + 음료 €5를 각2개로 가정한 2인€44 추정. 매장·메뉴 미정이며 13:30 오르세 방문 전에 먹음.", "meal": "lunch", "sources": ["florentin", "commerce"]},
       {"id": "orsay", "name": "오르세 미술관", "category": "입장·체험", "cents": 3200, "range": [3200, 3200], "status": "verified", "basis": "온라인 일반권 €16 × 2인. 오랑주리와 별도 구매 기준; 통합권은 추가하지 않음.", "place": "오르세 미술관", "sources": ["orsay"]},
-      {"id": "orsay-lunch", "name": "오르세 주변 · 가벼운 점심", "category": "식사", "cents": 4400, "range": [3400, 5600], "status": "estimate", "basis": "메인/샌드위치 €17 + 음료 €5를 각 2개로 가정. 매장·메뉴 미정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "lunch", "sources": ["florentin", "commerce"]},
       {"id": "champ-de-mars", "name": "샹드마르스 · 에펠탑", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "공원·탑 외관만 €0. 에펠탑 입장권은 구매하지 않는 일정.", "place": "샹드마르스 · 에펠탑"},
-      {"id": "tuesday-coffee", "name": "공원 주변 커피·간식", "category": "카페·간식", "cents": 1400, "range": [1000, 2000], "status": "estimate", "basis": "커피 €5 × 2 + 간식 나눠 먹기 €4 추정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
+      {"id": "tuesday-coffee", "name": "미술관 주변 커피·간식", "category": "카페·간식", "cents": 1400, "range": [1000, 2000], "status": "estimate", "basis": "커피 €5 × 2 + 간식 나눠 먹기 €4 추정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
       {"id": "tuesday-dinner", "name": "숙소 주변 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7를 각 2개로 잡은 계획 추정. 식당 미정; 코스·와인병 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
-      {"id": "tuesday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1530, "range": [1530, 1530], "status": "estimate", "basis": "€2.55 × 3회 × 2인. 기존 일정의 세 유료 이동을 기준으로 계산. 아침 카페 경유로 도보 이동하면 실제로 줄어들 수 있음.", "sources": ["metro"]},
+      {"id": "tuesday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1020, "range": [1020, 1020], "status": "estimate", "basis": "€2.55 ×2회 ×2인. 오르세→샹드마르스→숙소의 철도 이동 기준. 숙소→아침→로댕→오르세는 도보. 공원 산책을 생략하면 실제 교통 지출은 달라질 수 있음.", "sources": ["metro"]},
       {"id": "train-grocery", "name": "숙소 근처 장보기 · 기차용", "category": "장보기", "cents": 1200, "range": [800, 1600], "status": "estimate", "basis": "물 €2 + 빵 €4 + 과일/간식 €6 추정. 다음 날 아침·이동 간식 비용을 여기서 한 번만 계산."}
     ]},
     "p5": {"date": "9/16 수", "note": "예약 완료된 모네의 집도 방문일 비용으로 포함(추가 결제 요구 아님). 실결제액 미제공으로 공개 단독 일반권 기준. 열차는 선택편 견적 미확인입니다.", "items": [
@@ -1374,7 +1428,7 @@ body.has-dialog{overflow:hidden}
   function sourceLinks(container, keys){
     (keys || []).forEach(function(key){
       var ref = budget.sources[key];
-      var link = node('a', ref.name + ' ↗');
+      var link = node('a', ref.name + ' (' + ref.checked_on + ') ↗');
       link.href = ref.url;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
@@ -1465,7 +1519,7 @@ body.has-dialog{overflow:hidden}
       row.appendChild(provenance); list.appendChild(row);
     });
     details.appendChild(list);
-    details.appendChild(node('p', '출처 열람·산정일 ' + budget.checked_on + '. 추정치는 통계상 평균이 아니라 위 주문/구매 조합을 위한 계획값입니다.', 'budget-caption'));
+    details.appendChild(node('p', '예산 갱신일 ' + budget.checked_on + '. 출처별 확인일은 링크에 표시합니다. 추정치는 통계상 평균이 아니라 위 주문/구매 조합을 위한 계획값입니다.', 'budget-caption'));
     box.appendChild(details);
     box.appendChild(node('p', '항공·숙박·도시세·미확인 짐 보관료·개인 쇼핑·팁·환전/카드 수수료 제외. 예약 입장권은 방문일 비용에 포함하며, 오늘 추가로 낼 금액과는 다릅니다. 선택은 새로고침하면 초기화됩니다.', 'budget-exclusions'));
     var tr = node('tr'); tr.dataset.budgetDay = key;

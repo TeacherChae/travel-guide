@@ -62,6 +62,48 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
       assert.match(await page.locator('[data-place-budget="'+id+'"]').textContent(), wasChecked ? /선택 시 추가/ : /합계 포함/);
       await checkbox.setChecked(wasChecked);
     }
+    // Revised Monday/Tuesday route contracts include dining cards and the new museums.
+    const dayNodes = dayKey => page.locator(`#${dayKey} .stop[data-label], #${dayKey} .card[data-dining]`)
+      .evaluateAll(nodes => nodes.map(node => node.dataset.label || node.dataset.dining));
+    const mondayLabels = await dayNodes('p3');
+    assert.deepEqual(mondayLabels, [
+      '루브르', '옥동식 파리', 'Fer à Cheval', '퐁뇌프 · 센강 산책',
+      '들라크루아 미술관', 'Bouillon Racine', 'Il Gelato del Marchese'
+    ]);
+    assert.match(await page.locator('#p3 .card[data-dining="Bouillon Racine"] .label').textContent(), /^18:30–19:45/);
+    assert.match(await page.locator('#p3 .card[data-dining="Il Gelato del Marchese"] .label').textContent(), /^20:00–20:20/);
+    assert.equal(await page.locator('#p3 .stop[data-label="바토 파리지앵"]').count(), 0);
+    assert.equal(await page.locator('#p2 .stop[data-label="바토 파리지앵"] .time').textContent(), '21:00');
+    assert.equal(data.days.p2.items.some(item => item.id === 'cruise'), true);
+    assert.equal(data.days.p3.items.some(item => item.id === 'cruise'), false);
+    const sundayStops = await page.locator('#p2 .stop[data-label]').evaluateAll(nodes => nodes.map(node => node.dataset.label));
+    assert.deepEqual(sundayStops, ['노트르담', '오랑주리', '마르모탕 모네', '바토 파리지앵']);
+    assert.equal(await page.locator('#p2 .stop[data-label="샹드마르스 · 에펠탑"]').count(), 0);
+    assert.deepEqual(await dayNodes('p4'), [
+      'Les Deux Magots', '로댕 미술관', '오르세 미술관', '샹드마르스 · 에펠탑'
+    ]);
+    assert.match(await page.locator('#p4 .stop[data-label="샹드마르스 · 에펠탑"] .time').textContent(), /^17:45/);
+    assert.equal(await page.locator('#p4 .stop[data-label="샹드마르스 · 에펠탑"]').getAttribute('data-tier'), '2');
+    assert.equal(await page.locator('#p3 .stop[data-label="들라크루아 미술관"]').getAttribute('data-tier'), '1');
+    assert.equal(await page.locator('#p4 .stop[data-label="로댕 미술관"]').count(), 1);
+    for (const [dayKey, label] of [['p3', '들라크루아 미술관'], ['p4', '로댕 미술관']]) {
+      await page.locator('.tabbar [aria-controls="'+dayKey+'"]').click();
+      const stop = page.locator('#'+dayKey+' .stop[data-label="'+label+'"]');
+      await stop.click();
+      assert.equal(await page.locator('#place-dialog').isVisible(), true);
+      assert.equal(await page.locator('#place-dialog-title').textContent(), label);
+      await page.locator('#place-dialog [data-place-close]').first().click();
+      assert.equal(await page.locator('#place-dialog').isVisible(), false);
+    }
+    await page.locator('.tabbar [aria-controls="p3"]').click();
+    const mondayFrame = page.locator('#p3 .mapbox iframe');
+    const mondayOverview = await mondayFrame.getAttribute('src');
+    const diningSrc = await page.locator('#p3 .card[data-dining="옥동식 파리"]').getAttribute('data-src');
+    assert.ok(diningSrc, 'dining card must expose its map source');
+    await page.locator('#p3 .card[data-dining="옥동식 파리"] .show-dining-map').click();
+    assert.equal(await mondayFrame.getAttribute('src'), diningSrc);
+    await page.locator('#p3 [data-reset]').click();
+    assert.equal(await mondayFrame.getAttribute('src'), mondayOverview);
     // Sticky map's containing block must end before daily budget, on mobile and desktop.
     for (const width of [320,390,1280]) {
       await page.setViewportSize({width,height:900});
