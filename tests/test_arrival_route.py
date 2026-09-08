@@ -69,6 +69,14 @@ class ArrivalTests(unittest.TestCase):
 
     def test_arrival_copy_explains_google_transit_limit(self):
         self.assertIn('Google 지도는 RER B 노선을 강제 고정하지 못합니다', self.source)
+
+    def test_arrival_construction_warning_does_not_claim_direct_service(self):
+        panel = re.search(r'<section class="panel" id="p1"[\s\S]*?</section>', self.source)[0]
+        self.assertIn('9/12–13', panel)
+        self.assertIn('Gare du Nord ↔ Denfert-Rochereau 종일 운휴', panel)
+        self.assertIn('직결은 불가', panel)
+        self.assertIn('22:45 이후 운휴는 별도', panel)
+        self.assertIn('rer-b-travaux', panel)
         self.assertIn('Saint-Michel–Notre-Dame', self.source)
 
     def test_overview_starts_at_airport(self):

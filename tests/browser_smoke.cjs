@@ -16,6 +16,19 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
     const data = await page.locator('#daily-budget-data').textContent().then(JSON.parse);
     const totals = () => page.locator('[data-budget-total]').evaluateAll(nodes => nodes.map(n => Number(n.dataset.cents)));
     const baseline = Object.values(data.days).map(day => day.items.reduce((n, item) => n + (item.optional && !item.included ? 0 : item.cents), 0));
+    assert.equal(data.admission_plan, 'carte-blanche-jeunes-duo');
+    const membership = Object.values(data.days).flatMap(day => day.items)
+      .filter(item => item.id === 'carte-blanche-jeunes-duo');
+    assert.equal(membership.length, 1);
+    assert.equal(membership[0].cents, 4000);
+    assert.equal(membership[0].purchase_status, 'planned');
+    assert.equal(data.days.p2.items.includes(membership[0]), true);
+    assert.equal(data.days.p2.items.find(item => item.id === 'orangerie').cents, 0);
+    assert.equal(data.days.p4.items.find(item => item.id === 'orsay').cents, 0);
+    const selectedPass = page.locator('#pc tr', {has: page.locator('[data-pass-comparison="selected"]')});
+    assert.equal(await selectedPass.count(), 1);
+    assert.match(await selectedPass.textContent(), /Carte Blanche Jeunes Duo/);
+    assert.doesNotMatch(await selectedPass.textContent(), /PMP/);
     assert.deepEqual(await totals(), baseline);
     assert.equal(await page.locator('[data-place-budget]').count(), Object.values(data.days).flatMap(day => day.items).filter(item => item.place).length);
     const frame = page.locator('#p1 .mapbox iframe');
@@ -80,10 +93,9 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
     assert.deepEqual(sundayStops, ['노트르담', '오랑주리', '마르모탕 모네', '바토 파리지앵']);
     assert.equal(await page.locator('#p2 .stop[data-label="샹드마르스 · 에펠탑"]').count(), 0);
     assert.deepEqual(await dayNodes('p4'), [
-      'Les Deux Magots', '로댕 미술관', '오르세 미술관', '샹드마르스 · 에펠탑'
+      'Les Deux Magots', '로댕 미술관', '오르세 미술관'
     ]);
-    assert.match(await page.locator('#p4 .stop[data-label="샹드마르스 · 에펠탑"] .time').textContent(), /^17:45/);
-    assert.equal(await page.locator('#p4 .stop[data-label="샹드마르스 · 에펠탑"]').getAttribute('data-tier'), '2');
+    assert.equal(await page.locator('#p4 .stop[data-label="샹드마르스 · 에펠탑"]').count(), 0);
     assert.equal(await page.locator('#p3 .stop[data-label="들라크루아 미술관"]').getAttribute('data-tier'), '1');
     assert.equal(await page.locator('#p4 .stop[data-label="로댕 미술관"]').count(), 1);
     for (const [dayKey, label] of [['p3', '들라크루아 미술관'], ['p4', '로댕 미술관']]) {

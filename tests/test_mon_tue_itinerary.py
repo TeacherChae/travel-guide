@@ -108,7 +108,7 @@ class MondayTuesdayItineraryTests(unittest.TestCase):
         overview = self.query(frame["src"])["daddr"][0].split(" to:")
         self.assertEqual(overview, [self.query(leg["data-src"])["daddr"][0] for leg in legs])
         actual_modes = [self.query(leg["data-src"])["dirflg"][0] for leg in legs]
-        expected_modes = ["r"] + ["w"] * 7 if key == "p3" else ["w"] * 3 + ["r"] * 2
+        expected_modes = ["r"] + ["w"] * 7 if key == "p3" else ["w"] * 3 + ["r"]
         self.assertEqual(actual_modes, expected_modes)
 
     def test_monday_route_replaces_shopping_with_musee_delacroix_and_evening_dessert(self):
@@ -125,9 +125,13 @@ class MondayTuesdayItineraryTests(unittest.TestCase):
             ],
         )
         panel = self.panel("p3")
-        self.assertNotIn("La Samaritaine", panel)
         self.assertNotIn("48.8592564,2.3424255", panel)
-        self.assertNotIn("Higuma", panel)
+        labels = [attrs.get("data-label") or attrs.get("data-dining") for attrs in self.itinerary_nodes("p3")]
+        self.assertNotIn("La Samaritaine", labels)
+        self.assertNotIn("사마리텐", labels)
+        self.assertNotIn("Higuma", labels)
+        if "사마리텐" in panel:
+            self.assertRegex(panel, r"사마리텐[\s\S]*(?:선택|옵션|제외)")
         self.assertIn("09:00–13:00", panel)
         for dining, timing in [
             ("옥동식 파리", "13:20–14:10"),
@@ -189,31 +193,28 @@ class MondayTuesdayItineraryTests(unittest.TestCase):
     def test_tuesday_route_puts_rodin_before_late_orsay(self):
         self.assert_route_contract(
             "p4",
-            ["Les Deux Magots", "로댕 미술관", "오르세 미술관", "샹드마르스 · 에펠탑"],
+            ["Les Deux Magots", "로댕 미술관", "오르세 미술관"],
         )
         panel = self.panel("p4")
         self.assertNotIn("10:00–13:30", panel)
+        self.assertNotIn("샹드마르스 · 에펠탑", panel)
         self.assertRegex(panel, r'data-dining="Les Deux Magots"[\s\S]*?08:30–09:00')
         for stop, timing in [
             ("로댕 미술관", "10:00–11:30"),
             ("오르세 미술관", "13:30–17:00"),
-            ("샹드마르스 · 에펠탑", "17:45"),
         ]:
             self.assertRegex(
                 panel,
                 rf'data-label="{re.escape(stop)}"[\s\S]*?<span class="time">{re.escape(timing)}</span>',
             )
-        champ = next(
-            attrs
-            for tag, attrs in Nodes(panel).nodes
-            if attrs.get("data-label") == "샹드마르스 · 에펠탑"
-        )
-        self.assertEqual(champ.get("data-tier"), "2")
+        orsay = re.search(r'data-label="오르세 미술관"[\s\S]*?</button>', panel)[0]
+        self.assertIn("Carte Blanche 일반 관람은 시간 예약 면제", orsay)
 
     def test_budget_ledger_tracks_the_revised_places_and_membership_boundary(self):
         p3 = self.budget["days"]["p3"]["items"]
         p4 = self.budget["days"]["p4"]["items"]
         by_id = {item["id"]: item for item in p3 + p4}
+        self.assertNotIn("champ-de-mars", {item["id"] for item in p4})
 
         self.assertIn("okdongsik", by_id)
         self.assertNotIn("higuma", by_id)
@@ -223,6 +224,7 @@ class MondayTuesdayItineraryTests(unittest.TestCase):
         self.assertIn("louvre", by_id["delacroix"].get("sources", []))
         self.assertNotEqual(by_id["delacroix"].get("status"), "free")
         self.assertEqual(by_id["rodin"]["cents"], 2800)
+        self.assertIn("Carte Blanche", by_id["rodin"]["basis"])
         self.assertNotIn("carte", " ".join(by_id).lower())
 
         dinners = [item for item in p3 if item.get("meal") == "dinner"]

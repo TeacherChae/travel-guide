@@ -322,15 +322,16 @@ body.has-dialog{overflow:hidden}
 <div class="filterbar"><button type="button" class="fbtn" id="onlyKey" aria-pressed="false">꼭 가볼 곳만</button><span style="font-size:12.5px;color:var(--text-3)">나머지는 접힙니다</span></div>
 <section class="panel" id="p1" role="tabpanel" aria-labelledby="b1" data-arrival-mode="rer">
   <div class="panel-head"><h2>도착</h2><p>숙소 · 파리 5구 (26 Rue des Fossés Saint-Bernard)</p></div>
+  <div class="note danger"><b>9/12–13 RER B 공사: Gare du Nord ↔ Denfert-Rochereau 종일 운휴.</b> CDG에서 Saint-Michel–Notre-Dame까지 직결하는 기존 안내는 이 날짜에 사용할 수 없습니다. 짐이 많은 도착일은 공식 택시를 권장하고, 철도를 선택하면 당일 IDFM/RATP 대체 경로·표 적용을 확인하세요. 공항 방면 22:45 이후 운휴는 별도 공지입니다. <a href="https://www.ratp.fr/decouvrir/coulisses/modernisation-du-reseau/rer-b-travaux" target="_blank" rel="noopener noreferrer">RATP 날짜별 공사 근거 (2026-09-09) ↗</a></div>
   <div class="day-itinerary">
   <div class="mapbox">
     <div class="arrival-switch" aria-label="CDG에서 숙소까지 이동 방법">
       <div class="arrival-tabs" role="tablist" aria-label="CDG에서 숙소까지 이동 방법">
-        <button type="button" class="arrival-tab" role="tab" id="arrival-rer-tab" aria-controls="arrival-rer-panel" aria-selected="true" data-arrival-mode="rer" data-src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="CDG → 5구 숙소 · RER B">RER B<small>€28/2인 · 생미셸 하차 후 도보</small></button>
+        <button type="button" class="arrival-tab" role="tab" id="arrival-rer-tab" aria-controls="arrival-rer-panel" aria-selected="true" data-arrival-mode="rer" data-src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="CDG → 5구 숙소 · RER B">RER B<small>€28/2인 기준 · 공사 대체 경로 확인</small></button>
         <button type="button" class="arrival-tab" role="tab" id="arrival-taxi-tab" aria-controls="arrival-taxi-panel" aria-selected="false" data-arrival-mode="taxi" data-src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618&dirflg=d&hl=ko&output=embed" data-label="CDG → 5구 숙소 · 택시">택시<small>€65 정액/2인 · 공식 승강장</small></button>
       </div>
       <div id="arrival-rer-panel" class="arrival-route-panel" role="tabpanel" aria-labelledby="arrival-rer-tab">
-        <p><b>실제 기준:</b> CDG의 RER B 역에서 파리 방면 탑승 → <b>Saint-Michel–Notre-Dame</b> 하차 → 숙소까지 도보. Google 지도는 RER B 노선을 강제 고정하지 못합니다; 아래 지도는 당일 대중교통 제안 확인용입니다.</p>
+        <p><b>공사일 주의:</b> 평시의 Saint-Michel–Notre-Dame 직결 경로는 9/12–13 중앙 구간 운휴로 사용할 수 없습니다. 아래는 교통비·경로 비교용 지도이며 방문 날짜가 고정되지 않습니다. Google 지도는 RER B 노선을 강제 고정하지 못합니다. 공항 출발 시각의 대체 경로와 교통표 적용을 IDFM/RATP에서 확인한 뒤 이용하세요.</p>
       </div>
       <div id="arrival-taxi-panel" class="arrival-route-panel" role="tabpanel" aria-labelledby="arrival-taxi-tab" hidden>
         <p><b>실제 기준:</b> 터미널 안내를 따라 공식 Taxi Parisien 승강장에서 탑승해 숙소 주소를 보여주세요. 앱 호출/VTC가 아니라 승강장 택시 기준 정액입니다.</p>
@@ -340,7 +341,7 @@ body.has-dialog{overflow:hidden}
     <div class="mapbar"><span>CDG → 5구 숙소 · RER B</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>선택 경로</button><button type="button" class="maplink" data-day-overview data-src="https://maps.google.com/maps?saddr=49.0097,2.5479&amp;daddr=48.8484866,2.3540618+to:48.8480,2.3536+to:48.8433,2.3495+to:48.8507,2.3555+to:48.8484866,2.3540618&amp;dirflg=r&amp;hl=ko&amp;output=embed">이 날 전체</button></div></div>
   </div>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="CDG → 5구 숙소">    <div class="stop-top"><span class="time">18:30</span><span class="stop-name">CDG → 5구 숙소</span><span class="pin">지도</span></div>
-    <p class="stop-desc">18:30은 CDG 항공편 도착 예정 시각입니다. 입국심사·짐 찾기 후 RER B 파리 방면으로 Saint-Michel–Notre-Dame까지 이동하고 숙소(26 Rue des Fossés Saint-Bernard)까지 걷는 안입니다. Gare de l’Est는 이 경로의 목적지나 필수 환승역이 아닙니다. 도착 터미널의 RER 안내와 당일 운행을 확인하세요. 짐이 많으면 공식 택시 승강장에서 숙소로 바로 이동하는 것도 대안입니다. 숙소 도착 시각은 입국·교통 상황에 따라 달라집니다.</p>
+    <p class="stop-desc">18:30은 CDG 항공편 도착 예정 시각입니다. 9/12–13 RER B의 Gare du Nord ↔ Denfert-Rochereau 운휴로 Saint-Michel–Notre-Dame 직결은 불가합니다. 공식 택시 대안 또는 실제 도착 시각의 철도·대체 교통 연결을 확인하세요. 아래 지도는 미래 공사일 운행을 보장하지 않습니다. Gare de l’Est를 필수 경유지로 넣지 않습니다.</p>
     <div class="badges"><span class="badge b-cost">택시 정액 €65 (2인)</span><span class="badge b-note">RER B €14/인</span><span class="badge b-note">운임 확인 2026-09-08</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8480,2.3536&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">2분 · 같은 길</span><span class="leg-cost free">무료</span></button>
@@ -383,25 +384,26 @@ body.has-dialog{overflow:hidden}
     <div class="badges"><span class="badge b-free">미사 무료</span><span class="badge b-note">라틴어 · 예약 불필요</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8530,2.3499&daddr=48.8638,2.3227&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">미사 후 이동·점심 · 도보 약 45–50분 (추정)</span><span class="leg-cost">무료</span></button>
-<div class="note">11:15–13:00 이동·점심·입장 여유. 오랑주리 예약 목표는 13:00입니다.</div>
-  <div class="card" data-dining="Le Florentin"><span class="label">12:00–12:40 목표 · 점심 후보 · 예약 권장</span><h4>Le Florentin</h4><p>노트르담 미사 후 콩코르드 쪽으로 이동해서 점심. 오랑주리 예약 13:00을 우선하고 12:40에는 식사를 마칩니다. 미사가 늦거나 대기·조리가 길면 주변 포장식으로 대체합니다.</p><p>공식: 매일 07:00–23:00 연속 영업. 예약 잔여석 미확인 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.86761%2C2.3244488" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://leflorentinbistrot.com/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+<div class="note">11:15–13:00 이동·점심·입장 여유. 오랑주리 도착 목표는 13:00입니다. 유효한 Carte Blanche Jeunes Duo 회원과 동반인이 함께 입장하는 계획이므로 일반 관람 시간 예약은 하지 않습니다.</div>
+  <div class="card" data-dining="Le Florentin"><span class="label">12:00–12:40 목표 · 점심 후보 · 예약 권장</span><h4>Le Florentin</h4><p>노트르담 미사 후 콩코르드 쪽으로 이동해서 점심. 오랑주리 도착 목표 13:00을 우선하고 12:40에는 식사를 마칩니다. 미사가 늦거나 대기·조리가 길면 주변 포장식으로 대체합니다.</p><p>공식: 매일 07:00–23:00 연속 영업. 예약 잔여석 미확인 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.86761%2C2.3244488" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://leflorentinbistrot.com/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
 <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8638,2.3227&z=16&hl=ko&output=embed" data-label="오랑주리">    <div class="stop-top"><span class="time">13:00–14:15</span><span class="stop-name">오랑주리</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">모네 수련이 걸린 타원형 방 두 개. 일요일 09:00–18:00 운영, 마지막 입장 17:15. 13:00 예약 목표. 14:15 출발해 마르모탕으로 이동합니다.</p>
-    <div class="badges"><span class="badge b-cost">€12.50/인</span><span class="badge b-book">예약 필수</span><span class="badge b-note">오르세 통합권 있음</span></div>
+    <p class="stop-desc">모네 수련이 걸린 타원형 방 두 개. 일요일 09:00–18:00 운영, 마지막 입장 17:15. 13:00 도착 목표. 청년 Duo 회원권으로 일반 관람 예약 면제이며, 회원카드를 실제로 발급받아야 합니다. 14:15 출발해 마르모탕으로 이동합니다.</p>
+    <div class="badges"><span class="badge b-cost">청년 Duo로 추가 €0</span><span class="badge b-note">회원카드 · 시간 예약 면제</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8638,2.3227&daddr=48.8593,2.2672&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">14:15 출발 · 환승·도보 포함 45–60분 여유 (추정)</span><span class="leg-cost">교통표 별도</span></button>
   <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8593,2.2672&z=16&hl=ko&output=embed" data-label="마르모탕 모네">    <div class="stop-top"><span class="time">15:30–17:00</span><span class="stop-name">마르모탕 모네</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">모네의 작품과 인상, 해돋이를 볼 수 있는 16구 미술관. 화–일 10:00–18:00, 마지막 입장 17:00. 예약은 필수가 아닙니다.</p>
-    <div class="badges"><span class="badge b-cost">€14/인 · 단독권</span><span class="badge b-note">공식 확인 완료</span></div>
+    <p class="stop-desc">모네의 작품과 인상, 해돋이를 볼 수 있는 16구 미술관. 화–일 10:00–18:00, 마지막 입장 17:00. 예약은 필수가 아니지만 15:30 목표를 위해 온라인 단독권을 선택하는 안입니다. Carte Blanche에는 포함되지 않습니다.</p>
+    <div class="badges"><span class="badge b-cost">온라인 €14.50/인 · 현장 €14</span><span class="badge b-note">온라인 시간 선택 권장</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8593,2.2672&daddr=48.8604,2.2936&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">관람 후 에펠 선착장 주변 이동 · 약 40–50분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
-<div class="note">18:00–20:15 선착장 근처에서 저녁·휴식. 저장 식당을 위해 먼 우회를 하지 않고 당일 근처에서 고릅니다. 샹드마르스 본 방문은 화요일입니다.</div>
+<div class="note">18:00–20:15 선착장 근처에서 저녁·휴식. 저장 식당을 위해 먼 우회를 하지 않고 당일 근처에서 고릅니다. 화요일은 로댕·오르세 중심으로 잡고 별도 에펠탑 방문을 고정하지 않습니다.</div>
   <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8604,2.2936&z=16&hl=ko&output=embed" data-label="바토 파리지앵">    <div class="stop-top"><span class="time">21:00</span><span class="stop-name">바토 파리지앵</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
     <p class="stop-desc">에펠탑 아래에서 출발하는 야간 크루즈. 21:00 탑승 목표이며 예약 완료를 뜻하지 않습니다. 탑승 안내에 맞춰 미리 도착합니다.</p>
     <div class="badges"><span class="badge b-book">예약 권장</span><span class="badge b-note">디너 크루즈는 별도</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8604,2.2936&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">크루즈 후 숙소 복귀 · 약 35–45분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
-<div class="note warn">미사 입장·종료 시각과 미술관 예약 가능 시간은 보장되지 않습니다. 두 미술관 예약을 확인한 뒤 확정하세요. 월요일 마르모탕·화요일 오랑주리 휴관 때문에 일요일에 묶었습니다.</div>
+<div class="note warn">미사 입장·종료 시각과 미술관 예약 가능 시간은 보장되지 않습니다. 오랑주리는 회원카드 발급, 마르모탕은 온라인 표와 선택 시각을 확인한 뒤 확정하세요. 월요일 마르모탕·화요일 오랑주리 휴관 때문에 일요일에 묶었습니다.</div>
+<div class="note"><b>선택한 입장 전략: Carte Blanche Jeunes Duo 1년 + PMP 미구매.</b> 회원권 1개가 회원과 동반인 1명을 포함합니다. 구매액은 첫 이용일인 일요일 예산에 한 번 배정하고, 오랑주리·화요일 오르세의 단독권을 다시 더하지 않습니다. 구매 완료가 아니라 준비할 항목입니다. <a href="https://adherents-carte-blanche.musee-orsay.fr/adhesion-carte-blanche-jeunes-1-an-carte-musee-d-orsay-paris-valable-1-an-a-partir-de-la-premiere-visite-css5-carteblanche-pg101-ri11401285.html" target="_blank" rel="noopener noreferrer">공식 청년 1년 가입 상품 ↗</a> · <a href="https://www.musee-orsay.fr/en/you-are/carte-blanche-members/we-answer-your-questions" target="_blank" rel="noopener noreferrer">예약 면제 조건 ↗</a> (확인 2026-09-09)</div>
 </div>
 <aside class="daily-budget" aria-labelledby="budget-title-p2"><h3 id="budget-title-p2">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
@@ -418,49 +420,47 @@ body.has-dialog{overflow:hidden}
 <div class="card" data-dining="옥동식 파리" data-src="https://maps.google.com/maps?q=OKDONGSIK%2C+3+Rue+de+la+Michodi%C3%A8re%2C+75002+Paris&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">13:20–14:10 · 점심 · 돼지곰탕</span><h4>옥동식 파리</h4><p>3 Rue de la Michodière의 파리점입니다. 루브르 뒤 가까운 2구에서 점심을 먹고 Fer à Cheval로 이동합니다. 입장·대기가 길면 14:10 종료를 우선하고 인근 식사로 대체합니다. 예약·대기 방식과 주문 마감은 공식 안내에서 확인하지 못했습니다.</p><p>공식: 월–토 11:30–14:30 / 17:00–21:00, 일요일 휴무. 파리 메뉴 가격 미공개 · 확인 2026-09-09</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="옥동식 파리 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=OKDONGSIK%2C+3+Rue+de+la+Michodi%C3%A8re%2C+75002+Paris" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://www.okdongsik.net/paris" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
 <div class="note">기존 히구마는 저장 목록의 점심 대안으로만 남깁니다. 옥동식과 두 끼를 연속으로 먹거나 두 식사비를 합산하지 않습니다.</div>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=OKDONGSIK%2C+3+Rue+de+la+Michodi%C3%A8re%2C+75002+Paris&amp;daddr=48.8583549%2C2.3516334&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">옥동식 → Fer à Cheval · 약 25–30분 (추정)</span><span class="leg-cost free">무료</span></button>
-<div class="card" data-dining="Fer à Cheval" data-src="https://maps.google.com/maps?q=48.8583549%2C2.3516334&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">14:40–15:00 · 방문 유지 · 비누 구매는 선택</span><h4>Fer à Cheval</h4><p>저장한 77 Rue de la Verrerie 매장 핀을 유지합니다. 사마리텐은 방문하지 않고 이곳에 들른 뒤 퐁뇌프를 거쳐 들라크루아로 갑니다. 매장 영업을 당일 확인하고 닫았으면 다음 동선으로 바로 이동합니다.</p><p>저장 위치는 확인. 매장 최신 영업시간·재고·현장 판매가는 미확인. 제조사 가격은 예산 참고용.</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="Fer à Cheval 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=48.8583549%2C2.3516334" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://savon-de-marseille.com/" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
+<div class="card" data-dining="Fer à Cheval" data-src="https://maps.google.com/maps?q=48.8583549%2C2.3516334&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">14:40–15:00 · 방문 유지 · 비누 구매는 선택</span><h4>Fer à Cheval</h4><p>저장한 77 Rue de la Verrerie 매장 핀을 유지합니다. 사마리텐은 기본 동선에서 빼고 이곳에 들른 뒤 퐁뇌프를 거쳐 들라크루아로 갑니다. 매장 영업을 당일 확인하고 닫았으면 다음 동선으로 바로 이동합니다.</p><p>저장 위치는 확인. 매장 최신 영업시간·재고·현장 판매가는 미확인. 제조사 가격은 예산 참고용.</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="Fer à Cheval 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=48.8583549%2C2.3516334" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://savon-de-marseille.com/" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8583549%2C2.3516334&amp;daddr=48.8572%2C2.3413&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">Fer à Cheval → 퐁뇌프 · 약 12–15분 (추정)</span><span class="leg-cost free">무료</span></button>
 <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8572%2C2.3413&amp;z=16&amp;hl=ko&amp;output=embed" data-label="퐁뇌프 · 센강 산책"><div class="stop-top"><span class="time">15:15–15:30</span><span class="stop-name">퐁뇌프 · 센강 산책</span><span class="tier tier-2">여유되면</span><span class="pin">상세</span></div><p class="stop-desc">들라크루아로 강을 건너가는 길에 짧게 걷습니다. 박물관 방문 시각이 우선이므로 늦어지면 산책을 줄입니다.</p><div class="badges"><span class="badge b-free">산책 무료</span></div></button>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8572%2C2.3413&amp;daddr=Mus%C3%A9e+national+Eug%C3%A8ne-Delacroix%2C+6+Rue+de+Furstemberg%2C+75006+Paris&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">퐁뇌프 → 들라크루아 · 약 10–15분 (추정)</span><span class="leg-cost free">무료</span></button>
-<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=Mus%C3%A9e+national+Eug%C3%A8ne-Delacroix%2C+6+Rue+de+Furstemberg%2C+75006+Paris&amp;z=16&amp;hl=ko&amp;output=embed" data-label="들라크루아 미술관"><div class="stop-top"><span class="time">15:45–16:45</span><span class="stop-name">들라크루아 미술관</span><span class="tier tier-1">꼭</span><span class="pin">상세</span></div><p class="stop-desc">6 Rue de Furstemberg에 있는 화가의 집·작업실·정원입니다. 월요일 12:00–17:30 운영. 같은 날 유효한 루브르 입장권으로 연계 입장하는 기준이며 보편적인 무료 미술관은 아닙니다. 루브르 표가 없으면 일반권 €9/인과 입장 조건을 확인하세요. PMP 시간 예약 불필요이며, 마지막 입장은 17:00입니다.</p><div class="badges"><span class="badge b-cost">루브르 당일권 연계 · 추가 €0</span><span class="badge b-note">화요일 휴관</span></div></button>
-<p><a href="https://www.louvre.fr/visiter/horaires-tarifs" target="_blank" rel="noopener noreferrer">들라크루아 시간·루브르 연계 조건 (2026-09-09) ↗</a> · <a href="https://www.parismuseumpass.fr/en/musees/musee-eugene-delacroix" target="_blank" rel="noopener noreferrer">PMP 예약 불필요 안내 ↗</a></p>
+<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=Mus%C3%A9e+national+Eug%C3%A8ne-Delacroix%2C+6+Rue+de+Furstemberg%2C+75006+Paris&amp;z=16&amp;hl=ko&amp;output=embed" data-label="들라크루아 미술관"><div class="stop-top"><span class="time">15:45–16:45</span><span class="stop-name">들라크루아 미술관</span><span class="tier tier-1">꼭</span><span class="pin">상세</span></div><p class="stop-desc">6 Rue de Furstemberg에 있는 화가의 집·작업실·정원입니다. 월요일 12:00–17:30 운영. 같은 날 유효한 루브르 입장권으로 연계 입장하는 기준이며 보편적인 무료 미술관은 아닙니다. 루브르 표가 없으면 일반권 €9/인과 입장 조건을 확인하세요. 루브르 연계 방문은 별도 무료 들라크루아 표를 예약하면 입장을 보장할 수 있다는 공식 약관이 있습니다. 필수라고 단정하지 않되 예약 가능 여부를 확인하세요. 마지막 입장은 17:00입니다.</p><div class="badges"><span class="badge b-cost">루브르 당일권 연계 · 추가 €0</span><span class="badge b-note">화요일 휴관</span></div></button>
+<p><a href="https://www.louvre.fr/visiter/horaires-tarifs" target="_blank" rel="noopener noreferrer">들라크루아 시간·루브르 연계 조건 (2026-09-09) ↗</a> · <a href="https://api-www.louvre.fr/sites/default/files/2026-02/2026_conditions_generales_vente_individuel.pdf" target="_blank" rel="noopener noreferrer">루브르 연계 무료 예약 안내 · 약관 2.1 ↗</a></p>
 <div class="note">16:45 이후 생제르맹 주변에서 쉬고 저녁으로 이동합니다. 추가 유료 관람은 넣지 않습니다.</div>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=Mus%C3%A9e+national+Eug%C3%A8ne-Delacroix%2C+6+Rue+de+Furstemberg%2C+75006+Paris&amp;daddr=Bouillon+Racine%2C+3+Rue+Racine%2C+75006+Paris&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">들라크루아 → Bouillon Racine · 약 10–15분 (추정)</span><span class="leg-cost free">무료</span></button>
 <div class="card" data-dining="Bouillon Racine" data-src="https://maps.google.com/maps?q=Bouillon+Racine%2C+3+Rue+Racine%2C+75006+Paris&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">18:30–19:45 · 저녁 추천 · 예약 권장</span><h4>Bouillon Racine</h4><p>3 Rue Racine의 아르누보 실내에서 프랑스식 저녁을 먹는 안입니다. 메인과 음료 위주로 주문하고 디저트는 다음 젤라토로 남겨둡니다. 저렴한 점심 정식 가격을 저녁 예산에 적용하지 않습니다. 실제 예약은 미완료입니다.</p><p>공식: 매일 12:00–23:00. 메인 예: 양고기 €26, 생선 €27. 음료는 별도 추정 · 확인 2026-09-09</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="Bouillon Racine 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=Bouillon+Racine%2C+3+Rue+Racine%2C+75006+Paris" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://www.bouillonracine.fr/en/menus/" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=Bouillon+Racine%2C+3+Rue+Racine%2C+75006+Paris&amp;daddr=48.85159%2C2.3380824&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">저녁 식당 → 젤라토 · 약 5–7분 (추정)</span><span class="leg-cost free">무료</span></button>
 <div class="card" data-dining="Il Gelato del Marchese" data-src="https://maps.google.com/maps?q=48.85159%2C2.3380824&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">20:00–20:20 · 저녁 후 젤라토</span><h4>Il Gelato del Marchese</h4><p>저녁 식사 뒤 오데옹의 2 Rue de Condé로 이동합니다. Fer à Cheval과 택일하지 않고 같은 날 방문하는 안입니다. 늦은 영업시간 정보가 출처별로 달라 당일 영업을 확인하고, 닫았으면 생략합니다.</p><p>지역 관광청 안내 12:00–24:00. 실제 월요일 저녁 영업·메뉴 가격은 당일 확인 필요 · 조회 2026-09-09</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="Il Gelato del Marchese 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=48.85159%2C2.3380824" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://www.visitparisregion.com/en/il-gelato-del-marchese" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.85159%2C2.3380824&amp;daddr=48.8484866%2C2.3540618&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">젤라토 → 5구 숙소 · 약 20–25분 (추정)</span><span class="leg-cost free">무료</span></button>
-<div class="note">전체 지도는 주요 경유지를 이어 놓은 개략 동선입니다. 교통수단은 각 구간 버튼으로 확인하세요. 사마리텐은 일별 동선에서 제외하되 원본 저장 장소 CSV는 보존했습니다.</div>
+<div class="note">전체 지도는 주요 경유지를 이어 놓은 개략 동선입니다. 교통수단은 각 구간 버튼으로 확인하세요. 사마리텐은 기본 동선에 넣지 않습니다. 들라크루아와 저녁 일정을 지킨 뒤에도 시간·체력이 남을 때만 선택하며, 추가 이동·쇼핑비는 기본 예산 밖입니다. <a href="https://www.google.com/maps/search/?api=1&amp;query=48.8592564%2C2.3424255" target="_blank" rel="noopener noreferrer">사마리텐 선택 위치 ↗</a></div>
   </div>
   <aside class="daily-budget" aria-labelledby="budget-title-p3"><h3 id="budget-title-p3">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/15 -->
 <section class="panel" id="p4" role="tabpanel" aria-labelledby="b4" hidden>
-  <div class="panel-head"><h2>로댕의 조각정원과 오르세</h2><p>아침 → 로댕 10:00 → 점심 → 오르세 13:30 → 에펠탑 주변 선택</p></div>
+  <div class="panel-head"><h2>로댕의 조각정원과 오르세</h2><p>아침 → 로댕 10:00 → 점심 → 오르세 13:30 → 숙소 복귀</p></div>
   <div class="day-itinerary">
-  <div class="mapbox"><iframe loading="lazy" title="전체 도보 개략도 · 아침 → 로댕 10:00 → 점심 → 오르세 13:30 → 에펠탑 주변 선택" src="https://maps.google.com/maps?saddr=48.8484866%2C2.3540618&amp;daddr=48.854052%2C2.3331062+to%3A48.8553072%2C2.3158354+to%3A48.8599%2C2.3266+to%3A48.8556%2C2.2986+to%3A48.8484866%2C2.3540618&amp;dirflg=w&amp;hl=ko&amp;output=embed"></iframe><div class="mapbar"><span>전체 도보 개략도 · 실제 교통은 구간별 확인</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+  <div class="mapbox"><iframe loading="lazy" title="전체 도보 개략도 · 아침 → 로댕 10:00 → 점심 → 오르세 13:30 → 숙소 복귀" src="https://maps.google.com/maps?saddr=48.8484866%2C2.3540618&amp;daddr=48.854052%2C2.3331062+to%3A48.8553072%2C2.3158354+to%3A48.8599%2C2.3266+to%3A48.8484866%2C2.3540618&amp;dirflg=w&amp;hl=ko&amp;output=embed"></iframe><div class="mapbar"><span>전체 도보 개략도 · 실제 교통은 구간별 확인</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
 <div class="note">전체 지도는 장소의 연결을 보기 위한 <b>도보 개략도</b>입니다. 하루 종일 걷는 일정이 아니며, 실제 도보·대중교통 경로는 아래 구간 버튼을 사용하세요.</div>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866%2C2.3540618&amp;daddr=48.854052%2C2.3331062&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">08:05 전후 출발 · 숙소 → 생제르맹 · 약 20–25분 (추정)</span><span class="leg-cost free">무료</span></button>
 <div class="card" data-dining="Les Deux Magots" data-src="https://maps.google.com/maps?q=48.854052%2C2.3331062&amp;z=16&amp;hl=ko&amp;output=embed"><span class="label">08:30–09:00 · 아침·커피 기준안</span><h4>Les Deux Magots</h4><p>생제르맹에서 가벼운 아침을 먹고 로댕으로 걸어갑니다. 대기가 길면 근처 간단한 아침으로 대체합니다. 로댕은 10:00 개관이므로 이동 후 여유 있게 입장을 준비합니다.</p><p>공식 안내: 매일 07:30–01:00 · 영업 확인 2026-09-07, 동선 갱신 2026-09-09</p><div class="dining-map-actions"><button type="button" class="maplink show-dining-map" aria-label="Les Deux Magots 지도에서 보기">지도에서 보기</button><a href="https://www.google.com/maps/search/?api=1&amp;query=48.854052%2C2.3331062" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a href="https://lesdeuxmagots.fr/reserver/" target="_blank" rel="noopener noreferrer">공식 근거 ↗</a></div></div>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.854052%2C2.3331062&amp;daddr=48.8553072%2C2.3158354&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">생제르맹 → 로댕 · 약 20–25분 (추정)</span><span class="leg-cost free">무료</span></button>
-<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8553072%2C2.3158354&amp;z=16&amp;hl=ko&amp;output=embed" data-label="로댕 미술관"><div class="stop-top"><span class="time">10:00–11:30</span><span class="stop-name">로댕 미술관</span><span class="tier tier-1">꼭</span><span class="pin">상세</span></div><p class="stop-desc">77 rue de Varenne의 파리 미술관과 조각정원입니다. 화–일 10:00–18:30 운영. 주요 실내·정원을 보고 오르세로 이동합니다. Carte Blanche에는 로댕 일반 입장이 포함되지 않아 €14/인 별도입니다. Paris Museum Pass 대상이며 PMP 시간 예약 불필요입니다. 예약 면제가 대기 없는 즉시 입장을 보장하지는 않습니다.</p><div class="badges"><span class="badge b-cost">€14/인 · 2인 €28</span><span class="badge b-note">월요일 휴관</span><span class="badge b-note">Carte Blanche 입장 미포함</span></div></button>
-<p><a href="https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques" target="_blank" rel="noopener noreferrer">로댕 운영·요금 (2026-09-09) ↗</a> · <a href="https://www.musee-orsay.fr/fr/vous-etes/adherents-carte-blanche/actualites-carte-blanche" target="_blank" rel="noopener noreferrer">Carte Blanche의 로댕 제휴 범위 ↗</a> · <a href="https://www.parismuseumpass.fr/en/musees/musee-rodin-paris" target="_blank" rel="noopener noreferrer">PMP 예약 불필요 안내 ↗</a></p>
+<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8553072%2C2.3158354&amp;z=16&amp;hl=ko&amp;output=embed" data-label="로댕 미술관"><div class="stop-top"><span class="time">10:00–11:30</span><span class="stop-name">로댕 미술관</span><span class="tier tier-1">꼭</span><span class="pin">상세</span></div><p class="stop-desc">77 rue de Varenne의 파리 미술관과 조각정원입니다. 화–일 10:00–18:30 운영. 주요 실내·정원을 보고 오르세로 이동합니다. Carte Blanche에는 로댕 일반 입장이 포함되지 않아 €14/인 별도입니다. 개인 자유관람은 현장 단독권 구매가 가능한 계획이며, 가이드·단체 예약과 구분합니다. PMP는 구매하지 않습니다. 예약 면제가 대기 없는 즉시 입장을 보장하지는 않습니다.</p><div class="badges"><span class="badge b-cost">€14/인 · 2인 €28</span><span class="badge b-note">월요일 휴관</span><span class="badge b-note">Carte Blanche 입장 미포함</span></div></button>
+<p><a href="https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques" target="_blank" rel="noopener noreferrer">로댕 운영·요금 (2026-09-09) ↗</a> · <a href="https://www.musee-orsay.fr/fr/vous-etes/adherents-carte-blanche/actualites-carte-blanche" target="_blank" rel="noopener noreferrer">Carte Blanche의 로댕 제휴 범위 ↗</a></p>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8553072%2C2.3158354&amp;daddr=48.8599%2C2.3266&amp;dirflg=w&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">로댕 → 오르세 · 약 15–20분 (추정), 중간 점심·휴식</span><span class="leg-cost free">무료</span></button>
 <div class="note"><b>11:45–12:45 점심·휴식, 13:00 전후 오르세 도착 목표.</b> 미술관 사이에서 가볍게 먹습니다. 점심 식당은 미정이며 관람과 별도 식비로 계산합니다.</div>
-<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8599%2C2.3266&amp;z=16&amp;hl=ko&amp;output=embed" data-label="오르세 미술관"><div class="stop-top"><span class="time">13:30–17:00</span><span class="stop-name">오르세 미술관</span><span class="tier tier-1">꼭</span><span class="pin">상세</span></div><p class="stop-desc">사용자가 확인한 일반 예매 화면을 기준으로 오후 관람을 계획합니다. 13:30은 예약 목표이지 예약 완료나 개장 시각 확정을 뜻하지 않습니다. Paris Museum Pass도 무료 시간 슬롯 예약 필수입니다(2026-03-10부터 공사 기간). 반면 Carte Blanche 일반 관람은 시간 예약 면제입니다. 실제 당일 운영 조건은 별도 확인하세요.</p><div class="badges"><span class="badge b-cost">€16/인 · 온라인 일반권</span><span class="badge b-book">PMP도 시간 예약 필수</span></div></button>
-<p><a href="https://billetterie.musee-orsay.fr/admission-to-the-musee-d-orsay-visite-css5-museeorsay-lgen-pg51-ei1100509.html" target="_blank" rel="noopener noreferrer">오르세 PMP 무료 슬롯 예약 안내 (2026-09-09) ↗</a> · <a href="https://www.musee-orangerie.fr/fr/vous-etes/adherents-carte-blanche/nous-repondons-vos-questions-orangerie" target="_blank" rel="noopener noreferrer">Carte Blanche 예약 면제 ↗</a></p>
-<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8599%2C2.3266&amp;daddr=48.8556%2C2.2986&amp;dirflg=r&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">관람 후 공원으로 이동 · 약 25–35분 (추정)</span><span class="leg-cost">€2.55/인 · 철도 기준</span></button>
-<button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8556%2C2.2986&amp;z=16&amp;hl=ko&amp;output=embed" data-label="샹드마르스 · 에펠탑"><div class="stop-top"><span class="time">17:45</span><span class="stop-name">샹드마르스 · 에펠탑</span><span class="tier tier-2">여유되면</span><span class="pin">상세</span></div><p class="stop-desc">두 미술관 뒤 체력이 남을 때만 탑 외관과 공원을 봅니다. 탑에 오르는 표는 포함하지 않습니다. 피곤하면 이 산책을 생략하고 숙소로 돌아가세요.</p><div class="badges"><span class="badge b-free">공원 산책 무료</span></div></button>
-<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556%2C2.2986&amp;daddr=48.8484866%2C2.3540618&amp;dirflg=r&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">샹드마르스 → 숙소 · 약 35–45분 (추정)</span><span class="leg-cost">€2.55/인 · 철도 기준</span></button>
-<div class="note">저녁은 숙소 쪽에서 유동적으로 먹고, 수요일 지베르니용 물·아침거리를 장봅니다. 일요일 크루즈 일정은 그대로 유지합니다.</div>
+<button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8599%2C2.3266&amp;z=16&amp;hl=ko&amp;output=embed" data-label="오르세 미술관"><div class="stop-top"><span class="time">13:30–17:00</span><span class="stop-name">오르세 미술관</span><span class="tier tier-1">꼭</span><span class="pin">상세</span></div><p class="stop-desc">청년 Carte Blanche Duo 회원권으로 오후 관람을 계획합니다. 13:30은 도착 목표이며 예약 완료나 개장 시각을 뜻하지 않습니다. Carte Blanche 일반 관람은 시간 예약 면제입니다. 회원과 동반인이 함께 유효한 회원카드를 제시하며, 보안검색·혼잡 대기는 남을 수 있습니다. 단독권이나 오르세–로댕 통합권을 중복 구매하지 않습니다.</p><div class="badges"><span class="badge b-cost">청년 Duo로 추가 €0</span><span class="badge b-note">회원카드 · 시간 예약 면제</span></div></button>
+<p><a href="https://adherents-carte-blanche.musee-orsay.fr/adhesion-carte-blanche-jeunes-1-an-carte-musee-d-orsay-paris-valable-1-an-a-partir-de-la-premiere-visite-css5-carteblanche-pg101-ri11401285.html" target="_blank" rel="noopener noreferrer">선택한 청년 Duo 공식 가입 상품 (2026-09-09) ↗</a> · <a href="https://www.musee-orangerie.fr/fr/vous-etes/adherents-carte-blanche/nous-repondons-vos-questions-orangerie" target="_blank" rel="noopener noreferrer">Carte Blanche 예약 면제 ↗</a></p>
+<button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8599%2C2.3266&amp;daddr=48.8484866%2C2.3540618&amp;dirflg=r&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">오르세 → 5구 숙소 · 당일 경로 확인</span><span class="leg-cost">€2.55/인 · 철도 기준</span></button>
+<div class="note">저녁은 숙소 쪽에서 유동적으로 먹고, 수요일 지베르니용 물·아침거리를 장봅니다. 화요일 기본 일정은 로댕·오르세이며 샹드마르스·에펠탑 방문을 끼워 넣지 않습니다. 일요일 일반 유람선은 그대로 유지합니다.</div>
   </div>
   <aside class="daily-budget" aria-labelledby="budget-title-p4"><h3 id="budget-title-p4">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/16 -->
 <section class="panel" id="p5" role="tabpanel" aria-labelledby="b5" hidden>
-  <div class="panel-head"><h2>지베르니</h2><p>예약 완료 · 종일</p></div>
+  <div class="panel-head"><h2>지베르니</h2><p>모네의 집·정원 기존 구매 · 인상주의 미술관 별도</p></div>
   <div class="day-itinerary">
   <div class="mapbox">
     <iframe loading="lazy" title="숙소 → 생라자르역 → 지베르니 → 숙소" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8772,2.3253+to:49.0754,1.5337+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe>
@@ -468,20 +468,20 @@ body.has-dialog{overflow:hidden}
   </div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8772,2.3253&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 생라자르역 · 약 30분</span><span class="leg-cost">나비고 / €2.55</span></button>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8772,2.3253&z=16&hl=ko&output=embed" data-label="생라자르역">    <div class="stop-top"><span class="time">08:30</span><span class="stop-name">생라자르역</span><span class="pin">지도</span></div>
-    <p class="stop-desc">루앙(Rouen Rive Droite) 방면 열차. 빠른 편은 45분 이내이며, 셔틀 시각표에 맞춰 열차를 고릅니다.</p>
+    <p class="stop-desc">Paris Saint-Lazare ↔ Vernon-Giverny 왕복편을 실제 날짜로 조회합니다. 출발 시각·정차역·왕복 셔틀 연결을 함께 확인한 뒤 선택하세요. 표 구매 여부는 아직 확인되지 않았습니다.</p>
     <div class="badges"><span class="badge b-cost">편도 €18/인 가정 · 왕복 2인 €72 추정</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8772,2.3253&daddr=49.0754,1.5337&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">기차 + 셔틀</span><span class="leg-meta">열차 45분 + SNGO 셔틀 15분</span><span class="leg-cost">열차 €18/인 추정 + 셔틀 왕복 €10/인</span></button>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0754,1.5337&z=16&hl=ko&output=embed" data-label="모네의 집과 정원" data-tier="1">    <div class="stop-top"><span class="time">10:30</span><span class="stop-name">모네의 집과 정원</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
-    <p class="stop-desc">매일 10:00–18:00 (마지막 입장 17:30), 11월 1일까지 개장. 수련 연못은 집 건너편입니다.</p>
-    <div class="badges"><span class="badge b-cost">€13/인 · 공개 일반가</span><span class="badge b-free">예약 완료</span></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8772,2.3253&daddr=49.0754,1.5337&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">기차 + 셔틀</span><span class="leg-meta">열차 선택편 확인 · SNGO 셔틀 약 20분</span><span class="leg-cost">열차 €18/인 추정 + 셔틀 왕복 €10/인</span></button>
+  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0754,1.5337&z=16&hl=ko&output=embed" data-label="모네의 집과 정원" data-tier="1">    <div class="stop-top"><span class="time">기존 표 시각 확인</span><span class="stop-name">모네의 집과 정원</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
+    <p class="stop-desc">매일 10:00–18:00 (마지막 입장 17:30), 11월 1일까지 개장. 집과 정원은 같은 시설의 입장권입니다. 기존 구매를 유지하고 실제 e-ticket의 날짜·입장 시각을 확인하세요. ticket.pdf는 총 €27 결제 확인서이며 상품·수량·시간·입장 코드는 없습니다.</p>
+    <div class="badges"><span class="badge b-cost">결제 확인서 €27 · 명세 확인</span><span class="badge b-note">기존 구매 유지 · 실제 표 필요</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=49.0742,1.5330&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">모네의 집 → 마을 미술관 · 5분</span><span class="leg-cost free">무료</span></button>
-  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0742,1.5330&z=16&hl=ko&output=embed" data-label="지베르니 인상주의 미술관" data-tier="2">    <div class="stop-top"><span class="time">14:00</span><span class="stop-name">지베르니 인상주의 미술관</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
-    <p class="stop-desc">현장에서 모네 하우스 통합권을 팝니다. 체력과 셔틀 시간에 따라 생략할 수 있습니다.</p>
-    <div class="badges"><span class="badge b-cost">단독권 €12/인 · 선택 방문</span></div>
+  <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0742,1.5330&z=16&hl=ko&output=embed" data-label="지베르니 인상주의 미술관" data-tier="1">    <div class="stop-top"><span class="time">14:00</span><span class="stop-name">지베르니 인상주의 미술관</span><span class="tier tier-1">방문 계획</span><span class="pin">지도</span></div>
+    <p class="stop-desc">모네의 집·정원과 다른 전시 미술관으로, 별도 단독권을 현장에서 구매하는 계획입니다. 이미 산 모네의 집을 포함한 통합권을 다시 사지 않습니다. Carte Blanche 소지자 할인 자격은 있지만 동반인 적용·실제 요금은 현장 증빙 확인 전이므로 2인 일반권 €24를 보수적으로 배정했습니다. 복귀 교통에 따라 생략하면 예산 체크를 해제하세요.</p>
+    <div class="badges"><span class="badge b-cost">현장 단독권 €12/인 · 기본 예산 포함</span></div>
   </button>
-  <div class="note danger"><b>열차를 먼저 고르지 마세요.</b> SNGO 셔틀 시각표를 먼저 확인하고, 오후 귀환 셔틀에 맞춰 마을 체류 시간을 정하세요. SNGO 공식 안내는 왕복 €10/인, 현금·카드 및 Atoumod m-Ticket입니다. <a href="https://www.sngo.fr/tarifs-prices/" target="_blank" rel="noopener noreferrer">요금·결제 출처 (2026-09-08) ↗</a></div>
+  <div class="note danger"><b>열차와 왕복 셔틀 연결을 함께 확인하세요.</b> 실제 모네 입장권 시각과 오후 귀환편을 기준으로 체류 시간을 정하세요. SNGO 공식 안내는 왕복 €10/인, 현금·카드 및 Atoumod m-Ticket입니다. <a href="https://www.sngo.fr/tarifs-prices/" target="_blank" rel="noopener noreferrer">요금·결제 출처 (2026-09-08) ↗</a></div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">셔틀 + 기차 + 지하철</span><span class="leg-meta">지베르니 → 숙소 · 약 2시간</span><span class="leg-cost">열차 €18/인 추정 + 시내 교통표</span></button>
 <div class="note"><b>오늘은 저장한 파리 식당을 억지로 연결하지 않습니다.</b> 전날 물·빵·간식을 준비하고 점심은 지베르니 현지에서 해결합니다. 복귀 열차 시각에 맞춰 저녁을 유동적으로 잡습니다.</div>
 </div>
@@ -663,7 +663,7 @@ body.has-dialog{overflow:hidden}
 <!-- 비용 -->
 <section class="panel" id="pc" role="tabpanel" aria-labelledby="b9" hidden>
   <div class="panel-head"><h2>2인 여행 예산</h2><p>입장·체험 + 식사 + 카페·간식 + 교통 + 생활 장보기 · 항공·숙박 제외</p></div>
-  <div class="note"><b>통계상 평균이 아닌, 두 사람이 실제 주문할 조합으로 잡은 계획 예산입니다.</b> 일반 성인 2인·할인/뮤지엄 패스 미사용 기준. 장소별 근거와 선택 방문·소액 쇼핑 체크는 각 날짜 맨 아래에서 확인하세요. 이미 예약한 입장권도 방문일 비용으로 포함하며, 결제 완료액을 다시 내라는 뜻이 아닙니다.</div>
+  <div class="note"><b>통계상 평균이 아닌, 두 사람이 실제 주문할 조합으로 잡은 계획 예산입니다.</b> 일반 성인 2인·청년 Carte Blanche Duo 선택·PMP 미구매 기준. 장소별 근거와 선택 방문·소액 쇼핑 체크는 각 날짜 맨 아래에서 확인하세요. 이미 예약한 입장권도 방문일 비용으로 포함하며, 결제 완료액을 다시 내라는 뜻이 아닙니다.</div>
   <table class="budget-overview">
     <thead><tr><th scope="col">날짜</th><th scope="col">2인 예상</th><th scope="col">계획 범위</th></tr></thead>
     <tbody id="budget-summary-body"></tbody>
@@ -672,166 +672,74 @@ body.has-dialog{overflow:hidden}
   <div class="note">첫째 날 RER B/택시 선택이 위 합계에도 반영됩니다. 출국일은 별도로 RER B 기준: 택시로 바꾸면 €37 추가, 사전 예약 호출료 €7은 별도입니다. <a href="https://www.service-public.gouv.fr/particuliers/actualites/A15396" target="_blank" rel="noopener noreferrer">2026 공식 택시 요금 ↗</a></div>
   <div class="note warn"><b>여행 전체 결제액은 아닙니다.</b> 항공·숙박·도시세·미확인 짐 보관료·개인 쇼핑·팁·환전/카드 수수료를 제외합니다. 열차·크루즈·식사 범위는 예산 가정이지 견적이나 상한 보장이 아닙니다. 스마트폰 또는 기존 교통카드 기준이며 새 카드 구매비도 별도입니다. 예산 갱신 2026-09-09 · 출처별 확인일은 각 날짜 상세 참고.</div>
 
-  <h3 class="sec">뮤지엄 패스 · 현재 일정 비교</h3>
-  <p>비EEA 일반 성인 2인, 할인 미적용 · 공식 요금 확인 2026-09-09. 아래는 패스로 대체할 입장료만 비교하며 여행 전체 예산이 아닙니다.</p>
+  <h3 class="sec">선택한 입장 전략 · 청년 Carte Blanche Duo</h3>
+  <div class="card">
+    <p><b>청년 Duo 1년 회원권 1개 + 나머지 단독권, PMP는 구매하지 않습니다.</b> 회원권은 아직 구매 완료가 아니라 출국 전 준비할 항목입니다. 회원과 동반인 1명이 함께 방문하며 오랑주리·오르세 일반 관람은 시간 예약 면제입니다. 보안·혼잡 대기는 남을 수 있습니다.</p>
+    <p><b>공식 실제 가입 화면: Jeunes Duo 1년 €40, 수량 1개.</b> 신규 가입 상품과 공식 영문 요금표를 교차 확인했고, 상품 선택 단계 총액 €40.00을 확인했습니다. 최종 결제 단계에는 진입하지 않았습니다. 일반 Duo 1년 €79, 청년 Duo 2년 €75와 구분합니다. €32는 별도 파트너 등 할인 자격이 필요한 가격이며 적용을 가정하지 않습니다.</p>
+    <p><a href="https://adherents-carte-blanche.musee-orsay.fr/adhesion-carte-blanche-jeunes-1-an-carte-musee-d-orsay-paris-valable-1-an-a-partir-de-la-premiere-visite-css5-carteblanche-pg101-ri11401285.html" target="_blank" rel="noopener noreferrer">실제 청년 1년 가입 상품 ↗</a> · <a href="https://www.musee-orsay.fr/en/you-are/carte-blanche-members/ticket-prices-membership-packages" target="_blank" rel="noopener noreferrer">공식 요금·자격 ↗</a> · <a href="https://www.musee-orsay.fr/en/you-are/carte-blanche-members/we-answer-your-questions" target="_blank" rel="noopener noreferrer">회원카드·예약 면제 ↗</a> · 확인 2026-09-09</p>
+  </div>
   <table>
-    <thead><tr><th scope="col">선택</th><th scope="col">2인 합계</th></tr></thead>
+    <thead><tr><th scope="col">같은 6곳의 입장료만 비교 · 2인</th><th scope="col">합계</th></tr></thead>
     <tbody>
-      <tr><td>현재 개별권</td><td class="n" data-pass-comparison="individual" data-cents="19300">€193</td></tr>
-      <tr><td>PMP 4일권 × 2</td><td class="n" data-pass-comparison="pmp" data-cents="21000">€210</td></tr>
+      <tr><td>선택: Carte Blanche Jeunes Duo + 별도권</td><td class="n" data-pass-comparison="selected" data-cents="17600">€176</td></tr>
+      <tr><td>각각 단독권으로 구매한다면</td><td class="n" data-pass-comparison="individual" data-cents="19300">€193</td></tr>
+      <tr><td>참고: PMP 4일권 × 2 (미구매)</td><td class="n" data-pass-comparison="pmp" data-cents="21000">€210</td></tr>
     </tbody>
   </table>
-  <div class="card">
-    <p><b>로댕을 추가해도 현재 개별권이 2인 €17 저렴합니다.</b> 루브르 €64 + 오랑주리 €25 + 오르세 €32 + 로댕 €28 + 생트샤펠 €44 + 들라크루아 €0 = €193. 들라크루아는 같은 날 루브르 입장권으로 연계하므로 €18을 다시 더하지 않습니다.</p>
-    <p><a href="https://www.louvre.fr/visiter/horaires-tarifs" target="_blank" rel="noopener noreferrer">루브르·들라크루아</a> · <a href="https://www.musee-orangerie.fr/fr/visite/tarifs-orangerie" target="_blank" rel="noopener noreferrer">오랑주리</a> · <a href="https://www.musee-orsay.fr/en/Visit/rates" target="_blank" rel="noopener noreferrer">오르세</a> · <a href="https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques" target="_blank" rel="noopener noreferrer">로댕</a> · <a href="https://www.sainte-chapelle.fr/en/visite/informations-pratiques" target="_blank" rel="noopener noreferrer">생트샤펠</a></p>
-    <p><b>다른 할인 대안도 있습니다.</b> 오르세+로댕 통합권 €25/인으로 두 표를 대체하면 위 합계는 €183. 한 분이 만 36세 미만이면 Carte Blanche Jeunes Duo 1년 €40으로 오르세·오랑주리를 대체해 €176입니다(회원+동반인 함께 방문, 로댕은 별도). 나이·구매 여부는 가정하지 않았습니다. <a href="https://www.musee-orsay.fr/fr/vous-etes/adherents-carte-blanche/tarifs-et-formules-dadhesion" target="_blank" rel="noopener noreferrer">Carte Blanche 요금·조건 ↗</a></p>
-    <p>오르세·오랑주리 현장 통합권 €20/인도 공식 요금표에 있으나 구매·예약 방식은 별도 확인이 필요합니다. 서로 겹치는 통합권·회원권을 함께 합산하지 않습니다. 위 대안은 기본 원장에 자동 적용되지 않습니다.</p>
-    <p><b>4일권은 96시간입니다.</b> 일요일 13:00 개시 → 목요일 13:00 만료: 목요일 10:00 생트샤펠까지 포함. 48시간권은 화요일 13:00에 만료되어 오르세 13:30과 목요일 방문을 모두 못 덮습니다. <a href="https://www.parismuseumpass.fr/en" target="_blank" rel="noopener noreferrer">공식 PMP 가격: 48시간 €85 / 96시간 €105 / 144시간 €125, 1인 ↗</a></p>
-    <p><b>오르세는 PMP로도 무료 시간 예약 필수.</b> 반면 들라크루아·로댕의 PMP 관람은 시간 예약 불필요입니다. 예약 면제와 입장료 포함은 다른 조건이며 각 날짜 카드의 공식 안내를 확인하세요.</p>
-  </div>
+  <div class="note">선택 합계 = 회원권 €40 + 루브르 €64(당일 들라크루아 포함) + 로댕 현장권 €28 + 생트샤펠 €44. 오랑주리·오르세를 다시 더하지 않습니다. 단독권 비교는 각각 €25·€32를 대신 더한 €193. 마르모탕·지베르니·진화과학박물관·크루즈·식사·교통은 이 작은 비교표 밖이며 위 일일 예산에는 각각 반영됩니다.</div>
+  <p><a href="https://www.louvre.fr/visiter/horaires-tarifs" target="_blank" rel="noopener noreferrer">루브르·들라크루아</a> · <a href="https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques" target="_blank" rel="noopener noreferrer">로댕</a> · <a href="https://www.sainte-chapelle.fr/en/visite/informations-pratiques" target="_blank" rel="noopener noreferrer">생트샤펠</a> · <a href="https://www.musee-orangerie.fr/fr/visite/tarifs-orangerie" target="_blank" rel="noopener noreferrer">오랑주리 단독권</a> · <a href="https://www.musee-orsay.fr/en/Visit/rates" target="_blank" rel="noopener noreferrer">오르세 단독권</a> · <a href="https://www.parismuseumpass.fr/en/pass" target="_blank" rel="noopener noreferrer">PMP 가격·시설당 1회</a></p>
+  <details class="budget-details"><summary>선택하지 않은 통합권·PMP 주의</summary><p>오르세–로댕 통합권은 €25/인·각 1회·3개월·시간 예약 불필요지만, 현재 청년 Duo 전략과 함께 사면 오르세가 중복됩니다. 오르세–오랑주리 €20/인 현장 통합권도 현재는 사지 않습니다(교차일 사용·예약 방식 별도 확인 필요). PMP는 시설당 1회이며 오르세 무료 시간 슬롯이 의무입니다. 96시간은 일요일 13:00 개시 시 목요일 13:00까지이지 목요일 종일이 아닙니다.</p><p><a href="https://billetterie.musee-orsay.fr/billet-jumele-musee-d-orsay-musee-rodin-expo-paris-non-datee-css5-museeorsay-pg101-ri11410733.html" target="_blank" rel="noopener noreferrer">오르세–로댕 공식 상품</a> · <a href="https://www.parismuseumpass.fr/en/reservation" target="_blank" rel="noopener noreferrer">PMP 예약 규칙</a></p></details>
 </section>
 
 <!-- 정보 -->
 <section class="panel" id="pi" role="tabpanel" aria-labelledby="b10" hidden>
-  <div class="panel-head"><h2>정보</h2><p>출국 전에 끝내야 하는 것부터</p></div>
-
-  <h3 class="sec">출국 전 체크리스트</h3>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">루브르 시간 예약</div><div class="chk-s">ticket.louvre.fr · 9/14 오전</div></div></div>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">오르세 · 오랑주리 예약</div><div class="chk-s">오르세 9/15 13:30 · 오랑주리 9/13 13:00 목표. PMP도 오르세 무료 시간 예약 필요; Carte Blanche 일반 관람은 예약 면제</div></div></div>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">생트샤펠 예약</div><div class="chk-s">tickets.monuments-nationaux.fr · 9/17 10:00 예약 목표</div></div></div>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">9/18 저녁 레스토랑</div><div class="chk-s">에펠탑 근처 · 드레스코드 확인</div></div></div>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">뮤지엄 패스 여부 결정</div><div class="chk-s">비용 탭 참고 · 지금은 개별 구매가 유리</div></div></div>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">해외원화결제(DCC) 차단</div><div class="chk-s">카드사 앱 · 두 사람 각각</div></div></div>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">트래블 카드 개설·충전</div><div class="chk-s">각자 하나씩</div></div></div>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">Navigo 월렛 등록</div><div class="chk-s">Apple Wallet · 두 사람 각각 · 메트로는 이게 없으면 못 탐</div></div></div>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">지베르니 열차 예약 여부 확인</div><div class="chk-s">SNGO 셔틀 시각표 먼저 → 맞는 열차 선택</div></div></div>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">오렌지 eSIM 설치</div><div class="chk-s">반드시 출국 전 · 설치에 인터넷 필요</div></div></div>
-  <div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div>
-    <div><div class="chk-t">구글 지도 파리 오프라인 지도</div><div class="chk-s">데이터 없어도 길찾기 가능</div></div></div>
-
-  <h3 class="sec">요일별 휴관</h3>
-  <table>
-    <tr><th>요일</th><th>닫는 곳</th></tr>
-    <tr><td>월</td><td>오르세 · 피카소 · 로댕 · 마르모탕 · 아랍세계연구소 · 카르티에 재단</td></tr>
-    <tr><td>화</td><td>루브르 · 오랑주리</td></tr>
-  </table>
-  <div class="note">이 일정은 두 휴관일을 모두 피해 짜였습니다. 순서를 바꾸실 때 이 표를 먼저 보세요.</div>
-
-  <h3 class="sec">통신</h3>
-  <div class="card">
-    <h4>오렌지 eSIM</h4>
-    <p>테더링은 됩니다. 오렌지는 프랑스 자국 통신사라 자사 망을 쓰고 속도 제한 없이 핫스팟을 허용합니다. 아이패드는 가져가셔도 됩니다.</p>
-    <p>공유한 데이터는 원래 용량에서 그대로 빠져나갑니다. 아이패드로 사진을 보정하거나 영상을 볼 계획이면 넉넉한 용량으로.</p>
-  </div>
-
-  <h3 class="sec">교통</h3>
-  <div class="card">
-    <span class="label">메트로 결제</span>
-    <p><b>해외 신용카드를 개찰구에 직접 태그할 수 없습니다.</b> 2025년 11월 5일 종이 티켓 판매가 끝났고, 컨택리스는 버스에만 단계적으로 열리는 중입니다.</p>
-    <p>아이폰이면 <b>Apple Wallet에 Navigo를 추가</b>하세요. Wallet → + → 교통카드 → "Navigo" 검색. 관광객도 됩니다. 앱 안에서 충전하고, 배터리가 꺼져도 6시간은 쓸 수 있습니다.</p>
-    <p>대안은 현지 자판기·창구에서 파는 <b>Navigo Easy 실물 카드 €2</b>입니다. 카드값이 따로 들고 줄을 서야 합니다.</p>
-  </div>
-  <div class="card">
-    <span class="label">공항 구간</span>
-    <p><b>Ticket Paris Région-Aéroports €14/인.</b> 존 1–5를 2시간 커버해서 CDG에서 RER B를 타고 시내에서 메트로로 갈아타 숙소까지 한 장으로 갑니다. 이것도 Navigo에 충전해야 합니다.</p>
-    <p>도착 직후 지친 상태로 자판기 줄을 서지 않으려면 <b>출국 전에 월렛 등록까지 끝내두세요.</b></p>
-  </div>
-  <div class="card">
-    <span class="label">택시 정액제</span>
-    <p>CDG ↔ 파리 시내는 <b>정액 요금</b>입니다. 미터기를 켜지 않고, 24시간 동일하며 야간·일요일 할증이 없습니다. 짐과 4인까지 요금에 포함됩니다.</p>
-    <table>
-      <tr><th>구간</th><th style="text-align:right">요금</th></tr>
-      <tr><td>우안 (1·2·3·4·8·9·10·11·12·16·17·18·19·20구)</td><td class="n">€56</td></tr>
-      <tr><td><b>좌안 (5·6·7·13·14·15구)</b></td><td class="n"><b>€65</b></td></tr>
-    </table>
-    <p><b>두 숙소 모두 좌안이라 €65입니다.</b> 5구 아파트도 15구 풀만도 해당됩니다. 중간에 들르면 정액이 깨지고 미터기로 넘어갑니다. 예약하면 즉시 €4 · 사전 €7이 붙습니다.</p>
-  </div>
-  <div class="card">
-    <span class="label">택시 vs 우버</span>
-    <p>파리에서 <b>택시와 우버는 법적으로 다른 업종</b>입니다. 택시는 면허 차량이라 길에서 잡거나 승강장에서 바로 타고 위 정액제가 적용됩니다. 우버는 VTC(기사 딸린 렌터카)라 앱 호출만 되고 <b>정액제가 없습니다.</b></p>
-    <p>평시 €45–70이라 비슷해 보여도 피크에는 €100을 넘습니다. <b>CDG에서 우버는 지정된 VTC 승차장까지 걸어가야 하고</b>, 택시 승강장은 나오면 바로입니다. 캐리어가 많으면 이 차이가 큽니다.</p>
-    <p>다만 <b>우버는 앱 안에서 결제가 끝나</b> 아래의 결제 단말기 조작 수법에 노출되지 않습니다. 요금 상한을 포기하는 대신 결제 리스크를 지우는 셈입니다.</p>
-  </div>
-  <div class="card">
-    <span class="label">택시 주의사항</span>
-    <p><b>말을 걸어오는 사람은 전부 무시하세요.</b> 정식 택시 기사는 호객이 법으로 금지돼 있습니다. 터미널 안에서 "택시?"라고 다가오는 사람은 무면허이고, 같은 구간을 €120–200에 받습니다. 정식 승강장은 <b>건물 밖에 있고 표지판이 있습니다.</b></p>
-    <p>정식 택시는 <b>지붕에 불 들어오는 택시 표시등</b>과 <b>보이는 곳에 면허번호</b>가 있습니다. 타기 전에 <b>"forfait, soixante-cinq euros?"</b>로 정액 €65를 확인하고, 다른 금액을 부르면 다음 차를 타세요.</p>
-    <p><b>결제 단말기 화면의 금액을 반드시 눈으로 확인하고 누르세요.</b> 2026년 상반기에 금이 간 화면이나 컨택리스 결제를 이용해 금액을 몰래 바꾸는 수법으로 80명이 68만 유로 피해를 봤습니다. 적발된 곳이 <b>에펠탑과 몽파르나스역 일대</b>라 9/18–19 풀만 근처가 정확히 그 구간입니다.</p>
-    <p>영수증(reçu)을 받아두고, 이상하면 번호판을 찍어두세요. <b>파리 택시는 카드 결제를 거부할 수 없습니다</b> — 단말기가 없거나 안 된다고 하면 위법이고 최대 €1,500 벌금 대상이라 경찰청(préfecture de police)에 신고할 수 있습니다.</p>
-  </div>
-
-  <h3 class="sec">돈</h3>
-  <div class="card">
-    <span class="label">현금</span>
-    <p>100–200유로면 충분합니다. 파리는 카드가 거의 다 됩니다. 현금은 유료 화장실, 노점, 벼룩시장, <b>지베르니 셔틀</b>에서 씁니다.</p>
-  </div>
-  <div class="card">
-    <span class="label">결제</span>
-    <p>"원화로 결제할까요?"는 항상 거절하세요. DCC는 환율이 불리합니다. 호텔 보증금 때문에 신용카드도 최소 한 장 필요하고, 아멕스만으로는 곤란합니다.</p>
-  </div>
-  <div class="card">
-    <span class="label">ATM</span>
-    <p>Euronet 같은 사설 ATM 말고 은행 ATM을 쓰세요. 수수료 차이가 큽니다.</p>
-  </div>
-
-  <h3 class="sec">입국</h3>
-  <div class="card">
-    <span class="label">ETIAS</span>
-    <p><b>아직 필요 없습니다.</b> 2026년 9월 현재 미시행(4분기 도입 예상)이라 한국 여권으로 무비자 입국합니다. 신청을 받아준다는 사이트는 사기이니 수수료를 결제하지 마세요.</p>
-  </div>
-  <div class="card">
-    <span class="label">EES</span>
-    <p>2026년 4월 10일부터 전면 시행. 첫 입국 시 <b>지문과 얼굴을 등록</b>하고 여권 스탬프는 찍지 않습니다. CDG 입국심사가 길어지니 9/12 저녁 일정에 여유를 두세요.</p>
-  </div>
-
-  <h3 class="sec">공항 · 귀국</h3>
-  <div class="card">
-    <span class="label">수하물</span>
-    <p>대한항공 국제선 일반석 <b>1인 1개 23kg</b>, 두 사람이면 총 2개. 세 변 합 158cm 이내이고 손잡이·바퀴 포함해 잽니다.</p>
-    <p>보조배터리는 위탁 불가 — 손에. 액체 100ml 초과, 에어로졸, 날 있는 면도기는 반대로 기내 반입 불가.</p>
-  </div>
-  <div class="card">
-    <span class="label">부가세 환급 (détaxe)</span>
-    <p>체크인 <b>전에</b> PABLO 키오스크에서 처리합니다. 세관이 실물을 요구할 수 있으니 환급 대상은 부치지 말고 손에 드세요.</p>
-  </div>
-  <div class="card">
-    <span class="label">면세 한도</span>
-    <p>1인당 800달러. 국내외 면세점 구매와 선물 받은 물건까지 포함하고, 부부면 각자 800달러입니다.</p>
-    <p>술은 별도로 <b>2병 · 총 2L 이하 · 400달러 이하</b> 세 조건을 모두 만족해야 면세. 초과 시 자진신고하면 세액 30%를 감면받으니 애매하면 신고하는 쪽이 이득입니다.</p>
-  </div>
-
-  <h3 class="sec">숙소</h3>
-  <div class="card">
-    <span class="label">9/12 – 9/18</span>
-    <h4>파리 5구</h4>
-    <p>26 Rue des Fossés Saint-Bernard, 75005 Paris</p>
-    <p>노트르담 도보 10분 · 마레 도보 18분 · 오스테를리츠역 도보 10분 · 아랍세계연구소 바로 옆 · 마르셰 몽주 도보 7분</p>
-  </div>
-  <div class="card">
-    <span class="label">9/18 – 9/19</span>
-    <h4>풀만 파리 투르 에펠</h4>
-    <p>18 Avenue de Suffren, 75015 Paris · +33 1 44 38 56 00</p>
-    <p>마지막 밤. 체크아웃 후 짐을 맡기고 르봉 마르셰에서 마지막 쇼핑을 합니다.</p>
-  </div>
-
-  <h3 class="sec">비상</h3>
-  <div class="card">
-    <p><b>112</b> — 유럽 공통 긴급전화 (경찰·소방·구급)</p>
-    <p>주프랑스 대한민국 대사관 영사과 긴급 연락처는 출국 전 대사관 홈페이지에서 확인해 여기에 적어두세요.</p>
-    <p>여권 사본과 항공권 사본을 클라우드에도 하나 올려두세요.</p>
-  </div>
-  <div class="note warn"><b>소매치기.</b> 지하철, 몽마르트르, 에펠탑 주변이 특히 심합니다. 배낭은 앞으로 메고 지갑은 나눠 넣으세요.</div>
-<div class="card"><h4>식사·카페는 일정의 여유에 맞춰</h4><p>정해둔 미술관 입장과 공항 출발이 우선입니다. 식사 시간은 목표이며 예약 완료를 뜻하지 않습니다. 개별 카드에서 저장 장소의 역할·우회 여부·영업 확인 수준을 확인하세요. 기본 전체 지도는 핵심 관광 동선이고, 선택 식당·카페는 카드의 지도 링크로 확인합니다.</p><p>목요일 11:30 시장은 달리그르 노천시장입니다. 13:30 종료 전에 방문합니다. 마레의 Chez Alain Miam Miam·Chez Janou·Big love, 멀리 있는 La Gare - Le Gore·RAIMO, 리스본 카페는 이번 동선에서 제외했습니다.</p></div>
+  <div class="panel-head"><h2>정보 · 출국 전 준비</h2><p>청년 Carte Blanche Duo 사용 · PMP 미구매 · 확인 2026-09-09</p></div>
+<div class="note"><b>선택과 완료는 다릅니다.</b> 아래 체크는 이 브라우저의 임시 표시이며 실제 예약·결제나 Notion 동기화를 수행하지 않습니다. 모네 기존 구매와 Orange eSIM 구매 기록은 유지하고, 실제 표·설치 완료는 따로 확인합니다.</div>
+<div class="card"><p><a href="docs/predeparture-checklist.md" target="_blank" rel="noopener noreferrer">전체 일정 준비 목록·공식 근거 ↗</a></p><p><a href="docs/notion-sync-handoff.md" target="_blank" rel="noopener noreferrer">내일 Notion 인증 후 반영할 작업 지침 ↗</a></p><p>이번 Notion 수정은 Auth required로 저장되지 않았습니다. 문서는 반영할 내용을 준비한 것이지 동기화 완료 보고가 아닙니다.</p></div>
+<h3 class="sec">한국에서 먼저 준비</h3>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">Carte Blanche Jeunes Duo 1년 구매·회원카드 발급</div><div class="chk-s">회원 명의자 만36세 미만 확인, 얼굴 사진·연령 증빙 준비. 수량1개 €40 선택 → 실제 디지털 회원카드가 열리는지 확인. 아직 구매 완료 아님.</div></div></div>
+<p><a href="https://adherents-carte-blanche.musee-orsay.fr/adhesion-carte-blanche-jeunes-1-an-carte-musee-d-orsay-paris-valable-1-an-a-partir-de-la-premiere-visite-css5-carteblanche-pg101-ri11401285.html" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">루브르 9/14 09:00 시간 지정권</div><div class="chk-s">비EEA 일반 성인2인. 실제 예약 확정 메일·입장권을 받아야 완료입니다. 당일 들라크루아 연계에 사용할 표도 보관합니다.</div></div></div>
+<p><a href="https://ticket.louvre.fr/en" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">마르모탕 9/13 15:30 온라인 단독권</div><div class="chk-s">개인 사전 예약은 필수 아님. 계획 시각과 매표 대기를 줄이기 위해 온라인 선택 권장. 공개 온라인 €14.50×2; 최종액·잔여석 확인.</div></div></div>
+<p><a href="https://billetterie.marmottan.fr/" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">생트샤펠 9/17 10:00 시간 지정권</div><div class="chk-s">Carte Blanche 미포함. 단독권 €22×2 기준으로 예약하고 실제 표의 입장 시각·보안 규칙을 확인합니다.</div></div></div>
+<p><a href="https://www.sainte-chapelle.fr/en/visite/informations-pratiques" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">기존 모네 입장권 PDF·QR 확보</div><div class="chk-s">재구매하지 않습니다. ticket.pdf는 총 €27 결제 확인서로 상품·수량·입장 시각·입장 코드가 없습니다. 실제 e-ticket을 별도로 준비합니다.</div></div></div>
+<p><a href="https://claudemonetgiverny.fr/informations-pratiques/" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">9/16 지베르니 열차와 왕복 셔틀 연결</div><div class="chk-s">Paris Saint-Lazare ↔ Vernon-Giverny 왕복편을 실제 날짜로 조회. 기존 모네 입장권 시각과 SNGO 귀환편을 함께 확인합니다. 운임 €72/2인은 추정이지 확정 예약가가 아닙니다.</div></div></div>
+<p><a href="https://www.sncf-connect.com/train/trajet/paris/vernon" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">SNGO 시간표·귀환 정류장 저장</div><div class="chk-s">왕복 €10/인 공개 요금, 차량 내 현금·카드 안내. 표 구매가 좌석/열차 환승 보장은 아닙니다.</div></div></div>
+<p><a href="https://www.sngo.fr/la-navette-shuttle/" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">일요일 일반 유람선 표·운항표 확인</div><div class="chk-s">Bateaux Parisiens 식사 없는 일반 관광 유람선 9/13 21:00 목표. Dinner Cruise나 월요일로 바꾸지 않습니다. 표의 날짜·시간 고정 여부와 당일 운항을 확인하세요.</div></div></div>
+<p><a href="https://www.bateauxparisiens.com/en/faq.html" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">식당 예약 시도·확정 기록</div><div class="chk-s">Le Florentin 일12:00, Bouillon Racine 월18:30, Le Café du Commerce 금20:00 목표. 식당 확정 회신을 받은 경우에만 예약 완료로 기록합니다.</div></div></div>
+<p><a href="https://www.bouillonracine.fr/en/" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">항공사·편명·터미널·수하물 확인</div><div class="chk-s">실제 항공권에서 운항사를 확인하세요. 항공사 미확인 상태에서 체크인 마감·수하물 개수·배터리 제한을 단정하지 않습니다.</div></div></div>
+<p><a href="https://www.parisaeroport.fr/en/passengers/flights" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">여권·입국 증빙과 EU 최신 공지</div><div class="chk-s">여권/항공권 영문명·유효기간, 귀국편·숙소 증빙 확인. ETIAS는 현재 신청을 받지 않으며 EES는 국경 등록 절차입니다. 출국 직전 공식 안내 재확인.</div></div></div>
+<p><a href="https://travel-europe.europa.eu/en/etias" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">RER B 공사와 도착 택시 대안</div><div class="chk-s">9/12–13 중앙 Gare du Nord ↔ Denfert-Rochereau 종일 운휴. CDG→생미셸 직결 불가. 공항 북부 22:45 이후 운휴는 별도입니다. 공식 승강장 택시 1대 €65를 대안으로 준비.</div></div></div>
+<p><a href="https://www.ratp.fr/decouvrir/coulisses/modernisation-du-reseau/rer-b-travaux" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">각자 교통 매체·휴대폰 호환성 확인</div><div class="chk-s">각자 호환 휴대폰/IDFM 앱 또는 각자 Navigo Easy로 검표. Apple Wallet 필수가 아닙니다. 공항표·시내표의 동시 충전 제한도 확인합니다.</div></div></div>
+<p><a href="https://www.iledefrance-mobilites.fr/en/titres-et-tarifs/supports/telephone" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">이미 구매한 Orange eSIM 설치 조건 확인</div><div class="chk-s">상품명·기종·잠금 해제·설치/개통 시점을 주문 안내와 대조. 안정적 Wi-Fi에서 준비하며, 문제 해결을 위해 기존 프로필을 임의로 삭제하거나 재구매하지 않습니다.</div></div></div>
+<p><a href="https://support.travel.orange.com/hc/en-us/articles/16258658423325-When-should-I-buy-install-and-activate-my-eSIM" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">입장권·주소·지도·예약 메일 오프라인 저장</div><div class="chk-s">휴대폰과 안전한 백업에 저장합니다. 지도 다운로드만으로 오프라인 도보/대중교통 길찾기까지 보장하지 않습니다.</div></div></div>
+<p><a href="https://support.google.com/maps/answer/6291838" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">숙소 출입·풀만 짐 보관 서면 확인</div><div class="chk-s">5구 숙소 출입 방법, 9/18 체크아웃·이동, 9/18 풀만 체크인 전/9/19 체크아웃 후 짐 보관을 확인. 출국 전 호텔 짐 회수 순서는 유지합니다.</div></div></div>
+<p><a href="https://www.pullmanparistoureiffel.fr/en/faq/" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">카드사 설정·현지 결제 준비</div><div class="chk-s">각자 해외결제·온라인 본인 인증·한도·앱 알림을 확인하고 DCC 설정을 점검합니다. 실제 카드·호텔 보증금 조건은 발급사/예약 내역으로 확인.</div></div></div>
+<p>확인 경로: 실제 카드사의 공식 앱·홈페이지와 호텔 예약 안내</p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">국내 공항버스 4200 실제 승차편 확인</div><div class="chk-s">승차 정류장·예약 앱·출발 날짜·터미널을 운영 안내와 대조. 출국·귀국 표를 구분하고 현장 승차로 충분하다고 단정하지 않습니다.</div></div></div>
+<p><a href="https://www.airport.kr/" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<div class="chk" tabindex="0" role="checkbox" aria-checked="false"><div class="box"></div><div><div class="chk-t">귀국 쇼핑 détaxe·식품 신고 확인</div><div class="chk-s">면세 전표·실물 제시 순서를 확인하고 한국 반입·검역 조건은 실제 품목별로 확인. 버터 등 특정 식품의 반입 가능 여부를 일반화하지 않습니다.</div></div></div>
+<p><a href="https://www.douane.gouv.fr/en/fiche/tax-exemption-france-tourists-pablo" target="_blank" rel="noopener noreferrer">공식 확인 경로 ↗</a></p>
+<h3 class="sec">시간 예약 없이 준비하거나 현장에서 결정</h3>
+<div class="card"><h4>오랑주리·오르세</h4><p>유효한 청년 Duo 회원카드로 함께 일반 관람: 각각 일13:00·화13:30 도착 목표. 별도 일반 입장권·시간 슬롯을 만들지 않습니다. 우선 동선은 보안검색·대기 0분 보장이 아닙니다.</p></div>
+<div class="card"><h4>들라크루아·로댕·지베르니 인상주의 미술관</h4><p>들라크루아는 루브르 당일권 연계 €0이며 선택 무료 예약으로 입장을 보장할 수 있다는 약관을 확인합니다. 로댕은 별도 단독권이 필요하지만 개인 자유관람 사전 시간 예약 의무와는 다릅니다. 지베르니 인상주의 미술관은 현장 구매 계획, 회원 할인은 명의자/동반인 각각 증빙 확인 후 적용합니다.</p></div>
+<div class="card"><h4>추가 확인</h4><p>진화과학박물관 목15:00 방문이 확정되면 공식 시간 지정권을 확인합니다. 옥동식 파리의 대기·주문 마감·가격, Fer à Cheval 매장 영업, 월요일 식후 젤라토 야간 영업은 미확인입니다. 확인 전 예약 완료·운영 확정으로 표시하지 않습니다.</p></div>
+<div class="note warn"><b>구매하지 않을 것:</b> PMP, 오르세·오랑주리 단독권, 오르세–로댕 통합권, 기존 모네 표를 중복 포함하는 통합권. 에펠탑 등반도 현재 일정에 없습니다. 회원권 발급이 실패하면 그때 대안을 다시 비교합니다.</div>
 </section>
 
 <footer>파리 · 9월 12–19일 · 2인</footer>
@@ -1154,7 +1062,7 @@ body.has-dialog{overflow:hidden}
 </script>
 <script type="application/json" id="daily-budget-data">
 {
-  "people": 2, "currency": "EUR", "checked_on": "2026-09-09",
+  "people": 2, "currency": "EUR", "checked_on": "2026-09-09", "admission_plan": "carte-blanche-jeunes-duo",
   "sources": {
     "airport": {
       "name": "IDFM · 공항표 2026",
@@ -1208,8 +1116,8 @@ body.has-dialog{overflow:hidden}
     },
     "impressionisms": {
       "name": "지베르니 인상주의 미술관 · 일반 요금",
-      "url": "https://www.mdig.fr/visiteur/",
-      "checked_on": "2026-09-08"
+      "url": "https://www.mdig.fr/tarifs/",
+      "checked_on": "2026-09-09"
     },
     "shuttle": {
       "name": "SNGO · 왕복 요금/현금·카드 안내",
@@ -1305,27 +1213,48 @@ body.has-dialog{overflow:hidden}
       "name": "지역 관광청 · 젤라토 안내 (당일 영업 확인 필요)",
       "url": "https://www.visitparisregion.com/en/il-gelato-del-marchese",
       "checked_on": "2026-09-09"
+    },
+    "carte-blanche": {
+      "name": "Carte Blanche Jeunes Duo 1년 · 실제 공식 가입 상품",
+      "url": "https://adherents-carte-blanche.musee-orsay.fr/adhesion-carte-blanche-jeunes-1-an-carte-musee-d-orsay-paris-valable-1-an-a-partir-de-la-premiere-visite-css5-carteblanche-pg101-ri11401285.html",
+      "checked_on": "2026-09-09"
+    },
+    "carte-blanche-rates": {
+      "name": "Carte Blanche · 공식 요금·청년/동반인 조건",
+      "url": "https://www.musee-orsay.fr/en/you-are/carte-blanche-members/ticket-prices-membership-packages",
+      "checked_on": "2026-09-09"
+    },
+    "carte-blanche-access": {
+      "name": "Carte Blanche · 일반 관람 예약 면제·회원카드",
+      "url": "https://www.musee-orsay.fr/en/you-are/carte-blanche-members/we-answer-your-questions",
+      "checked_on": "2026-09-09"
+    },
+    "marmottan-online": {
+      "name": "마르모탕 · 공식 온라인 단독권 판매 화면",
+      "url": "https://billetterie.marmottan.fr/",
+      "checked_on": "2026-09-09"
     }
   },
   "days": {
     "p1": {"date": "9/12 토", "note": "프랑스 도착 후 지출만 계산. 아침·점심은 기내 식사로 별도 합산하지 않습니다. 장보기에는 다음 날 숙소 아침이 포함됩니다.", "items": [
-      {"id": "arrival", "name": "CDG → 5구 숙소", "category": "교통", "cents": 2800, "range": [2800, 2800], "status": "verified", "basis": "RER B 공항표 €14 × 2인. 호환 스마트폰 또는 기존 교통카드 사용 기준; 새 카드 구입비 제외.", "place": "CDG → 5구 숙소", "sources": ["airport"], "taxi_cents": 6500, "taxi_sources": ["taxi"], "taxi_basis": "공식 승강장 택시 1대 €65, CDG → 파리 좌안 직행·2인. 예약 호출료와 VTC는 제외."},
+      {"id": "arrival", "name": "CDG → 5구 숙소", "category": "교통", "cents": 2800, "range": [2800, 2800], "status": "verified", "basis": "RER B 공항표 €14 × 2인. 호환 스마트폰 또는 기존 교통카드 사용 기준; 새 카드 구입비 제외. 9/12–13 RER B 중앙 구간 운휴로 평시 생미셸 직결 불가. 이 금액은 대체 경로·표 적용 확인 전 철도 비교 기준액이며 도착일 공식 택시 대안을 권장.", "place": "CDG → 5구 숙소", "sources": ["airport"], "taxi_cents": 6500, "taxi_sources": ["taxi"], "taxi_basis": "공식 승강장 택시 1대 €65, CDG → 파리 좌안 직행·2인. 예약 호출료와 VTC는 제외."},
       {"id": "arrival-grocery", "name": "앵테르마르셰 · 물·아침거리", "category": "장보기", "cents": 1800, "range": [1200, 2500], "status": "estimate", "basis": "생수 €3 + 빵 €4 + 과일·요거트 €7 + 간식 €4의 장바구니 추정. 9/13 아침을 다시 더하지 않음.", "place": "앵테르마르셰 익스프레스"},
       {"id": "mouffetard", "name": "무프타르 거리 · 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7 × 2인 추정. 지정 식당·예약 미확정; 늦으면 숙소 근처 식사로 대체. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "place": "무프타르 거리", "meal": "dinner", "sources": ["florentin", "commerce"]},
       {"id": "tournelle", "name": "생루이섬 · 투르넬 다리", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "야외 산책·구경만 €0. 별도 유료 시설·구매는 포함하지 않습니다.", "place": "생루이섬 · 투르넬 다리"}
     ]},
-    "p2": {"date": "9/13 일", "note": "마르모탕은 단독권으로 계산: €27 통합권과 수요일 모네의 집을 이중 합산하지 않습니다. 크루즈는 저녁 식사 없는 일반 유람선입니다.", "items": [
+    "p2": {"date": "9/13 일", "note": "청년 Carte Blanche Duo 1개를 첫 이용일인 오늘에 €40 한 번 배정합니다(구매 완료 아님). 오랑주리 추가 입장료 €0, 마르모탕 온라인 단독권 €29. 식사 없는 일요일 일반 유람선은 기존대로 유지.", "items": [
       {"id": "sunday-breakfast", "name": "숙소 아침 (전날 장보기)", "category": "식사", "cents": 0, "range": [0, 0], "status": "estimate", "basis": "9/12 장보기 €18에 포함한 빵·과일·요거트. 오늘 추가 지출 €0.", "meal": "breakfast"},
       {"id": "notre-dame", "name": "노트르담", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "성당 미사 참석 €0. 탑·유료 투어는 포함하지 않음.", "place": "노트르담"},
       {"id": "florentin", "name": "Le Florentin · 점심", "category": "식사", "cents": 6400, "range": [5600, 7200], "status": "estimate", "basis": "공식 연결 메뉴의 메인 €21–26 + 와인 €7–10를 각 2개: €56–72. 빠른 점심 기준 중심값 €64; 전채·디저트 제외. 전체 코스 평균으로 부르지 않음.", "place": "Le Florentin", "meal": "lunch", "sources": ["florentin"]},
-      {"id": "orangerie", "name": "오랑주리", "category": "입장·체험", "cents": 2500, "range": [2500, 2500], "status": "verified", "basis": "온라인 일반권 €12.50 × 2인. 개별권 기준; 패스/통합권을 추가로 더하지 않음.", "place": "오랑주리", "sources": ["orangerie"]},
-      {"id": "marmottan", "name": "마르모탕 모네 · 단독권", "category": "입장·체험", "cents": 2800, "range": [2800, 2800], "status": "verified", "basis": "현장 일반 단독권 €14 × 2인. €27/인은 지베르니 모네의 집까지 포함하는 통합권.", "place": "마르모탕 모네", "sources": ["marmottan"]},
+      {"id": "carte-blanche-jeunes-duo", "name": "Carte Blanche Jeunes Duo · 1년(회원+동반인)", "category": "입장·체험", "cents": 4000, "range": [4000, 4000], "status": "verified", "purchase_status": "planned", "basis": "실제 공식 신규 가입 상품의 Jeunes Duo 1년 €40, 수량1개(회원+동반인1명). 2배하지 않음. 회원은 만36세 미만이며 함께 입장. 아직 구매 완료 아님. 한국에서 준비할 비용을 첫 이용일인 일요일에 한 번 배정; 오르세·오랑주리 단독권을 다시 더하지 않음. 최종 결제 수수료·개인 자격은 구매 화면에서 확인.", "sources": ["carte-blanche", "carte-blanche-rates", "carte-blanche-access"]},
+      {"id": "orangerie", "name": "오랑주리", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "verified", "basis": "유효한 Carte Blanche Jeunes Duo 회원과 동반인 동행을 전제로 추가 입장료 €0. 보편적 무료 아님. 회원권은 p2에 한 번 반영. 일반 관람 시간 예약 면제; 실제 회원카드 필요. 단독권·통합권 중복 구매하지 않음.", "place": "오랑주리", "sources": ["orangerie", "carte-blanche", "carte-blanche-access"], "standalone_cents": 2500},
+      {"id": "marmottan", "name": "마르모탕 모네 · 단독권", "category": "입장·체험", "cents": 2900, "range": [2900, 2900], "status": "verified", "basis": "공식 온라인 판매 화면 일반 단독권 €14.50×2=€29(2026-09-09 확인). 15:30 목표의 시간 선택 권장이지 개인 사전 예약 의무는 아님. 현장 일반권은 €14×2=€28. Carte Blanche 미포함. 이미 산 모네의 집을 포함하는 통합권을 중복 구매하지 않음.", "place": "마르모탕 모네", "sources": ["marmottan", "marmottan-online"]},
       {"id": "sunday-coffee", "name": "미술관 주변 커피", "category": "카페·간식", "cents": 1000, "range": [800, 1400], "status": "estimate", "basis": "커피 €5 × 2잔 추정. 디저트 별도. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
       {"id": "sunday-dinner", "name": "에펠 선착장 주변 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7를 각 2개로 잡은 계획 추정. 식당 미정; 코스·와인병 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
       {"id": "cruise", "name": "바토 파리지앵 · 일반 유람선", "category": "입장·체험", "cents": 4000, "range": [3400, 4600], "status": "estimate", "basis": "식사 없는 약 1시간 유람선 €20 × 2인 예산 가정. 공식 페이지에서 9/13 결제 운임을 확보하지 못해 미확인 추정; 예약가로 교체.", "place": "바토 파리지앵", "sources": ["cruise"]},
       {"id": "sunday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1530, "range": [1530, 1530], "status": "estimate", "basis": "€2.55 × 3회 × 2인. 오랑주리→마르모탕→선착장→숙소의 세 이동을 메트로/RER로 잡은 기준안. 버스 이용 시 별도 표.", "sources": ["metro"]}
     ]},
-    "p3": {"date": "9/14 월", "note": "루브르 당일권 연계로 들라크루아 추가 입장료는 €0. 옥동식 점심·Bouillon Racine 저녁·식후 젤라토를 포함합니다. Fer à Cheval 방문은 유지하되 비누 구매만 선택 추가. 사마리텐 제외, 크루즈는 기존 일요일 유지.", "items": [
+    "p3": {"date": "9/14 월", "note": "루브르 당일권 연계로 들라크루아 추가 입장료는 €0. 옥동식 점심·Bouillon Racine 저녁·식후 젤라토를 포함합니다. Fer à Cheval 방문은 유지하되 비누 구매만 선택 추가. 사마리텐은 시간 남을 때만 선택, 기본 예산 밖, 크루즈는 기존 일요일 유지.", "items": [
       {"id": "monday-breakfast", "name": "숙소 근처 아침·커피", "category": "식사", "cents": 1600, "range": [1200, 2200], "status": "estimate", "basis": "빵·간단한 음식 €4 + 커피 €4를 각 2개로 잡은 계획 추정. 호텔 조식 뷔페 아님. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "breakfast", "sources": ["florentin", "commerce"]},
       {"id": "louvre", "name": "루브르", "category": "입장·체험", "cents": 6400, "range": [6400, 6400], "status": "verified", "basis": "EEA 국적·거주가 아닌 일반 성인 €32 × 2인. 오디오 가이드 별도.", "place": "루브르", "sources": ["louvre"]},
       {"id": "okdongsik", "name": "옥동식 파리 · 점심", "category": "식사", "cents": 5000, "range": [4000, 6400], "status": "estimate", "basis": "곰탕 2인 식사에 음료/추가 메뉴 여유를 포함한 €50 계획 가정. 공식 파리점 주소·영업시간만 확인했고 파리 메뉴 단가·예약 방식·주문 마감은 미확인. 실제 주문액으로 교체하며 히구마를 추가 합산하지 않음.", "place": "옥동식 파리", "meal": "lunch", "sources": ["okdongsik"]},
@@ -1337,25 +1266,24 @@ body.has-dialog{overflow:hidden}
       {"id": "gelato", "name": "Il Gelato del Marchese", "category": "카페·간식", "cents": 1600, "range": [1000, 2000], "status": "estimate", "basis": "저녁 뒤 젤라토 2개에 €16 계획 추정(범위 €10–20), 최신 공식 메뉴 가격 미확인. 당일 저녁 영업 확인 후 방문하며 생략하면 체크 해제. Fer à Cheval 방문과 택일하지 않음.", "place": "Il Gelato del Marchese", "optional": true, "included": true, "sources": ["gelato-hours"]},
       {"id": "monday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 510, "range": [510, 510], "status": "estimate", "basis": "€2.55 × 1회 × 2인. 숙소→루브르 1회. 이후 도보 동선 기준.", "sources": ["metro"]}
     ]},
-    "p4": {"date": "9/15 화", "note": "로댕 오전·오르세 오후의 개별 일반권 기준. Carte Blanche 구매를 가정하지 않으며 로댕은 별도 요금입니다. Les Deux Magots 아침을 중복 합산하지 않고, 다음 날 아침·간식은 저녁 장보기에만 반영합니다.", "items": [
+    "p4": {"date": "9/15 화", "note": "로댕·오르세 중심, 샹드마르스 방문 제외. 오르세는 청년 Duo로 추가 €0이며 회원권은 일요일에 한 번 배정. 로댕 현장 단독권 €28 별도. 아침/점심/저녁과 수요일 아침용 장보기는 각각 한 번만 계산.", "items": [
       {"id": "deux-magots", "name": "Les Deux Magots · 아침·커피", "category": "식사", "cents": 2800, "range": [2000, 4600], "status": "estimate", "basis": "공식 조식 Classique €14 × 2 = €28 (따뜻한 음료·페이스트리·타르틴). 간단한 커피+크루아상은 €20/2인, Complet 2세트는 €46. 일반 아침을 중복 합산하지 않음.", "place": "Les Deux Magots", "meal": "breakfast", "sources": ["deux-magots"]},
       {"id": "rodin", "name": "로댕 미술관 · 파리", "category": "입장·체험", "cents": 2800, "range": [2800, 2800], "status": "verified", "basis": "일반권 €14×2=€28. Carte Blanche는 로댕 일반 입장을 포함하지 않으며 제휴는 별도 개방 행사·로댕 회원권 할인입니다. Paris Museum Pass 대상 여부와 구분. 오르세+로댕 통합권 €25/인은 별도 대안이고 현재 개별권 위에 더하지 않음.", "place": "로댕 미술관", "sources": ["rodin", "carte-blanche-partners"]},
       {"id": "orsay-lunch", "name": "로댕·오르세 사이 점심", "category": "식사", "cents": 4400, "range": [3400, 5600], "status": "estimate", "basis": "관람 사이 메인/간편식 €17 + 음료 €5를 각2개로 가정한 2인€44 추정. 매장·메뉴 미정이며 13:30 오르세 방문 전에 먹음.", "meal": "lunch", "sources": ["florentin", "commerce"]},
-      {"id": "orsay", "name": "오르세 미술관", "category": "입장·체험", "cents": 3200, "range": [3200, 3200], "status": "verified", "basis": "온라인 일반권 €16 × 2인. 오랑주리와 별도 구매 기준; 통합권은 추가하지 않음.", "place": "오르세 미술관", "sources": ["orsay"]},
-      {"id": "champ-de-mars", "name": "샹드마르스 · 에펠탑", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "공원·탑 외관만 €0. 에펠탑 입장권은 구매하지 않는 일정.", "place": "샹드마르스 · 에펠탑"},
+      {"id": "orsay", "name": "오르세 미술관", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "verified", "basis": "유효한 Carte Blanche Jeunes Duo 회원과 동반인 동행을 전제로 추가 입장료 €0. 보편적 무료 아님. 회원권은 p2에 한 번 반영. 일반 관람 시간 예약 면제; 실제 회원카드 필요. 단독권·통합권 중복 구매하지 않음.", "place": "오르세 미술관", "sources": ["orsay", "carte-blanche", "carte-blanche-access"], "standalone_cents": 3200},
       {"id": "tuesday-coffee", "name": "미술관 주변 커피·간식", "category": "카페·간식", "cents": 1400, "range": [1000, 2000], "status": "estimate", "basis": "커피 €5 × 2 + 간식 나눠 먹기 €4 추정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
       {"id": "tuesday-dinner", "name": "숙소 주변 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7를 각 2개로 잡은 계획 추정. 식당 미정; 코스·와인병 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
-      {"id": "tuesday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1020, "range": [1020, 1020], "status": "estimate", "basis": "€2.55 ×2회 ×2인. 오르세→샹드마르스→숙소의 철도 이동 기준. 숙소→아침→로댕→오르세는 도보. 공원 산책을 생략하면 실제 교통 지출은 달라질 수 있음.", "sources": ["metro"]},
+      {"id": "tuesday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 510, "range": [510, 510], "status": "estimate", "basis": "€2.55×1회×2인=€5.10. 숙소→Les Deux Magots→로댕→오르세는 도보, 오르세→숙소만 철도 1회로 잡은 기준안. 다른 교통 이용 시 실제 지출로 교체.", "sources": ["metro"]},
       {"id": "train-grocery", "name": "숙소 근처 장보기 · 기차용", "category": "장보기", "cents": 1200, "range": [800, 1600], "status": "estimate", "basis": "물 €2 + 빵 €4 + 과일/간식 €6 추정. 다음 날 아침·이동 간식 비용을 여기서 한 번만 계산."}
     ]},
-    "p5": {"date": "9/16 수", "note": "예약 완료된 모네의 집도 방문일 비용으로 포함(추가 결제 요구 아님). 실결제액 미제공으로 공개 단독 일반권 기준. 열차는 선택편 견적 미확인입니다.", "items": [
+    "p5": {"date": "9/16 수", "note": "기존 모네 구매를 유지하고 결제 확인서 총 €27을 잠정 배정합니다(실제 e-ticket 명세 필요). 인상주의 미술관은 별도 방문 계획으로 €24 기본 포함. 열차·셔틀은 별도이며 왕복 연결 확인 필요.", "items": [
       {"id": "wednesday-breakfast", "name": "기차용 아침 (전날 장보기)", "category": "식사", "cents": 0, "range": [0, 0], "status": "estimate", "basis": "9/15 장보기 €12에 포함. 아침·물·기차 간식 비용을 다시 더하지 않음.", "meal": "breakfast"},
       {"id": "normandy-train", "name": "생라자르 ↔ Vernon 열차", "category": "교통", "cents": 7200, "range": [4800, 10000], "status": "estimate", "basis": "편도 €18 × 왕복 2회 × 2인으로 잡은 추정. 9/16 선택편 실운임 미확인; 가격 범위는 편도 €12–25 가정, 견적이나 상한 보장 아님.", "place": "생라자르역", "sources": ["train"]},
       {"id": "giverny-shuttle", "name": "Vernon ↔ Giverny 셔틀", "category": "교통", "cents": 2000, "range": [2000, 2000], "status": "verified", "basis": "SNGO 왕복 €10 × 2인. 별도 관광 꼬마열차가 아닌 셔틀버스 기준. 현금·카드 및 Atoumod m-Ticket 안내.", "sources": ["shuttle"]},
-      {"id": "monet", "name": "모네의 집과 정원", "category": "입장·체험", "cents": 2600, "range": [2600, 2600], "status": "verified", "basis": "공개 개인 일반권 €13 × 2인으로 배정. 온라인 수수료·실결제액은 예약 내역 확인; 구매한 표를 재구매하지 않음.", "place": "모네의 집과 정원", "sources": ["monet"]},
+      {"id": "monet", "name": "모네의 집과 정원", "category": "입장·체험", "cents": 2700, "range": [2700, 2700], "status": "estimate", "basis": "ticket.pdf에서 확인한 지베르니 판매처 결제 총액 €27을 이 주문의 잠정 배정액으로 반영. 문서에는 상품·수량·방문 시각이 없어 2인 입장권 명세 확인이 필요함. 공개 현장 일반가 €13×2=€26과 구분. 이미 낸 비용이며 재구매하지 않음.", "place": "모네의 집과 정원", "sources": ["monet"]},
       {"id": "giverny-lunch", "name": "지베르니 현지 점심", "category": "식사", "cents": 5600, "range": [4400, 7200], "status": "estimate", "basis": "메인 €22 + 음료 €6를 각 2개로 가정. 관광지 식당 추정; 메뉴 미정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "lunch", "sources": ["florentin", "commerce"]},
       {"id": "giverny-coffee", "name": "지베르니 커피", "category": "카페·간식", "cents": 1000, "range": [800, 1400], "status": "estimate", "basis": "커피 €5 × 2잔 추정. 전날 산 간식은 다시 더하지 않음. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
-      {"id": "impressionisms", "name": "지베르니 인상주의 미술관", "category": "입장·체험", "cents": 2400, "range": [2400, 2400], "status": "verified", "basis": "일반 단독권 €12 × 2인. 이미 예약한 모네의 집과 별도 계산; 통합권 €25 × 2를 추가 구매하지 않음.", "place": "지베르니 인상주의 미술관", "sources": ["impressionisms"], "optional": true, "included": false},
+      {"id": "impressionisms", "name": "지베르니 인상주의 미술관", "category": "입장·체험", "cents": 2400, "range": [2400, 2400], "status": "verified", "basis": "모네의 집·정원과 별도 시설. 현장 일반 단독권 €12×2=€24로 보수 배정하며 방문 계획에 포함. Carte Blanche 소지자의 할인 자격은 있으나 동반인 적용·증빙을 확인하기 전에는 감액하지 않음. 기존 모네 표를 다시 포함한 통합권은 구매하지 않음; 생략 시 체크 해제.", "place": "지베르니 인상주의 미술관", "sources": ["impressionisms"], "optional": true, "included": true},
       {"id": "wednesday-dinner", "name": "파리 복귀 후 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7를 각 2개로 잡은 계획 추정. 식당 미정; 코스·와인병 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
       {"id": "wednesday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1020, "range": [1020, 1020], "status": "estimate", "basis": "€2.55 × 2회 × 2인. 숙소↔생라자르 왕복. 노르망디 열차·셔틀 요금과 별개.", "sources": ["metro"]}
     ]},
