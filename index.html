@@ -65,6 +65,23 @@ h1.title{font-size:24px;font-weight:700;letter-spacing:-.02em;margin:0 0 12px}
 .tab[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
 .tab:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 
+
+/* arrival route tabs */
+.arrival-switch{padding:10px 12px;border-bottom:1px solid var(--border);background:var(--bg)}
+.arrival-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.arrival-tab{flex:1 1 160px;appearance:none;border:1px solid var(--border);border-radius:10px;
+  background:var(--surface);color:var(--text-2);font:inherit;font-size:13px;font-weight:700;
+  cursor:pointer;padding:8px 10px;text-align:left;transition:background .12s ease,color .12s ease,border-color .12s ease}
+.arrival-tab small{display:block;font-size:11.5px;font-weight:600;color:var(--text-3);line-height:1.35;margin-top:2px}
+.arrival-tab[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.arrival-tab[aria-selected="true"] small{color:rgba(255,255,255,.82)}
+.arrival-tab:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.arrival-route-panel{font-size:12.5px;color:var(--text-2)}
+.arrival-route-panel[hidden]{display:none}
+.arrival-route-panel p{margin:0}
+.arrival-route-panel a{color:var(--brand);font-weight:650;text-decoration:none}
+.arrival-route-panel a:hover{text-decoration:underline}
+
 /* panels */
 .panel{padding-top:20px}
 .panel[hidden]{display:none}
@@ -168,6 +185,32 @@ th{font-size:12px;font-weight:600;color:var(--text-3);background:var(--surface)}
 tr:last-child td{border-bottom:none}
 td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
 tfoot td{background:var(--surface);font-weight:700;color:var(--text)}
+
+/* daily budgets: one ledger supplies cards, daily totals and the cost overview */
+.daily-budget{margin-top:28px;padding:18px;border:1px solid var(--border-strong);border-radius:var(--radius);background:var(--surface);scroll-margin-top:72px}
+.daily-budget h3{margin:0 0 12px;font-size:16px}
+.budget-headline{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;color:var(--text-2);font-size:13px}
+.budget-headline strong{font-size:28px;line-height:1.3;color:var(--brand);font-variant-numeric:tabular-nums}
+.budget-caption,.budget-exclusions{font-size:12px;color:var(--text-2);margin:10px 0}
+.budget-exclusions{border-top:1px solid var(--border);padding-top:12px;margin-bottom:0}
+.budget-categories{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.budget-details{margin-top:14px;border-top:1px solid var(--border);padding-top:12px}
+.budget-details summary{cursor:pointer;font-size:13px;font-weight:650;color:var(--brand);padding:5px 0}
+.budget-details summary:focus-visible,.budget-day-link:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.budget-items{list-style:none;margin:10px 0 0;padding:0}
+.budget-item{padding:13px 0;border-top:1px solid var(--border)}
+.budget-item-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;font-size:13px}
+.budget-item-label{display:flex;align-items:flex-start;gap:7px;min-width:0}
+label.budget-item-label{cursor:pointer}
+.budget-item input{accent-color:var(--brand);width:17px;height:17px;flex-shrink:0;margin:2px 0 0}
+.budget-amount{white-space:nowrap;font-variant-numeric:tabular-nums}
+.budget-basis,.budget-source{margin:5px 0 0;font-size:12px;color:var(--text-2);overflow-wrap:anywhere}
+.budget-source{display:flex;gap:4px 8px;flex-wrap:wrap}
+.budget-source a{color:var(--brand)}
+.budget-item.is-excluded .budget-amount{color:var(--text-2);font-weight:400}
+.place-budget{white-space:normal}
+.budget-day-link{font:inherit;color:var(--brand);background:none;border:0;padding:0;cursor:pointer;font-weight:650}
+@media(max-width:420px){.daily-budget{padding:14px}.budget-item-head{flex-wrap:wrap}.budget-amount{margin-left:auto}.budget-overview th,.budget-overview td{padding:10px 6px;font-size:12px}}
 
 /* checklist */
 .chk{display:flex;gap:11px;align-items:flex-start;cursor:pointer;
@@ -273,15 +316,28 @@ body.has-dialog{overflow:hidden}
 
 <!-- 9/12 -->
 <div class="filterbar"><button type="button" class="fbtn" id="onlyKey" aria-pressed="false">꼭 가볼 곳만</button><span style="font-size:12.5px;color:var(--text-3)">나머지는 접힙니다</span></div>
-<section class="panel" id="p1" role="tabpanel" aria-labelledby="b1">
+<section class="panel" id="p1" role="tabpanel" aria-labelledby="b1" data-arrival-mode="rer">
   <div class="panel-head"><h2>도착</h2><p>숙소 · 파리 5구 (26 Rue des Fossés Saint-Bernard)</p></div>
+  <div class="day-itinerary">
   <div class="mapbox">
-    <iframe loading="lazy" title="CDG → 숙소 → 마트 → 무프타르 → 투르넬 다리 → 숙소" src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618+to:48.8480,2.3536+to:48.8433,2.3495+to:48.8507,2.3555+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe>
-    <div class="mapbar"><span>CDG → 숙소 → 마트 → 무프타르 → 투르넬 다리 → 숙소</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
+    <div class="arrival-switch" aria-label="CDG에서 숙소까지 이동 방법">
+      <div class="arrival-tabs" role="tablist" aria-label="CDG에서 숙소까지 이동 방법">
+        <button type="button" class="arrival-tab" role="tab" id="arrival-rer-tab" aria-controls="arrival-rer-panel" aria-selected="true" data-arrival-mode="rer" data-src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="CDG → 5구 숙소 · RER B">RER B<small>€28/2인 · 생미셸 하차 후 도보</small></button>
+        <button type="button" class="arrival-tab" role="tab" id="arrival-taxi-tab" aria-controls="arrival-taxi-panel" aria-selected="false" data-arrival-mode="taxi" data-src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618&dirflg=d&hl=ko&output=embed" data-label="CDG → 5구 숙소 · 택시">택시<small>€65 정액/2인 · 공식 승강장</small></button>
+      </div>
+      <div id="arrival-rer-panel" class="arrival-route-panel" role="tabpanel" aria-labelledby="arrival-rer-tab">
+        <p><b>실제 기준:</b> CDG의 RER B 역에서 파리 방면 탑승 → <b>Saint-Michel–Notre-Dame</b> 하차 → 숙소까지 도보. Google 지도는 RER B 노선을 강제 고정하지 못합니다; 아래 지도는 당일 대중교통 제안 확인용입니다.</p>
+      </div>
+      <div id="arrival-taxi-panel" class="arrival-route-panel" role="tabpanel" aria-labelledby="arrival-taxi-tab" hidden>
+        <p><b>실제 기준:</b> 터미널 안내를 따라 공식 Taxi Parisien 승강장에서 탑승해 숙소 주소를 보여주세요. 앱 호출/VTC가 아니라 승강장 택시 기준 정액입니다.</p>
+      </div>
+    </div>
+    <iframe loading="lazy" title="CDG → 5구 숙소 · RER B" src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe>
+    <div class="mapbar"><span>CDG → 5구 숙소 · RER B</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>선택 경로</button><button type="button" class="maplink" data-day-overview data-src="https://maps.google.com/maps?saddr=49.0097,2.5479&amp;daddr=48.8484866,2.3540618+to:48.8480,2.3536+to:48.8433,2.3495+to:48.8507,2.3555+to:48.8484866,2.3540618&amp;dirflg=r&amp;hl=ko&amp;output=embed">이 날 전체</button></div></div>
   </div>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?saddr=49.0097,2.5479&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="CDG → 5구 숙소">    <div class="stop-top"><span class="time">18:30</span><span class="stop-name">CDG → 5구 숙소</span><span class="pin">지도</span></div>
     <p class="stop-desc">18:30은 CDG 항공편 도착 예정 시각입니다. 입국심사·짐 찾기 후 RER B 파리 방면으로 Saint-Michel–Notre-Dame까지 이동하고 숙소(26 Rue des Fossés Saint-Bernard)까지 걷는 안입니다. Gare de l’Est는 이 경로의 목적지나 필수 환승역이 아닙니다. 도착 터미널의 RER 안내와 당일 운행을 확인하세요. 짐이 많으면 공식 택시 승강장에서 숙소로 바로 이동하는 것도 대안입니다. 숙소 도착 시각은 입국·교통 상황에 따라 달라집니다.</p>
-    <div class="badges"><span class="badge b-cost">택시 정액 €65 (2인)</span><span class="badge b-note">RER B 대안 €14/인</span><span class="badge b-note">도착 터미널 확인 필요</span></div>
+    <div class="badges"><span class="badge b-cost">택시 정액 €65 (2인)</span><span class="badge b-note">RER B €14/인</span><span class="badge b-note">운임 확인 2026-09-08</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8480,2.3536&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">2분 · 같은 길</span><span class="leg-cost free">무료</span></button>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8480,2.3536&z=16&hl=ko&output=embed" data-label="앵테르마르셰 익스프레스" data-tier="2">    <div class="stop-top"><span class="time">20:00</span><span class="stop-name">앵테르마르셰 익스프레스</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
@@ -299,14 +355,17 @@ body.has-dialog{overflow:hidden}
     <div class="badges"><span class="badge b-free">무료</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8507,2.3555&daddr=48.8484866,2.3540618&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">8분 · 숙소 복귀</span><span class="leg-cost free">무료</span></button>
-  <div class="note">공항 카드의 상세 → 지도에서 보기를 누르면 CDG에서 실제 숙소 좌표로 가는 대중교통 경로를 엽니다. 공항 좌표는 대표 지점이므로 Google Maps에서 실제 도착 터미널·출발 시각을 확인하세요. 전체 지도는 개략 동선이고, 시내 도보 구간은 각 경로 버튼에서 확인합니다.</div>
+  <div class="note">상단 탭은 CDG에서 실제 숙소 좌표까지의 RER B/택시 경로만 바꿉니다. RER B 공항표는 <a href="https://www.iledefrance-mobilites.fr/titres-et-tarifs/detail/ticket-paris-region-aeroports" target="_blank" rel="noopener noreferrer">Île-de-France Mobilités</a> 기준 €14/인, CDG→파리 좌안 택시는 <a href="https://www.service-public.gouv.fr/particuliers/actualites/A15396" target="_blank" rel="noopener noreferrer">Service-Public.fr</a> 기준 €65 정액입니다(확인 2026-09-08). 공항 좌표는 대표 지점이므로 Google Maps에서 실제 도착 터미널·출발 시각을 확인하세요. 시내 도보 구간은 각 경로 버튼에서 확인합니다.</div>
   <div class="note warn">파리 마트는 표기 시간보다 20~30분 일찍 정리를 시작한다는 후기가 많습니다. 21시 30분에 가겠다는 계산은 위험합니다.</div>
 <div class="note"><b>생활 장보기는 숙소 근처에서 작게.</b> 앵테르마르셰(36 Rue des Fossés Saint-Bernard)는 토요일 밤 물·일요일 숙소 예배 전 아침거리, 화요일 밤 지베르니 간식 보충용입니다. 공식 주간표는 월–토 08:00–22:00, 일 09:00–22:00이나 첫날은 비행 지연을 감안해 도착 후 영업을 확인하세요. <a href="https://www.intermarche.com/magasins/09037/Paris-75005/infos-pratiques" target="_blank" rel="noopener noreferrer">매장 안내 ↗</a></div>
+</div>
+<aside class="daily-budget" aria-labelledby="budget-title-p1"><h3 id="budget-title-p1">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/13 -->
 <section class="panel" id="p2" role="tabpanel" aria-labelledby="b2" hidden>
   <div class="panel-head"><h2>예배와 모네의 하루</h2><p>노트르담 → 오랑주리 → 마르모탕 → 크루즈</p></div>
+  <div class="day-itinerary">
   <div class="mapbox"><iframe loading="lazy" title="노트르담 → 오랑주리 → 마르모탕 → 크루즈" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8530,2.3499+to:48.8638,2.3227+to:48.8593,2.2672+to:48.8604,2.2936+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>노트르담 → 오랑주리 → 마르모탕 → 크루즈</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
   <div class="stop" data-tier="1">
     <div class="stop-top"><span class="time">07:00–08:30</span><span class="stop-name">숙소 · 한국 교회 라이브 예배</span><span class="tier tier-1">꼭</span></div>
@@ -329,7 +388,7 @@ body.has-dialog{overflow:hidden}
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8638,2.3227&daddr=48.8593,2.2672&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">14:15 출발 · 환승·도보 포함 45–60분 여유 (추정)</span><span class="leg-cost">교통표 별도</span></button>
   <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8593,2.2672&z=16&hl=ko&output=embed" data-label="마르모탕 모네">    <div class="stop-top"><span class="time">15:30–17:00</span><span class="stop-name">마르모탕 모네</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
     <p class="stop-desc">모네의 작품과 인상, 해돋이를 볼 수 있는 16구 미술관. 화–일 10:00–18:00, 마지막 입장 17:00. 예약은 필수가 아닙니다.</p>
-    <div class="badges"><span class="badge b-cost">€27/인 (통합권 기준)</span><span class="badge b-note">공식 확인 완료</span></div>
+    <div class="badges"><span class="badge b-cost">€14/인 · 단독권</span><span class="badge b-note">공식 확인 완료</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8593,2.2672&daddr=48.8604,2.2936&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">관람 후 에펠 선착장 주변 이동 · 약 40–50분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
 <div class="note">18:00–20:15 선착장 근처에서 저녁·휴식. 저장 식당을 위해 먼 우회를 하지 않고 당일 근처에서 고릅니다. 샹드마르스 본 방문은 화요일입니다.</div>
@@ -339,11 +398,14 @@ body.has-dialog{overflow:hidden}
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8604,2.2936&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">크루즈 후 숙소 복귀 · 약 35–45분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
 <div class="note warn">미사 입장·종료 시각과 미술관 예약 가능 시간은 보장되지 않습니다. 두 미술관 예약을 확인한 뒤 확정하세요. 월요일 마르모탕·화요일 오랑주리 휴관 때문에 일요일에 묶었습니다.</div>
+</div>
+<aside class="daily-budget" aria-labelledby="budget-title-p2"><h3 id="budget-title-p2">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/14 -->
 <section class="panel" id="p3" role="tabpanel" aria-labelledby="b3" hidden>
   <div class="panel-head"><h2>루브르와 사마리텐·강변</h2><p>루브르 → 점심 → 사마리텐 → 퐁뇌프</p></div>
+  <div class="day-itinerary">
   <div class="mapbox"><iframe loading="lazy" title="루브르 → 점심 → 사마리텐 → 퐁뇌프" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8606,2.3376+to:48.8592564,2.3424255+to:48.8572,2.3413+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>루브르 → 점심 → 사마리텐 → 퐁뇌프</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8606,2.3376&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">숙소 → 루브르 · 약 20–30분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
   <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8606,2.3376&z=16&hl=ko&output=embed" data-label="루브르">    <div class="stop-top"><span class="time">09:00–13:00</span><span class="stop-name">루브르</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
@@ -360,17 +422,20 @@ body.has-dialog{overflow:hidden}
 <div class="note">팔레 루아얄·카르티에·라파예트는 일정에서 제외했습니다.</div>
 <div class="card" data-dining="Fer à Cheval"><span class="label">사마리텐 후 선택 · 기념품 · 쇼핑 우회 후보</span><h4>Fer à Cheval</h4><p>저장한 77 Rue de la Verrerie 매장 핀 기준 비누·생활용품 후보. 사마리텐에서 마레 쪽으로 15–20분 정도 추가 이동하는 선택지이며, 퐁뇌프 직행 산책과 둘 중 하나만 고릅니다. 영업 확인 없이는 필수 일정으로 잡지 않습니다.</p><p>공유 Commercial 목록의 위치 확인. 매장 최신 영업시간·취급 재고 미확인 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.8583549%2C2.3516334" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://maps.app.goo.gl/uUTQR4Tohot6Ltw6A" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
 <div class="card" data-dining="Il Gelato del Marchese"><span class="label">17:00 전후 선택 · 젤라토 · 숙소 복귀 전</span><h4>Il Gelato del Marchese</h4><p>퐁뇌프에서 오데옹 쪽으로 돌아갈 체력이 있으면 젤라토 하나. Fer à Cheval 우회를 택했다면 여기까지 모두 돌지 않습니다. 커피보다 디저트가 당기는 날의 대안입니다.</p><p>관광청 안내: 매일 12:00–24:00. 당일 변경 가능 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.85159%2C2.3380824" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://www.visitparisregion.com/en/il-gelato-del-marchese" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
+</div>
+<aside class="daily-budget" aria-labelledby="budget-title-p3"><h3 id="budget-title-p3">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/15 -->
 <section class="panel" id="p4" role="tabpanel" aria-labelledby="b4" hidden>
   <div class="panel-head"><h2>오르세와 에펠탑 주변 공원</h2><p>오르세 → 점심 → 샹드마르스</p></div>
+  <div class="day-itinerary">
   <div class="mapbox"><iframe loading="lazy" title="오르세 → 점심 → 샹드마르스" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8599,2.3266+to:48.8556,2.2986+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>오르세 → 점심 → 샹드마르스</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
 <div class="card" data-dining="Les Deux Magots"><span class="label">08:30–09:00 선택 · 아침·커피</span><h4>Les Deux Magots</h4><p>숙소에서 생제르맹을 거쳐 오르세로 가는 아침 경유. 대기가 없을 때 커피·가벼운 아침만 먹고 09:00에 출발합니다. 오르세 10시 예약이 우선이며 늦으면 숙소 아침으로 대체합니다.</p><p>공식: 매일 07:30–01:00 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.854052%2C2.3331062" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://lesdeuxmagots.fr/reserver/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8599,2.3266&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">숙소 → 오르세 · 대중교통 약 25–35분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
   <button type="button" class="stop" data-tier="1" data-src="https://maps.google.com/maps?q=48.8599,2.3266&z=16&hl=ko&output=embed" data-label="오르세 미술관">    <div class="stop-top"><span class="time">10:00–13:30</span><span class="stop-name">오르세 미술관</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
     <p class="stop-desc">5층 인상주의부터 역순으로 내려오면 덜 지칩니다. 화요일 오전 관람. 10:00 예약 목표로 잡고 당일 운영시간은 공식 사이트에서 다시 확인합니다.</p>
-    <div class="badges"><span class="badge b-cost">€18/인</span><span class="badge b-book">예약 필수</span></div>
+    <div class="badges"><span class="badge b-cost">€16/인 · 온라인</span><span class="badge b-book">예약 필수</span></div>
   </button>
 <div class="note">13:30–14:30 점심·휴식. 오후는 추가 미술관 없이 공원 산책으로 마무리합니다.</div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8599,2.3266&daddr=48.8556,2.2986&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">오르세 → 샹드마르스 · 약 30분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
@@ -381,11 +446,14 @@ body.has-dialog{overflow:hidden}
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556,2.2986&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">샹드마르스 → 숙소 · 약 35–45분 (추정)</span><span class="leg-cost">교통표 별도</span></button>
 <div class="note">라 로슈는 제외했습니다. 다음 날 지베르니에 대비해 저녁은 유동적으로 잡습니다.</div>
 <div class="note"><b>점심은 이동을 줄입니다.</b> 오르세 관람 후 박물관 카페 또는 샹드마르스 방향에서 가볍게 해결합니다. 저장한 식당을 넣으려고 마레·몽파르나스까지 돌아가지 않습니다. 수요일 기차용 물·아침거리는 오늘 숙소 복귀 때 미리 삽니다.</div>
+</div>
+<aside class="daily-budget" aria-labelledby="budget-title-p4"><h3 id="budget-title-p4">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/16 -->
 <section class="panel" id="p5" role="tabpanel" aria-labelledby="b5" hidden>
   <div class="panel-head"><h2>지베르니</h2><p>예약 완료 · 종일</p></div>
+  <div class="day-itinerary">
   <div class="mapbox">
     <iframe loading="lazy" title="숙소 → 생라자르역 → 지베르니 → 숙소" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8772,2.3253+to:49.0754,1.5337+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe>
     <div class="mapbar"><span>숙소 → 생라자르역 → 지베르니 → 숙소</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div>
@@ -393,31 +461,34 @@ body.has-dialog{overflow:hidden}
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8772,2.3253&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">지하철</span><span class="leg-meta">숙소 → 생라자르역 · 약 30분</span><span class="leg-cost">나비고 / €2.55</span></button>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8772,2.3253&z=16&hl=ko&output=embed" data-label="생라자르역">    <div class="stop-top"><span class="time">08:30</span><span class="stop-name">생라자르역</span><span class="pin">지도</span></div>
     <p class="stop-desc">루앙(Rouen Rive Droite) 방면 열차. 빠른 편은 45분 이내이며, 셔틀 시각표에 맞춰 열차를 고릅니다.</p>
-    <div class="badges"><span class="badge b-cost">편도 약 €15/인 · 왕복 2인 €60</span></div>
+    <div class="badges"><span class="badge b-cost">편도 €18/인 가정 · 왕복 2인 €72 추정</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8772,2.3253&daddr=49.0754,1.5337&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">기차 + 셔틀</span><span class="leg-meta">열차 45분 + SNGO 셔틀 15분</span><span class="leg-cost">€15/인 + 셔틀 €8</span></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8772,2.3253&daddr=49.0754,1.5337&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">기차 + 셔틀</span><span class="leg-meta">열차 45분 + SNGO 셔틀 15분</span><span class="leg-cost">열차 €18/인 추정 + 셔틀 왕복 €10/인</span></button>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0754,1.5337&z=16&hl=ko&output=embed" data-label="모네의 집과 정원" data-tier="1">    <div class="stop-top"><span class="time">10:30</span><span class="stop-name">모네의 집과 정원</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
     <p class="stop-desc">매일 10:00–18:00 (마지막 입장 17:30), 11월 1일까지 개장. 수련 연못은 집 건너편입니다.</p>
-    <div class="badges"><span class="badge b-cost">€12/인</span><span class="badge b-free">예약 완료</span></div>
+    <div class="badges"><span class="badge b-cost">€13/인 · 공개 일반가</span><span class="badge b-free">예약 완료</span></div>
   </button>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=49.0742,1.5330&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">모네의 집 → 마을 미술관 · 5분</span><span class="leg-cost free">무료</span></button>
   <button type="button" class="stop" data-src="https://maps.google.com/maps?q=49.0742,1.5330&z=16&hl=ko&output=embed" data-label="지베르니 인상주의 미술관" data-tier="2">    <div class="stop-top"><span class="time">14:00</span><span class="stop-name">지베르니 인상주의 미술관</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
     <p class="stop-desc">현장에서 모네 하우스 통합권을 팝니다. 체력과 셔틀 시간에 따라 생략할 수 있습니다.</p>
-    <div class="badges"><span class="badge b-cost">통합권 €25/인</span></div>
+    <div class="badges"><span class="badge b-cost">단독권 €12/인 · 선택 방문</span></div>
   </button>
-  <div class="note danger"><b>열차를 먼저 고르지 마세요.</b> SNGO 셔틀 시각표를 먼저 확인하고, 오후 귀환 셔틀에 맞춰 마을 체류 시간을 정하세요. 셔틀 요금은 기사에게 현금으로만 냅니다.</div>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">셔틀 + 기차 + 지하철</span><span class="leg-meta">지베르니 → 숙소 · 약 2시간</span><span class="leg-cost">€15/인 + 나비고</span></button>
+  <div class="note danger"><b>열차를 먼저 고르지 마세요.</b> SNGO 셔틀 시각표를 먼저 확인하고, 오후 귀환 셔틀에 맞춰 마을 체류 시간을 정하세요. SNGO 공식 안내는 왕복 €10/인, 현금·카드 및 Atoumod m-Ticket입니다. <a href="https://www.sngo.fr/tarifs-prices/" target="_blank" rel="noopener noreferrer">요금·결제 출처 (2026-09-08) ↗</a></div>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=49.0754,1.5337&daddr=48.8484866,2.3540618&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">셔틀 + 기차 + 지하철</span><span class="leg-meta">지베르니 → 숙소 · 약 2시간</span><span class="leg-cost">열차 €18/인 추정 + 시내 교통표</span></button>
 <div class="note"><b>오늘은 저장한 파리 식당을 억지로 연결하지 않습니다.</b> 전날 물·빵·간식을 준비하고 점심은 지베르니 현지에서 해결합니다. 복귀 열차 시각에 맞춰 저녁을 유동적으로 잡습니다.</div>
+</div>
+<aside class="daily-budget" aria-labelledby="budget-title-p5"><h3 id="budget-title-p5">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/17 -->
 <section class="panel" id="p6" role="tabpanel" aria-labelledby="b6" hidden>
 <div class="panel-head"><h2>오전 시장에서 오후 자연사까지</h2><p>목요일 · 생트샤펠 → 달리그르 → 쿨레 베르트 → 박물관·식물원</p></div>
-<div class="mapbox"><iframe loading="lazy" title="숙소 → 생트샤펠 → 달리그르 → 쿨레 베르트 → 진화과학박물관 → 식물원 → 숙소" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8554,2.3450+to:48.8500,2.3790+to:48.8495,2.3715+to:48.8417,2.3559+to:48.8435,2.3600+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>숙소 → 생트샤펠 → 달리그르 → 쿨레 베르트 → 진화과학박물관 → 식물원 → 숙소</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+<div class="day-itinerary">
+  <div class="mapbox"><iframe loading="lazy" title="숙소 → 생트샤펠 → 달리그르 → 쿨레 베르트 → 진화과학박물관 → 식물원 → 숙소" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8554,2.3450+to:48.8500,2.3790+to:48.8495,2.3715+to:48.8417,2.3559+to:48.8435,2.3600+to:48.8484866,2.3540618&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>숙소 → 생트샤펠 → 달리그르 → 쿨레 베르트 → 진화과학박물관 → 식물원 → 숙소</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8554,2.3450&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">09:00 전후 출발 · 09:30 보안 대기 목표</span><span class="leg-cost">무료</span></button>
 <button type="button" class="stop" data-src="https://maps.google.com/maps?q=48.8554,2.3450&z=16&hl=ko&output=embed" data-label="생트샤펠" data-tier="1">    <div class="stop-top"><span class="time">10:00–10:45</span><span class="stop-name">생트샤펠</span><span class="tier tier-1">꼭</span><span class="pin">지도</span></div>
     <p class="stop-desc">시테섬의 스테인드글라스. 예약 시간을 잡아두고 보안 줄까지 감안해 30분 일찍 도착하세요.</p>
-    <div class="badges"><span class="badge b-cost">€20/인</span><span class="badge b-book">예약 필수</span></div>
+    <div class="badges"><span class="badge b-cost">€22/인 · 비EEA</span><span class="badge b-book">예약 필수</span></div>
   </button>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8554,2.3450&daddr=48.8500,2.3790&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">10:45 전후 출발 · 이동 약 30–45분 여유 (추정)</span><span class="leg-cost">교통표 별도</span></button>
 <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8500,2.3790&z=16&hl=ko&output=embed" data-label="마르셰 달리그르">    <div class="stop-top"><span class="time">11:30–12:30</span><span class="stop-name">달리그르 노천시장 · 보보 실내시장</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
@@ -433,7 +504,7 @@ body.has-dialog{overflow:hidden}
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8495,2.3715&daddr=48.8417,2.3559&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">14:15 출발 · 박물관까지 도보 약 30–40분 (추정)</span><span class="leg-cost">무료</span></button>
 <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8417,2.3559&z=16&hl=ko&output=embed" data-label="진화과학 박물관">    <div class="stop-top"><span class="time">15:00–17:00</span><span class="stop-name">진화과학 박물관</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
     <p class="stop-desc">Jardin des Plantes 안의 Grande Galerie de l'Évolution. 화요일을 제외하고 10:00–18:00 운영, 입장료는 공식 사이트에서 확인하세요.</p>
-    <div class="badges"><span class="badge b-cost">€10–16/인</span><span class="badge b-note">자연사·동물 표본</span></div>
+    <div class="badges"><span class="badge b-cost">€13/인 · 상설전</span><span class="badge b-note">자연사·동물 표본</span></div>
   </button>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8417,2.3559&daddr=48.8435,2.3600&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">박물관 → 야외 식물원 · 약 5분</span><span class="leg-cost">무료</span></button>
 <button type="button" class="stop" data-tier="2" data-src="https://maps.google.com/maps?q=48.8435,2.3600&z=16&hl=ko&output=embed" data-label="파리 식물원">    <div class="stop-top"><span class="time">17:00–18:00</span><span class="stop-name">파리 식물원</span><span class="tier tier-2">여유되면</span><span class="pin">지도</span></div>
@@ -445,11 +516,14 @@ body.has-dialog{overflow:hidden}
 <div class="note">생트샤펠은 9/17 10:00 예약 목표. 일요일 13:00 개시 4일권(96시간)은 목요일 13:00까지라 포함됩니다. 48시간권은 범위 밖입니다.</div>
 <div class="note"><b>저녁은 숙소 쪽에서 유동적으로.</b> 12구로 다시 돌아가는 Septime La Cave·Le Quincy 저녁 후보는 이번 목요일에서 제외했습니다. 저장 스팟 목록에는 그대로 남아 있습니다.</div>
 <p><a href="https://www.paris.fr/lieux/marche-d-aligre-5481" target="_blank" rel="noopener noreferrer">달리그르 노천시장 운영 ↗</a> · <a href="https://www.paris.fr/lieux/marche-couvert-beauvau-5480" target="_blank" rel="noopener noreferrer">보보 실내시장 운영 ↗</a></p>
+</div>
+<aside class="daily-budget" aria-labelledby="budget-title-p6"><h3 id="budget-title-p6">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/18 -->
 <section class="panel" id="p7" role="tabpanel" aria-labelledby="b7" hidden>
   <div class="panel-head"><h2>짐을 맡기고 몽소로</h2><p>금요일 · 11:00 체크아웃 후 풀만부터 방문</p></div>
+  <div class="day-itinerary">
   <div class="mapbox"><iframe loading="lazy" title="숙소 체크아웃 → 풀만 짐 보관 → 몽소 → 풀만 → 트로카데로" src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8556,2.2929+to:48.8797,2.3090+to:48.8556,2.2929+to:48.8628,2.2876+to:48.846418,2.2954771+to:48.8556,2.2929&dirflg=r&hl=ko&output=embed"></iframe><div class="mapbar"><span>숙소 체크아웃 → 풀만 짐 보관 → 몽소 → 풀만 → 트로카데로</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
   <div class="stop"><div class="stop-top"><span class="time">11:00</span><span class="stop-name">5구 숙소 체크아웃</span></div><p class="stop-desc">11시까지 짐 정리와 체크아웃을 마치고 풀만 파리 투르 에펠로 바로 이동합니다.</p></div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8556,2.2929&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">차량·대중교통</span><span class="leg-meta">짐과 함께 호텔 이동 · 약 40–60분 여유 (추정)</span><span class="leg-cost">교통비 별도</span></button>
@@ -472,15 +546,18 @@ body.has-dialog{overflow:hidden}
     <p class="stop-desc">에펠탑을 정면에서 보는 저녁 산책. 어두워지면 매 정각 반짝임을 봅니다.</p>
     <div class="badges"><span class="badge b-free">무료</span><span class="badge b-note">소매치기 주의</span></div>
   </button>
-  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8628,2.2876&daddr=48.846418,2.2954771&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">트로카데로 → Le Café du Commerce · 대중교통 30–40분 여유 (추정)</span><span class="leg-cost free">무료</span></button>
+  <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8628,2.2876&daddr=48.846418,2.2954771&dirflg=r&hl=ko&output=embed" data-label="경로"><span class="leg-mode">대중교통</span><span class="leg-meta">트로카데로 → Le Café du Commerce · 대중교통 30–40분 여유 (추정)</span><span class="leg-cost">€2.55/인 · 철도 기준</span></button>
 <div class="card" data-dining="Le Café du Commerce"><span class="label">20:00 목표 · 마지막 밤 저녁 · 예약 권장</span><h4>Le Café du Commerce</h4><p>트로카데로에서 에펠탑을 본 뒤 이동하는 15구 브라세리. 카페로 저장한 곳이 아니라 제대로 저녁을 먹는 곳입니다. 트로카데로에서 대중교통·택시 포함 30–40분 여유를 두고, 식사 후 풀만으로 돌아옵니다.</p><p>공식: 매일 11:30–23:00 연속 영업. 실제 예약은 미완료 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.846418%2C2.2954771" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://www.lecafeducommerce.com/infos-pratiques/" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
   <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.846418,2.2954771&daddr=48.8556,2.2929&dirflg=w&hl=ko&output=embed" data-label="경로"><span class="leg-mode">도보</span><span class="leg-meta">Le Café du Commerce → 풀만 · 도보 약 20분 (추정)</span><span class="leg-cost free">무료</span></button>
+</div>
+<aside class="daily-budget" aria-labelledby="budget-title-p7"><h3 id="budget-title-p7">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- 9/19 -->
 <section class="panel" id="p8" role="tabpanel" aria-labelledby="b8" hidden>
 <div class="panel-head"><h2>쇼핑과 보르디에, 그리고 귀국</h2><p>토요일 · 짐은 호텔에 · 20:35 CDG 출발</p></div>
-<div class="mapbox"><iframe loading="lazy" title="풀만 → 르봉 마르셰·라 그랑드 에피스리 → 풀만 짐 회수 → CDG" src="https://maps.google.com/maps?saddr=48.8556%2C2.2929&amp;daddr=48.851204%2C2.324485+to%3A38+Rue+de+S%C3%A8vres%2C+75007+Paris+to%3A48.8556%2C2.2929+to%3A49.0097%2C2.5479&amp;dirflg=r&amp;hl=ko&amp;output=embed"></iframe><div class="mapbar"><span>풀만 → 르봉 마르셰·라 그랑드 에피스리 → 풀만 짐 회수 → CDG</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
+<div class="day-itinerary">
+  <div class="mapbox"><iframe loading="lazy" title="풀만 → 르봉 마르셰·라 그랑드 에피스리 → 풀만 짐 회수 → CDG" src="https://maps.google.com/maps?saddr=48.8556%2C2.2929&amp;daddr=48.851204%2C2.324485+to%3A38+Rue+de+S%C3%A8vres%2C+75007+Paris+to%3A48.8556%2C2.2929+to%3A49.0097%2C2.5479&amp;dirflg=r&amp;hl=ko&amp;output=embed"></iframe><div class="mapbar"><span>풀만 → 르봉 마르셰·라 그랑드 에피스리 → 풀만 짐 회수 → CDG</span><div class="map-actions"><a class="maplink" data-open-map target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a><button type="button" class="maplink" data-reset>이 날 전체</button></div></div></div>
 <div class="card"><h4>09:00 전후 · 체크아웃·짐 보관</h4><p>아침을 먹고 풀만에서 조기 체크아웃 후 큰 짐을 맡깁니다. 체크아웃 당일 보관 가능 여부·비용은 미리 확인합니다.</p></div>
 <button type="button" class="leg" data-src="https://maps.google.com/maps?saddr=48.8556%2C2.2929&amp;daddr=48.851204%2C2.324485&amp;dirflg=r&amp;hl=ko&amp;output=embed" data-label="경로"><span class="leg-mode">차량·대중교통</span><span class="leg-meta">09:15 출발 · 10:00 매장 도착 목표, 30–45분 여유 (추정)</span><span class="leg-cost">교통비 별도</span></button>
 <div class="card" data-dining="르봉 마르셰 백화점"><span class="label">10:00–11:15 · 쇼핑 우선 일정</span><h4>르봉 마르셰 백화점</h4><p>저장한 백화점에서 의류·생활용품 등 비식품 쇼핑부터 합니다. 보르디에 버터 목적지는 옆 라 그랑드 에피스리입니다. 라 로슈·케 브랑리는 이번 귀국일에서 제외하고 쇼핑 시간을 확보합니다.</p><p>공식: 토요일 10:00 개장 · 확인 2026-09-07</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=48.851204%2C2.324485" target="_blank" rel="noopener noreferrer">Google Maps에서 열기 ↗</a> · <a href="https://www.lebonmarche.com/fr/lbm_page_contact.html" target="_blank" rel="noopener noreferrer">영업·안내 출처 ↗</a></p></div>
@@ -493,6 +570,8 @@ body.has-dialog{overflow:hidden}
 <div class="card"><h4>16:00–17:00 목표 · CDG 도착</h4><p>20:35 출발. 항공사 체크인 마감과 교통 상황을 확인합니다. 면세 환급이 있으면 물건을 보여줄 수 있게 두고 수하물을 부치기 전에 처리합니다.</p></div>
 <div class="note warn"><b>버터는 냉장 운송과 검역을 먼저 확인.</b> 당일 구매만으로 밤 비행·한국 도착까지 안전한 보냉이 보장되지는 않습니다. 버터 등 유제품의 한국 반입 가능 조건·검역 신고, 기내 반입과 냉매 규정은 관계 기관·항공사에 확인하세요. 호텔 냉장고·냉동고 이용이나 공항 보안 통과를 보장하지 않습니다. <a href="https://www.airport.kr/ap_ko/913/subview.do" target="_blank" rel="noopener noreferrer">입국 검역 안내 ↗</a></div>
 <div class="note">9/19 문화유산의 날 혼잡을 고려해 추가 미술관은 넣지 않습니다. 쇼핑이 늦어지면 Marin Montagut을 생략하고 14시 호텔 복귀를 지킵니다.</div>
+</div>
+<aside class="daily-budget" aria-labelledby="budget-title-p8"><h3 id="budget-title-p8">2인 일일 예산</h3><noscript>예산 계산에는 JavaScript가 필요합니다.</noscript></aside>
 </section>
 
 <!-- My Maps -->
@@ -575,34 +654,15 @@ body.has-dialog{overflow:hidden}
 
 <!-- 비용 -->
 <section class="panel" id="pc" role="tabpanel" aria-labelledby="b9" hidden>
-  <div class="panel-head"><h2>비용</h2><p>2인 기준 · 입장료와 교통비만, 식비·숙박 제외</p></div>
-
-  <h3 class="sec">입장료</h3>
-  <table>
-    <tr><th>장소</th><th style="text-align:right">2인</th></tr>
-    <tr><td>루브르</td><td class="n">€64</td></tr>
-    <tr><td>오르세</td><td class="n">€36</td></tr>
-    <tr><td>오랑주리</td><td class="n">€25</td></tr>
-    <tr><td>생트샤펠</td><td class="n">€40</td></tr>
-    <tr><td>피카소</td><td class="n">€32</td></tr>
-    <tr><td>지베르니 모네 하우스</td><td class="n">€24</td></tr>
-    <tr><td>마르모탕 모네 (9/13)</td><td class="n">€54</td></tr>
-    <tfoot><tr><td>기재된 항목 합계</td><td class="n">약 €279</td></tr></tfoot>
+  <div class="panel-head"><h2>2인 여행 예산</h2><p>입장·체험 + 식사 + 카페·간식 + 교통 + 생활 장보기 · 항공·숙박 제외</p></div>
+  <div class="note"><b>통계상 평균이 아닌, 두 사람이 실제 주문할 조합으로 잡은 계획 예산입니다.</b> 일반 성인 2인·할인/뮤지엄 패스 미사용 기준. 장소별 근거와 선택 방문·소액 쇼핑 체크는 각 날짜 맨 아래에서 확인하세요. 이미 예약한 입장권도 방문일 비용으로 포함하며, 결제 완료액을 다시 내라는 뜻이 아닙니다.</div>
+  <table class="budget-overview">
+    <thead><tr><th scope="col">날짜</th><th scope="col">2인 예상</th><th scope="col">계획 범위</th></tr></thead>
+    <tbody id="budget-summary-body"></tbody>
+    <tfoot><tr><td>8일 합계</td><td class="n" data-trip-total></td><td><span data-arrival-summary></span></td></tr></tfoot>
   </table>
-  <div class="note">노트르담, 튈르리, 팔레 루아얄, 뤽상부르, 보주 광장, 아랍세계연구소 옥상, 갤러리 라파예트 옥상, 두 시장은 전부 무료입니다.</div>
-
-  <h3 class="sec">교통</h3>
-  <table>
-    <tr><th>구간</th><th style="text-align:right">2인</th></tr>
-    <tr><td>CDG → 시내 (RER B 공항표)</td><td class="n">€28</td></tr>
-    <tr><td>시내 → CDG</td><td class="n">€28</td></tr>
-    <tr><td>지베르니 왕복 열차</td><td class="n">€60</td></tr>
-    <tr><td>지베르니 셔틀 왕복</td><td class="n">€16</td></tr>
-    <tr><td>시내 지하철 (1일 4회 × 7일 추정)</td><td class="n">약 €143</td></tr>
-    <tfoot><tr><td>합계</td><td class="n">약 €275</td></tr></tfoot>
-  </table>
-  <div class="note"><b>도착일과 출국일은 택시(€65)도 고려하세요.</b> 위 표는 RER B 기준입니다. 택시로 바꾸면 편도 €65라 2인 왕복 기준 €74가 늘지만, 28인치 캐리어를 들고 생미셸에서 숙소까지 1.2km를 걷지 않아도 됩니다. 특히 <b>9/12 도착</b>은 EES 생체등록으로 입국이 늦어져 20시 전후에 공항을 나오게 됩니다.</div>
-  <div class="note warn"><b>나비고 데이패스(€12.30)를 따져보세요.</b> 지하철 단권이 €2.55라 하루 5회 이상 타는 날은 데이패스가 이득입니다. 공항 구간은 별도 표(€14)라 포함되지 않습니다.</div>
+  <div class="note">첫째 날 RER B/택시 선택이 위 합계에도 반영됩니다. 출국일은 별도로 RER B 기준: 택시로 바꾸면 €37 추가, 사전 예약 호출료 €7은 별도입니다. <a href="https://www.service-public.gouv.fr/particuliers/actualites/A15396" target="_blank" rel="noopener noreferrer">2026 공식 택시 요금 ↗</a></div>
+  <div class="note warn"><b>여행 전체 결제액은 아닙니다.</b> 항공·숙박·도시세·미확인 짐 보관료·개인 쇼핑·팁·환전/카드 수수료를 제외합니다. 열차·크루즈·식사 범위는 예산 가정이지 견적이나 상한 보장이 아닙니다. 스마트폰 또는 기존 교통카드 기준이며 새 카드 구매비도 별도입니다. 확인·산정일 2026-09-08.</div>
 
   <h3 class="sec">뮤지엄 패스</h3>
   <table>
@@ -964,6 +1024,7 @@ body.has-dialog{overflow:hidden}
     if(stops.length) target.searchParams.set('waypoints', stops.join('|'));
     if(legacy.searchParams.get('dirflg') === 'w') target.searchParams.set('travelmode', 'walking');
     if(legacy.searchParams.get('dirflg') === 'r') target.searchParams.set('travelmode', 'transit');
+    if(legacy.searchParams.get('dirflg') === 'd') target.searchParams.set('travelmode', 'driving');
     return target.toString();
   }
 
@@ -978,8 +1039,10 @@ body.has-dialog{overflow:hidden}
     var stops = panel.querySelectorAll('.stop[data-src]');
     var legs = panel.querySelectorAll('.leg[data-src]');
     var items = panel.querySelectorAll('.stop[data-src], .leg[data-src]');
+    var arrivalTabs = [].slice.call(box.querySelectorAll('[data-arrival-mode][data-src]'));
+    var arrivalPanels = [].slice.call(box.querySelectorAll('.arrival-route-panel'));
 
-    function show(el){
+    function show(el, options){
       items.forEach(function(i){ i.classList.toggle('is-active', i === el); });
       if(el){
         frame.src = el.getAttribute('data-src');
@@ -992,10 +1055,54 @@ body.has-dialog{overflow:hidden}
         frame.src = base;
         if(cap) cap.textContent = baseCap;
       }
+      frame.title = cap ? cap.textContent : baseCap;
       if(openMap) openMap.href = googleMapsUrl(el ? el.getAttribute('data-src') : base);
-      var top = box.getBoundingClientRect().top + window.pageYOffset - 60;
-      window.scrollTo({top: top < 0 ? 0 : top, behavior:'smooth'});
+      if(!options || !options.noScroll){
+        var top = box.getBoundingClientRect().top + window.pageYOffset - 60;
+        window.scrollTo({top: top < 0 ? 0 : top, behavior:'smooth'});
+      }
     }
+
+    function selectArrival(tab){
+      var mode = tab.getAttribute('data-arrival-mode');
+      base = tab.getAttribute('data-src');
+      baseCap = tab.getAttribute('data-label') || tab.textContent.trim();
+      arrivalTabs.forEach(function(t){
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+      });
+      arrivalPanels.forEach(function(routePanel){
+        routePanel.hidden = routePanel.id !== tab.getAttribute('aria-controls');
+      });
+      panel.dataset.arrivalMode = mode;
+      var airport = panel.querySelector('.stop[data-label="CDG → 5구 숙소"]');
+      if(airport) airport.setAttribute('data-src', base);
+      show(null, {noScroll:true});
+      panel.dispatchEvent(new CustomEvent('arrivalmodechange', {detail:{mode: mode}}));
+    }
+
+    arrivalTabs.forEach(function(tab, i){
+      tab.tabIndex = tab.getAttribute('aria-selected') === 'true' ? 0 : -1;
+      tab.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        selectArrival(tab);
+      });
+      tab.addEventListener('keydown', function(e){
+        var next = null;
+        if(e.key === 'ArrowRight') next = arrivalTabs[(i + 1) % arrivalTabs.length];
+        if(e.key === 'ArrowLeft') next = arrivalTabs[(i - 1 + arrivalTabs.length) % arrivalTabs.length];
+        if(e.key === 'Home') next = arrivalTabs[0];
+        if(e.key === 'End') next = arrivalTabs[arrivalTabs.length - 1];
+        if(next){
+          e.preventDefault();
+          e.stopPropagation();
+          next.focus();
+          selectArrival(next);
+        }
+      });
+    });
 
     stops.forEach(function(el){
       el.showOnMap = function(){ show(el); };
@@ -1005,6 +1112,12 @@ body.has-dialog{overflow:hidden}
     });
     var reset = box.querySelector('[data-reset]');
     if(reset) reset.addEventListener('click', function(){ show(null); });
+    var overview = box.querySelector('[data-day-overview]');
+    if(overview) overview.addEventListener('click', function(){
+      show(overview, {noScroll:true});
+      if(cap) cap.textContent = '이 날 전체 · 공항→숙소→마트→저녁→산책→숙소 (개략 동선)';
+      frame.title = cap.textContent;
+    });
     if(openMap) openMap.href = googleMapsUrl(base);
   });
 
@@ -1019,6 +1132,355 @@ body.has-dialog{overflow:hidden}
       if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); }
     });
   });
+})();
+</script>
+<script type="application/json" id="daily-budget-data">
+{
+  "people": 2, "currency": "EUR", "checked_on": "2026-09-08",
+  "sources": {
+    "airport": {
+      "name": "IDFM · 공항표 2026",
+      "url": "https://www.iledefrance-mobilites.fr/titres-et-tarifs/detail/ticket-paris-region-aeroports",
+      "checked_on": "2026-09-08"
+    },
+    "taxi": {
+      "name": "Service Public · 택시 정액 2026",
+      "url": "https://www.service-public.gouv.fr/particuliers/actualites/A15396",
+      "checked_on": "2026-09-08"
+    },
+    "metro": {
+      "name": "IDFM · Métro-Train-RER",
+      "url": "https://www.iledefrance-mobilites.fr/titres-et-tarifs/detail/ticket-metro-train-rer",
+      "checked_on": "2026-09-08"
+    },
+    "louvre": {
+      "name": "루브르 · 비EEA 일반 요금",
+      "url": "https://www.louvre.fr/en/visit/hours-admission/tickets-and-prices",
+      "checked_on": "2026-09-08"
+    },
+    "orsay": {
+      "name": "오르세 · 온라인 일반 요금",
+      "url": "https://www.musee-orsay.fr/en/visit",
+      "checked_on": "2026-09-08"
+    },
+    "orangerie": {
+      "name": "오랑주리 · 온라인 일반 요금",
+      "url": "https://www.musee-orangerie.fr/en/articles/rates-257",
+      "checked_on": "2026-09-08"
+    },
+    "marmottan": {
+      "name": "마르모탕 · 단독/통합권 구분",
+      "url": "https://www.marmottan.fr/preparer-sa-visite/tarifs/",
+      "checked_on": "2026-09-08"
+    },
+    "monet": {
+      "name": "모네의 집 · 개인/단체 요금 구분",
+      "url": "https://claudemonetgiverny.fr/informations-pratiques/",
+      "checked_on": "2026-09-08"
+    },
+    "chapelle": {
+      "name": "생트샤펠 · 비EEA 일반 요금",
+      "url": "https://www.sainte-chapelle.fr/en/visite/informations-pratiques",
+      "checked_on": "2026-09-08"
+    },
+    "evolution": {
+      "name": "자연사박물관 · 상설전 일반 요금",
+      "url": "https://www.jardindesplantesdeparis.fr/fr/grande-galerie-de-l-evolution?hidemenu=true",
+      "checked_on": "2026-09-08"
+    },
+    "impressionisms": {
+      "name": "지베르니 인상주의 미술관 · 일반 요금",
+      "url": "https://www.mdig.fr/visiteur/",
+      "checked_on": "2026-09-08"
+    },
+    "shuttle": {
+      "name": "SNGO · 왕복 요금/현금·카드 안내",
+      "url": "https://www.sngo.fr/tarifs-prices/",
+      "checked_on": "2026-09-08"
+    },
+    "train": {
+      "name": "SNCF · Paris–Vernon 노선 (선택 열차 운임 미확인)",
+      "url": "https://www.sncf-connect.com/train/trajet/paris/vernon",
+      "checked_on": "2026-09-08"
+    },
+    "cruise": {
+      "name": "바토 파리지앵 · 일반 유람선 (선택일 운임 미확인)",
+      "url": "https://www.bateauxparisiens.com/fr/croisieres-promenade.html",
+      "checked_on": "2026-09-08"
+    },
+    "florentin": {
+      "name": "Le Florentin · 공식 연결 메뉴",
+      "url": "https://menuonline.fr/leflorentin/carte-restaurant",
+      "checked_on": "2026-09-08"
+    },
+    "higuma": {
+      "name": "Higuma · 2026/05 공식 메뉴 PDF",
+      "url": "https://higuma.fr/menu.pdf",
+      "checked_on": "2026-09-08"
+    },
+    "deux-magots": {
+      "name": "Les Deux Magots · 공식 조식 메뉴",
+      "url": "https://lesdeuxmagots.fr/carte-petit-dejeuner/",
+      "checked_on": "2026-09-08"
+    },
+    "pleincoeur": {
+      "name": "Pleincœur · 공식 페이스트리",
+      "url": "https://pleincoeur.com/boutiques/patisserie/",
+      "checked_on": "2026-09-08"
+    },
+    "commerce": {
+      "name": "Le Café du Commerce · 공식 음식 메뉴",
+      "url": "https://www.lecafeducommerce.com/la-carte/",
+      "checked_on": "2026-09-08"
+    },
+    "commerce-wine": {
+      "name": "Le Café du Commerce · 공식 음료 메뉴",
+      "url": "https://www.lecafeducommerce.com/les-vins/",
+      "checked_on": "2026-09-08"
+    },
+    "marin": {
+      "name": "Marin Montagut · 공식 엽서 목록",
+      "url": "https://www.marinmontagut.com/collections/cartes-postales",
+      "checked_on": "2026-09-08"
+    },
+    "soap": {
+      "name": "Fer à Cheval · 제조사 판매가 (현장가 미확인)",
+      "url": "https://savon-de-marseille.com/",
+      "checked_on": "2026-09-08"
+    },
+    "bordier": {
+      "name": "La Grande Épicerie · Bordier 취급 (가격 미확인)",
+      "url": "https://www.lagrandeepicerie.com/fr/la-cremerie-la-grande-epicerie-de-paris/lge_magasins_univers_cremerie.html",
+      "checked_on": "2026-09-08"
+    }
+  },
+  "days": {
+    "p1": {"date": "9/12 토", "note": "프랑스 도착 후 지출만 계산. 아침·점심은 기내 식사로 별도 합산하지 않습니다. 장보기에는 다음 날 숙소 아침이 포함됩니다.", "items": [
+      {"id": "arrival", "name": "CDG → 5구 숙소", "category": "교통", "cents": 2800, "range": [2800, 2800], "status": "verified", "basis": "RER B 공항표 €14 × 2인. 호환 스마트폰 또는 기존 교통카드 사용 기준; 새 카드 구입비 제외.", "place": "CDG → 5구 숙소", "sources": ["airport"], "taxi_cents": 6500, "taxi_sources": ["taxi"], "taxi_basis": "공식 승강장 택시 1대 €65, CDG → 파리 좌안 직행·2인. 예약 호출료와 VTC는 제외."},
+      {"id": "arrival-grocery", "name": "앵테르마르셰 · 물·아침거리", "category": "장보기", "cents": 1800, "range": [1200, 2500], "status": "estimate", "basis": "생수 €3 + 빵 €4 + 과일·요거트 €7 + 간식 €4의 장바구니 추정. 9/13 아침을 다시 더하지 않음.", "place": "앵테르마르셰 익스프레스"},
+      {"id": "mouffetard", "name": "무프타르 거리 · 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7 × 2인 추정. 지정 식당·예약 미확정; 늦으면 숙소 근처 식사로 대체. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "place": "무프타르 거리", "meal": "dinner", "sources": ["florentin", "commerce"]},
+      {"id": "tournelle", "name": "생루이섬 · 투르넬 다리", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "야외 산책·구경만 €0. 별도 유료 시설·구매는 포함하지 않습니다.", "place": "생루이섬 · 투르넬 다리"}
+    ]},
+    "p2": {"date": "9/13 일", "note": "마르모탕은 단독권으로 계산: €27 통합권과 수요일 모네의 집을 이중 합산하지 않습니다. 크루즈는 저녁 식사 없는 일반 유람선입니다.", "items": [
+      {"id": "sunday-breakfast", "name": "숙소 아침 (전날 장보기)", "category": "식사", "cents": 0, "range": [0, 0], "status": "estimate", "basis": "9/12 장보기 €18에 포함한 빵·과일·요거트. 오늘 추가 지출 €0.", "meal": "breakfast"},
+      {"id": "notre-dame", "name": "노트르담", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "성당 미사 참석 €0. 탑·유료 투어는 포함하지 않음.", "place": "노트르담"},
+      {"id": "florentin", "name": "Le Florentin · 점심", "category": "식사", "cents": 6400, "range": [5600, 7200], "status": "estimate", "basis": "공식 연결 메뉴의 메인 €21–26 + 와인 €7–10를 각 2개: €56–72. 빠른 점심 기준 중심값 €64; 전채·디저트 제외. 전체 코스 평균으로 부르지 않음.", "place": "Le Florentin", "meal": "lunch", "sources": ["florentin"]},
+      {"id": "orangerie", "name": "오랑주리", "category": "입장·체험", "cents": 2500, "range": [2500, 2500], "status": "verified", "basis": "온라인 일반권 €12.50 × 2인. 개별권 기준; 패스/통합권을 추가로 더하지 않음.", "place": "오랑주리", "sources": ["orangerie"]},
+      {"id": "marmottan", "name": "마르모탕 모네 · 단독권", "category": "입장·체험", "cents": 2800, "range": [2800, 2800], "status": "verified", "basis": "현장 일반 단독권 €14 × 2인. €27/인은 지베르니 모네의 집까지 포함하는 통합권.", "place": "마르모탕 모네", "sources": ["marmottan"]},
+      {"id": "sunday-coffee", "name": "미술관 주변 커피", "category": "카페·간식", "cents": 1000, "range": [800, 1400], "status": "estimate", "basis": "커피 €5 × 2잔 추정. 디저트 별도. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
+      {"id": "sunday-dinner", "name": "에펠 선착장 주변 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7를 각 2개로 잡은 계획 추정. 식당 미정; 코스·와인병 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
+      {"id": "cruise", "name": "바토 파리지앵 · 일반 유람선", "category": "입장·체험", "cents": 4000, "range": [3400, 4600], "status": "estimate", "basis": "식사 없는 약 1시간 유람선 €20 × 2인 예산 가정. 공식 페이지에서 9/13 결제 운임을 확보하지 못해 미확인 추정; 예약가로 교체.", "place": "바토 파리지앵", "sources": ["cruise"]},
+      {"id": "sunday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1530, "range": [1530, 1530], "status": "estimate", "basis": "€2.55 × 3회 × 2인. 오랑주리→마르모탕→선착장→숙소의 세 이동을 메트로/RER로 잡은 기준안. 버스 이용 시 별도 표.", "sources": ["metro"]}
+    ]},
+    "p3": {"date": "9/14 월", "note": "루브르 관람 후 기본 점심·저녁·커피를 포함. 선택 젤라토/비누 구매만 체크 시 추가하며, 사마리텐 의류·명품 구매는 제외합니다.", "items": [
+      {"id": "monday-breakfast", "name": "숙소 근처 아침·커피", "category": "식사", "cents": 1600, "range": [1200, 2200], "status": "estimate", "basis": "빵·간단한 음식 €4 + 커피 €4를 각 2개로 잡은 계획 추정. 호텔 조식 뷔페 아님. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "breakfast", "sources": ["florentin", "commerce"]},
+      {"id": "louvre", "name": "루브르", "category": "입장·체험", "cents": 6400, "range": [6400, 6400], "status": "verified", "basis": "EEA 국적·거주가 아닌 일반 성인 €32 × 2인. 오디오 가이드 별도.", "place": "루브르", "sources": ["louvre"]},
+      {"id": "higuma", "name": "Higuma · 점심", "category": "식사", "cents": 3500, "range": [3000, 4500], "status": "estimate", "basis": "2026/05 공식 메뉴: 라멘+교자 세트 €15 × 2 + 차 €2.50 × 2 = €35. 메뉴 선택·음료 변경에 따라 범위 적용.", "place": "Higuma", "meal": "lunch", "sources": ["higuma"]},
+      {"id": "samaritaine", "name": "La Samaritaine", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "구경만 €0. 의류·명품 구매는 금액 편차가 커 일일 합계에서 제외; 별도 개인 쇼핑 예산 필요.", "place": "La Samaritaine"},
+      {"id": "pont-neuf", "name": "퐁뇌프 · 센강 산책", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "야외 산책·구경만 €0. 별도 유료 시설·구매는 포함하지 않습니다.", "place": "퐁뇌프 · 센강 산책"},
+      {"id": "louvre-coffee", "name": "루브르 안 커피", "category": "카페·간식", "cents": 1200, "range": [1000, 1600], "status": "estimate", "basis": "관람 중 커피 €6 × 2잔 추정; 유료 관람 재입장을 전제로 하지 않음. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
+      {"id": "monday-dinner", "name": "숙소 주변 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7를 각 2개로 잡은 계획 추정. 식당 미정; 코스·와인병 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
+      {"id": "monday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 510, "range": [510, 510], "status": "estimate", "basis": "€2.55 × 1회 × 2인. 숙소→루브르 1회. 이후 도보 동선 기준.", "sources": ["metro"]},
+      {"id": "soap", "name": "Fer à Cheval · 비누 구매", "category": "선택 쇼핑", "cents": 2000, "range": [1200, 3500], "status": "estimate", "basis": "제조사 공식 비누 150g €4.95, 선물 세트 €20 등을 참고한 소품 예산 €20. 저장 매장(77 Rue de la Verrerie)의 현장가·재고는 미확인; 방문만 하면 €0.", "place": "Fer à Cheval", "optional": true, "included": false, "sources": ["soap"]},
+      {"id": "gelato", "name": "Il Gelato del Marchese", "category": "카페·간식", "cents": 1600, "range": [1000, 2000], "status": "estimate", "basis": "젤라토 €8 × 2개 계획 추정; 공식 최신 메뉴 가격 미확인.", "place": "Il Gelato del Marchese", "optional": true, "included": false}
+    ]},
+    "p4": {"date": "9/15 화", "note": "Les Deux Magots를 아침·커피 기준안으로 포함했습니다. 일반 조식을 또 더하지 않습니다. 저녁 장보기는 수요일 기차용 아침·간식입니다.", "items": [
+      {"id": "deux-magots", "name": "Les Deux Magots · 아침·커피", "category": "식사", "cents": 2800, "range": [2000, 4600], "status": "estimate", "basis": "공식 조식 Classique €14 × 2 = €28 (따뜻한 음료·페이스트리·타르틴). 간단한 커피+크루아상은 €20/2인, Complet 2세트는 €46. 일반 아침을 중복 합산하지 않음.", "place": "Les Deux Magots", "meal": "breakfast", "sources": ["deux-magots"]},
+      {"id": "orsay", "name": "오르세 미술관", "category": "입장·체험", "cents": 3200, "range": [3200, 3200], "status": "verified", "basis": "온라인 일반권 €16 × 2인. 오랑주리와 별도 구매 기준; 통합권은 추가하지 않음.", "place": "오르세 미술관", "sources": ["orsay"]},
+      {"id": "orsay-lunch", "name": "오르세 주변 · 가벼운 점심", "category": "식사", "cents": 4400, "range": [3400, 5600], "status": "estimate", "basis": "메인/샌드위치 €17 + 음료 €5를 각 2개로 가정. 매장·메뉴 미정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "lunch", "sources": ["florentin", "commerce"]},
+      {"id": "champ-de-mars", "name": "샹드마르스 · 에펠탑", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "공원·탑 외관만 €0. 에펠탑 입장권은 구매하지 않는 일정.", "place": "샹드마르스 · 에펠탑"},
+      {"id": "tuesday-coffee", "name": "공원 주변 커피·간식", "category": "카페·간식", "cents": 1400, "range": [1000, 2000], "status": "estimate", "basis": "커피 €5 × 2 + 간식 나눠 먹기 €4 추정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
+      {"id": "tuesday-dinner", "name": "숙소 주변 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7를 각 2개로 잡은 계획 추정. 식당 미정; 코스·와인병 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
+      {"id": "tuesday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1530, "range": [1530, 1530], "status": "estimate", "basis": "€2.55 × 3회 × 2인. 기존 일정의 세 유료 이동을 기준으로 계산. 아침 카페 경유로 도보 이동하면 실제로 줄어들 수 있음.", "sources": ["metro"]},
+      {"id": "train-grocery", "name": "숙소 근처 장보기 · 기차용", "category": "장보기", "cents": 1200, "range": [800, 1600], "status": "estimate", "basis": "물 €2 + 빵 €4 + 과일/간식 €6 추정. 다음 날 아침·이동 간식 비용을 여기서 한 번만 계산."}
+    ]},
+    "p5": {"date": "9/16 수", "note": "예약 완료된 모네의 집도 방문일 비용으로 포함(추가 결제 요구 아님). 실결제액 미제공으로 공개 단독 일반권 기준. 열차는 선택편 견적 미확인입니다.", "items": [
+      {"id": "wednesday-breakfast", "name": "기차용 아침 (전날 장보기)", "category": "식사", "cents": 0, "range": [0, 0], "status": "estimate", "basis": "9/15 장보기 €12에 포함. 아침·물·기차 간식 비용을 다시 더하지 않음.", "meal": "breakfast"},
+      {"id": "normandy-train", "name": "생라자르 ↔ Vernon 열차", "category": "교통", "cents": 7200, "range": [4800, 10000], "status": "estimate", "basis": "편도 €18 × 왕복 2회 × 2인으로 잡은 추정. 9/16 선택편 실운임 미확인; 가격 범위는 편도 €12–25 가정, 견적이나 상한 보장 아님.", "place": "생라자르역", "sources": ["train"]},
+      {"id": "giverny-shuttle", "name": "Vernon ↔ Giverny 셔틀", "category": "교통", "cents": 2000, "range": [2000, 2000], "status": "verified", "basis": "SNGO 왕복 €10 × 2인. 별도 관광 꼬마열차가 아닌 셔틀버스 기준. 현금·카드 및 Atoumod m-Ticket 안내.", "sources": ["shuttle"]},
+      {"id": "monet", "name": "모네의 집과 정원", "category": "입장·체험", "cents": 2600, "range": [2600, 2600], "status": "verified", "basis": "공개 개인 일반권 €13 × 2인으로 배정. 온라인 수수료·실결제액은 예약 내역 확인; 구매한 표를 재구매하지 않음.", "place": "모네의 집과 정원", "sources": ["monet"]},
+      {"id": "giverny-lunch", "name": "지베르니 현지 점심", "category": "식사", "cents": 5600, "range": [4400, 7200], "status": "estimate", "basis": "메인 €22 + 음료 €6를 각 2개로 가정. 관광지 식당 추정; 메뉴 미정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "lunch", "sources": ["florentin", "commerce"]},
+      {"id": "giverny-coffee", "name": "지베르니 커피", "category": "카페·간식", "cents": 1000, "range": [800, 1400], "status": "estimate", "basis": "커피 €5 × 2잔 추정. 전날 산 간식은 다시 더하지 않음. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
+      {"id": "impressionisms", "name": "지베르니 인상주의 미술관", "category": "입장·체험", "cents": 2400, "range": [2400, 2400], "status": "verified", "basis": "일반 단독권 €12 × 2인. 이미 예약한 모네의 집과 별도 계산; 통합권 €25 × 2를 추가 구매하지 않음.", "place": "지베르니 인상주의 미술관", "sources": ["impressionisms"], "optional": true, "included": false},
+      {"id": "wednesday-dinner", "name": "파리 복귀 후 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7를 각 2개로 잡은 계획 추정. 식당 미정; 코스·와인병 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
+      {"id": "wednesday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1020, "range": [1020, 1020], "status": "estimate", "basis": "€2.55 × 2회 × 2인. 숙소↔생라자르 왕복. 노르망디 열차·셔틀 요금과 별개.", "sources": ["metro"]}
+    ]},
+    "p6": {"date": "9/17 목", "note": "시장에서는 과일 간식만 구매하고, 점심은 주변 식당에서 별도로 먹는 기준. 진화과학박물관은 상설전만 포함하며 생략 시 체크를 해제하세요.", "items": [
+      {"id": "thursday-breakfast", "name": "숙소 근처 아침·커피", "category": "식사", "cents": 1600, "range": [1200, 2200], "status": "estimate", "basis": "빵·간단한 음식 €4 + 커피 €4를 각 2개로 잡은 계획 추정. 호텔 조식 뷔페 아님. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "breakfast", "sources": ["florentin", "commerce"]},
+      {"id": "chapelle", "name": "생트샤펠", "category": "입장·체험", "cents": 4400, "range": [4400, 4400], "status": "verified", "basis": "2026-01-12 이후 비EEA 국적·비EEA 거주 일반 성인 단독권 €22 × 2인.", "place": "생트샤펠", "sources": ["chapelle"]},
+      {"id": "aligre", "name": "마르셰 달리그르 · 과일 간식", "category": "카페·간식", "cents": 800, "range": [400, 1200], "status": "estimate", "basis": "입장 €0 + 과일 등 당일 먹을 간식 €4 × 2인 계획 추정. 점심과 구분. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "place": "마르셰 달리그르", "sources": ["florentin", "commerce"]},
+      {"id": "aligre-lunch", "name": "달리그르 주변 점심", "category": "식사", "cents": 4000, "range": [3000, 5200], "status": "estimate", "basis": "간단한 메인 €15 + 음료 €5를 각 2개로 가정. 시장에 식사 메뉴가 있다고 가정하지 않음. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "lunch", "sources": ["florentin", "commerce"]},
+      {"id": "coulee", "name": "쿨레 베르트 르네뒤몽", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "야외 산책·구경만 €0. 별도 유료 시설·구매는 포함하지 않습니다.", "place": "쿨레 베르트 르네뒤몽"},
+      {"id": "evolution", "name": "진화과학 박물관 · 상설전", "category": "입장·체험", "cents": 2600, "range": [2600, 2600], "status": "verified", "basis": "일반 성인 상설전 €13 × 2인. 특별전·VR 제외. 무료 대상이 아닌 성인 기준.", "place": "진화과학 박물관", "sources": ["evolution"], "optional": true, "included": true},
+      {"id": "jardin", "name": "파리 식물원", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "야외 정원 산책 €0. 온실·동물원·다른 유료 갤러리는 제외.", "place": "파리 식물원"},
+      {"id": "thursday-coffee", "name": "식물원 주변 커피", "category": "카페·간식", "cents": 1000, "range": [800, 1400], "status": "estimate", "basis": "커피 €5 × 2잔 추정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
+      {"id": "thursday-dinner", "name": "숙소 주변 저녁", "category": "식사", "cents": 6400, "range": [5000, 8000], "status": "estimate", "basis": "메인 €25 + 음료 €7를 각 2개로 잡은 계획 추정. 식당 미정; 코스·와인병 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
+      {"id": "thursday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 510, "range": [510, 510], "status": "estimate", "basis": "€2.55 × 1회 × 2인. 생트샤펠→달리그르 1회, 나머지는 도보.", "sources": ["metro"]}
+    ]},
+    "p7": {"date": "9/18 금", "note": "숙소→풀만 이동은 캐리어를 고려해 시내 택시 €30/대 추정, 이후 메트로 3회. 호텔 객실료·도시세·유료 짐 보관료는 미확인으로 제외합니다.", "items": [
+      {"id": "friday-breakfast", "name": "숙소 근처 아침·커피", "category": "식사", "cents": 1600, "range": [1200, 2200], "status": "estimate", "basis": "빵·간단한 음식 €4 + 커피 €4를 각 2개로 잡은 계획 추정. 호텔 조식 뷔페 아님. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "breakfast", "sources": ["florentin", "commerce"]},
+      {"id": "hotel-transfer", "name": "5구 숙소 → 풀만 · 시내 택시", "category": "교통", "cents": 3000, "range": [2000, 4500], "status": "estimate", "basis": "차량 1대 €30, 범위 €20–45 계획 추정. 공항 정액제가 아닌 시내 미터 요금; 교통·호출 방식에 따라 달라짐.", "sources": ["taxi"]},
+      {"id": "monceau-lunch", "name": "몽소 공원 주변 점심", "category": "식사", "cents": 5000, "range": [3800, 6400], "status": "estimate", "basis": "메인 €20 + 음료 €5를 각 2개로 가정. 식당 미정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "lunch", "sources": ["florentin", "commerce"]},
+      {"id": "monceau", "name": "몽소 공원", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "야외 산책·구경만 €0. 별도 유료 시설·구매는 포함하지 않습니다.", "place": "몽소 공원"},
+      {"id": "pleincoeur", "name": "Pleincœur · 페이스트리", "category": "카페·간식", "cents": 2000, "range": [1800, 2100], "status": "estimate", "basis": "공식 개별 페이스트리 €9–10.50 × 2 = €18–21; 반올림 계획값 €20. 포장 기준, 매장 커피 판매·좌석 미확인이라 커피는 포함하지 않음.", "place": "Pleincœur", "optional": true, "included": true, "sources": ["pleincoeur"]},
+      {"id": "pullman", "name": "풀만 체크인", "category": "숙박 제외", "cents": 0, "range": [0, 0], "status": "excluded", "basis": "객실료·도시세·보증금·짐 보관료 실결제 내역 미확인. €0은 숙박 무료라는 뜻이 아니라 일일 활동 예산 제외.", "place": "풀만 체크인"},
+      {"id": "trocadero", "name": "트로카데로 광장", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "야외 산책·구경만 €0. 별도 유료 시설·구매는 포함하지 않습니다.", "place": "트로카데로 광장"},
+      {"id": "commerce", "name": "Le Café du Commerce · 저녁", "category": "식사", "cents": 7000, "range": [5300, 9000], "status": "estimate", "basis": "공식 메뉴 예: 메인 €20 + €21.50, 디저트 €8.20 + €7, 와인 €6 × 2 = €68.70 → 2인 예산 €70. 서비스 포함 표시; 와인병·추가 주문 제외.", "place": "Le Café du Commerce", "meal": "dinner", "sources": ["commerce", "commerce-wine"]},
+      {"id": "friday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1530, "range": [1530, 1530], "status": "estimate", "basis": "€2.55 × 3회 × 2인. 풀만→몽소→풀만, 트로카데로→저녁 식당 3회. 첫 호텔 이동 택시를 또 더하지 않음.", "sources": ["metro"]}
+    ]},
+    "p8": {"date": "9/19 토", "note": "출국 공항 이동은 RER B €28 기준(첫째 날 택시 선택과 독립). 귀국 택시 선택 시 +€37, 사전 예약 호출이면 추가 €7. 호텔 조식 포함 여부는 미확인입니다.", "items": [
+      {"id": "saturday-breakfast", "name": "숙소 근처 아침·커피", "category": "식사", "cents": 1600, "range": [1200, 2200], "status": "estimate", "basis": "빵·간단한 음식 €4 + 커피 €4를 각 2개로 잡은 계획 추정. 호텔 조식 뷔페 아님. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "breakfast", "sources": ["florentin", "commerce"]},
+      {"id": "bon-marche", "name": "르봉 마르셰 백화점", "category": "입장·체험", "cents": 0, "range": [0, 0], "status": "free", "basis": "구경만 €0. 의류·명품 구매는 합계에서 제외; 별도 개인 쇼핑 예산 필요.", "place": "르봉 마르셰 백화점"},
+      {"id": "marin", "name": "Marin Montagut · 작은 기념품", "category": "선택 쇼핑", "cents": 1000, "range": [600, 2000], "status": "estimate", "basis": "공식 엽서 €3–4 × 2 = €6–8을 참고해 작은 기념품 예산 €10. 특수 카드·공예품은 더 비쌀 수 있으며 선택 시만 합산.", "place": "Marin Montagut", "optional": true, "included": false, "sources": ["marin"]},
+      {"id": "saturday-lunch", "name": "르봉 마르셰 주변 점심", "category": "식사", "cents": 5000, "range": [3800, 6600], "status": "estimate", "basis": "메인/식사 €20 + 음료 €5를 각 2개로 가정. 매장·메뉴 미정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "lunch", "sources": ["florentin", "commerce"]},
+      {"id": "bordier", "name": "La Grande Épicerie · Bordier", "category": "선택 쇼핑", "cents": 2000, "range": [1200, 3000], "status": "estimate", "basis": "버터·상온 먹거리 소량 구매 한도 €20 추정. 보냉 포장비·당일 재고 미확인. 현지 식사비와 별개.", "place": "La Grande Épicerie · Bordier", "optional": true, "included": false, "sources": ["bordier"]},
+      {"id": "saturday-coffee", "name": "쇼핑 중 커피", "category": "카페·간식", "cents": 1000, "range": [800, 1400], "status": "estimate", "basis": "커피 €5 × 2잔 추정. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "sources": ["florentin", "commerce"]},
+      {"id": "airport-dinner", "name": "CDG 공항 · 가벼운 저녁", "category": "식사", "cents": 4000, "range": [3000, 5200], "status": "estimate", "basis": "샌드위치/간편식 €14 + 음료 €6를 각 2개로 가정. 공항 매장 미정; 기내식만 먹으면 이 항목을 실제 지출에서 제외. 참고 메뉴는 가격대 근거일 뿐, 이 장소의 확정 메뉴/판매가는 아님.", "meal": "dinner", "sources": ["florentin", "commerce"]},
+      {"id": "saturday-metro", "name": "시내 철도 교통", "category": "교통", "cents": 1020, "range": [1020, 1020], "status": "estimate", "basis": "€2.55 × 2회 × 2인. 풀만↔쇼핑 지역 왕복. 호텔에서 공항까지 연결되는 철도 이동은 아래 공항표에 포함.", "sources": ["metro"]},
+      {"id": "departure", "name": "풀만 → CDG · 공항 철도", "category": "교통", "cents": 2800, "range": [2800, 2800], "status": "verified", "basis": "공항표 €14 × 2인, 네트워크 밖으로 나오지 않는 메트로/RER 환승 포함. 택시 기본 €65 대비 €37 절약.", "sources": ["airport", "taxi"]}
+    ]}
+  }
+}
+</script>
+<script>
+(function(){
+  'use strict';
+  var budget = JSON.parse(document.getElementById('daily-budget-data').textContent);
+  var money = new Intl.NumberFormat('en-IE', {style:'currency', currency:'EUR', minimumFractionDigits:0, maximumFractionDigits:2});
+  var categoryLabels = ['입장·체험', '식사', '카페·간식', '교통', '장보기', '선택 쇼핑'];
+  function euro(cents){ return money.format(cents / 100); }
+  function node(tag, text, className){
+    var el = document.createElement(tag);
+    if(text !== undefined) el.textContent = text;
+    if(className) el.className = className;
+    return el;
+  }
+  function selected(item){ return !item.optional || item.included; }
+  function price(item){
+    return item.id === 'arrival' && document.getElementById('p1').dataset.arrivalMode === 'taxi' ? item.taxi_cents : item.cents;
+  }
+  function limits(item){ return item.id === 'arrival' ? [price(item), price(item)] : item.range; }
+  function sum(day){
+    var total = {cents:0, low:0, high:0, categories:{}};
+    day.items.forEach(function(item){
+      if(!selected(item)) return;
+      total.cents += price(item);
+      total.low += limits(item)[0];
+      total.high += limits(item)[1];
+      total.categories[item.category] = (total.categories[item.category] || 0) + price(item);
+    });
+    return total;
+  }
+  function sourceLinks(container, keys){
+    (keys || []).forEach(function(key){
+      var ref = budget.sources[key];
+      var link = node('a', ref.name + ' ↗');
+      link.href = ref.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      container.appendChild(link);
+    });
+  }
+  function refresh(){
+    var trip = 0;
+    Object.keys(budget.days).forEach(function(key){
+      var day = budget.days[key], panel = document.getElementById(key), totals = sum(day);
+      trip += totals.cents;
+      var box = panel.querySelector('.daily-budget');
+      box.querySelector('[data-budget-total]').textContent = euro(totals.cents);
+      box.querySelector('[data-budget-total]').dataset.cents = totals.cents;
+      box.querySelector('[data-budget-range]').textContent = '계획 범위 ' + euro(totals.low) + '–' + euro(totals.high) + ' · 견적/상한 보장 아님';
+      var categories = box.querySelector('.budget-categories');
+      categories.replaceChildren();
+      categoryLabels.forEach(function(category){
+        if(totals.categories[category]) categories.appendChild(node('span', category + ' ' + euro(totals.categories[category]), 'chip'));
+      });
+      day.items.forEach(function(item){
+        var row = document.getElementById('budget-row-' + item.id);
+        var active = selected(item), amount = price(item);
+        row.classList.toggle('is-excluded', !active);
+        row.querySelector('.budget-amount').textContent = euro(amount) + (item.status === 'excluded' ? ' (제외)' : !active ? ' (선택)' : '');
+        if(item.id === 'arrival'){
+          var taxi = panel.dataset.arrivalMode === 'taxi';
+          row.querySelector('.budget-name').textContent = item.name + (taxi ? ' · 택시' : ' · RER B');
+          row.querySelector('.budget-basis').textContent = taxi ? item.taxi_basis : item.basis;
+        }
+        if(item.place){
+          var card = Array.from(panel.querySelectorAll('.stop[data-label], [data-dining]')).find(function(el){
+            return (el.dataset.label || el.dataset.dining) === item.place;
+          });
+          if(card){
+            var badge = card.querySelector('[data-place-budget]');
+            if(!badge){
+              var badges = card.querySelector('.badges');
+              if(!badges){ badges = node('div', undefined, 'badges'); card.appendChild(badges); }
+              badge = node('span', undefined, 'badge b-cost place-budget');
+              badge.dataset.placeBudget = item.id;
+              badges.appendChild(badge);
+            }
+            badge.textContent = item.status === 'excluded' ? '숙박비 별도 · 합계 제외' :
+              '2인 ' + (item.status === 'estimate' ? '예상 ' : '') + euro(amount) + (item.optional ? (active ? ' · 합계 포함' : ' · 선택 시 추가') : '');
+          }
+        }
+      });
+      var summary = document.querySelector('[data-budget-day="' + key + '"]');
+      summary.querySelector('[data-summary-total]').textContent = euro(totals.cents);
+      summary.querySelector('[data-summary-range]').textContent = euro(totals.low) + '–' + euro(totals.high);
+    });
+    document.querySelector('[data-trip-total]').textContent = euro(trip);
+    document.querySelector('[data-trip-total]').dataset.cents = trip;
+    document.querySelector('[data-arrival-summary]').textContent = document.getElementById('p1').dataset.arrivalMode === 'taxi' ? '도착 택시' : '도착 RER B';
+  }
+  var summaryBody = document.getElementById('budget-summary-body');
+  Object.keys(budget.days).forEach(function(key){
+    var day = budget.days[key], box = document.getElementById(key).querySelector('.daily-budget');
+    var headline = node('div', undefined, 'budget-headline');
+    headline.appendChild(node('span', '2인 기준 예상 합계'));
+    var total = node('strong'); total.dataset.budgetTotal = ''; headline.appendChild(total);
+    headline.setAttribute('aria-live','polite'); headline.setAttribute('aria-atomic','true');
+    box.appendChild(headline);
+    var range = node('p', undefined, 'budget-caption'); range.dataset.budgetRange = ''; box.appendChild(range);
+    box.appendChild(node('div', undefined, 'budget-categories'));
+    box.appendChild(node('p', day.note, 'budget-caption'));
+    var details = node('details', undefined, 'budget-details');
+    details.appendChild(node('summary', '장소별 2인 금액 · 산정 근거 · 선택 항목'));
+    var list = node('ul', undefined, 'budget-items');
+    day.items.forEach(function(item){
+      var row = node('li', undefined, 'budget-item'); row.id = 'budget-row-' + item.id;
+      var heading = node('div', undefined, 'budget-item-head');
+      var label = node(item.optional ? 'label' : 'span', undefined, 'budget-item-label');
+      if(item.optional){
+        var check = document.createElement('input'); check.type = 'checkbox'; check.checked = item.included;
+        check.dataset.budgetToggle = item.id;
+        check.addEventListener('change', function(){ item.included = check.checked; refresh(); });
+        label.appendChild(check);
+      }
+      label.appendChild(node('span', item.name, 'budget-name')); heading.appendChild(label);
+      heading.appendChild(node('strong', undefined, 'budget-amount')); row.appendChild(heading);
+      row.appendChild(node('p', item.basis, 'budget-basis'));
+      var provenance = node('p', undefined, 'budget-source');
+      provenance.appendChild(node('span', item.status === 'verified' ? '공식 단가 기준 · ' : item.status === 'estimate' ? '계획 추정 · ' : item.status === 'excluded' ? '합계 제외 · ' : '유료 활동 없음 · '));
+      sourceLinks(provenance, (item.sources || []).concat(item.taxi_sources || []));
+      if(item.range[0] !== item.range[1]) provenance.appendChild(node('span', ' 2인 범위 ' + euro(item.range[0]) + '–' + euro(item.range[1])));
+      row.appendChild(provenance); list.appendChild(row);
+    });
+    details.appendChild(list);
+    details.appendChild(node('p', '출처 열람·산정일 ' + budget.checked_on + '. 추정치는 통계상 평균이 아니라 위 주문/구매 조합을 위한 계획값입니다.', 'budget-caption'));
+    box.appendChild(details);
+    box.appendChild(node('p', '항공·숙박·도시세·미확인 짐 보관료·개인 쇼핑·팁·환전/카드 수수료 제외. 예약 입장권은 방문일 비용에 포함하며, 오늘 추가로 낼 금액과는 다릅니다. 선택은 새로고침하면 초기화됩니다.', 'budget-exclusions'));
+    var tr = node('tr'); tr.dataset.budgetDay = key;
+    var date = node('td');
+    var jump = node('button', day.date, 'budget-day-link'); jump.type = 'button';
+    jump.addEventListener('click', function(){
+      document.querySelector('.tabbar [aria-controls="' + key + '"]').click();
+      box.scrollIntoView({block:'start'});
+    });
+    date.appendChild(jump); tr.appendChild(date);
+    var value = node('td', undefined, 'n'); value.dataset.summaryTotal = ''; tr.appendChild(value);
+    var span = node('td', undefined, 'n'); span.dataset.summaryRange = ''; tr.appendChild(span); summaryBody.appendChild(tr);
+  });
+  document.getElementById('p1').addEventListener('arrivalmodechange', refresh);
+  refresh();
 })();
 </script>
 </body>

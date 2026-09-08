@@ -36,8 +36,8 @@ class MuseumPassTests(unittest.TestCase):
         elements = Elements((ROOT / 'index.html').read_text()).elements
         ids = [a['id'] for _, a in elements if 'id' in a]
         self.assertEqual(len(ids), len(set(ids)))
-        tabs = [a for _, a in elements if a.get('role') == 'tab']
-        panels = [a for _, a in elements if a.get('role') == 'tabpanel']
+        tabs = [a for _, a in elements if a.get('role') == 'tab' and 'tab' in a.get('class', '').split()]
+        panels = [a for _, a in elements if a.get('role') == 'tabpanel' and 'panel' in a.get('class', '').split()]
         self.assertEqual(len(tabs), 12)
         self.assertEqual(len(panels), 12)
         self.assertCountEqual([t['aria-controls'] for t in tabs], [p['id'] for p in panels])

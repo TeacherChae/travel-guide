@@ -32,13 +32,54 @@ class ArrivalTests(unittest.TestCase):
         self.assertEqual(params.get('dirflg'), ['r'])
         self.assertNotIn('q', params)
 
-    def test_overview_starts_at_airport(self):
+    def test_arrival_route_tabs_are_accessible(self):
+        panel = next(a for t, a in self.nodes if t == 'section')
+        self.assertEqual(panel.get('data-arrival-mode'), 'rer')
+        controls = [a for t, a in self.nodes if t == 'button' and a.get('data-arrival-mode') in {'rer', 'taxi'}]
+        self.assertEqual([a['data-arrival-mode'] for a in controls], ['rer', 'taxi'])
+        self.assertTrue(all(a.get('role') == 'tab' for a in controls))
+        self.assertEqual([a.get('aria-selected') for a in controls], ['true', 'false'])
+        ids = {a['id'] for _, a in self.nodes if 'id' in a}
+        self.assertTrue({a['aria-controls'] for a in controls} <= ids)
+        panels = [a for _, a in self.nodes if a.get('id') in {c['aria-controls'] for c in controls}]
+        self.assertEqual(len(panels), 2)
+        self.assertTrue(all(a.get('role') == 'tabpanel' for a in panels))
+
+    def test_arrival_maps_are_single_leg_to_lodging(self):
         frame = next(a for t, a in self.nodes if t == 'iframe')
         params = parse_qs(urlparse(frame['src']).query)
+        self.assertEqual(params['saddr'], ['49.0097,2.5479'])
+        self.assertEqual(params['daddr'], [self.home])
+        self.assertEqual(params['dirflg'], ['r'])
+
+        route_buttons = {a['data-arrival-mode']: a for t, a in self.nodes if t == 'button' and a.get('data-arrival-mode') in {'rer', 'taxi'}}
+        rer = parse_qs(urlparse(route_buttons['rer']['data-src']).query)
+        taxi = parse_qs(urlparse(route_buttons['taxi']['data-src']).query)
+        self.assertEqual(rer.get('saddr'), ['49.0097,2.5479'])
+        self.assertEqual(rer.get('daddr'), [self.home])
+        self.assertEqual(rer.get('dirflg'), ['r'])
+        self.assertEqual(taxi.get('saddr'), ['49.0097,2.5479'])
+        self.assertEqual(taxi.get('daddr'), [self.home])
+        self.assertEqual(taxi.get('dirflg'), ['d'])
+
+    def test_arrival_tab_js_contract_for_budget_integration(self):
+        self.assertIn('arrivalmodechange', self.source)
+        self.assertIn('dataset.arrivalMode', self.source)
+        self.assertIn("detail:{mode: mode}", self.source)
+
+    def test_arrival_copy_explains_google_transit_limit(self):
+        self.assertIn('Google 지도는 RER B 노선을 강제 고정하지 못합니다', self.source)
+        self.assertIn('Saint-Michel–Notre-Dame', self.source)
+
+    def test_overview_starts_at_airport(self):
+        overview = next(a for _, a in self.nodes if 'data-day-overview' in a)
+        params = parse_qs(urlparse(overview['data-src']).query)
         self.assertEqual(params['saddr'], ['49.0097,2.5479'])
         stops = params['daddr'][0].split(' to:')
         self.assertEqual(stops[0], self.home)
         self.assertEqual(stops[-1], self.home)
+        self.assertGreater(len(stops), 1)
+        self.assertEqual(params['dirflg'], ['r'])
 
     def test_no_old_lodging_pin_in_any_map(self):
         for _, a in Elements(self.source).nodes:
