@@ -177,7 +177,8 @@ class BudgetTests(unittest.TestCase):
         self.assertIn('MyRealTrip', sunday)
         self.assertIn('₩27,052', sunday)
         self.assertNotRegex(sunday, r'크루즈[\s\S]{0,80}€0')
-        self.assertIn('docs/fete-schedule-proposal.md', sunday)
+        self.assertIn('docs/flexible-rodin-plan.md', sunday)
+        self.assertNotIn('docs/fete-schedule-proposal.md', sunday)
         info = re.search(r'<section class="panel" id="pi"[\s\S]*?</section>', self.html)[0]
         self.assertRegex(info, r'aria-checked="false"[^\n]+일요일 일반 유람선 바우처·탑승 조건 확인')
 
@@ -198,6 +199,66 @@ class BudgetTests(unittest.TestCase):
             'Notion sync succeeded',
         ]:
             self.assertNotIn(false_claim.casefold(), handoff_text.casefold())
+
+
+
+    def test_current_info_tab_uses_latest_schedule_dates(self):
+        info = re.search(r'<section class="panel" id="pi"[\s\S]*?</section>', self.html)[0]
+        self.assertIn('루브르 9/17 09:00 시간 지정권', info)
+        self.assertIn('마르모탕 9/15 10:00 온라인 단독권', info)
+        self.assertIn('생트샤펠 9/13 12:00 시간 지정권', info)
+        self.assertIn('오랑주리·오르세', info)
+        self.assertIn('월9/14 10:00', info)
+        self.assertIn('화9/15 13:30', info)
+        self.assertIn('로댕은 일요일 16:40 조건부 또는 금요일 14:00 기본안', info)
+        self.assertIn('Le Florentin 보류', info)
+        self.assertIn('진화과학박물관은 날짜 미정 후보', info)
+        for stale in [
+            '루브르 9/14 09:00',
+            '마르모탕 9/13 15:30',
+            '생트샤펠 9/17 10:00',
+            '일13:00',
+            'Le Florentin 일12:00',
+            '진화과학박물관 목15:00',
+        ]:
+            self.assertNotIn(stale, info)
+
+    def test_transport_budget_notes_follow_current_itinerary(self):
+        items = {item['id']: item for day in self.data['days'].values()
+                 for item in day['items']}
+        for item_id, cents in [('monday-metro', 510), ('tuesday-metro', 1530),
+                               ('thursday-metro', 510)]:
+            self.assertEqual(items[item_id]['cents'], cents)
+            self.assertEqual(items[item_id]['range'], [cents, cents])
+        self.assertIn('숙소→오랑주리', items['monday-metro']['basis'])
+        self.assertNotIn('생트샤펠', items['monday-metro']['basis'])
+        self.assertIn('오르세→숙소', items['tuesday-metro']['basis'])
+        self.assertNotIn('로댕', items['tuesday-metro']['basis'])
+        self.assertIn('숙소→루브르', items['thursday-metro']['basis'])
+        for stale in ['생트샤펠', '달리그르']:
+            self.assertNotIn(stale, items['thursday-metro']['basis'])
+
+    def test_current_guidance_links_not_old_handoff_or_fete_proposal(self):
+        sunday = re.search(r'<section class="panel" id="p2"[\s\S]*?</section>', self.html)[0]
+        self.assertIn('docs/flexible-rodin-plan.md', sunday)
+        self.assertNotIn('docs/fete-schedule-proposal.md', sunday)
+        info = re.search(r'<section class="panel" id="pi"[\s\S]*?</section>', self.html)[0]
+        primary_card = re.search(r'<section class="panel" id="pi"[\s\S]*?<h3 class="sec">', self.html)[0]
+        self.assertIn('docs/predeparture-checklist.md', primary_card)
+        self.assertIn('docs/flexible-rodin-plan.md', primary_card)
+        self.assertNotIn('docs/notion-sync-handoff.md', primary_card)
+        self.assertNotRegex(info, r'Notion[^<]{0,40}(동기화|sync)')
+
+    def test_pmp_inventory_is_reference_folded_without_losing_urls(self):
+        panel = re.search(r'<section class="panel" id="ppass"[\s\S]*?</section>', self.html)[0]
+        details = re.search(r'<details[^>]*data-pass-catalog[\s\S]*?</details>', panel)
+        self.assertIsNotNone(details)
+        self.assertNotIn(' open', details.group(0).split('>', 1)[0])
+        rendered = re.findall(r'data-pass-site="([^"]+)"', panel)
+        self.assertEqual(len(rendered), 55)
+        self.assertEqual(len(set(rendered)), 55)
+        before_details = panel[:details.start()]
+        self.assertNotIn('data-pass-site=', before_details)
 
     def test_transit_baseline_and_taxi_are_alternatives(self):
         airport = self.data['days']['p1']['items'][0]

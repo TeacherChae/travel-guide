@@ -31,6 +31,11 @@ class MuseumPassTests(unittest.TestCase):
         self.assertCountEqual(urls, rendered)
         links = [a.get('href') for t, a in elements if t == 'a']
         self.assertTrue(set(urls) <= set(links))
+        html = (ROOT / 'index.html').read_text()
+        panel = re.search(r'<section class="panel" id="ppass"[\s\S]*?</section>', html)[0]
+        self.assertRegex(panel, r'<details[^>]*data-pass-catalog')
+        self.assertNotRegex(panel, r'<details[^>]*data-pass-catalog[^>]*open')
+        self.assertNotIn('목요일 10:00 생트샤펠', panel)
 
     def test_tabs(self):
         elements = Elements((ROOT / 'index.html').read_text()).elements
