@@ -157,7 +157,7 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
       assert.equal(await page.locator('#place-dialog').isVisible(), false);
     }
 
-    // Sticky map's containing block must end before daily budget, on mobile and desktop.
+    // Map scrolls with the page, so it must never cover the daily budget, on mobile and desktop.
     for (const width of [320,390,1280]) {
       await page.setViewportSize({width,height:900});
       for (let day=1; day<=8; day++) {
