@@ -269,12 +269,12 @@ class BudgetTests(unittest.TestCase):
         self.assertTrue(airport['taxi_sources'])
 
     def test_default_and_sunday_rodin_totals_match_scenario_budgets(self):
-        default = [11000, 16820, 19710, 20630, 28320, 21110, 20930, 15420]
-        sunday = [11000, 19620, 19710, 20630, 28320, 21110, 20130, 15420]
+        default = [11000, 16820, 22110, 20630, 28320, 21110, 20930, 15420]
+        sunday = [11000, 19620, 22110, 20630, 28320, 21110, 20130, 15420]
         self.assertEqual(self.scenario_total('friday'), default)
         self.assertEqual(self.scenario_total('sunday'), sunday)
-        self.assertEqual(sum(default), 153940)
-        self.assertEqual(sum(sunday), 155940)
+        self.assertEqual(sum(default), 156340)
+        self.assertEqual(sum(sunday), 158340)
         self.assertNotIn('scenarios', self.data)
 
     def test_published_menu_arithmetic_and_optional_defaults(self):

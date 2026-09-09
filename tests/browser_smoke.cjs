@@ -44,8 +44,8 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
     assert.match(await selectedPass.textContent(), /Carte Blanche Jeunes Duo/);
     assert.doesNotMatch(await selectedPass.textContent(), /PMP/);
     assert.deepEqual(await totals(), defaultTotals);
-    assert.deepEqual(defaultTotals, [11000,16820,19710,20630,28320,21110,20930,15420]);
-    assert.deepEqual(sundayRodinTotals, [11000,19620,19710,20630,28320,21110,20130,15420]);
+    assert.deepEqual(defaultTotals, [11000,16820,22110,20630,28320,21110,20930,15420]);
+    assert.deepEqual(sundayRodinTotals, [11000,19620,22110,20630,28320,21110,20130,15420]);
 
     // Arrival route tabs update map, external link and budget without affecting Rodin scenario.
     const frame = page.locator('#p1 .mapbox iframe');
@@ -128,7 +128,7 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
     await page.locator('.tabbar [aria-controls="p3"]').click();
     assert.deepEqual(await visibleLabels('p3'), [
       '오랑주리', '옥동식 파리', 'Fer à Cheval', '퐁뇌프 · 센강 산책',
-      'Bouillon Racine', 'Il Gelato del Marchese'
+      '진화 대전시실', '파리 식물원', 'Bouillon Racine', 'Il Gelato del Marchese'
     ]);
     assert.equal(await page.locator('#p3 .stop[data-label="들라크루아 미술관"]').count(), 0);
     assert.match(await page.locator('#p3 .card[data-dining="Bouillon Racine"] .label').textContent(), /^18:30–19:45/);
