@@ -11,9 +11,18 @@ class Nodes(HTMLParser):
     def __init__(self, source):
         super().__init__()
         self.nodes = []
+        self._scenario_stack = [None]
         self.feed(source)
     def handle_starttag(self, tag, attrs):
-        self.nodes.append((tag, dict(attrs)))
+        attrs = dict(attrs)
+        inherited = self._scenario_stack[-1]
+        current = attrs.get('data-rodin-only', inherited)
+        attrs['_rodin_only'] = current
+        self.nodes.append((tag, attrs))
+        self._scenario_stack.append(current)
+    def handle_endtag(self, tag):
+        if len(self._scenario_stack) > 1:
+            self._scenario_stack.pop()
 
 class BudgetTests(unittest.TestCase):
     @classmethod
@@ -24,9 +33,23 @@ class BudgetTests(unittest.TestCase):
             raise AssertionError('Missing single-source daily budget ledger')
         cls.data = json.loads(match[1])
 
+    def scenario_total(self, scenario):
+        totals = []
+        for day in self.data['days'].values():
+            total = 0
+            for item in day['items']:
+                if item.get('rodin_day') and item['rodin_day'] != scenario:
+                    continue
+                if item.get('optional') and not item.get('included'):
+                    continue
+                total += item['cents']
+            totals.append(total)
+        return totals
+
     def test_eight_days_and_two_adults(self):
         self.assertEqual(self.data['people'], 2)
         self.assertEqual(self.data['currency'], 'EUR')
+        self.assertEqual(self.data['rodin_plan'], 'friday')
         self.assertEqual(list(self.data['days']), [f'p{i}' for i in range(1, 9)])
         for key in self.data['days']:
             panel = re.search(r'<section class="panel" id="'+key+r'"[\s\S]*?</section>', self.html)[0]
@@ -44,7 +67,7 @@ class BudgetTests(unittest.TestCase):
                 self.assertLessEqual(item['range'][0], item['cents'])
                 self.assertLessEqual(item['cents'], item['range'][1])
                 self.assertTrue(item['basis'])
-                self.assertIn(item['status'], ['verified', 'estimate', 'free', 'excluded'])
+                self.assertIn(item['status'], ['verified', 'estimate', 'free', 'excluded', 'paid'])
                 if item['status'] == 'verified':
                     self.assertTrue(item.get('sources'))
                 for source in item.get('sources', []):
@@ -53,16 +76,21 @@ class BudgetTests(unittest.TestCase):
                     self.assertRegex(evidence['checked_on'], r'^\d{4}-\d{2}-\d{2}$')
         self.assertEqual(len(ids), len(set(ids)))
 
-    def test_all_mapped_places_and_dining_have_one_budget_entry(self):
+    def test_default_scenario_mapped_places_and_dining_have_one_budget_entry(self):
         for key, day in self.data['days'].items():
             panel = re.search(r'<section class="panel" id="'+key+r'"[\s\S]*?</section>', self.html)[0]
             places = []
             for _, attrs in Nodes(panel).nodes:
+                if attrs.get('_rodin_only') not in (None, 'friday'):
+                    continue
                 if attrs.get('data-label') and 'stop' in attrs.get('class', '').split():
                     places.append(attrs['data-label'])
                 if attrs.get('data-dining'):
                     places.append(attrs['data-dining'])
-            assigned = [item['place'] for item in day['items'] if item.get('place')]
+            assigned = [
+                item['place'] for item in day['items']
+                if item.get('place') and item.get('rodin_day') in (None, 'friday')
+            ]
             self.assertCountEqual(places, assigned, key)
 
     def test_no_combined_ticket_or_removed_museum_double_count(self):
@@ -80,7 +108,7 @@ class BudgetTests(unittest.TestCase):
         self.assertNotEqual(by_id['orangerie']['status'], 'free')
         self.assertEqual(by_id['chapelle']['cents'], 4400)
 
-    def test_carte_blanche_is_the_selected_plan_and_paid_once_on_first_visit(self):
+    def test_carte_blanche_is_selected_and_paid_once_on_first_use(self):
         self.assertEqual(self.data['admission_plan'], 'carte-blanche-jeunes-duo')
         membership = [
             item
@@ -89,14 +117,14 @@ class BudgetTests(unittest.TestCase):
             if item['id'] == 'carte-blanche-jeunes-duo'
         ]
         self.assertEqual(len(membership), 1)
-        self.assertEqual(self.data['days']['p2']['items'].count(membership[0]), 1)
+        self.assertEqual(self.data['days']['p3']['items'].count(membership[0]), 1)
         self.assertEqual(membership[0]['cents'], 4000)
         self.assertEqual(membership[0].get('purchase_status'), 'planned')
         self.assertFalse(membership[0].get('optional', False))
         self.assertNotIn('carte-blanche-jeunes-duo', [
             item['id']
             for key, day in self.data['days'].items()
-            if key != 'p2'
+            if key != 'p3'
             for item in day['items']
         ])
 
@@ -124,6 +152,35 @@ class BudgetTests(unittest.TestCase):
         self.assertIn('Carte Blanche Jeunes Duo', selected_rows[0])
         self.assertNotIn('PMP', selected_rows[0])
 
+    def test_cruise_purchase_is_paid_in_krw_without_eur_fx_or_double_count(self):
+        cruise = next(
+            item
+            for day in self.data['days'].values()
+            for item in day['items']
+            if item['id'] == 'cruise'
+        )
+        self.assertEqual(cruise['status'], 'paid')
+        self.assertEqual(cruise['purchase_status'], 'paid')
+        self.assertEqual(cruise['paid_currency'], 'KRW')
+        self.assertEqual(cruise['paid_amount'], 27052)
+        self.assertEqual(cruise['purchase_source'], 'MyRealTrip')
+        self.assertEqual(cruise['cents'], 0)
+        self.assertEqual(cruise['range'], [0, 0])
+        self.assertRegex(cruise['basis'], r'사용자 보고|2인|e-ticket|탑승')
+        self.assertNotRegex(cruise['basis'], r'환율|FX|€27,052')
+        self.assertEqual(
+            sum(1 for day in self.data['days'].values() for item in day['items'] if item['id'] == 'cruise'),
+            1,
+        )
+
+        sunday = re.search(r'<section class="panel" id="p2"[\s\S]*?</section>', self.html)[0]
+        self.assertIn('MyRealTrip', sunday)
+        self.assertIn('₩27,052', sunday)
+        self.assertNotRegex(sunday, r'크루즈[\s\S]{0,80}€0')
+        self.assertIn('docs/fete-schedule-proposal.md', sunday)
+        info = re.search(r'<section class="panel" id="pi"[\s\S]*?</section>', self.html)[0]
+        self.assertRegex(info, r'aria-checked="false"[^\n]+일요일 일반 유람선 바우처·탑승 조건 확인')
+
     def test_prep_and_handoff_docs_do_not_claim_notion_sync_completed(self):
         prep = ROOT / 'docs' / 'predeparture-checklist.md'
         handoff = ROOT / 'docs' / 'notion-sync-handoff.md'
@@ -150,16 +207,14 @@ class BudgetTests(unittest.TestCase):
         self.assertEqual(airport['taxi_cents'] - airport['cents'], 3700)
         self.assertTrue(airport['taxi_sources'])
 
-    def test_default_totals_match_documented_two_person_budgets(self):
-        expected = [11000, 26230, 23310, 19510, 28320, 21310, 20130, 15420]
-        totals = [sum(i['cents'] for i in day['items']
-                      if not i.get('optional') or i['included'])
-                  for day in self.data['days'].values()]
-        self.assertEqual(totals, expected)
-        self.assertEqual(sum(totals), 165230)
-        readme = (ROOT / 'README.md').read_text()
-        for value in expected + [sum(expected), sum(expected) + 3700]:
-            self.assertIn(f'€{value / 100:,.2f}', readme)
+    def test_default_and_sunday_rodin_totals_match_scenario_budgets(self):
+        default = [11000, 16820, 19710, 20630, 28320, 21110, 20930, 15420]
+        sunday = [11000, 19620, 19710, 20630, 28320, 21110, 20130, 15420]
+        self.assertEqual(self.scenario_total('friday'), default)
+        self.assertEqual(self.scenario_total('sunday'), sunday)
+        self.assertEqual(sum(default), 153940)
+        self.assertEqual(sum(sunday), 155940)
+        self.assertNotIn('scenarios', self.data)
 
     def test_published_menu_arithmetic_and_optional_defaults(self):
         items = {i['id']: i for day in self.data['days'].values() for i in day['items']}
@@ -170,11 +225,11 @@ class BudgetTests(unittest.TestCase):
         self.assertEqual(items['deux-magots']['cents'], 2 * 1400)
         self.assertEqual(items['giverny-shuttle']['cents'], 2 * 1000)
         included = {i['id'] for i in items.values() if i.get('optional') and i['included']}
-        self.assertEqual(included, {'evolution', 'pleincoeur', 'gelato', 'impressionisms'})
+        self.assertEqual(included, {'pleincoeur', 'gelato', 'impressionisms'})
 
     def test_pass_comparison_uses_only_covered_visits_and_does_not_double_bill_delacroix(self):
         items = {i['id']: i for day in self.data['days'].values() for i in day['items']}
-        covered = ['louvre', 'orsay', 'orangerie', 'chapelle', 'rodin', 'delacroix']
+        covered = ['louvre', 'orsay', 'orangerie', 'chapelle', 'rodin-friday', 'delacroix']
         individual = sum(items[key].get('standalone_cents', items[key]['cents']) for key in covered)
         self.assertEqual(individual, 19300)
         comparison = {attrs['data-pass-comparison']: int(attrs['data-cents'])

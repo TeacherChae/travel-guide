@@ -5,6 +5,7 @@ from urllib.parse import urlparse, parse_qs
 from html.parser import HTMLParser
 
 ROOT = Path(__file__).resolve().parents[1]
+
 class Nodes(HTMLParser):
     def __init__(self, s):
         super().__init__()
@@ -21,14 +22,14 @@ class ThursdayTests(unittest.TestCase):
 
     def test_order(self):
         stops = [a['data-label'] for t, a in self.nodes if t == 'button' and a.get('class') == 'stop']
-        self.assertEqual(stops, ['생트샤펠', '마르셰 달리그르', '쿨레 베르트 르네뒤몽', '진화과학 박물관', '파리 식물원'])
-        self.assertIn('11:30–12:30', self.panel)
-        self.assertIn('15:00–17:00', self.panel)
-        self.assertNotIn('data-dining=', self.panel)
+        self.assertEqual(stops, ['루브르', '들라크루아 미술관'])
+        self.assertIn('09:00–13:00', self.panel)
+        self.assertIn('15:45–17:00', self.panel)
+        self.assertIn('재배치 후보 보존', self.panel)
 
     def test_route_continuity(self):
         legs = [parse_qs(urlparse(a['data-src']).query) for _, a in self.nodes if a.get('class') == 'leg']
-        self.assertEqual(len(legs), 6)
+        self.assertEqual(len(legs), 3)
         self.assertEqual(legs[0]['saddr'], legs[-1]['daddr'])
         for previous, following in zip(legs, legs[1:]):
             self.assertEqual(previous['daddr'], following['saddr'])

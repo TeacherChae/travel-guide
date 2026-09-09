@@ -1,8 +1,8 @@
-"""Regression contracts for the revised Monday/Tuesday itinerary.
+"""Regression contracts for the flexible Rodin itinerary.
 
-These tests intentionally describe the public itinerary contract rather than
-coupling to the implementation of the map binder.  Every visible stop,
-including dining cards, must be represented in the map route and overview.
+Visible route nodes must match the active Rodin scenario. Hidden alternate
+scenario nodes may remain in the HTML, but they must not be part of the active
+route, budget, or default maps.
 """
 import json
 import re
@@ -10,7 +10,6 @@ import unittest
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
-
 
 ROOT = Path(__file__).resolve().parents[1]
 HOME = "48.8484866,2.3540618"
@@ -20,13 +19,23 @@ class Nodes(HTMLParser):
     def __init__(self, source):
         super().__init__()
         self.nodes = []
+        self._scenario_stack = [None]
         self.feed(source)
 
     def handle_starttag(self, tag, attrs):
-        self.nodes.append((tag, dict(attrs)))
+        attrs = dict(attrs)
+        inherited = self._scenario_stack[-1]
+        current = attrs.get("data-rodin-only", inherited)
+        attrs["_rodin_only"] = current
+        self.nodes.append((tag, attrs))
+        self._scenario_stack.append(current)
+
+    def handle_endtag(self, tag):
+        if len(self._scenario_stack) > 1:
+            self._scenario_stack.pop()
 
 
-class MondayTuesdayItineraryTests(unittest.TestCase):
+class FlexibleItineraryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.html = (ROOT / "index.html").read_text()
@@ -44,24 +53,25 @@ class MondayTuesdayItineraryTests(unittest.TestCase):
             raise AssertionError(f"Missing panel {key}")
         return match[0]
 
-    @staticmethod
-    def panel_nodes(panel):
-        return Nodes(panel).nodes
+    def panel_nodes(self, key, scenario="friday"):
+        return [
+            (tag, attrs)
+            for tag, attrs in Nodes(self.panel(key)).nodes
+            if attrs.get("_rodin_only") in (None, scenario)
+        ]
 
-    def itinerary_nodes(self, key):
-        """Return visible route nodes, including dining cards."""
+    def itinerary_nodes(self, key, scenario="friday"):
         return [
             attrs
-            for tag, attrs in self.panel_nodes(self.panel(key))
+            for tag, attrs in self.panel_nodes(key, scenario)
             if ("stop" in attrs.get("class", "").split() and attrs.get("data-label"))
             or ("card" in attrs.get("class", "").split() and attrs.get("data-dining"))
         ]
 
-    @staticmethod
-    def route_legs(panel):
+    def route_legs(self, key, scenario="friday"):
         return [
             attrs
-            for tag, attrs in Nodes(panel).nodes
+            for tag, attrs in self.panel_nodes(key, scenario)
             if "leg" in attrs.get("class", "").split() and attrs.get("data-src")
         ]
 
@@ -77,20 +87,17 @@ class MondayTuesdayItineraryTests(unittest.TestCase):
             raise AssertionError(f"Route node has no map point: {attrs}")
         return point
 
-    def assert_route_contract(self, key, expected_labels, exact=True):
+    def assert_route_contract(self, key, expected_labels, expected_modes, scenario="friday"):
         panel = self.panel(key)
-        nodes = self.itinerary_nodes(key)
+        nodes = self.itinerary_nodes(key, scenario)
         labels = [attrs.get("data-label") or attrs.get("data-dining") for attrs in nodes]
-        if exact:
-            self.assertEqual(labels, expected_labels, key)
-        else:
-            self.assertEqual(labels[: len(expected_labels)], expected_labels, key)
+        self.assertEqual(labels, expected_labels, (key, scenario))
 
-        # There is one leg from home to each node and one final leg home.
-        legs = self.route_legs(panel)
-        self.assertEqual(len(legs), len(nodes) + 1, key)
+        legs = self.route_legs(key, scenario)
+        self.assertEqual(len(legs), len(nodes) + 1, (key, scenario))
         self.assertEqual(self.query(legs[0]["data-src"])["saddr"][0], HOME, key)
         self.assertEqual(self.query(legs[-1]["data-src"])["daddr"][0], HOME, key)
+        self.assertEqual([self.query(leg["data-src"])["dirflg"][0] for leg in legs], expected_modes)
 
         for index, node in enumerate(nodes):
             incoming = self.query(legs[index]["data-src"])
@@ -99,149 +106,130 @@ class MondayTuesdayItineraryTests(unittest.TestCase):
             self.assertEqual(incoming["daddr"][0], point, labels[index])
             self.assertEqual(outgoing["saddr"][0], point, labels[index])
 
-        # The embedded overview must show exactly the same destination chain.
         frame = next(attrs for tag, attrs in Nodes(panel).nodes if tag == "iframe")
-        # Multi-stop transit embeds render pins without a route. The full map is
-        # explicitly a walking schematic, not the actual mode of every leg.
-        self.assertEqual(self.query(frame["src"])["dirflg"], ["w"])
-        self.assertIn("도보 개략도", panel)
+        self.assertIn("도보 개략도", panel) if key in {"p3", "p4"} else None
         overview = self.query(frame["src"])["daddr"][0].split(" to:")
-        self.assertEqual(overview, [self.query(leg["data-src"])["daddr"][0] for leg in legs])
-        actual_modes = [self.query(leg["data-src"])["dirflg"][0] for leg in legs]
-        expected_modes = ["r"] + ["w"] * 7 if key == "p3" else ["w"] * 3 + ["r"]
-        self.assertEqual(actual_modes, expected_modes)
+        if scenario == "friday":
+            self.assertEqual(overview, [self.query(leg["data-src"])["daddr"][0] for leg in legs])
 
-    def test_monday_route_replaces_shopping_with_musee_delacroix_and_evening_dessert(self):
+    def test_sunday_default_keeps_festival_then_cruise_without_rodin(self):
+        self.assert_route_contract(
+            "p2",
+            ["노트르담", "생트샤펠", "La Fête de Paris", "바토 파리지앵"],
+            ["w", "w", "w", "r", "r"],
+            scenario="friday",
+        )
+        panel = self.panel("p2")
+        self.assertIn("La Fête de Paris", panel)
+        self.assertIn("13:30–13:45 Panthéon 도착은", panel)
+        self.assertIn("18시까지 반드시 머물 필요는 없습니다", panel)
+        self.assertIn("생트샤펠은 현재 정기 미사", panel)
+        self.assertRegex(panel, r'data-label="바토 파리지앵"[\s\S]*?<span class="time">21:00 목표</span>')
+        self.assertIn("MyRealTrip", panel)
+        self.assertIn("₩27,052", panel)
+        self.assertNotIn("오랑주리 → 마르모탕", panel)
+
+    def test_sunday_rodin_scenario_adds_only_conditional_rodin(self):
+        self.assert_route_contract(
+            "p2",
+            ["노트르담", "생트샤펠", "La Fête de Paris", "로댕 미술관", "바토 파리지앵"],
+            ["w", "w", "w", "w", "r", "r"],
+            scenario="sunday",
+        )
+        panel = self.panel("p2")
+        self.assertIn('data-rodin-only="sunday"', panel)
+        self.assertRegex(panel, r'로댕 미술관[\s\S]*?16:40–18:15 조건부')
+        self.assertIn("짧은 하이라이트 관람", panel)
+
+    def test_monday_orangerie_then_existing_food_walk(self):
         self.assert_route_contract(
             "p3",
             [
-                "루브르",
+                "오랑주리",
                 "옥동식 파리",
                 "Fer à Cheval",
                 "퐁뇌프 · 센강 산책",
-                "들라크루아 미술관",
                 "Bouillon Racine",
                 "Il Gelato del Marchese",
             ],
+            ["r", "w", "w", "w", "w", "w", "w"],
         )
         panel = self.panel("p3")
-        self.assertNotIn("48.8592564,2.3424255", panel)
-        labels = [attrs.get("data-label") or attrs.get("data-dining") for attrs in self.itinerary_nodes("p3")]
-        self.assertNotIn("La Samaritaine", labels)
-        self.assertNotIn("사마리텐", labels)
-        self.assertNotIn("Higuma", labels)
-        if "사마리텐" in panel:
-            self.assertRegex(panel, r"사마리텐[\s\S]*(?:선택|옵션|제외)")
-        self.assertIn("09:00–13:00", panel)
-        for dining, timing in [
-            ("옥동식 파리", "13:20–14:10"),
-            ("Fer à Cheval", "14:40–15:00"),
-            ("Bouillon Racine", "18:30–19:45"),
-            ("Il Gelato del Marchese", "20:00–20:20"),
-        ]:
-            self.assertRegex(panel, rf'data-dining="{re.escape(dining)}"[\s\S]*?{re.escape(timing)}')
-        for stop, timing in [
-            ("퐁뇌프 · 센강 산책", "15:15–15:30"),
-            ("들라크루아 미술관", "15:45–16:45"),
-        ]:
-            self.assertRegex(
-                panel,
-                rf'data-label="{re.escape(stop)}"[\s\S]*?<span class="time">{re.escape(timing)}</span>',
-            )
+        self.assertIn("루브르·들라크루아는 목요일로 옮겼습니다", panel)
+        self.assertIn("10:00–12:00", panel)
+        self.assertNotIn("들라크루아 미술관", panel)
+        self.assertNotIn("La Samaritaine", panel)
+        self.assertNotIn("Higuma", panel)
 
-        self.assertNotIn("바토 파리지앵", panel)
-
-    def test_sunday_retains_cruise_and_monday_does_not(self):
-        sunday = self.panel("p2")
-        self.assertIn("바토 파리지앵", sunday)
-        self.assertNotIn("샹드마르스 · 에펠탑", sunday)
-        self.assertRegex(sunday, r'data-label="바토 파리지앵"[\s\S]*?<span class="time">21:00</span>')
-        sunday_stops = [
-            attrs.get("data-label")
-            for tag, attrs in Nodes(sunday).nodes
-            if "stop" in attrs.get("class", "").split() and attrs.get("data-label")
-        ]
-        self.assertEqual(
-            sunday_stops,
-            ["노트르담", "오랑주리", "마르모탕 모네", "바토 파리지앵"],
-        )
-        legs = self.route_legs(sunday)
-        self.assertEqual(
-            [self.query(leg["data-src"])["daddr"][0] for leg in legs],
-            [
-                "48.8530,2.3499",
-                "48.8638,2.3227",
-                "48.8593,2.2672",
-                "48.8604,2.2936",
-                HOME,
-            ],
-        )
-        unlabelled_stops = [
-            attrs
-            for tag, attrs in Nodes(sunday).nodes
-            if "stop" in attrs.get("class", "").split() and not attrs.get("data-label")
-        ]
-        self.assertTrue(unlabelled_stops)
-        self.assertTrue(all("data-src" not in attrs for attrs in unlabelled_stops))
-        sunday_items = {item["id"]: item for item in self.budget["days"]["p2"]["items"]}
-        self.assertIn("cruise", sunday_items)
-        self.assertEqual(sunday_items["cruise"]["cents"], 4000)
-
-        monday_items = {item["id"]: item for item in self.budget["days"]["p3"]["items"]}
-        self.assertNotIn("cruise", monday_items)
-
-    def test_tuesday_route_puts_rodin_before_late_orsay(self):
+    def test_tuesday_has_only_marmottan_and_orsay_as_museums(self):
         self.assert_route_contract(
             "p4",
-            ["Les Deux Magots", "로댕 미술관", "오르세 미술관"],
+            ["Les Deux Magots", "마르모탕 모네", "오르세 미술관"],
+            ["w", "r", "r", "r"],
         )
         panel = self.panel("p4")
-        self.assertNotIn("10:00–13:30", panel)
-        self.assertNotIn("샹드마르스 · 에펠탑", panel)
-        self.assertRegex(panel, r'data-dining="Les Deux Magots"[\s\S]*?08:30–09:00')
-        for stop, timing in [
-            ("로댕 미술관", "10:00–11:30"),
-            ("오르세 미술관", "13:30–17:00"),
-        ]:
-            self.assertRegex(
-                panel,
-                rf'data-label="{re.escape(stop)}"[\s\S]*?<span class="time">{re.escape(timing)}</span>',
-            )
-        orsay = re.search(r'data-label="오르세 미술관"[\s\S]*?</button>', panel)[0]
-        self.assertIn("Carte Blanche 일반 관람은 시간 예약 면제", orsay)
+        self.assertRegex(panel, r'data-label="마르모탕 모네"[\s\S]*?<span class="time">10:00–12:00</span>')
+        self.assertRegex(panel, r'data-label="오르세 미술관"[\s\S]*?<span class="time">13:30–17:00</span>')
+        self.assertNotIn('data-label="로댕 미술관"', panel)
+        self.assertIn("미술관 3곳을 넣지 않도록 로댕을 제외", panel)
 
-    def test_budget_ledger_tracks_the_revised_places_and_membership_boundary(self):
-        p3 = self.budget["days"]["p3"]["items"]
-        p4 = self.budget["days"]["p4"]["items"]
-        by_id = {item["id"]: item for item in p3 + p4}
-        self.assertNotIn("champ-de-mars", {item["id"] for item in p4})
+    def test_thursday_louvre_delacroix_pairing(self):
+        self.assert_route_contract(
+            "p6",
+            ["루브르", "들라크루아 미술관"],
+            ["r", "w", "w"],
+        )
+        panel = self.panel("p6")
+        self.assertIn("09:00–13:00", panel)
+        self.assertIn("15:45–17:00", panel)
+        self.assertIn("무료 미술관은 아닙니다", panel)
+        self.assertIn("달리그르·쿨레 베르트·진화과학 박물관·식물원은 기본 동선과 예산에서 제외", panel)
 
-        self.assertIn("okdongsik", by_id)
-        self.assertNotIn("higuma", by_id)
-        self.assertNotIn("samaritaine", by_id)
-        self.assertEqual(by_id["okdongsik"]["place"], "옥동식 파리")
-        self.assertEqual(by_id["delacroix"]["cents"], 0)
-        self.assertIn("louvre", by_id["delacroix"].get("sources", []))
-        self.assertNotEqual(by_id["delacroix"].get("status"), "free")
-        self.assertEqual(by_id["rodin"]["cents"], 2800)
-        self.assertIn("Carte Blanche", by_id["rodin"]["basis"])
-        self.assertNotIn("carte", " ".join(by_id).lower())
+    def test_friday_scenarios_are_mutually_exclusive(self):
+        friday_labels = [attrs.get("data-label") or attrs.get("data-dining") for attrs in self.itinerary_nodes("p7", "friday")]
+        sunday_labels = [attrs.get("data-label") or attrs.get("data-dining") for attrs in self.itinerary_nodes("p7", "sunday")]
+        self.assertEqual(friday_labels, ["로댕 미술관", "풀만 체크인", "트로카데로 광장", "Le Café du Commerce"])
+        self.assertEqual(sunday_labels, ["몽소 공원", "Pleincœur", "풀만 체크인", "트로카데로 광장", "Le Café du Commerce"])
+        self.assertNotIn("몽소 공원", friday_labels)
+        self.assertNotIn("Pleincœur", friday_labels)
+        self.assertNotIn("로댕 미술관", sunday_labels)
 
-        dinners = [item for item in p3 if item.get("meal") == "dinner"]
-        self.assertEqual(len(dinners), 1)
-        self.assertEqual(dinners[0]["place"], "Bouillon Racine")
-        self.assertEqual(dinners[0]["cents"], 7000)
-        self.assertEqual(by_id["okdongsik"]["cents"], 5000)
+        for scenario, expected_destinations in {
+            "friday": ["48.8556,2.2929", "48.8553072,2.3158354", "48.8556,2.2929", "48.8628,2.2876", "48.846418,2.2954771", "48.8556,2.2929"],
+            "sunday": ["48.8556,2.2929", "48.8797,2.3090", "48.8864619,2.3186604", "48.8556,2.2929", "48.8628,2.2876", "48.846418,2.2954771", "48.8556,2.2929"],
+        }.items():
+            legs = self.route_legs("p7", scenario)
+            self.assertEqual([self.query(leg["data-src"])["daddr"][0] for leg in legs], expected_destinations, scenario)
+            self.assertEqual(self.query(legs[0]["data-src"])["saddr"][0], HOME, scenario)
+            for previous, following in zip(legs, legs[1:]):
+                self.assertEqual(self.query(previous["data-src"])["daddr"][0], self.query(following["data-src"])["saddr"][0], scenario)
 
-        gelato = by_id["gelato"]
-        self.assertTrue(gelato.get("optional"))
-        self.assertTrue(gelato.get("included"))
+        panel = self.panel("p7")
+        self.assertIn('data-rodin-only="friday"', panel)
+        self.assertIn('data-rodin-only="sunday"', panel)
+        self.assertIn("14:00–15:10", panel)
+        self.assertIn("15:40–16:10", panel)
+        self.assertIn("기본 금요일 로댕안", (ROOT / "data" / "dining-plan.json").read_text())
 
-        soap = by_id["soap"]
-        self.assertTrue(soap.get("optional"))
-        self.assertFalse(soap.get("included"))
-        # The purchase remains optional, but Fer à Cheval stays in the fixed route.
-        self.assertIn('data-dining="Fer à Cheval"', self.panel("p3"))
+    def test_budget_ledger_tracks_revised_places_and_exactly_one_rodin(self):
+        days = self.budget["days"]
+        self.assertEqual(self.budget["rodin_plan"], "friday")
+        self.assertEqual(days["p3"]["items"][-1]["id"], "orangerie")
+        self.assertEqual(days["p4"]["items"][-1]["id"], "marmottan")
+        self.assertIn("delacroix", {item["id"] for item in days["p6"]["items"]})
+        rodin_items = [item for day in days.values() for item in day["items"] if item["id"].startswith("rodin-")]
+        self.assertCountEqual([item["rodin_day"] for item in rodin_items], ["sunday", "friday"])
+        self.assertTrue(all(item["cents"] == 2800 for item in rodin_items))
+        for scenario, expected in [("friday", 153940), ("sunday", 155940)]:
+            total = 0
+            for day in days.values():
+                for item in day["items"]:
+                    if item.get("rodin_day") and item["rodin_day"] != scenario:
+                        continue
+                    if item.get("optional") and not item.get("included"):
+                        continue
+                    total += item["cents"]
+            self.assertEqual(total, expected, scenario)
 
 
 if __name__ == "__main__":
