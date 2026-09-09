@@ -149,10 +149,12 @@ class FlexibleItineraryTests(unittest.TestCase):
                 "옥동식 파리",
                 "Fer à Cheval",
                 "퐁뇌프 · 센강 산책",
+                "진화 대전시실",
+                "파리 식물원",
                 "Bouillon Racine",
                 "Il Gelato del Marchese",
             ],
-            ["r", "w", "w", "w", "w", "w", "w"],
+            ["r", "w", "w", "w", "r", "w", "r", "w", "w"],
         )
         panel = self.panel("p3")
         self.assertIn("루브르·들라크루아는 목요일로 옮겼습니다", panel)
@@ -220,7 +222,7 @@ class FlexibleItineraryTests(unittest.TestCase):
         rodin_items = [item for day in days.values() for item in day["items"] if item["id"].startswith("rodin-")]
         self.assertCountEqual([item["rodin_day"] for item in rodin_items], ["sunday", "friday"])
         self.assertTrue(all(item["cents"] == 2800 for item in rodin_items))
-        for scenario, expected in [("friday", 153940), ("sunday", 155940)]:
+        for scenario, expected in [("friday", 156340), ("sunday", 158340)]:
             total = 0
             for day in days.values():
                 for item in day["items"]:
