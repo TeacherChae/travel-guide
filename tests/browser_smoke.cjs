@@ -1,3 +1,4 @@
+// Historical fixed-guide regression only. Current editor: editor-browser-smoke.cjs.
 // Reuses an existing Playwright installation; this static site adds no npm dependency.
 const assert = require('node:assert/strict');
 const path = require('node:path');
@@ -12,7 +13,7 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
     page.on('pageerror', error => errors.push(error.message));
     // Test our own UI deterministically, not Google availability or live routing.
     await page.route('https://**/*', route => route.abort());
-    await page.goto(pathToFileURL(path.resolve(__dirname, '../index.html')).href);
+    await page.goto(pathToFileURL(path.resolve(__dirname, '../legacy.html')).href);
     const data = await page.locator('#daily-budget-data').textContent().then(JSON.parse);
     const scenarioTotals = plan => Object.values(data.days).map(day => day.items.reduce((n, item) => {
       if (item.rodin_day && item.rodin_day !== plan) return n;

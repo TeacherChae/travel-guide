@@ -38,7 +38,7 @@ class Nodes(HTMLParser):
 class FlexibleItineraryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.html = (ROOT / "index.html").read_text()
+        cls.html = (ROOT / "legacy.html").read_text()
         budget = re.search(
             r'<script type="application/json" id="daily-budget-data">([\s\S]*?)</script>',
             cls.html,

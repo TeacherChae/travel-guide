@@ -1,3 +1,97 @@
+# 여행 장소 편집기
+
+**서버 없이 사용하는 장소·일정·지도 편집기**입니다. `index.html`에서 장소를 추가·수정·삭제하면 날짜별 장소 목록과 인접 이동 경로가 자동으로 갱신됩니다.
+
+## 시작하기
+
+패키지 설치나 빌드가 필요 없습니다. GitHub Pages 같은 정적 호스팅에 올리거나, 개발 중에는 다음처럼 엽니다.
+
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
+# http://127.0.0.1:8000
+```
+
+`file://`로도 기본 편집 기능을 열 수 있지만 브라우저별 저장 동작이 다르고 Google API의 웹사이트 제한도 적용되지 않을 수 있으므로, 같은 HTTP(S) 주소를 계속 쓰는 편이 좋습니다.
+
+## 장소 입력과 표시
+
+- 필수: **Name, Date&Time, Maps**.
+- 선택: **Reservation Status, Reservation, Total Fee, Pay per Each, EA, Priority, Category, URL, memo**.
+- `memo`는 페이지 본문입니다. 사용자 텍스트를 HTML로 실행하지 않습니다.
+- `Date&Time`은 시작/종료 시각을 지원하고, 날짜만 있는 원본은 시간 미정으로 보존합니다. 날짜·시각은 설정한 시간대(기본 `Europe/Paris`)로 입력·표시합니다.
+- `Total Fee`를 직접 입력하면 그 값을 사용합니다. 비워두면 **Pay per Each × EA**로 계산하되 두 값이 모두 필요합니다. `0`과 미입력은 다릅니다. 임의로 2인을 곱하지 않습니다.
+- 날짜별 시간순으로 인접 장소의 경로를 생성합니다. 추가·삭제·날짜/지도 수정 시 경로와 지도 링크도 함께 갱신합니다. 다른 날짜를 연결하지 않습니다.
+- 날짜가 없으면 미배정 목록에 남습니다. 지도 없는 원본 항목은 표시하지만 그 항목을 가로질러 경로를 임의 연결하지 않습니다.
+
+## 저장과 백업
+
+**수정 내용은 현재 브라우저의 localStorage에만 저장됩니다. Notion, Git, 다른 휴대폰에 자동 반영되지 않습니다.**
+
+- 다른 기기로 옮기기 전 **백업 내보내기**로 JSON을 내려받고, 새 기기에서 **가져오기**를 사용합니다.
+- 가져오기는 현재 자료를 교체하므로 확인 절차를 거칩니다. 형식 오류나 중복 ID가 있는 백업은 기존 자료를 바꾸지 않습니다.
+- 브라우저 데이터 삭제·시크릿 모드 종료·다른 도메인/포트 사용 시 저장 자료가 없어지거나 다르게 보일 수 있습니다. 중요한 편집 뒤에는 백업하세요.
+- 저장 실패를 성공으로 표시하지 않습니다. 손상된 저장 데이터는 자동으로 덮어쓰지 않습니다.
+- API 키는 그 탭의 sessionStorage에만 저장하며 장소 백업에 넣지 않습니다. 키를 Git이나 채팅에 공유하지 마세요.
+
+## Google Maps 장소 선택
+
+**장소 추가/수정 → Maps 선택**에서 검색 결과나 지도 위의 장소를 선택하고 적용합니다. 전 세계 Google 장소 검색·지도 클릭 선택에는 사용자 API 키가 필요합니다.
+
+1. Google Cloud 프로젝트와 결제 설정.
+2. **Maps JavaScript API**, **Places API (New)** 활성화.
+3. API 키를 만들고 **웹사이트(HTTP 리퍼러)** 및 위 두 API로 제한.
+4. 편집기의 **설정**에 키 입력.
+
+자세한 절차·도메인 예시·과금 주의: **[Google Maps 키 발급 안내](docs/google-maps-setup.md)**. 키가 없거나 API 호출에 실패해도 저장된 장소 검색, 긴 Maps URL 직접 입력, 기존 iframe 지도와 구간 링크는 사용할 수 있습니다. 일반 iframe 내부 클릭을 읽는 것처럼 가장하지 않습니다.
+
+## 초기 자료와 이전 가이드
+
+`data/places-seed.js`는 **2026-09-11 Notion 장소_DB의 46개 레코드를 요청한 속성과 memo로만 옮긴 수동 스냅샷**입니다. 이 작업은 Notion을 수정하지 않습니다.
+
+- 원본에서 날짜가 비어 있던 **36개**와 Maps가 비어 있던 **1개**를 삭제하거나 임의로 보충하지 않았습니다. 폼에서 새로 저장할 때는 필수 항목을 채워야 합니다.
+- 원본의 실제 타임스탬프를 보존했습니다. 표시 시간대를 바꿔도 원본 순간을 다른 시각으로 재해석하지 않습니다. 기존 Notion 입력 자체가 틀렸다면 사용자가 수정해야 합니다.
+- Notion MCP가 반환한 `Total Fee` 수식 참조는 실제 금액이 아니므로 가져오지 않았습니다. 단가와 수량이 모두 있는 항목만 자동 계산하며 나머지는 미정으로 표시합니다.
+- 비공개 첨부파일·권한 토큰·티켓 파일은 초기 자료에 포함하지 않습니다. 공개 외부 참고 링크만 URL에 옮깁니다.
+- 가격·영업·예약 여부를 새로 검증하거나 추정한 작업이 아닙니다. 원본 메모에는 과거 일정이 남아 있을 수 있습니다.
+- 기존 고정 가이드는 **[legacy.html](legacy.html)**에 보존했습니다. 과거 RER/택시 전환·로댕 시나리오·고정 예산은 현재 편집 데이터와 연동되지 않습니다.
+
+## 파일 구조
+
+```text
+index.html                    # 현재 편집기 화면
+assets/editor.css             # 반응형 레이아웃
+assets/editor.js              # 폼·저장·날짜 탭·동적 렌더링
+assets/place-model.js         # 데이터 검증·금액·시간대·경로·백업
+assets/maps-picker.js         # 선택적 Google Maps/Places 연결
+data/places-seed.js           # 첫 실행에 읽는 속성 기반 스냅샷
+legacy.html                   # 이전 고정 가이드 보존본
+docs/google-maps-setup.md     # 키 발급·보안·과금 설정
+tests/                       # 모델·지도 어댑터·현재 UI·이전 가이드 회귀
+```
+
+## 검증
+
+```sh
+node --test tests/place-model.test.cjs tests/maps-picker.test.cjs
+python3 -m unittest discover -s tests -q
+node --check assets/editor.js
+node --check assets/maps-picker.js
+node --check assets/place-model.js
+# 기존 Playwright 설치 경로를 사용하며 새 의존성을 추가하지 않습니다.
+PLAYWRIGHT_MODULE=/path/to/node_modules/playwright \
+CHROMIUM_PATH=/path/to/chrome node tests/editor-browser-smoke.cjs
+git diff --check
+```
+
+새 UI 테스트는 필수/선택 입력, CRUD 후 경로 갱신, 저장·복원, 안전한 텍스트 처리, 실패 상태와 모바일 화면을 검사합니다. Google 어댑터는 모의 SDK로 검증하며 **실제 키의 승인·검색·과금은 사용자 키 설정 후 별도 확인**이 필요합니다.
+
+이전 Python 고정 일정 계약은 `legacy.html`에 대한 보존 검사입니다. `tests/browser_smoke.cjs` 역시 이전 화면용이며, 사용자가 제외했던 화요일 탭 검사 실패는 별도 알려진 이슈로 남겨두었습니다. 현재 편집기 성공 근거와 섞지 않습니다.
+
+---
+
+<details>
+<summary>이전 고정 가이드 문서 — 2026-09-09 보존 기록 (현재 편집기와 별개)</summary>
+
 # 파리 신혼여행 가이드
 
 2026년 9월 12–19일 파리 여행을 위한 모바일 우선 정적 가이드입니다. 장소·동선·2인 예산·Google Maps 임베드를 한 페이지에서 보고, 실제 예약과 당일 운행은 공식 서비스에서 확인합니다.
@@ -19,7 +113,7 @@
 
 ## 실행
 
-패키지 설치 없이 `index.html`을 직접 열거나 로컬 서버를 실행합니다.
+패키지 설치 없이 `legacy.html`을 직접 열거나 로컬 서버를 실행합니다.
 
 ```sh
 python3 -m http.server 8000 --bind 127.0.0.1
@@ -27,7 +121,7 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 브라우저에서 <http://127.0.0.1:8000>을 엽니다.
 
-- CSS·JavaScript·예산 원장은 `index.html` 하나에 들어 있습니다.
+- CSS·JavaScript·예산 원장은 `legacy.html` 하나에 들어 있습니다.
 - Google Maps/My Maps와 사진은 인터넷이 필요합니다. 예약·결제 기능은 없습니다.
 - 정적 호스팅은 가능하지만 특정 호스팅에 배포된 상태를 보장하지 않습니다.
 
@@ -69,7 +163,7 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 ## 2인 예산
 
-유로는 2인 계획 예산이며, 항공·숙박·도시세·개인 쇼핑은 제외합니다. 예산의 원본은 [`index.html#daily-budget-data`](index.html#daily-budget-data)입니다. 메뉴·운임·잔여석이 확인되지 않은 값은 추정입니다.
+유로는 2인 계획 예산이며, 항공·숙박·도시세·개인 쇼핑은 제외합니다. 예산의 원본은 [`legacy.html#daily-budget-data`](legacy.html#daily-budget-data)입니다. 메뉴·운임·잔여석이 확인되지 않은 값은 추정입니다.
 
 월요일 교통비는 **€2.55 × 3회 × 2인 = €15.30**, 진화 대전시실 일반권은 **€13 × 2인 = €26**으로 반영했다. [IDFM 운임](https://www.iledefrance-mobilites.fr/titres-et-tarifs/detail/ticket-metro-train-rer) · [MNHN 요금](https://www.mnhn.fr/en/grande-galerie-de-l-evolution-gallery-of-evolution) (확인 2026-09-09).
 
@@ -121,7 +215,7 @@ python3 -m http.server 8000 --bind 127.0.0.1
 ### 파일 구조
 
 ```text
-index.html                         # 화면·스타일·스크립트·예산 원장
+legacy.html                         # 화면·스타일·스크립트·예산 원장
 README.md                          # 진입 안내와 유지보수 기준
 data/dining-plan.json              # 식사·쇼핑 배치 참고 데이터
 data/museum-pass-sites.json        # Museum Pass 참고 스냅샷
@@ -133,7 +227,7 @@ tests/                              # 표준 라이브러리 회귀·브라우�
 
 ### 예산 원장 계약
 
-- `index.html`의 `script#daily-budget-data`가 유일한 공개 원장입니다.
+- `legacy.html`의 `script#daily-budget-data`가 유일한 공개 원장입니다.
 - `cents`와 `range`는 이미 **2인 기준 EUR 센트 정수**입니다. 다시 2배 하지 않습니다.
 - `rodin_plan`은 `friday`(기본) 또는 `sunday`이며, `rodin_day`가 붙은 로댕 항목 중 하나만 활성화합니다.
 - `optional`·`included`는 체크박스 선택 상태를 나타냅니다. `paid_currency`, `paid_amount`, `purchase_source`는 유로 원장과 별도로 실결제를 보존합니다.
@@ -148,7 +242,7 @@ node --check tests/browser_smoke.cjs
 node <<'JS'
 const fs = require('node:fs');
 const vm = require('node:vm');
-const html = fs.readFileSync('index.html', 'utf8');
+const html = fs.readFileSync('legacy.html', 'utf8');
 for (const [, attrs, body] of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)) {
   if (attrs.includes('application/json')) JSON.parse(body);
   else new vm.Script(body);
@@ -168,5 +262,7 @@ git diff --check
 - [이전 Fête·목요일 검토안](docs/fete-schedule-proposal.md)
 - [이전 Notion DB 반영 기록](docs/notion-db-schedule-2026-09-09.md)
 - [과거 Notion 수동 동기화 handoff](docs/notion-sync-handoff.md)
+
+</details>
 
 </details>

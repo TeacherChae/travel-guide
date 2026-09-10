@@ -26,19 +26,19 @@ class MuseumPassTests(unittest.TestCase):
         self.assertEqual(sum(s['closed_until_2030'] for s in sites), 3)
         urls = [s['url'] for s in sites]
         self.assertEqual(len(set(urls)), 55)
-        elements = Elements((ROOT / 'index.html').read_text()).elements
+        elements = Elements((ROOT / 'legacy.html').read_text()).elements
         rendered = [a['data-pass-site'] for _, a in elements if 'data-pass-site' in a]
         self.assertCountEqual(urls, rendered)
         links = [a.get('href') for t, a in elements if t == 'a']
         self.assertTrue(set(urls) <= set(links))
-        html = (ROOT / 'index.html').read_text()
+        html = (ROOT / 'legacy.html').read_text()
         panel = re.search(r'<section class="panel" id="ppass"[\s\S]*?</section>', html)[0]
         self.assertRegex(panel, r'<details[^>]*data-pass-catalog')
         self.assertNotRegex(panel, r'<details[^>]*data-pass-catalog[^>]*open')
         self.assertNotIn('목요일 10:00 생트샤펠', panel)
 
     def test_tabs(self):
-        elements = Elements((ROOT / 'index.html').read_text()).elements
+        elements = Elements((ROOT / 'legacy.html').read_text()).elements
         ids = [a['id'] for _, a in elements if 'id' in a]
         self.assertEqual(len(ids), len(set(ids)))
         tabs = [a for _, a in elements if a.get('role') == 'tab' and 'tab' in a.get('class', '').split()]

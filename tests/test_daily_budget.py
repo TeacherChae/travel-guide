@@ -28,7 +28,7 @@ class Nodes(HTMLParser):
 class BudgetTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.html = (ROOT / 'index.html').read_text()
+        cls.html = (ROOT / 'legacy.html').read_text()
         match = re.search(r'<script type="application/json" id="daily-budget-data">([\s\S]*?)</script>', cls.html)
         if not match:
             raise AssertionError('Missing single-source daily budget ledger')

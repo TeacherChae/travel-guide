@@ -16,7 +16,7 @@ class Nodes(HTMLParser):
 
 class ThursdayTests(unittest.TestCase):
     def setUp(self):
-        s = (ROOT / 'index.html').read_text()
+        s = (ROOT / 'legacy.html').read_text()
         self.panel = re.search(r'<section class="panel" id="p6"[\s\S]*?</section>', s).group()
         self.nodes = Nodes(self.panel).nodes
 

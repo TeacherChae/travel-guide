@@ -20,7 +20,7 @@ class ArrivalTests(unittest.TestCase):
         with (ROOT / 'paris-saved-spots-accommodation.csv').open(encoding='utf-8-sig') as f:
             lodging = next(csv.DictReader(f))
         self.home = lodging['latitude'] + ',' + lodging['longitude']
-        self.source = (ROOT / 'index.html').read_text()
+        self.source = (ROOT / 'legacy.html').read_text()
         panel = re.search(r'<section class="panel" id="p1"[\s\S]*?</section>', self.source).group()
         self.nodes = Elements(panel).nodes
 
