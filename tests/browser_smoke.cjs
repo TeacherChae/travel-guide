@@ -44,8 +44,8 @@ const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
     assert.match(await selectedPass.textContent(), /Carte Blanche Jeunes Duo/);
     assert.doesNotMatch(await selectedPass.textContent(), /PMP/);
     assert.deepEqual(await totals(), defaultTotals);
-    assert.deepEqual(defaultTotals, [11000,16820,22110,20630,28320,21110,20930,15420]);
-    assert.deepEqual(sundayRodinTotals, [11000,19620,22110,20630,28320,21110,20130,15420]);
+    assert.deepEqual(defaultTotals, [11000,16820,23330,20630,28320,21110,20930,15420]);
+    assert.deepEqual(sundayRodinTotals, [11000,19620,23330,20630,28320,21110,20130,15420]);
 
     // Arrival route tabs update map, external link and budget without affecting Rodin scenario.
     const frame = page.locator('#p1 .mapbox iframe');

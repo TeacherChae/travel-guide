@@ -4,6 +4,7 @@ import re
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -212,7 +213,8 @@ class BudgetTests(unittest.TestCase):
         self.assertIn('화9/15 13:30', info)
         self.assertIn('로댕은 일요일 16:40 조건부 또는 금요일 14:00 기본안', info)
         self.assertIn('Le Florentin 보류', info)
-        self.assertIn('진화과학박물관은 날짜 미정 후보', info)
+        self.assertIn('진화 대전시실은 월요일 16:00', info)
+        self.assertNotIn('진화과학박물관은 날짜 미정 후보', info)
         for stale in [
             '루브르 9/14 09:00',
             '마르모탕 9/13 15:30',
@@ -226,7 +228,7 @@ class BudgetTests(unittest.TestCase):
     def test_transport_budget_notes_follow_current_itinerary(self):
         items = {item['id']: item for day in self.data['days'].values()
                  for item in day['items']}
-        for item_id, cents in [('monday-metro', 510), ('tuesday-metro', 1530),
+        for item_id, cents in [('monday-metro', 1530), ('tuesday-metro', 1530),
                                ('thursday-metro', 510)]:
             self.assertEqual(items[item_id]['cents'], cents)
             self.assertEqual(items[item_id]['range'], [cents, cents])
@@ -269,13 +271,49 @@ class BudgetTests(unittest.TestCase):
         self.assertTrue(airport['taxi_sources'])
 
     def test_default_and_sunday_rodin_totals_match_scenario_budgets(self):
-        default = [11000, 16820, 22110, 20630, 28320, 21110, 20930, 15420]
-        sunday = [11000, 19620, 22110, 20630, 28320, 21110, 20130, 15420]
+        default = [11000, 16820, 23330, 20630, 28320, 21110, 20930, 15420]
+        sunday = [11000, 19620, 23330, 20630, 28320, 21110, 20130, 15420]
         self.assertEqual(self.scenario_total('friday'), default)
         self.assertEqual(self.scenario_total('sunday'), sunday)
-        self.assertEqual(sum(default), 156340)
-        self.assertEqual(sum(sunday), 158340)
+        self.assertEqual(sum(default), 157560)
+        self.assertEqual(sum(sunday), 159560)
         self.assertNotIn('scenarios', self.data)
+
+    def test_monday_transport_budget_covers_every_rail_leg(self):
+        panel = re.search(r'<section class="panel" id="p3"[\s\S]*?</section>', self.html)[0]
+        rail_legs = [a for _, a in Nodes(panel).nodes
+                     if a.get('class') == 'leg'
+                     and parse_qs(urlparse(a['data-src']).query).get('dirflg') == ['r']]
+        self.assertEqual(len(rail_legs), 3)
+        metro = next(i for i in self.data['days']['p3']['items'] if i['id'] == 'monday-metro')
+        self.assertEqual(metro['cents'], 255 * len(rail_legs) * self.data['people'])
+        for leg in ['숙소→오랑주리', '퐁뇌프→진화 대전시실', '식물원→Bouillon Racine']:
+            self.assertIn(leg, metro['basis'])
+
+    def test_monday_museums_are_active_not_pending(self):
+        items = self.data['days']['p3']['items']
+        gallery = next(i for i in items if i['id'] == 'evolution-gallery')
+        self.assertEqual(gallery['cents'], 1300 * self.data['people'])
+        self.assertEqual(gallery['range'], [2600, 2600])
+        self.assertIn('마지막 입장 17:00', gallery['basis'])
+        for item_id in ['evolution-gallery', 'jardin-des-plantes']:
+            self.assertEqual(sum(i['id'] == item_id for i in items), 1)
+        self.assertEqual({i['id'] for i in self.data['pending']}, {'aligre', 'coulee', 'florentin'})
+
+    def test_current_documents_match_monday_and_budget_totals(self):
+        default = self.scenario_total('friday')
+        sunday = self.scenario_total('sunday')
+        for name in ['README.md', 'docs/flexible-rodin-plan.md']:
+            text = (ROOT / name).read_text()
+            monday = next(line for line in text.splitlines() if '9/14' in line and '오랑주리' in line)
+            self.assertIn('진화 대전시실 16:00–17:30', monday, name)
+            self.assertIn('식물원 17:30–17:50', monday, name)
+            for cents in [default[2], sum(default), sum(default) + 3700,
+                          sum(sunday), sum(sunday) + 3700]:
+                self.assertIn(f'€{cents / 100:,.2f}', text, name)
+        prep = (ROOT / 'docs/predeparture-checklist.md').read_text()
+        self.assertIn('진화 대전시실 9/14 16:00', prep)
+        self.assertNotRegex(prep, r'\[보류[^\n]*(?:GGE|식물원|진화)')
 
     def test_published_menu_arithmetic_and_optional_defaults(self):
         items = {i['id']: i for day in self.data['days'].values() for i in day['items']}

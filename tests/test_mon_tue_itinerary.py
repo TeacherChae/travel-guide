@@ -185,7 +185,8 @@ class FlexibleItineraryTests(unittest.TestCase):
         self.assertIn("09:00–13:00", panel)
         self.assertIn("15:45–17:00", panel)
         self.assertIn("무료 미술관은 아닙니다", panel)
-        self.assertIn("달리그르·쿨레 베르트·진화과학 박물관·식물원은 기본 동선과 예산에서 제외", panel)
+        self.assertIn("달리그르·쿨레 베르트는 기본 동선과 예산에서 제외", panel)
+        self.assertIn("진화 대전시실·식물원은 월요일", panel)
 
     def test_friday_scenarios_are_mutually_exclusive(self):
         friday_labels = [attrs.get("data-label") or attrs.get("data-dining") for attrs in self.itinerary_nodes("p7", "friday")]
@@ -222,7 +223,7 @@ class FlexibleItineraryTests(unittest.TestCase):
         rodin_items = [item for day in days.values() for item in day["items"] if item["id"].startswith("rodin-")]
         self.assertCountEqual([item["rodin_day"] for item in rodin_items], ["sunday", "friday"])
         self.assertTrue(all(item["cents"] == 2800 for item in rodin_items))
-        for scenario, expected in [("friday", 156340), ("sunday", 158340)]:
+        for scenario, expected in [("friday", 157560), ("sunday", 159560)]:
             total = 0
             for day in days.values():
                 for item in day["items"]:

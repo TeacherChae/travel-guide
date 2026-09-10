@@ -28,7 +28,8 @@
 | **[조건부 · MID]** 로댕은 9/13 16:40–18:15 또는 9/18 14:00–16:00 중 한 번만 선택 | 일요일은 Fête에서 16시경 실제로 나올 수 있고 체력이 괜찮을 때만 시도한다. 늦거나 피곤하면 금요일로 넘긴다. 두 날짜를 모두 예약·결제하지 않는다. | 선택한 하루의 단독권 2장 또는 현장 구매 메모. [로댕 방문·요금](https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques) |
 | **[미완료 · HIGH]** 루브르 9/17 09:00 시간지정권 확인 | 들라크루아와 같은 목요일에 묶는다. 들라크루아는 루브르 표의 당일 연계 조건을 먼저 확인하고 별도권을 중복 구매하지 않는다. | 루브르 e-ticket, 연계 무료 슬롯 e-ticket 또는 현장 확인 메모. [루브르 티켓](https://ticket.louvre.fr/en) · [시간·요금](https://www.louvre.fr/en/visit/hours-admission/tickets-and-prices) |
 | **[기본계획 · LOW]** 지베르니 인상주의 미술관은 9/16 현장 또는 공식 온라인에서 판단 | 모네의 집·정원 티켓과 별도 시설이다. 두 사람 모두의 할인 적용을 가정하지 않는다. | 표 2장 또는 생략 메모. [MDIG 티켓](https://www.mdig.fr/en/get-tickets/) |
-| **[보류 · LOW]** 달리그르·쿨레 베르트·GGE·식물원은 추가하기로 할 때만 날짜·슬롯 확인 | 현재 핵심 일정과 예산에는 포함하지 않는다. 추가 방문을 정하면 현장 운영·잔여석·입장료를 다시 확인한다. | 추가 선택 시 실제 표 또는 “이번 여행에서 생략” 메모. [MNHN GGE](https://www.mnhn.fr/en/grande-galerie-de-l-evolution-gallery-of-evolution) |
+| **[미완료 · MID]** 진화 대전시실 9/14 16:00 입장권 확인 → 파리 식물원 17:30–17:50 산책 | 월요일 방문 계획에 포함했다. 공식 상설 일반권 €13/인, 2인 €26. 10:00–18:00 운영·마지막 입장17:00이며 실제 예약은 미확인이다. | 공식 e-ticket 또는 현장 구매 확인. [MNHN 운영·요금](https://www.mnhn.fr/en/grande-galerie-de-l-evolution-gallery-of-evolution) (확인 2026-09-09) |
+| **[보류 · LOW]** 달리그르·쿨레 베르트는 추가할 때만 날짜 확인 | 현재 핵심 일정과 예산에서 제외했다. 새로 넣을 때 동선·비용을 다시 계산한다. | 추가 방문 결정 또는 생략 메모. |
 | **[미완료 · MID]** La Fête de Paris 무료 등록 여부 결정 | 일반 입장·공연은 무료지만 혼잡 시 등록 방문자를 우선할 수 있다. 등록·기부·유료 체험 구매는 직접 결정한다. | 두 사람 등록 확인 또는 등록하지 않기로 한 메모. [무료 등록](https://www.helloasso.com/associations/paris-genevieve/evenements/la-fete-de-paris-2026) · [파리 6구 안내](https://mairie06.paris.fr/pages/fete-de-paris-2026-defile-costume-et-guinguette-35905) |
 | **[구매완료 · MID]** 바토 파리지앵 9/13 티켓과 바우처 확인 | MyRealTrip 2인 총 ₩27,052는 결제 완료 기록이다. 21:00은 목표이며 바우처가 보장하는 날짜·출발편·승선장을 확인한다. | e-ticket/바우처, 유효 날짜·승선장·출발 조건. [공식 FAQ](https://www.bateauxparisiens.com/en/faq.html) |
 
