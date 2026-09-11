@@ -4,7 +4,7 @@
   "version": 1,
   "timeZone": "Europe/Paris",
   "capturedAt": "2026-09-11",
-  "source": "Notion 장소_DB · Date&Time 입력 25개 행 속성 갱신 · 자동 동기화 없음",
+  "source": "Notion 장소_DB · 일정 속성 반영 · 장소명 한국어 표기 · 자동 동기화 없음",
   "days": [
     "2026-09-12",
     "2026-09-13",
@@ -18,7 +18,7 @@
   "places": [
     {
       "id": "3d5ea411129f81f480cdc77e01b68363",
-      "Name": "CDG → 5th Arr. accommodation",
+      "Name": "샤를 드골 공항 → 파리 5구 숙소",
       "Date&Time": {
         "start": "2026-09-12T16:30:00.000Z",
         "end": "2026-09-12T18:00:00.000Z"
@@ -36,7 +36,7 @@
     },
     {
       "id": "3d5ea411129f810abdf5effde124626d",
-      "Name": "Intermarché Express",
+      "Name": "앵테르마르셰 익스프레스",
       "Date&Time": {
         "start": "2026-09-12T18:00:00.000Z",
         "end": "2026-09-12T18:30:00.000Z"
@@ -54,7 +54,7 @@
     },
     {
       "id": "3d5ea411129f81dca5e6c01ce8d3767f",
-      "Name": "Rue Mouffetard",
+      "Name": "무프타르 거리",
       "Date&Time": {
         "start": "2026-09-12T18:30:00.000Z",
         "end": "2026-09-12T19:30:00.000Z"
@@ -72,7 +72,7 @@
     },
     {
       "id": "3d5ea411129f8199a094f90e7d659114",
-      "Name": "Pont de la Tournelle",
+      "Name": "투르넬 다리",
       "Date&Time": {
         "start": "2026-09-12T19:30:00.000Z",
         "end": "2026-09-12T20:00:00.000Z"
@@ -92,8 +92,8 @@
       "id": "3d5ea411129f81fc9555f75365404c8f",
       "Name": "숙소 · 한국 교회 라이브 예배",
       "Date&Time": {
-        "start": "2026-09-12T05:00:00.000Z",
-        "end": "2026-09-12T06:30:00.000Z"
+        "start": "2026-09-13T05:00:00.000Z",
+        "end": "2026-09-13T06:30:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -108,7 +108,7 @@
     },
     {
       "id": "3d5ea411129f8149846cd4cb05363b6f",
-      "Name": "Notre Dame de Paris",
+      "Name": "파리 노트르담 대성당",
       "Date&Time": {
         "start": "2026-09-13T08:00:00.000Z",
         "end": "2026-09-13T09:15:00.000Z"
@@ -126,7 +126,7 @@
     },
     {
       "id": "3d6ea411129f814c9301fd5091fb4843",
-      "Name": "La Fête de Paris",
+      "Name": "파리 축제",
       "Date&Time": {
         "start": "2026-09-13T12:00:00.000Z",
         "end": "2026-09-13T14:00:00.000Z"
@@ -144,7 +144,7 @@
     },
     {
       "id": "3d6ea411129f816c93faf1d4393d468b",
-      "Name": "Musée Rodin",
+      "Name": "로댕 미술관",
       "Date&Time": {
         "start": "2026-09-13T14:40:00.000Z",
         "end": "2026-09-13T16:15:00.000Z"
@@ -162,7 +162,7 @@
     },
     {
       "id": "3d5ea411129f81e9a4ead87e9beff796",
-      "Name": "Bateaux Parisiens",
+      "Name": "바토 파리지앵 유람선",
       "Date&Time": {
         "start": "2026-09-13T18:00:00.000Z",
         "end": "2026-09-13T19:00:00.000Z"
@@ -180,7 +180,7 @@
     },
     {
       "id": "3d5ea411129f816f82c5e9d2656f8cca",
-      "Name": "Musée d’Orangerie",
+      "Name": "오랑주리 미술관",
       "Date&Time": {
         "start": "2026-09-14T08:00:00.000Z",
         "end": "2026-09-14T09:30:00.000Z"
@@ -198,7 +198,7 @@
     },
     {
       "id": "3d5ea411129f819aa137cf48a9001401",
-      "Name": "Fer à Cheval",
+      "Name": "페르 아 슈발",
       "Date&Time": {
         "start": "2026-09-14T11:00:00.000Z",
         "end": "2026-09-14T11:30:00.000Z"
@@ -216,7 +216,7 @@
     },
     {
       "id": "3d5ea411129f812d8434e8163b01ed86",
-      "Name": "Pont Neuf · La Seine",
+      "Name": "퐁뇌프 · 센강",
       "Date&Time": {
         "start": "2026-09-14T11:30:00.000Z",
         "end": "2026-09-14T12:00:00.000Z"
@@ -234,7 +234,7 @@
     },
     {
       "id": "3d5ea411129f818293e4ef2f390a941b",
-      "Name": "Muséum National d’Histoire Naturelle",
+      "Name": "국립자연사박물관 · 진화 대전시실",
       "Date&Time": {
         "start": "2026-09-14T13:00:00.000Z",
         "end": "2026-09-14T15:00:00.000Z"
@@ -252,7 +252,7 @@
     },
     {
       "id": "3d5ea411129f813b933bf3a19284fa51",
-      "Name": "Jardin des Plantes",
+      "Name": "파리 식물원",
       "Date&Time": {
         "start": "2026-09-14T14:30:00.000Z",
         "end": "2026-09-14T15:30:00.000Z"
@@ -270,7 +270,7 @@
     },
     {
       "id": "3d6ea411129f81a6864af00c55a3226a",
-      "Name": "Bouillon Racine",
+      "Name": "부용 라신",
       "Date&Time": {
         "start": "2026-09-14T16:00:00.000Z",
         "end": "2026-09-14T17:00:00.000Z"
@@ -288,7 +288,7 @@
     },
     {
       "id": "3d5ea411129f814cb897fd226862c4dd",
-      "Name": "Il Gelato del Marchese",
+      "Name": "일 젤라토 델 마르케세",
       "Date&Time": {
         "start": "2026-09-14T17:30:00.000Z",
         "end": "2026-09-14T18:00:00.000Z"
@@ -306,7 +306,7 @@
     },
     {
       "id": "3d5ea411129f8137ad7cf3df79a92c4f",
-      "Name": "Marché d’Aligre · Le marché couvert Beauvau",
+      "Name": "달리그르 시장 · 보보 실내시장",
       "Date&Time": {
         "start": "2026-09-14T06:00:00.000Z",
         "end": "2026-09-14T07:00:00.000Z"
@@ -324,7 +324,7 @@
     },
     {
       "id": "3d5ea411129f811db15df5774b7ab430",
-      "Name": "Musée Marmottan Monet",
+      "Name": "마르모탕 모네 미술관",
       "Date&Time": {
         "start": "2026-09-15T08:15:00.000Z",
         "end": "2026-09-15T10:15:00.000Z"
@@ -342,7 +342,7 @@
     },
     {
       "id": "3d5ea411129f811799bdf34042e382c4",
-      "Name": "Musée d’Orsay",
+      "Name": "오르세 미술관",
       "Date&Time": {
         "start": "2026-09-15T12:00:00.000Z",
         "end": "2026-09-15T16:00:00.000Z"
@@ -360,7 +360,7 @@
     },
     {
       "id": "3d5ea411129f8150b32df1e01ef807f1",
-      "Name": "Gare Saint-Lazare → Vernon",
+      "Name": "생라자르역 → 베르농역",
       "Date&Time": {
         "start": "2026-09-16T08:11:00.000Z",
         "end": "2026-09-16T08:58:00.000Z"
@@ -378,7 +378,7 @@
     },
     {
       "id": "3d5ea411129f81e5bdf7dadda3a8a980",
-      "Name": "Maison et Jardin de Claude-Monet",
+      "Name": "클로드 모네의 집과 정원",
       "Date&Time": {
         "start": "2026-09-16T10:00:00.000Z",
         "end": "2026-09-16T13:00:00.000Z"
@@ -396,7 +396,7 @@
     },
     {
       "id": "3d5ea411129f81dfabaae68c60cc80a6",
-      "Name": "Musée des Impressionnismes Giverny",
+      "Name": "지베르니 인상주의 미술관",
       "Date&Time": {
         "start": "2026-09-16T13:00:00.000Z",
         "end": "2026-09-16T15:00:00.000Z"
@@ -414,7 +414,7 @@
     },
     {
       "id": "3d5ea411129f81a4a171def44d285480",
-      "Name": "Musée Louvre",
+      "Name": "루브르 박물관",
       "Date&Time": {
         "start": "2026-09-17T09:00:00.000Z",
         "end": "2026-09-17T13:00:00.000Z"
@@ -432,7 +432,7 @@
     },
     {
       "id": "3d6ea411129f8133ac5bc30b9b3b8e9d",
-      "Name": "Musée National Eugène Delacroix",
+      "Name": "외젠 들라크루아 국립박물관",
       "Date&Time": {
         "start": "2026-09-17T13:30:00.000Z",
         "end": "2026-09-17T15:00:00.000Z"
@@ -465,7 +465,7 @@
     },
     {
       "id": "3d5ea411129f8118a569e717de1e38fb",
-      "Name": "점심·이동 준비",
+      "Name": "점심 · 이동 준비",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -480,7 +480,7 @@
     },
     {
       "id": "3d5ea411129f8148bbb6f0930897a7c9",
-      "Name": "Marin Montagut",
+      "Name": "마랭 몽타귀",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -495,7 +495,7 @@
     },
     {
       "id": "3d5ea411129f8163b6f2f1453dc87d07",
-      "Name": "5구 숙소 체크아웃",
+      "Name": "파리 5구 숙소 체크아웃",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -510,7 +510,7 @@
     },
     {
       "id": "3d5ea411129f8176817cf304e36538db",
-      "Name": "풀만 · 체크인 전 짐 보관",
+      "Name": "풀만 호텔 · 체크인 전 짐 보관",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -525,7 +525,7 @@
     },
     {
       "id": "3d5ea411129f8197920bdeca5ac61cd5",
-      "Name": "Le Café du Commerce",
+      "Name": "르 카페 뒤 코메르스",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -540,7 +540,7 @@
     },
     {
       "id": "3d5ea411129f81a5a72af33bb49f6b40",
-      "Name": "La Samaritaine",
+      "Name": "라 사마리텐",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -555,7 +555,7 @@
     },
     {
       "id": "3d5ea411129f81aba314dae9e7616119",
-      "Name": "Le Florentin",
+      "Name": "르 플로랑탱",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -570,7 +570,7 @@
     },
     {
       "id": "3d5ea411129f81cfae54d75a1e5b1da8",
-      "Name": "Les Deux Magots",
+      "Name": "레 되 마고",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -585,7 +585,7 @@
     },
     {
       "id": "3d5ea411129f81eb96ede9c010e3d377",
-      "Name": "La Grande Épicerie · Bordier",
+      "Name": "라 그랑드 에피세리 · 보르디에",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -600,7 +600,7 @@
     },
     {
       "id": "3d5ea411129f81f6a435e83d7ac14a4d",
-      "Name": "Pleincœur",
+      "Name": "플랭쾨르",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -615,7 +615,7 @@
     },
     {
       "id": "3d5ea411129f81fc8a5aea61118d5f83",
-      "Name": "Higuma",
+      "Name": "히구마",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -660,7 +660,7 @@
     },
     {
       "id": "3d5ea411129f81308318c867d62d6830",
-      "Name": "샹드마르스 · 에펠탑",
+      "Name": "샹드마르스 공원 · 에펠탑",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -675,7 +675,7 @@
     },
     {
       "id": "3d5ea411129f814cac65ee699c078c27",
-      "Name": "생트샤펠",
+      "Name": "생트샤펠 성당",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -735,7 +735,7 @@
     },
     {
       "id": "3d5ea411129f81d69b05f2a638a0341e",
-      "Name": "풀만 체크인",
+      "Name": "풀만 호텔 체크인",
       "Date&Time": null,
       "Reservation Status": "",
       "Reservation": "",
@@ -781,7 +781,7 @@
     {
       "id": "3d8ea411129f8085a9c8d0abb369f1b6",
       "memo": "",
-      "Name": "Vernon → Gare Saint-Lazare",
+      "Name": "베르농역 → 생라자르역",
       "Date&Time": {
         "start": "2026-09-16T15:57:00.000Z",
         "end": "2026-09-16T16:49:00.000Z"
@@ -800,4 +800,165 @@
 };
   if (typeof module === "object" && module.exports) module.exports = seed;
   else root.TRAVEL_PLACES_SEED = seed;
+})(typeof globalThis !== "undefined" ? globalThis : this);
+
+// Previous public defaults used only for non-destructive browser migrations.
+(function (root) {
+  if (root) root.TRAVEL_PLACE_NAME_ALIASES = {
+  "3d5ea411129f81f480cdc77e01b68363": [
+    "CDG → 5th Arr. accommodation"
+  ],
+  "3d5ea411129f810abdf5effde124626d": [
+    "Intermarché Express",
+    "Intermarche Express"
+  ],
+  "3d5ea411129f81dca5e6c01ce8d3767f": [
+    "Rue Mouffetard"
+  ],
+  "3d5ea411129f8199a094f90e7d659114": [
+    "Pont de la Tournelle"
+  ],
+  "3d5ea411129f81fc9555f75365404c8f": [
+    "숙소 · 한국 교회 라이브 예배"
+  ],
+  "3d5ea411129f8149846cd4cb05363b6f": [
+    "Notre Dame de Paris"
+  ],
+  "3d6ea411129f814c9301fd5091fb4843": [
+    "La Fête de Paris"
+  ],
+  "3d6ea411129f816c93faf1d4393d468b": [
+    "Musée Rodin",
+    "Musee Rodin"
+  ],
+  "3d5ea411129f81e9a4ead87e9beff796": [
+    "Bateaux Parisiens"
+  ],
+  "3d5ea411129f816f82c5e9d2656f8cca": [
+    "Musée d’Orangerie",
+    "Musee d’Orangerie"
+  ],
+  "3d5ea411129f819aa137cf48a9001401": [
+    "Fer à Cheval"
+  ],
+  "3d5ea411129f812d8434e8163b01ed86": [
+    "Pont Neuf · La Seine",
+    "퐁뇌프 · 센강 산책"
+  ],
+  "3d5ea411129f818293e4ef2f390a941b": [
+    "Muséum National d’Histoire Naturelle",
+    "진화 대전시실"
+  ],
+  "3d5ea411129f813b933bf3a19284fa51": [
+    "Jardin des Plantes",
+    "파리 식물원"
+  ],
+  "3d6ea411129f81a6864af00c55a3226a": [
+    "Bouillon Racine"
+  ],
+  "3d5ea411129f814cb897fd226862c4dd": [
+    "Il Gelato del Marchese"
+  ],
+  "3d5ea411129f8137ad7cf3df79a92c4f": [
+    "Marché d’Aligre · Le marché couvert Beauvau",
+    "달리그르 노천시장 · 보보 실내시장"
+  ],
+  "3d5ea411129f811db15df5774b7ab430": [
+    "Musée Marmottan Monet",
+    "Musee Marmottan Monet"
+  ],
+  "3d5ea411129f811799bdf34042e382c4": [
+    "Musée d’Orsay",
+    "오르세 미술관"
+  ],
+  "3d5ea411129f8150b32df1e01ef807f1": [
+    "Gare Saint-Lazare → Vernon",
+    "생라자르역"
+  ],
+  "3d5ea411129f81e5bdf7dadda3a8a980": [
+    "Maison et Jardin de Claude-Monet",
+    "모네의 집과 정원"
+  ],
+  "3d5ea411129f81dfabaae68c60cc80a6": [
+    "Musée des Impressionnismes Giverny",
+    "지베르니 인상주의 미술관"
+  ],
+  "3d5ea411129f81a4a171def44d285480": [
+    "Musée Louvre",
+    "루브르"
+  ],
+  "3d6ea411129f8133ac5bc30b9b3b8e9d": [
+    "Musée National Eugène Delacroix",
+    "들라크루아 미술관"
+  ],
+  "3d6ea411129f81a0a4aacda760a77bd3": [
+    "옥동식 파리"
+  ],
+  "3d5ea411129f8118a569e717de1e38fb": [
+    "점심·이동 준비"
+  ],
+  "3d5ea411129f8148bbb6f0930897a7c9": [
+    "Marin Montagut"
+  ],
+  "3d5ea411129f8163b6f2f1453dc87d07": [
+    "5구 숙소 체크아웃"
+  ],
+  "3d5ea411129f8176817cf304e36538db": [
+    "풀만 · 체크인 전 짐 보관"
+  ],
+  "3d5ea411129f8197920bdeca5ac61cd5": [
+    "Le Café du Commerce"
+  ],
+  "3d5ea411129f81a5a72af33bb49f6b40": [
+    "La Samaritaine"
+  ],
+  "3d5ea411129f81aba314dae9e7616119": [
+    "Le Florentin"
+  ],
+  "3d5ea411129f81cfae54d75a1e5b1da8": [
+    "Les Deux Magots"
+  ],
+  "3d5ea411129f81eb96ede9c010e3d377": [
+    "La Grande Épicerie · Bordier"
+  ],
+  "3d5ea411129f81f6a435e83d7ac14a4d": [
+    "Pleincœur"
+  ],
+  "3d5ea411129f81fc8a5aea61118d5f83": [
+    "Higuma"
+  ],
+  "3d5ea411129f811a84a0df89da3fb4ea": [
+    "트로카데로 광장"
+  ],
+  "3d5ea411129f812ca5f7f9da737f1a4a": [
+    "르봉 마르셰 백화점"
+  ],
+  "3d5ea411129f81308318c867d62d6830": [
+    "샹드마르스 · 에펠탑"
+  ],
+  "3d5ea411129f814cac65ee699c078c27": [
+    "생트샤펠"
+  ],
+  "3d5ea411129f819e8e29c38107cdc6ec": [
+    "몽소 공원"
+  ],
+  "3d5ea411129f81d3a69df49f5b73c76e": [
+    "[제외] 라 로슈 저택"
+  ],
+  "3d5ea411129f81d698f3f6b56045c0ca": [
+    "[대체됨] 점심 · 마지막 장보기"
+  ],
+  "3d5ea411129f81d69b05f2a638a0341e": [
+    "풀만 체크인"
+  ],
+  "3d5ea411129f81e590bbd5aecbb2f174": [
+    "[제외] 갤러리 라파예트"
+  ],
+  "3d5ea411129f81fb9e88eb815da613e5": [
+    "쿨레 베르트 르네뒤몽"
+  ],
+  "3d8ea411129f8085a9c8d0abb369f1b6": [
+    "Vernon → Gare Saint-Lazare"
+  ]
+};
 })(typeof globalThis !== "undefined" ? globalThis : this);

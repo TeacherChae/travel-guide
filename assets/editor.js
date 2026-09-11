@@ -3,9 +3,11 @@
 
   var Model = window.TravelPlaces;
   var Seed = window.TRAVEL_PLACES_SEED || { version: 1, timeZone: 'Europe/Paris', days: [], places: [] };
+  var SeedNameAliases = window.TRAVEL_PLACE_NAME_ALIASES || {};
   var TIME_ZONE = 'Europe/Paris';
   var STORAGE_KEY = 'travel-guide.places.v1';
   var API_KEY = 'travel-guide.maps-api-key.v1';
+  var SEED_MIGRATION_KEY = 'travel-guide.seed-migration.v2';
 
   var state = {
     places: [],
@@ -63,8 +65,20 @@
     if (stored !== null) {
       try {
         var parsed = Model.parsePlaces(stored);
-        state.places = parsed.places;
+        var migration = migrateStoredPlaces(parsed.places);
+        state.places = migration.places;
         state.persistedRaw = stored;
+        if (migration.changed) {
+          var migratedRaw = Model.serializePlaces(state.places, TIME_ZONE);
+          if (safeLocalSet(STORAGE_KEY, migratedRaw)) {
+            state.persistedRaw = migratedRaw;
+            safeLocalSet(SEED_MIGRATION_KEY, 'done');
+          } else {
+            state.places = parsed.places;
+          }
+        } else {
+          safeLocalSet(SEED_MIGRATION_KEY, 'done');
+        }
       } catch (error) {
         state.corruptRaw = stored;
         state.places = seeded;
@@ -73,6 +87,7 @@
     } else {
       state.places = seeded;
       state.persistedRaw = null;
+      safeLocalSet(SEED_MIGRATION_KEY, 'done');
     }
     if (nodes.seedNote) nodes.seedNote.textContent = Seed.source || '수동 Notion 스냅샷 기반 · 자동 동기화 없음';
     state.activeDay = firstDay();
@@ -88,6 +103,35 @@
       seen.add(normalized.id);
       return normalized;
     });
+  }
+
+  function migrateStoredPlaces(places) {
+    if (safeGet(SEED_MIGRATION_KEY) === 'done') return { places: places, changed: false };
+    var seedById = new Map(state.seedPlaces.map(function (place) { return [place.id, place]; }));
+    var changed = false;
+    var migrated = places.map(function (place) {
+      var source = seedById.get(place.id);
+      if (!source) return place;
+      var next = place;
+      var aliases = SeedNameAliases[place.id] || [];
+      if (aliases.indexOf(place.Name) >= 0 && place.Name !== source.Name) {
+        next = Object.assign({}, next, { Name: source.Name });
+        changed = true;
+      }
+      if (place.id === '3d5ea411129f81fc9555f75365404c8f' && isOldWorshipTime(place['Date&Time'])) {
+        next = Object.assign({}, next, { 'Date&Time': source['Date&Time'] });
+        changed = true;
+      }
+      return next;
+    });
+    return { places: migrated, changed: changed };
+  }
+
+  function isOldWorshipTime(dateTime) {
+    if (!dateTime) return false;
+    var key = String(dateTime.start || '') + '|' + String(dateTime.end || '');
+    return key === '2026-09-12T05:00:00.000Z|2026-09-12T06:30:00.000Z' ||
+      key === '2026-09-12T22:00:00.000Z|2026-09-12T23:30:00.000Z';
   }
 
   function bindEvents() {
