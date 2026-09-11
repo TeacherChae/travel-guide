@@ -22,6 +22,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { background: var(--bg); }
 body {
   margin: 0;
@@ -96,12 +97,17 @@ h1 { margin: 0; font-size: clamp(30px, 8vw, 56px); letter-spacing: -.055em; line
 .map-card { margin-bottom: 14px; }
 .map-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 14px; border-bottom: 1px solid var(--line); }
 .map-toolbar h3 { margin: 0; font-size: 16px; }
+.map-toolbar-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 #day-map-frame, #picker-map-frame { width: 100%; border: 0; background: var(--soft); }
 #day-map-frame { height: min(56vw, 360px); min-height: 230px; display: block; }
 #picker-map-frame { height: 260px; border-top: 1px solid var(--line); }
 .route-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 10px 12px; border-top: 1px solid var(--line); }
 .route-tab { flex: 0 0 auto; border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; background: var(--soft); color: var(--muted); font-size: 12px; font-weight: 800; }
 .route-tab[aria-pressed="true"] { background: var(--brand-soft); color: var(--brand-dark); border-color: #c7d2fe; }
+.route-details-summary { padding: 12px 16px 0; }
+.route-mode-tabs { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 16px; }
+.route-mode-tabs .button[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: #fff; }
+#route-details-frame { width: 100%; height: min(68vh, 680px); min-height: 360px; display: block; border: 0; border-block: 1px solid var(--line); background: var(--soft); }
 
 .places-list { display: grid; gap: 12px; }
 .place-card { padding: 15px; }
@@ -166,6 +172,8 @@ h1 { margin: 0; font-size: clamp(30px, 8vw, 56px); letter-spacing: -.055em; line
   .app-shell { padding-inline: 12px; }
   .hero-actions .button, .hero-actions .file-button { flex: 1 1 calc(50% - 6px); }
   .map-toolbar, .place-top, .modal-head, .modal-actions { align-items: stretch; flex-direction: column; }
+  .map-toolbar-actions { justify-content: stretch; }
+  .map-toolbar-actions .button { flex: 1 1 auto; }
   .place-actions { justify-content: stretch; }
   .place-actions .button { flex: 1 1 auto; }
   .modal-actions .button { width: 100%; }

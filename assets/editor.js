@@ -14,6 +14,7 @@
     timeZone: TIME_ZONE,
     activeDay: '',
     selectedRouteId: '',
+    routeMode: 'transit',
     persistedRaw: null,
     corruptRaw: null,
     editingId: null,
@@ -30,7 +31,8 @@
     nodes = {
       status: $('status-banner'), add: $('add-place'), exportPlaces: $('export-places'), importPlaces: $('import-places'), importFile: $('import-file'),
       dayTabs: $('day-tabs'), dayPanel: $('day-panel'), dayTitle: $('day-title'), daySummary: $('day-summary'), dayTotal: $('day-total'), dayUnknown: $('day-unknown'),
-      mapTitle: $('map-title'), mapFrame: $('day-map-frame'), externalMap: $('open-external-map'), routeTabs: $('route-tabs'), placesList: $('places-list'),
+      mapTitle: $('map-title'), mapFrame: $('day-map-frame'), externalMap: $('open-external-map'), openRouteDetails: $('open-route-details'), routeTabs: $('route-tabs'), placesList: $('places-list'),
+      routeDetails: $('route-details-dialog'), routeDetailsTitle: $('route-details-title'), routeDetailsSummary: $('route-details-summary'), routeModeTabs: $('route-mode-tabs'), routeDetailsFrame: $('route-details-frame'), routeDetailsExternal: $('route-details-external'),
       editor: $('place-editor'), form: $('place-form'), formErrors: $('form-errors'), editorTitle: $('editor-title'),
       name: $('place-name'), start: $('place-start'), end: $('place-end'), allDay: $('all-day'), maps: $('place-maps'),
       reservationStatus: $('place-reservation-status'), reservation: $('place-reservation'), totalFee: $('place-total-fee'), unitFee: $('place-unit-fee'), quantity: $('place-quantity'),
@@ -54,6 +56,7 @@
   function bootData() {
     state.timeZone = TIME_ZONE;
     try { localStorage.removeItem('travel-guide.time-zone.v1'); } catch (_) {}
+    migrateApiKeyStorage();
     var seeded = normalizeMany(Seed.places || [], true);
     state.seedPlaces = seeded;
     var stored = safeGet(STORAGE_KEY, true);
@@ -99,6 +102,8 @@
     nodes.applyMap.addEventListener('click', applyPickerCandidate);
     nodes.pickerSettings.addEventListener('click', function () { openSettings(); });
     nodes.openSettings.addEventListener('click', openSettings);
+    nodes.openRouteDetails.addEventListener('click', openRouteDetails);
+    nodes.routeModeTabs.addEventListener('click', onRouteModeClick);
     nodes.settingsForm.addEventListener('submit', saveSettings);
     nodes.clearGoogleKey.addEventListener('click', function () { nodes.googleApiKey.value = ''; });
     nodes.exportPlaces.addEventListener('click', exportPlaces);
@@ -118,11 +123,13 @@
     if (dayButton) {
       state.activeDay = dayButton.dataset.day;
       state.selectedRouteId = '';
+      state.routeMode = 'transit';
       render();
       return;
     }
     var routeButton = event.target.closest('.route-tab');
     if (routeButton) {
+      if (state.selectedRouteId !== routeButton.dataset.routeId) state.routeMode = 'transit';
       state.selectedRouteId = routeButton.dataset.routeId;
       selectRoute(routeButton.dataset.routeId);
       return;
@@ -209,8 +216,8 @@
     if (state.selectedRouteId) selectRoute(state.selectedRouteId);
     else {
       var first = dayPlaces.find(function (place) { return Model.mapEmbedUrl(place.Maps); });
-      if (first) setMap(Model.mapEmbedUrl(first.Maps), first.Maps, first.Name);
-      else setMap(null, null, '지도 없음');
+      if (first) setMap(Model.mapEmbedUrl(first.Maps), first.Maps, first.Name, false);
+      else setMap(null, null, '지도 없음', false);
     }
   }
 
@@ -223,7 +230,7 @@
       button.setAttribute('aria-pressed', String(button.dataset.routeId === route.id));
     });
     var urls = Model.routeUrls(route, 'transit');
-    setMap(urls.embed, urls.external, route.fromName + ' → ' + route.toName);
+    setMap(urls.embed, urls.external, route.fromName + ' → ' + route.toName, true);
   }
 
   function showPlaceMap(id) {
@@ -231,10 +238,10 @@
     if (!place) return;
     state.selectedRouteId = '';
     nodes.placesList.querySelectorAll('.route-tab').forEach(function (button) { button.setAttribute('aria-pressed', 'false'); });
-    setMap(Model.mapEmbedUrl(place.Maps), place.Maps, place.Name);
+    setMap(Model.mapEmbedUrl(place.Maps), place.Maps, place.Name, false);
   }
 
-  function setMap(embed, external, title) {
+  function setMap(embed, external, title, isRoute) {
     nodes.mapTitle.textContent = title || '장소 또는 경로';
     if (embed) {
       nodes.mapFrame.src = embed;
@@ -252,6 +259,50 @@
       nodes.externalMap.setAttribute('aria-disabled', 'true');
       nodes.externalMap.classList.add('disabled');
     }
+    nodes.openRouteDetails.hidden = !isRoute;
+    nodes.openRouteDetails.disabled = !isRoute;
+  }
+
+  function currentRoute() {
+    return Model.buildRoutes(placesForDay(state.activeDay), state.timeZone).find(function (route) {
+      return route.id === state.selectedRouteId;
+    }) || null;
+  }
+
+  function openRouteDetails() {
+    var route = currentRoute();
+    if (!route) return;
+    state.routeMode = 'transit';
+    nodes.routeDetailsTitle.textContent = route.fromName + ' → ' + route.toName;
+    nodes.routeDetailsSummary.textContent = '이동 수단을 선택하면 같은 출발지와 도착지의 Google Maps 경로를 다시 표시합니다.';
+    renderRouteDetails(route);
+    showDialog(nodes.routeDetails);
+  }
+
+  function onRouteModeClick(event) {
+    var button = event.target.closest('[data-route-mode]');
+    if (!button) return;
+    state.routeMode = button.dataset.routeMode;
+    var route = currentRoute();
+    if (route) renderRouteDetails(route);
+  }
+
+  function renderRouteDetails(route) {
+    var urls = Model.routeUrls(route, state.routeMode);
+    nodes.routeModeTabs.querySelectorAll('[data-route-mode]').forEach(function (button) {
+      button.setAttribute('aria-pressed', String(button.dataset.routeMode === state.routeMode));
+    });
+    if (urls.embed) nodes.routeDetailsFrame.src = urls.embed;
+    else nodes.routeDetailsFrame.removeAttribute('src');
+    if (urls.external) {
+      nodes.routeDetailsExternal.href = urls.external;
+      nodes.routeDetailsExternal.classList.remove('disabled');
+      nodes.routeDetailsExternal.removeAttribute('aria-disabled');
+    } else {
+      nodes.routeDetailsExternal.href = '#';
+      nodes.routeDetailsExternal.classList.add('disabled');
+      nodes.routeDetailsExternal.setAttribute('aria-disabled', 'true');
+    }
   }
 
   function renderPlaces(places) {
@@ -264,10 +315,14 @@
       return;
     }
     var routesByPair = new Map();
+    var explicitRoutesByDestination = new Map();
     Model.buildRoutes(places, state.timeZone).forEach(function (route) {
-      routesByPair.set(route.fromId + '::' + route.toId, route);
+      if (route.kind === 'explicit') explicitRoutesByDestination.set(route.toId, route);
+      else routesByPair.set(route.fromId + '::' + route.toId, route);
     });
     places.forEach(function (place, index) {
+      var explicit = explicitRoutesByDestination.get(place.id);
+      if (explicit) nodes.placesList.append(routeBetween(explicit));
       nodes.placesList.append(placeCard(place));
       var next = places[index + 1];
       var route = next && routesByPair.get(place.id + '::' + next.id);
@@ -568,7 +623,7 @@
     nodes.googleCanvas.replaceChildren();
     nodes.applyMap.disabled = true;
     chooseCandidate(null);
-    nodes.mapPicker.classList.toggle('map-picker-keyless', !safeSessionGet(API_KEY));
+    nodes.mapPicker.classList.toggle('map-picker-keyless', !savedApiKey());
     showDialog(nodes.mapPicker);
     renderPickerResults();
     previewManualMap();
@@ -577,7 +632,7 @@
 
   function mountGooglePicker(token) {
     destroyPicker(false);
-    var key = safeSessionGet(API_KEY);
+    var key = savedApiKey();
     if (!key) {
       nodes.pickerStatus.textContent = 'API 키가 없습니다. 저장된 장소 검색 또는 수동 Maps URL을 사용하세요.';
       return;
@@ -686,7 +741,7 @@
 
   function openSettings() {
     nodes.settingsErrors.textContent = '';
-    nodes.googleApiKey.value = safeSessionGet(API_KEY);
+    nodes.googleApiKey.value = savedApiKey();
     showDialog(nodes.settings);
   }
 
@@ -698,9 +753,9 @@
       nodes.settingsErrors.textContent = 'Google Maps API 키 형식이 이상합니다.';
       return;
     }
-    var keySaved = key ? safeSessionSet(API_KEY, key) : safeSessionRemove(API_KEY);
+    var keySaved = key ? safeLocalSet(API_KEY, key) : safeLocalRemove(API_KEY);
     if (!keySaved && key) {
-      nodes.settingsErrors.textContent = 'API 키를 이 탭의 저장소에 저장하지 못했습니다. 브라우저 권한을 확인하세요. 장소 편집과 URL 입력은 계속 사용할 수 있습니다.';
+      nodes.settingsErrors.textContent = 'API 키를 이 브라우저에 저장하지 못했습니다. 브라우저 권한을 확인하세요. 장소 편집과 URL 입력은 계속 사용할 수 있습니다.';
       return;
     }
     closeDialog(nodes.settings);
@@ -858,9 +913,16 @@
     render();
   }
 
-  function safeSessionGet(key) { try { return sessionStorage.getItem(key) || ''; } catch (_) { return ''; } }
-  function safeSessionSet(key, value) { try { sessionStorage.setItem(key, value); return true; } catch (_) { return false; } }
-  function safeSessionRemove(key) { try { sessionStorage.removeItem(key); return true; } catch (_) { return false; } }
+  function savedApiKey() { return safeGet(API_KEY) || ''; }
+  function safeLocalSet(key, value) { try { localStorage.setItem(key, value); return true; } catch (_) { return false; } }
+  function safeLocalRemove(key) { try { localStorage.removeItem(key); return true; } catch (_) { return false; } }
+  function migrateApiKeyStorage() {
+    try {
+      var legacy = sessionStorage.getItem(API_KEY) || '';
+      if (!savedApiKey() && legacy) safeLocalSet(API_KEY, legacy);
+      sessionStorage.removeItem(API_KEY);
+    } catch (_) {}
+  }
 
   function effectiveFeeText(place) {
     var fee = Model.getFee(place);

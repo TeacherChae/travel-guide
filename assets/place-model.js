@@ -407,11 +407,18 @@
     });
     var routes = [];
     byDay.forEach(function (dayPlaces, date) {
-      for (var i = 0; i < dayPlaces.length - 1; i += 1) {
+      for (var i = 0; i < dayPlaces.length; i += 1) {
         var from = dayPlaces[i];
+        var explicit = routeFromMaps(from);
+        if (explicit) {
+          explicit.date = date;
+          routes.push(explicit);
+        }
+        if (i >= dayPlaces.length - 1) continue;
         var to = dayPlaces[i + 1];
         if (!mapTarget(from.Maps) || !mapTarget(to.Maps)) continue;
         routes.push({
+          kind: 'adjacent',
           id: 'route:' + from.id + ':' + to.id,
           fromId: from.id,
           toId: to.id,
@@ -524,6 +531,37 @@
     return target.query || '';
   }
 
+  function routeFromMaps(place) {
+    if (!place || !place.id || !place.Maps) return null;
+    var url;
+    try { url = new URL(asString(place.Maps)); }
+    catch (_) { return null; }
+    if ((url.protocol !== 'https:' && url.protocol !== 'http:') || url.username || url.password) return null;
+    if (!isGoogleMapsHost(url.hostname.toLowerCase()) || hasCredentialParams(url.searchParams)) return null;
+    var origin = url.searchParams.get('origin') || url.searchParams.get('saddr') || url.searchParams.get('from') || '';
+    var destination = url.searchParams.get('destination') || url.searchParams.get('daddr') || url.searchParams.get('to') || '';
+    destination = finalDestination(destination);
+    if (!origin || !destination) return null;
+    var labels = asString(place.Name).split(/\s*(?:→|->|↔)\s*/).filter(Boolean);
+    return {
+      kind: 'explicit',
+      id: 'route:map:' + place.id,
+      fromId: 'map-origin:' + place.id,
+      toId: place.id,
+      fromName: labels.length > 1 ? labels[0] : '출발지',
+      toName: labels.length > 1 ? labels.slice(1).join(' → ') : place.Name,
+      origin: mapsSearchUrl(origin),
+      destination: mapsSearchUrl(destination),
+    };
+  }
+
+  function mapsSearchUrl(query) {
+    var params = new URLSearchParams();
+    params.set('api', '1');
+    params.set('query', asString(query));
+    return 'https://www.google.com/maps/search/?' + params.toString();
+  }
+
   function mapEmbedUrl(maps) {
     var target = mapTarget(maps);
     if (!target) return null;
@@ -616,6 +654,7 @@
     sortPlaces: sortPlaces,
     dayKey: dayKey,
     buildRoutes: buildRoutes,
+    routeFromMaps: routeFromMaps,
     mapTarget: mapTarget,
     mapEmbedUrl: mapEmbedUrl,
     routeUrls: routeUrls,
