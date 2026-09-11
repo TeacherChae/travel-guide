@@ -17,7 +17,7 @@
           <p class="hero-copy">이 브라우저에 저장 · Notion 자동 동기화 없음</p>
         </div>
         <div class="hero-actions" aria-label="주요 동작">
-          <button id="add-place" class="button primary" type="button">+ 콘텐츠 추가</button>
+          <button id="add-place" class="button primary" type="button">+ 장소 추가</button>
           <button id="export-places" class="button" type="button">JSON 내보내기</button>
           <label class="button file-button" for="import-file">JSON 가져오기</label>
           <input id="import-file" type="file" accept="application/json,.json" hidden>
@@ -37,21 +37,6 @@
             <h2 id="day-title">—</h2>
             <p id="day-summary" class="muted">—</p>
           </div>
-        </div>
-
-        <div class="map-card">
-          <div class="map-toolbar">
-            <div>
-              <p class="section-label">Maps</p>
-              <h3 id="map-title">장소 또는 경로</h3>
-            </div>
-            <div class="map-toolbar-actions">
-              <button id="open-route-details" class="button small primary" type="button" hidden disabled>경로 자세히</button>
-              <a id="open-external-map" class="button small" href="#" target="_blank" rel="noopener noreferrer">Google Maps 열기</a>
-            </div>
-          </div>
-          <iframe id="day-map-frame" title="선택한 장소 또는 경로 지도" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <div id="route-tabs" class="route-tabs" aria-label="장소 간 경로"></div>
         </div>
 
         <div id="places-list" class="places-list"></div>
@@ -77,33 +62,33 @@
     <form id="place-form" method="dialog" novalidate>
       <header class="modal-head">
         <div>
-          <p class="section-label">Place properties</p>
-          <h2 id="editor-title">콘텐츠 추가</h2>
+          <p class="section-label">장소 속성</p>
+          <h2 id="editor-title">장소 추가</h2>
         </div>
         <button class="icon-button" type="button" data-close-dialog="place-editor" aria-label="닫기">×</button>
       </header>
       <div id="form-errors" class="form-errors" role="alert" aria-live="assertive"></div>
       <div class="form-grid">
-        <label class="field required">Name<input id="place-name" name="Name" autocomplete="off" required></label>
-        <label class="check-field all-day-field"><input id="all-day" type="checkbox"> Date&Time을 날짜만 저장</label>
-        <label class="field required">Date&Time start<input id="place-start" name="Date&Time start" type="datetime-local" required></label>
-        <label class="field">Date&Time end<input id="place-end" name="Date&Time end" type="datetime-local"></label>
-        <label class="field span-2 required">Maps
+        <label class="field required">장소명<input id="place-name" name="Name" autocomplete="off" required></label>
+        <label class="check-field all-day-field"><input id="all-day" type="checkbox"> 시간을 정하지 않고 날짜만 저장</label>
+        <label class="field required">시작 일시<input id="place-start" name="Date&Time start" type="datetime-local" required></label>
+        <label class="field">종료 일시<input id="place-end" name="Date&Time end" type="datetime-local"></label>
+        <label class="field span-2 required">지도
           <div class="inline-field">
             <input id="place-maps" name="Maps" required placeholder="Google Maps URL">
-            <button id="open-map-picker" class="button" type="button">Maps 선택</button>
+            <button id="open-map-picker" class="button" type="button">지도 선택</button>
           </div>
         </label>
-        <label class="field">Category<input id="place-category" name="Category" autocomplete="off"></label>
-        <label class="field">Priority<input id="place-priority" name="Priority" autocomplete="off"></label>
-        <label class="field">Reservation Status<input id="place-reservation-status" name="Reservation Status" autocomplete="off"></label>
-        <label class="field span-2">Reservation<input id="place-reservation" name="Reservation" autocomplete="off" placeholder="예약 링크 또는 메모"></label>
-        <label class="field">Total Fee<input id="place-total-fee" name="Total Fee" type="number" min="0" step="0.01" inputmode="decimal"></label>
-        <label class="field">Pay per Each<input id="place-unit-fee" name="Pay per Each" type="number" min="0" step="0.01" inputmode="decimal"></label>
-        <label class="field">EA<input id="place-quantity" name="EA" type="number" min="0" step="0.01" inputmode="decimal"></label>
+        <label class="field">분류<input id="place-category" name="Category" autocomplete="off"></label>
+        <label class="field">우선순위<input id="place-priority" name="Priority" autocomplete="off"></label>
+        <label class="field">예약 상태<input id="place-reservation-status" name="Reservation Status" autocomplete="off"></label>
+        <label class="field span-2">예약 필요 여부<input id="place-reservation" name="Reservation" autocomplete="off" placeholder="필수, 권장, 불필요 또는 예약 링크"></label>
+        <label class="field">총액<input id="place-total-fee" name="Total Fee" type="number" min="0" step="0.01" inputmode="decimal"></label>
+        <label class="field">1개당 금액<input id="place-unit-fee" name="Pay per Each" type="number" min="0" step="0.01" inputmode="decimal"></label>
+        <label class="field">수량<input id="place-quantity" name="EA" type="number" min="0" step="0.01" inputmode="decimal"></label>
         <div class="fee-preview" id="fee-preview">합계: —</div>
-        <label class="field span-2">URL<textarea id="place-url" name="URL" rows="2" placeholder="HTTP(S) URL을 줄바꿈으로 입력"></textarea></label>
-        <label class="field span-2">memo<textarea id="place-memo" name="memo" rows="7" placeholder="본문 메모를 평문으로 입력"></textarea></label>
+        <label class="field span-2">참고 링크<textarea id="place-url" name="URL" rows="2" placeholder="HTTP(S) URL을 줄바꿈으로 입력"></textarea></label>
+        <label class="field span-2">메모<textarea id="place-memo" name="memo" rows="7" placeholder="메모를 입력"></textarea></label>
       </div>
       <footer class="modal-actions">
         <button class="button" type="button" data-close-dialog="place-editor">취소</button>
@@ -115,8 +100,8 @@
   <dialog id="route-details-dialog" class="modal wide" aria-labelledby="route-details-title">
     <header class="modal-head">
       <div>
-        <p class="section-label">Google Maps route</p>
-        <h2 id="route-details-title">상세 경로</h2>
+        <p class="section-label">Google 지도</p>
+        <h2 id="route-details-title">지도</h2>
       </div>
       <button class="icon-button" type="button" data-close-dialog="route-details-dialog" aria-label="닫기">×</button>
     </header>
@@ -127,7 +112,7 @@
       <button class="button small" type="button" data-route-mode="driving" aria-pressed="false">자동차</button>
       <button class="button small" type="button" data-route-mode="bicycling" aria-pressed="false">자전거</button>
     </div>
-    <iframe id="route-details-frame" title="선택한 이동 수단의 Google Maps 상세 경로" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    <iframe id="route-details-frame" title="Google 지도 또는 상세 경로" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
     <footer class="modal-actions">
       <button class="button" type="button" data-close-dialog="route-details-dialog">닫기</button>
       <a id="route-details-external" class="button primary" href="#" target="_blank" rel="noopener noreferrer">Google Maps 앱에서 열기</a>
@@ -137,8 +122,8 @@
   <dialog id="map-picker" class="modal wide" aria-labelledby="map-picker-title">
     <header class="modal-head">
       <div>
-        <p class="section-label">Maps</p>
-        <h2 id="map-picker-title">Google Maps 선택</h2>
+        <p class="section-label">지도</p>
+        <h2 id="map-picker-title">Google 지도 선택</h2>
       </div>
       <button class="icon-button" type="button" data-close-dialog="map-picker" aria-label="닫기">×</button>
     </header>
@@ -148,13 +133,13 @@
     </div>
     <div class="picker-grid">
       <section class="picker-panel sdk-panel">
-        <div class="field"><span>Google search</span><div id="google-search" class="google-search-shell" aria-label="Google Places 검색 입력"></div></div>
+        <div class="field"><span>Google 장소 검색</span><div id="google-search" class="google-search-shell" aria-label="Google 장소 검색 입력"></div></div>
         <div id="google-map-canvas" class="google-map-canvas" aria-label="Google Maps SDK 지도 영역"></div>
       </section>
       <section class="picker-panel">
         <label class="field">저장된 장소 검색<input id="picker-search" placeholder="현재 저장된 장소 이름 검색"></label>
         <div id="picker-results" class="picker-results" aria-label="저장된 장소 검색 결과"></div>
-        <label class="field">Maps URL 직접 입력<input id="picker-manual-url" placeholder="https://www.google.com/maps/..."></label>
+        <label class="field">지도 URL 직접 입력<input id="picker-manual-url" placeholder="https://www.google.com/maps/..."></label>
         <button id="preview-map-url" class="button" type="button">URL 미리보기</button>
         <div id="picker-selection" class="selection-box">선택 없음</div>
       </section>
@@ -176,7 +161,7 @@
         <button class="icon-button" type="button" data-close-dialog="settings-dialog" aria-label="닫기">×</button>
       </header>
       <div id="settings-errors" class="form-errors" role="alert" aria-live="assertive"></div>
-      <label class="field">Google Maps API key<input id="google-api-key" type="password" autocomplete="off" spellcheck="false" placeholder="이 브라우저에 저장"></label>
+      <label class="field">Google Maps API 키<input id="google-api-key" type="password" autocomplete="off" spellcheck="false" placeholder="이 브라우저에 저장"></label>
       <p class="muted small-text">일정은 운영체제 시간대와 관계없이 파리 시간(Europe/Paris)으로 표시·편집됩니다. API 키는 이 기기의 브라우저에 저장되며 장소 JSON과 seed에는 포함되지 않습니다. 이미 SDK가 로드된 뒤 키를 바꾸면 페이지 새로고침 후 적용하세요.</p>
       <footer class="modal-actions">
         <button class="button" type="button" data-close-dialog="settings-dialog">취소</button>

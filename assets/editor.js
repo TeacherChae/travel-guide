@@ -8,6 +8,36 @@
   var STORAGE_KEY = 'travel-guide.places.v1';
   var API_KEY = 'travel-guide.maps-api-key.v1';
   var SEED_MIGRATION_KEY = 'travel-guide.seed-migration.v2';
+  var PROPERTY_LABELS = {
+    'Name': '장소명',
+    'Date&Time': '일시',
+    'Reservation Status': '예약 상태',
+    'Reservation': '예약 필요 여부',
+    'Total Fee': '총액',
+    'Pay per Each': '1개당 금액',
+    'EA': '수량',
+    'Priority': '우선순위',
+    'Category': '분류',
+    'URL': '참고 링크',
+    'Maps': '지도',
+    'memo': '메모',
+  };
+  var PROPERTY_VALUE_LABELS = {
+    'Reservation Status': { 'Done': '완료', 'In Progress': '진행 중', 'Not Yet': '시작 전' },
+    'Reservation': { 'Necessary': '필수', 'Recommended': '권장', 'Not Needed': '불필요' },
+    'Priority': { 'HIGH': '높음', 'MID': '중간', 'LOW': '낮음' },
+    'Category': {
+      'Museum': '미술관·박물관',
+      'Architecture·Landscape Design': '건축·조경',
+      'Cathedral·Historic': '성당·역사',
+      'Market': '시장',
+      'Park·Plaza': '공원·광장',
+      'Restaurant': '식당',
+      'Shopping': '쇼핑',
+      'Transportation': '교통',
+      'Accomodation': '숙소',
+    },
+  };
 
   var state = {
     places: [],
@@ -33,7 +63,7 @@
     nodes = {
       status: $('status-banner'), add: $('add-place'), exportPlaces: $('export-places'), importPlaces: $('import-places'), importFile: $('import-file'),
       dayTabs: $('day-tabs'), dayPanel: $('day-panel'), dayTitle: $('day-title'), daySummary: $('day-summary'), dayTotal: $('day-total'), dayUnknown: $('day-unknown'),
-      mapTitle: $('map-title'), mapFrame: $('day-map-frame'), externalMap: $('open-external-map'), openRouteDetails: $('open-route-details'), routeTabs: $('route-tabs'), placesList: $('places-list'),
+      placesList: $('places-list'),
       routeDetails: $('route-details-dialog'), routeDetailsTitle: $('route-details-title'), routeDetailsSummary: $('route-details-summary'), routeModeTabs: $('route-mode-tabs'), routeDetailsFrame: $('route-details-frame'), routeDetailsExternal: $('route-details-external'),
       editor: $('place-editor'), form: $('place-form'), formErrors: $('form-errors'), editorTitle: $('editor-title'),
       name: $('place-name'), start: $('place-start'), end: $('place-end'), allDay: $('all-day'), maps: $('place-maps'),
@@ -146,7 +176,6 @@
     nodes.applyMap.addEventListener('click', applyPickerCandidate);
     nodes.pickerSettings.addEventListener('click', function () { openSettings(); });
     nodes.openSettings.addEventListener('click', openSettings);
-    nodes.openRouteDetails.addEventListener('click', openRouteDetails);
     nodes.routeModeTabs.addEventListener('click', onRouteModeClick);
     nodes.settingsForm.addEventListener('submit', saveSettings);
     nodes.clearGoogleKey.addEventListener('click', function () { nodes.googleApiKey.value = ''; });
@@ -173,9 +202,9 @@
     }
     var routeButton = event.target.closest('.route-tab');
     if (routeButton) {
-      if (state.selectedRouteId !== routeButton.dataset.routeId) state.routeMode = 'transit';
       state.selectedRouteId = routeButton.dataset.routeId;
-      selectRoute(routeButton.dataset.routeId);
+      state.routeMode = 'transit';
+      openRouteDetails();
       return;
     }
     var action = event.target.closest('[data-action]');
@@ -238,10 +267,9 @@
     var total = dailyTotal(sorted);
     nodes.dayPanel.setAttribute('aria-labelledby', 'tab-' + state.activeDay.replace(/[^a-zA-Z0-9_-]/g, '-'));
     nodes.dayTitle.textContent = state.activeDay === 'unassigned' ? '미배정' : formatDayTitle(state.activeDay);
-    nodes.daySummary.textContent = sorted.length + '개 콘텐츠 · 표시/편집 시간대 ' + state.timeZone;
+    nodes.daySummary.textContent = sorted.length + '개 장소 · 파리 시간';
     nodes.dayTotal.textContent = euro(total.value) + ' 입력분';
     nodes.dayUnknown.textContent = total.unknown ? '금액 미입력/제외 ' + total.unknown + '개' : '금액 입력 완료';
-    renderRoutes(sorted);
     renderPlaces(sorted);
   }
 
@@ -249,62 +277,15 @@
     return state.places.filter(function (place) { return Model.dayKey(place, state.timeZone) === day; });
   }
 
-  function renderRoutes(dayPlaces) {
-    var routes = Model.buildRoutes(dayPlaces, state.timeZone);
-    nodes.routeTabs.replaceChildren();
-    var note = document.createElement('p');
-    note.className = 'muted small-text';
-    note.textContent = routes.length ? '경로 버튼은 각 장소 카드 사이에 자동으로 표시됩니다.' : '이 일자에는 연결 가능한 인접 경로가 없습니다. Maps가 비어 있는 콘텐츠는 경로를 끊습니다.';
-    nodes.routeTabs.append(note);
-    if (!routes.some(function (route) { return route.id === state.selectedRouteId; })) state.selectedRouteId = routes[0] ? routes[0].id : '';
-    if (state.selectedRouteId) selectRoute(state.selectedRouteId);
-    else {
-      var first = dayPlaces.find(function (place) { return Model.mapEmbedUrl(place.Maps); });
-      if (first) setMap(Model.mapEmbedUrl(first.Maps), first.Maps, first.Name, false);
-      else setMap(null, null, '지도 없음', false);
-    }
-  }
-
-  function selectRoute(routeId) {
-    var routes = Model.buildRoutes(placesForDay(state.activeDay), state.timeZone);
-    var route = routes.find(function (candidate) { return candidate.id === routeId; }) || routes[0];
-    if (!route) return;
-    state.selectedRouteId = route.id;
-    nodes.placesList.querySelectorAll('.route-tab').forEach(function (button) {
-      button.setAttribute('aria-pressed', String(button.dataset.routeId === route.id));
-    });
-    var urls = Model.routeUrls(route, 'transit');
-    setMap(urls.embed, urls.external, route.fromName + ' → ' + route.toName, true);
-  }
-
   function showPlaceMap(id) {
     var place = state.places.find(function (candidate) { return candidate.id === id; });
     if (!place) return;
     state.selectedRouteId = '';
-    nodes.placesList.querySelectorAll('.route-tab').forEach(function (button) { button.setAttribute('aria-pressed', 'false'); });
-    setMap(Model.mapEmbedUrl(place.Maps), place.Maps, place.Name, false);
-  }
-
-  function setMap(embed, external, title, isRoute) {
-    nodes.mapTitle.textContent = title || '장소 또는 경로';
-    if (embed) {
-      nodes.mapFrame.src = embed;
-      nodes.mapFrame.hidden = false;
-    } else {
-      nodes.mapFrame.removeAttribute('src');
-      nodes.mapFrame.hidden = true;
-    }
-    if (external && /^https?:\/\//.test(external)) {
-      nodes.externalMap.href = external;
-      nodes.externalMap.removeAttribute('aria-disabled');
-      nodes.externalMap.classList.remove('disabled');
-    } else {
-      nodes.externalMap.href = '#';
-      nodes.externalMap.setAttribute('aria-disabled', 'true');
-      nodes.externalMap.classList.add('disabled');
-    }
-    nodes.openRouteDetails.hidden = !isRoute;
-    nodes.openRouteDetails.disabled = !isRoute;
+    nodes.routeDetailsTitle.textContent = place.Name;
+    nodes.routeDetailsSummary.textContent = '저장된 장소 위치입니다.';
+    nodes.routeModeTabs.hidden = true;
+    setMapDialog(Model.mapEmbedUrl(place.Maps), place.Maps);
+    showDialog(nodes.routeDetails);
   }
 
   function currentRoute() {
@@ -319,6 +300,7 @@
     state.routeMode = 'transit';
     nodes.routeDetailsTitle.textContent = route.fromName + ' → ' + route.toName;
     nodes.routeDetailsSummary.textContent = '이동 수단을 선택하면 같은 출발지와 도착지의 Google Maps 경로를 다시 표시합니다.';
+    nodes.routeModeTabs.hidden = false;
     renderRouteDetails(route);
     showDialog(nodes.routeDetails);
   }
@@ -336,10 +318,14 @@
     nodes.routeModeTabs.querySelectorAll('[data-route-mode]').forEach(function (button) {
       button.setAttribute('aria-pressed', String(button.dataset.routeMode === state.routeMode));
     });
-    if (urls.embed) nodes.routeDetailsFrame.src = urls.embed;
+    setMapDialog(urls.embed, urls.external);
+  }
+
+  function setMapDialog(embed, external) {
+    if (embed) nodes.routeDetailsFrame.src = embed;
     else nodes.routeDetailsFrame.removeAttribute('src');
-    if (urls.external) {
-      nodes.routeDetailsExternal.href = urls.external;
+    if (external && /^https?:\/\//.test(external)) {
+      nodes.routeDetailsExternal.href = external;
       nodes.routeDetailsExternal.classList.remove('disabled');
       nodes.routeDetailsExternal.removeAttribute('aria-disabled');
     } else {
@@ -354,7 +340,7 @@
     if (!places.length) {
       var empty = document.createElement('div');
       empty.className = 'empty-state';
-      empty.textContent = '이 일자에 표시할 콘텐츠가 없습니다.';
+      empty.textContent = '이 일자에 표시할 장소가 없습니다.';
       nodes.placesList.append(empty);
       return;
     }
@@ -383,7 +369,6 @@
     button.dataset.routeId = route.id;
     button.dataset.fromId = route.fromId;
     button.dataset.toId = route.toId;
-    button.setAttribute('aria-pressed', String(route.id === state.selectedRouteId));
     button.textContent = '경로 · ' + route.fromName + ' → ' + route.toName;
     wrap.append(button);
     return wrap;
@@ -399,50 +384,59 @@
     var titleBox = document.createElement('div');
     var time = document.createElement('div');
     time.className = 'place-time';
-    time.textContent = displayDateTime(place);
+    time.textContent = displayCompactTime(place);
     var title = document.createElement('h3');
     title.className = 'place-title';
     title.textContent = place.Name;
     titleBox.append(time, title);
     var actions = document.createElement('div');
     actions.className = 'place-actions';
-    actions.append(actionButton('지도', 'map'), actionButton('수정', 'edit'), actionButton('삭제', 'delete'));
+    var mapButton = actionButton('지도', 'map');
+    mapButton.disabled = !Model.mapEmbedUrl(place.Maps);
+    actions.append(mapButton, actionButton('수정', 'edit'), actionButton('삭제', 'delete'));
     top.append(titleBox, actions);
     card.append(top);
 
     var pills = document.createElement('div');
     pills.className = 'pill-row';
-    if (!place['Date&Time']) pills.append(pill('Date&Time 미입력', 'warn'));
-    if (!place.Maps) pills.append(pill('Maps 미입력', 'warn'));
-    if (place['Reservation Status']) pills.append(pill(place['Reservation Status'], place['Reservation Status'] === 'Done' ? 'ok' : 'warn'));
-    if (place.Priority) pills.append(pill('Priority · ' + place.Priority));
-    if (place.Category) pills.append(pill('Category · ' + place.Category));
+    if (!place['Date&Time']) pills.append(pill('일시 미입력', 'warn'));
+    if (!place.Maps) pills.append(pill('지도 미입력', 'warn'));
+    if (place['Reservation Status']) pills.append(pill(propertyValue('Reservation Status', place['Reservation Status']), place['Reservation Status'] === 'Done' ? 'ok' : 'warn'));
+    if (place.Priority) pills.append(pill('우선순위 · ' + propertyValue('Priority', place.Priority)));
+    if (place.Category) pills.append(pill('분류 · ' + propertyValue('Category', place.Category)));
     if (!pills.children.length) pills.append(pill('선택 속성 미입력'));
     card.append(pills);
 
+    var details = document.createElement('details');
+    details.className = 'place-details';
+    var detailsSummary = document.createElement('summary');
+    detailsSummary.textContent = '상세 정보';
+    details.append(detailsSummary);
+
     var grid = document.createElement('dl');
     grid.className = 'property-grid';
-    addProp(grid, 'Date&Time', displayDateTime(place));
-    addProp(grid, 'Reservation Status', place['Reservation Status']);
-    addProp(grid, 'Reservation', place.Reservation, 'reservation');
-    addProp(grid, 'Total Fee', effectiveFeeText(place));
-    addProp(grid, 'Pay per Each', moneyOrDash(place['Pay per Each']));
-    addProp(grid, 'EA', numberOrDash(place.EA));
-    addProp(grid, 'Priority', place.Priority);
-    addProp(grid, 'Category', place.Category);
-    addProp(grid, 'URL', place.URL, 'urls');
-    addProp(grid, 'Maps', place.Maps, 'map');
-    card.append(grid);
+    addProp(grid, '일시', displayDateTime(place));
+    addProp(grid, '예약 상태', propertyValue('Reservation Status', place['Reservation Status']));
+    addProp(grid, '예약 필요 여부', propertyValue('Reservation', place.Reservation), 'reservation');
+    addProp(grid, '총액', effectiveFeeText(place));
+    addProp(grid, '1개당 금액', moneyOrDash(place['Pay per Each']));
+    addProp(grid, '수량', numberOrDash(place.EA));
+    addProp(grid, '우선순위', propertyValue('Priority', place.Priority));
+    addProp(grid, '분류', propertyValue('Category', place.Category));
+    addProp(grid, '참고 링크', place.URL, 'urls');
+    addProp(grid, '지도', place.Maps, 'map');
+    details.append(grid);
 
-    var memo = document.createElement('details');
+    var memo = document.createElement('div');
     memo.className = 'memo';
-    var summary = document.createElement('summary');
-    summary.textContent = 'memo';
+    var summary = document.createElement('strong');
+    summary.textContent = '메모';
     var body = document.createElement('div');
     body.className = 'memo-body';
     body.textContent = place.memo || '미입력';
     memo.append(summary, body);
-    card.append(memo);
+    details.append(memo);
+    card.append(details);
     return card;
   }
 
@@ -464,7 +458,7 @@
 
   function addProp(grid, name, value, kind) {
     var box = document.createElement('div');
-    box.className = 'property' + (['Date&Time', 'URL', 'Maps'].includes(name) ? ' wide' : '');
+    box.className = 'property' + (['일시', '참고 링크', '지도'].includes(name) ? ' wide' : '');
     var dt = document.createElement('dt');
     dt.textContent = name;
     var dd = document.createElement('dd');
@@ -513,16 +507,16 @@
     state.editingId = id || null;
     clearErrors();
     var place = id ? state.places.find(function (candidate) { return candidate.id === id; }) : null;
-    nodes.editorTitle.textContent = place ? '콘텐츠 수정' : '콘텐츠 추가';
+    nodes.editorTitle.textContent = place ? '장소 수정' : '장소 추가';
     nodes.name.value = place ? place.Name : '';
-    nodes.reservationStatus.value = place ? place['Reservation Status'] : '';
-    nodes.reservation.value = place ? place.Reservation : '';
+    nodes.reservationStatus.value = place ? propertyValue('Reservation Status', place['Reservation Status']) : '';
+    nodes.reservation.value = place ? propertyValue('Reservation', place.Reservation) : '';
     nodes.maps.value = place ? place.Maps : '';
     nodes.totalFee.value = place && place['Total Fee'] !== null ? place['Total Fee'] : '';
     nodes.unitFee.value = place && place['Pay per Each'] !== null ? place['Pay per Each'] : '';
     nodes.quantity.value = place && place.EA !== null ? place.EA : '';
-    nodes.priority.value = place ? place.Priority : '';
-    nodes.category.value = place ? place.Category : '';
+    nodes.priority.value = place ? propertyValue('Priority', place.Priority) : '';
+    nodes.category.value = place ? propertyValue('Category', place.Category) : '';
     nodes.url.value = place ? place.URL : '';
     nodes.memo.value = place ? place.memo : '';
     var start = place && place['Date&Time'] ? place['Date&Time'].start : '';
@@ -563,13 +557,13 @@
       id: state.editingId || undefined,
       Name: nodes.name.value,
       'Date&Time': dateTime,
-      'Reservation Status': nodes.reservationStatus.value,
-      Reservation: nodes.reservation.value,
+      'Reservation Status': propertyCode('Reservation Status', nodes.reservationStatus.value),
+      Reservation: propertyCode('Reservation', nodes.reservation.value),
       'Total Fee': nodes.totalFee.value,
       'Pay per Each': nodes.unitFee.value,
       EA: nodes.quantity.value,
-      Priority: nodes.priority.value,
-      Category: nodes.category.value,
+      Priority: propertyCode('Priority', nodes.priority.value),
+      Category: propertyCode('Category', nodes.category.value),
       URL: nodes.url.value,
       Maps: nodes.maps.value,
       memo: nodes.memo.value,
@@ -608,7 +602,7 @@
   function deletePlace(id) {
     var place = state.places.find(function (candidate) { return candidate.id === id; });
     if (!place) return;
-    confirmAction('콘텐츠 삭제', '삭제하면 연결된 인접 경로 탭이 즉시 재계산됩니다.\n\n' + place.Name, function () {
+    confirmAction('장소 삭제', '삭제하면 연결된 인접 경로 탭이 즉시 재계산됩니다.\n\n' + place.Name, function () {
       var next = state.places.filter(function (candidate) { return candidate.id !== id; });
       try { persistPlaces(next, false); }
       catch (error) { showStatus(error.message, 'error'); return; }
@@ -644,7 +638,7 @@
     try {
       var normalized = Model.normalizePlace(Object.assign(formPlace(), { Name: 'preview', 'Date&Time': { start: '2026-01-01T00:00:00.000Z', end: null }, Maps: 'https://www.google.com/maps/search/?api=1&query=Paris' }));
       var fee = Model.getFee(normalized);
-      nodes.feePreview.textContent = fee.value === null ? '합계: —' : '합계: ' + euro(fee.value) + ' · ' + (fee.source === 'manual' ? 'Total Fee 우선' : 'Pay per Each × EA');
+      nodes.feePreview.textContent = fee.value === null ? '합계: —' : '합계: ' + euro(fee.value) + ' · ' + (fee.source === 'manual' ? '총액 직접 입력' : '1개당 금액 × 수량');
     } catch (_) { nodes.feePreview.textContent = '합계: —'; }
   }
 
@@ -655,6 +649,29 @@
     var startText = /^\d{4}-\d{2}-\d{2}$/.test(start) ? start : Model.formatDateTime(start, state.timeZone).replace('T', ' ');
     var endText = end ? (/^\d{4}-\d{2}-\d{2}$/.test(end) ? end : Model.formatDateTime(end, state.timeZone).replace('T', ' ')) : '';
     return endText ? startText + '–' + endText : startText;
+  }
+
+  function displayCompactTime(place) {
+    if (!place || !place['Date&Time']) return '시간 미입력';
+    var start = place['Date&Time'].start;
+    var end = place['Date&Time'].end;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(start)) return '시간 미정';
+    var startText = Model.formatDateTime(start, state.timeZone).slice(11);
+    var endText = end && !/^\d{4}-\d{2}-\d{2}$/.test(end) ? Model.formatDateTime(end, state.timeZone).slice(11) : '';
+    return endText ? startText + '–' + endText : startText;
+  }
+
+  function propertyValue(property, value) {
+    if (!value) return '';
+    var labels = PROPERTY_VALUE_LABELS[property] || {};
+    return labels[value] || value;
+  }
+
+  function propertyCode(property, value) {
+    if (!value) return '';
+    var labels = PROPERTY_VALUE_LABELS[property] || {};
+    var code = Object.keys(labels).find(function (key) { return labels[key] === value; });
+    return code || value;
   }
 
   function openMapPicker() {
@@ -695,7 +712,7 @@
       onSelect: function (selection) {
         if (token !== state.picker.token) return;
         chooseCandidate(selection);
-        nodes.pickerStatus.textContent = 'Google 결과를 선택했습니다. 적용을 누르면 Maps 속성에 반영됩니다.';
+        nodes.pickerStatus.textContent = 'Google 결과를 선택했습니다. 적용을 누르면 지도 속성에 반영됩니다.';
       },
       onError: function (message) {
         if (token === state.picker.token) nodes.pickerStatus.textContent = message;
@@ -978,7 +995,7 @@
   function setErrors(node, errors) { node.textContent = errors.join('\n'); }
   function fieldErrors(error) {
     if (!error || !error.fields) return [error && error.message ? error.message : '입력값을 확인하세요.'];
-    return Object.keys(error.fields).map(function (field) { return field + ': ' + error.fields[field]; });
+    return Object.keys(error.fields).map(function (field) { return (PROPERTY_LABELS[field] || field) + ': ' + error.fields[field]; });
   }
 
   function showDialog(dialog) { if (dialog.showModal) dialog.showModal(); else dialog.setAttribute('open', ''); }
