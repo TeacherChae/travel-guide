@@ -384,7 +384,7 @@
     var titleBox = document.createElement('div');
     var time = document.createElement('div');
     time.className = 'place-time';
-    time.textContent = displayCompactTime(place);
+    time.textContent = '일시 · ' + displayCompactTime(place);
     var title = document.createElement('h3');
     title.className = 'place-title';
     title.textContent = place.Name;
@@ -399,12 +399,8 @@
 
     var pills = document.createElement('div');
     pills.className = 'pill-row';
-    if (!place['Date&Time']) pills.append(pill('일시 미입력', 'warn'));
-    if (!place.Maps) pills.append(pill('지도 미입력', 'warn'));
-    if (place['Reservation Status']) pills.append(pill(propertyValue('Reservation Status', place['Reservation Status']), place['Reservation Status'] === 'Done' ? 'ok' : 'warn'));
-    if (place.Priority) pills.append(pill('우선순위 · ' + propertyValue('Priority', place.Priority)));
-    if (place.Category) pills.append(pill('분류 · ' + propertyValue('Category', place.Category)));
-    if (!pills.children.length) pills.append(pill('선택 속성 미입력'));
+    var fee = Model.getFee(place);
+    pills.append(pill(fee.value === null ? '총액 · 미입력' : '총액 · ' + euro(fee.value), fee.value === null ? 'warn' : 'ok'));
     card.append(pills);
 
     var details = document.createElement('details');
