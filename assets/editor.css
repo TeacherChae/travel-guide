@@ -82,7 +82,6 @@ h1 { margin: 0; font-size: clamp(30px, 8vw, 56px); letter-spacing: -.055em; line
 .day-tabs::-webkit-scrollbar { display: none; }
 .day-tab { flex: 0 0 auto; border: 1px solid var(--line); background: #fff; color: var(--muted); border-radius: 999px; padding: 8px 13px; font-size: 13px; font-weight: 800; }
 .day-tab[aria-selected="true"] { background: var(--brand); border-color: var(--brand); color: #fff; }
-.day-count { opacity: .74; font-weight: 700; }
 
 .day-panel { padding-top: 12px; }
 .panel-head { display: grid; gap: 8px; grid-template-columns: 1fr; align-items: end; margin-bottom: 10px; }

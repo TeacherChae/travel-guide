@@ -252,11 +252,7 @@
       button.setAttribute('aria-controls', 'day-panel');
       button.tabIndex = day === state.activeDay ? 0 : -1;
       button.setAttribute('aria-selected', String(day === state.activeDay));
-      button.append(document.createTextNode(dayLabel(day) + ' '));
-      var count = document.createElement('span');
-      count.className = 'day-count';
-      count.textContent = '(' + placesForDay(day).length + ')';
-      button.append(count);
+      button.textContent = dayLabel(day);
       nodes.dayTabs.append(button);
     });
   }
@@ -1011,6 +1007,11 @@
   function euro(value) { return '€' + Number(value).toFixed(2); }
   function moneyOrDash(value) { return value === null || value === undefined ? '—' : euro(value); }
   function numberOrDash(value) { return value === null || value === undefined ? '—' : String(value); }
-  function dayLabel(day) { return day === 'unassigned' ? '미배정' : day.slice(5).replace('-', '/'); }
+  function dayLabel(day) {
+    if (day === 'unassigned') return '미배정';
+    var parts = day.split('-').map(Number);
+    var weekday = ['일', '월', '화', '수', '목', '금', '토'][new Date(Date.UTC(parts[0], parts[1] - 1, parts[2])).getUTCDay()];
+    return parts[1] + '/' + parts[2] + '(' + weekday + ')';
+  }
   function formatDayTitle(day) { return day + ' 일정'; }
 })();
