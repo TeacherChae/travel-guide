@@ -4,7 +4,7 @@
   "version": 1,
   "timeZone": "Europe/Paris",
   "capturedAt": "2026-09-11",
-  "source": "Notion 장소_DB 수동 스냅샷 · 자동 동기화 없음",
+  "source": "Notion 장소_DB 수동 스냅샷 · 자동 동기화 없음 · 시각은 Europe/Paris 실제 순간",
   "days": [
     "2026-09-12",
     "2026-09-13",
@@ -20,8 +20,8 @@
       "id": "3d5ea411129f81f480cdc77e01b68363",
       "Name": "CDG → 5th Arr. accommodation",
       "Date&Time": {
-        "start": "2026-09-12T09:30:00.000Z",
-        "end": "2026-09-12T11:00:00.000Z"
+        "start": "2026-09-12T16:30:00.000Z",
+        "end": "2026-09-12T18:00:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -38,8 +38,8 @@
       "id": "3d5ea411129f810abdf5effde124626d",
       "Name": "Intermarche Express",
       "Date&Time": {
-        "start": "2026-09-12T11:00:00.000Z",
-        "end": "2026-09-12T11:30:00.000Z"
+        "start": "2026-09-12T18:00:00.000Z",
+        "end": "2026-09-12T18:30:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -56,8 +56,8 @@
       "id": "3d5ea411129f81dca5e6c01ce8d3767f",
       "Name": "Rue Mouffetard",
       "Date&Time": {
-        "start": "2026-09-12T11:30:00.000Z",
-        "end": "2026-09-12T12:30:00.000Z"
+        "start": "2026-09-12T18:30:00.000Z",
+        "end": "2026-09-12T19:30:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -74,8 +74,8 @@
       "id": "3d5ea411129f8199a094f90e7d659114",
       "Name": "Pont de la Tournelle",
       "Date&Time": {
-        "start": "2026-09-12T12:30:00.000Z",
-        "end": "2026-09-12T13:00:00.000Z"
+        "start": "2026-09-12T19:30:00.000Z",
+        "end": "2026-09-12T20:00:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -92,8 +92,8 @@
       "id": "3d5ea411129f81fc9555f75365404c8f",
       "Name": "숙소 · 한국 교회 라이브 예배",
       "Date&Time": {
-        "start": "2026-09-12T22:00:00.000Z",
-        "end": "2026-09-12T23:30:00.000Z"
+        "start": "2026-09-13T05:00:00.000Z",
+        "end": "2026-09-13T06:30:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -110,8 +110,8 @@
       "id": "3d5ea411129f8149846cd4cb05363b6f",
       "Name": "Notre Dame de Paris",
       "Date&Time": {
-        "start": "2026-09-13T01:00:00.000Z",
-        "end": "2026-09-13T02:15:00.000Z"
+        "start": "2026-09-13T08:00:00.000Z",
+        "end": "2026-09-13T09:15:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Recommended",
@@ -128,8 +128,8 @@
       "id": "3d6ea411129f814c9301fd5091fb4843",
       "Name": "La Fête de Paris",
       "Date&Time": {
-        "start": "2026-09-13T05:00:00.000Z",
-        "end": "2026-09-13T07:00:00.000Z"
+        "start": "2026-09-13T12:00:00.000Z",
+        "end": "2026-09-13T14:00:00.000Z"
       },
       "Reservation Status": "Not Yet",
       "Reservation": "Necessary",
@@ -146,8 +146,8 @@
       "id": "3d6ea411129f816c93faf1d4393d468b",
       "Name": "Musee Rodin",
       "Date&Time": {
-        "start": "2026-09-13T07:40:00.000Z",
-        "end": "2026-09-13T09:15:00.000Z"
+        "start": "2026-09-13T14:40:00.000Z",
+        "end": "2026-09-13T16:15:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Necessary",
@@ -164,8 +164,8 @@
       "id": "3d5ea411129f81e9a4ead87e9beff796",
       "Name": "Bateaux Parisiens",
       "Date&Time": {
-        "start": "2026-09-13T11:00:00.000Z",
-        "end": "2026-09-13T12:00:00.000Z"
+        "start": "2026-09-13T18:00:00.000Z",
+        "end": "2026-09-13T19:00:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Necessary",
@@ -379,7 +379,10 @@
     {
       "id": "3d5ea411129f81a4a171def44d285480",
       "Name": "루브르",
-      "Date&Time": null,
+      "Date&Time": {
+        "start": "2026-09-17T09:00:00.000Z",
+        "end": "2026-09-17T13:00:00.000Z"
+      },
       "Reservation Status": "",
       "Reservation": "",
       "Total Fee": null,
@@ -394,7 +397,10 @@
     {
       "id": "3d6ea411129f8133ac5bc30b9b3b8e9d",
       "Name": "들라크루아 미술관",
-      "Date&Time": null,
+      "Date&Time": {
+        "start": "2026-09-17T13:30:00.000Z",
+        "end": "2026-09-17T15:00:00.000Z"
+      },
       "Reservation Status": "",
       "Reservation": "",
       "Total Fee": null,

@@ -2,13 +2,13 @@
 
 **기준일: 2026-09-09 · 여행: 9/12–19 · 2인 · 시각은 파리 현지.** `[미완료]`는 완료 증빙 없음, `[구매기록]`은 기존 구매 후 실제 표·설치 등 후속 확인이 남음, `[당일확인]`은 현장 상태를 봐야 한다는 뜻이다. 계획 시각만으로 예약 완료 처리하지 않는다.
 
-현재 전략은 **PMP 없이 Carte Blanche Jeunes Duo 1년 €40을 구매·발급해 사용하는 것**이다. 아직 회원카드가 없으므로 오랑주리(월 9/14)와 오르세(화 9/15)는 조건부 계획이다. 바토 파리지앵은 MyRealTrip 2인 총 **₩27,052 결제 완료**이며, 원화는 유로로 환산하지 않는다. 최종 일정은 [로댕 유연 운영안](flexible-rodin-plan.md)을 따른다.
+현재 전략은 **PMP 없이 Carte Blanche Jeunes Duo 1년 €40을 사용하는 것**이며, 2026-09-10 기준 **구매 완료**로 보고받았다. 회원카드가 실제로 열리는지(디지털/실물)만 출국 전 확인하면 오랑주리(월 9/14)와 오르세(화 9/15)는 추가 결제 없이 진행된다. 바토 파리지앵은 MyRealTrip 2인 총 **₩27,052 결제 완료**이며, 원화는 유로로 환산하지 않는다. 최종 일정은 [로댕 유연 운영안](flexible-rodin-plan.md)을 따른다.
 
 ## 1. 출국 전 우선순위
 
 | 상태·할 일 | 근거·주의 | 완료 증거 |
 |---|---|---|
-| **[미완료 · HIGH]** Carte Blanche Jeunes Duo 1년 1장 구매·발급 | 공개 개인 상품 €40. 명의자는 만 36세 미만이어야 하며 €32 파트너 할인은 자격을 확인하기 전 적용하지 않는다. | 결제 확인/인보이스, 명의자 사진·연령 증빙 승인, 유효한 디지털 또는 실물 카드. [공식 상품](https://adherents-carte-blanche.musee-orsay.fr/adhesion-carte-blanche-jeunes-1-an-carte-musee-d-orsay-paris-valable-1-an-a-partir-de-la-premiere-visite-css5-carteblanche-pg101-ri11401285.html) · [요금·약관](https://www.musee-orsay.fr/en/you-are/carte-blanche-members/ticket-prices-membership-packages) |
+| **[구매 완료 · HIGH]** Carte Blanche Jeunes Duo 1년 1장 — 남은 건 카드 확인뿐 | 공개 개인 상품 €40. 2026-09-10 구매 완료로 보고받음. 출국 전에 **디지털 회원카드가 실제로 열리는지**와 명의자 사진·연령 증빙이 승인됐는지만 확인한다. 동반인 1명이 함께 입장해야 유효하다. | 결제 확인/인보이스, 승인된 증빙, 실제로 열리는 디지털 또는 실물 카드. [공식 상품](https://adherents-carte-blanche.musee-orsay.fr/adhesion-carte-blanche-jeunes-1-an-carte-musee-d-orsay-paris-valable-1-an-a-partir-de-la-premiere-visite-css5-carteblanche-pg101-ri11401285.html) · [요금·약관](https://www.musee-orsay.fr/en/you-are/carte-blanche-members/ticket-prices-membership-packages) |
 | **[미완료 · HIGH]** 카드 명의자와 게스트의 동행·사용 조건 확인 | Duo는 카드 명의자와 게스트 1명이 함께 입장하는 계획이다. 회원카드가 실제로 활성화되기 전에는 무료 입장으로 표시하지 않는다. | 두 사람의 입장 계획과 카드 화면. [회원 FAQ](https://www.musee-orsay.fr/en/you-are/carte-blanche-members/we-answer-your-questions) |
 | **[불필요]** PMP 구매·PMP 예약 흐름은 진행하지 않기 | 현재 선택은 Carte Blanche다. PMP 시설 목록은 참고용이며 두 상품을 중복 구매하지 않는다. | 예약 캘린더에 PMP 주문이 없음. [PMP 상품](https://www.parismuseumpass.fr/en/pass) · [예약 안내](https://www.parismuseumpass.fr/en/reservation) |
 | **[구매기록 · HIGH]** 모네의 집·정원 9/16 영수증을 실제 e-ticket과 대조 | 영수증은 상품·수량·방문시각·QR을 모두 보여주지 않을 수 있다. | 9/16 방문일이 표시된 QR/PDF를 두 기기에 저장. [Fondation Monet 방문 안내](https://fondation-monet.com/en/useful-information/) |
@@ -25,7 +25,7 @@
 | **[미완료 · HIGH]** 생트샤펠 9/13 12:00 목표 시간대 확인 | 노트르담 미사 후 관람이며 미사 참석 일정이 아니다. 보안검색을 별도로 계산하고, 아직 예약하지 않았다. | 2인 e-ticket 또는 시간대 미확보 시 대체 계획. [공식 티켓](https://tickets.monuments-nationaux.fr/en-GB/families?site=2035141861660400306) · [방문 안내](https://www.sainte-chapelle.fr/en/visite/informations-pratiques) |
 | **[조건부 · MID]** 오랑주리 월 9/14 10:00·오르세 화 9/15 13:30은 CB 발급 후 카드로 입장 | 일반 관람만 해당한다. 카드 발급 전 단독권을 중복 구매하지 않으며, 입구·공사 동선은 당일 확인한다. | 유효한 카드 화면과 명의자+게스트 동행. [오랑주리](https://www.musee-orangerie.fr/fr/visite/acces-horaires-tarifs) · [오르세](https://www.musee-orsay.fr/en/visit) · [CB FAQ](https://www.musee-orsay.fr/en/you-are/carte-blanche-members/we-answer-your-questions) |
 | **[미완료 · MID]** 마르모탕 모네 9/15 10:00 단독권 선택 | 개인 사전예약은 필수가 아니며 현장 구매도 가능하다. 온라인 관찰값 €14.50/인은 결제 직전 가격·재고를 다시 확인한다. | 2인 e-ticket 또는 현장 구매 메모. [온라인 티켓](https://billetterie.marmottan.fr/) · [실용정보](https://www.marmottan.fr/en/prepare-your-visit/practical-information/) |
-| **[조건부 · MID]** 로댕은 9/13 16:40–18:15 또는 9/18 14:00–16:00 중 한 번만 선택 | 일요일은 Fête에서 16시경 실제로 나올 수 있고 체력이 괜찮을 때만 시도한다. 늦거나 피곤하면 금요일로 넘긴다. 두 날짜를 모두 예약·결제하지 않는다. | 선택한 하루의 단독권 2장 또는 현장 구매 메모. [로댕 방문·요금](https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques) |
+| **[예약 완료 · MID]** 로댕 9/13(일) 16:40–18:15 | 2026-09-10 예매 완료로 보고받음. 일요일로 확정됐으므로 **금요일 fallback은 쓰지 않고**, 9/18 오후는 몽소 14:00–15:10 → Pleincœur 15:30–16:00으로 간다. Fête에서 16시경 실제로 나와야 하므로 축제 체류를 그 시각에 맞춘다. 매표소 마감 17:30, 전시실 퇴장 18:15. | 예약표 2장. 표에 일시 지정이 있는지 확인할 것. [로댕 방문·요금](https://www.musee-rodin.fr/preparer-sa-visite/informations-pratiques) |
 | **[미완료 · HIGH]** 루브르 9/17 09:00 시간지정권 확인 | 들라크루아와 같은 목요일에 묶는다. 들라크루아는 루브르 표의 당일 연계 조건을 먼저 확인하고 별도권을 중복 구매하지 않는다. | 루브르 e-ticket, 연계 무료 슬롯 e-ticket 또는 현장 확인 메모. [루브르 티켓](https://ticket.louvre.fr/en) · [시간·요금](https://www.louvre.fr/en/visit/hours-admission/tickets-and-prices) |
 | **[기본계획 · LOW]** 지베르니 인상주의 미술관은 9/16 현장 또는 공식 온라인에서 판단 | 모네의 집·정원 티켓과 별도 시설이다. 두 사람 모두의 할인 적용을 가정하지 않는다. | 표 2장 또는 생략 메모. [MDIG 티켓](https://www.mdig.fr/en/get-tickets/) |
 | **[미완료 · MID]** 진화 대전시실 9/14 16:00 입장권 확인 → 파리 식물원 17:30–17:50 산책 | 월요일 방문 계획에 포함했다. 공식 상설 일반권 €13/인, 2인 €26. 10:00–18:00 운영·마지막 입장17:00이며 실제 예약은 미확인이다. | 공식 e-ticket 또는 현장 구매 확인. [MNHN 운영·요금](https://www.mnhn.fr/en/grande-galerie-de-l-evolution-gallery-of-evolution) (확인 2026-09-09) |

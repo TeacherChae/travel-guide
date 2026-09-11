@@ -10,9 +10,10 @@ import json
 import math
 import re
 import unittest
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from urllib.parse import urlparse
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -68,8 +69,10 @@ class EditorSeedTests(unittest.TestCase):
 
     def test_source_snapshot_preserves_incomplete_records_without_inventing_values(self):
         # Notion has many candidate records without a date; they stay visible
-        # instead of being assigned an invented itinerary day.
-        self.assertEqual(sum(place["Date&Time"] is None for place in self.places), 36)
+        # instead of being assigned an invented itinerary day.  루브르 and
+        # 들라크루아 were given real 9/17 slots in Notion first, so they are
+        # mirrored here rather than invented.
+        self.assertEqual(sum(place["Date&Time"] is None for place in self.places), 34)
         self.assertEqual(sum(not place["Maps"] for place in self.places), 1)
         for place in self.places:
             if place["Date&Time"] is None:
@@ -173,6 +176,54 @@ class EditorSeedTests(unittest.TestCase):
                 self.assertRegex(start, r"^\d{4}-\d{2}-\d{2}T")
                 fromiso = start.replace("Z", "+00:00")
                 self.assertIsNotNone(__import__("datetime").datetime.fromisoformat(fromiso))
+
+    def test_timed_records_are_true_paris_instants_not_seoul_wall_clock(self):
+        # Notion stored these with the workspace's Asia/Seoul offset while the
+        # numbers meant Paris local time, which rendered every stop 7 hours
+        # early.  Pin the corrected instants so the skew cannot come back.
+        paris = ZoneInfo("Europe/Paris")
+        expected = {
+            "CDG → 5th Arr. accommodation": ("09-12 18:30", "09-12 20:00"),
+            "Intermarche Express": ("09-12 20:00", "09-12 20:30"),
+            "Rue Mouffetard": ("09-12 20:30", "09-12 21:30"),
+            "Pont de la Tournelle": ("09-12 21:30", "09-12 22:00"),
+            "숙소 · 한국 교회 라이브 예배": ("09-13 07:00", "09-13 08:30"),
+            "Notre Dame de Paris": ("09-13 10:00", "09-13 11:15"),
+            "La Fête de Paris": ("09-13 14:00", "09-13 16:00"),
+            "Musee Rodin": ("09-13 16:40", "09-13 18:15"),
+            "Bateaux Parisiens": ("09-13 20:00", "09-13 21:00"),
+            "루브르": ("09-17 11:00", "09-17 15:00"),
+            "들라크루아 미술관": ("09-17 15:30", "09-17 17:00"),
+        }
+
+        def local(value):
+            moment = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            return moment.astimezone(paris).strftime("%m-%d %H:%M")
+
+        seen = {}
+        for place in self.places:
+            date_time = place["Date&Time"]
+            if date_time is None or re.fullmatch(r"\d{4}-\d{2}-\d{2}", date_time["start"]):
+                continue
+            seen[place["Name"]] = (local(date_time["start"]), local(date_time["end"]))
+        self.assertEqual(seen, expected)
+
+        # Nothing in a walking-tour itinerary belongs in the small hours; a
+        # repeat of the offset bug would push the evening stops into this gap.
+        for name, (start, _end) in seen.items():
+            self.assertGreaterEqual(int(start[-5:-3]), 6, f"{name} starts before 06:00 Paris")
+
+    def test_thursday_keeps_the_louvre_ticket_order_delacroix_requires(self):
+        # The Louvre ticket admits to Delacroix on the same day, but Delacroix
+        # opens at 12:00 on weekdays, so it cannot precede an 11:00 Louvre slot.
+        by_name = {place["Name"]: place for place in self.places}
+        louvre = by_name["루브르"]["Date&Time"]
+        delacroix = by_name["들라크루아 미술관"]["Date&Time"]
+        self.assertTrue(louvre["start"].startswith("2026-09-17"))
+        self.assertTrue(delacroix["start"].startswith("2026-09-17"))
+        self.assertLessEqual(louvre["end"], delacroix["start"])
+        # Delacroix stops admitting at 17:00 Paris.
+        self.assertLessEqual(delacroix["end"], "2026-09-17T15:00:00.000Z")
 
 
 if __name__ == "__main__":
