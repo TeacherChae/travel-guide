@@ -4,7 +4,7 @@
   "version": 1,
   "timeZone": "Europe/Paris",
   "capturedAt": "2026-09-11",
-  "source": "Notion 장소_DB 수동 스냅샷 · 자동 동기화 없음",
+  "source": "Notion 장소_DB · Date&Time 입력 25개 행 속성 갱신 · 자동 동기화 없음",
   "days": [
     "2026-09-12",
     "2026-09-13",
@@ -20,8 +20,8 @@
       "id": "3d5ea411129f81f480cdc77e01b68363",
       "Name": "CDG → 5th Arr. accommodation",
       "Date&Time": {
-        "start": "2026-09-12T09:30:00.000Z",
-        "end": "2026-09-12T11:00:00.000Z"
+        "start": "2026-09-12T16:30:00.000Z",
+        "end": "2026-09-12T18:00:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -36,10 +36,10 @@
     },
     {
       "id": "3d5ea411129f810abdf5effde124626d",
-      "Name": "Intermarche Express",
+      "Name": "Intermarché Express",
       "Date&Time": {
-        "start": "2026-09-12T11:00:00.000Z",
-        "end": "2026-09-12T11:30:00.000Z"
+        "start": "2026-09-12T18:00:00.000Z",
+        "end": "2026-09-12T18:30:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -56,8 +56,8 @@
       "id": "3d5ea411129f81dca5e6c01ce8d3767f",
       "Name": "Rue Mouffetard",
       "Date&Time": {
-        "start": "2026-09-12T11:30:00.000Z",
-        "end": "2026-09-12T12:30:00.000Z"
+        "start": "2026-09-12T18:30:00.000Z",
+        "end": "2026-09-12T19:30:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -74,8 +74,8 @@
       "id": "3d5ea411129f8199a094f90e7d659114",
       "Name": "Pont de la Tournelle",
       "Date&Time": {
-        "start": "2026-09-12T12:30:00.000Z",
-        "end": "2026-09-12T13:00:00.000Z"
+        "start": "2026-09-12T19:30:00.000Z",
+        "end": "2026-09-12T20:00:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -92,8 +92,8 @@
       "id": "3d5ea411129f81fc9555f75365404c8f",
       "Name": "숙소 · 한국 교회 라이브 예배",
       "Date&Time": {
-        "start": "2026-09-12T22:00:00.000Z",
-        "end": "2026-09-12T23:30:00.000Z"
+        "start": "2026-09-12T05:00:00.000Z",
+        "end": "2026-09-12T06:30:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Not Needed",
@@ -110,8 +110,8 @@
       "id": "3d5ea411129f8149846cd4cb05363b6f",
       "Name": "Notre Dame de Paris",
       "Date&Time": {
-        "start": "2026-09-13T01:00:00.000Z",
-        "end": "2026-09-13T02:15:00.000Z"
+        "start": "2026-09-13T08:00:00.000Z",
+        "end": "2026-09-13T09:15:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Recommended",
@@ -128,8 +128,8 @@
       "id": "3d6ea411129f814c9301fd5091fb4843",
       "Name": "La Fête de Paris",
       "Date&Time": {
-        "start": "2026-09-13T05:00:00.000Z",
-        "end": "2026-09-13T07:00:00.000Z"
+        "start": "2026-09-13T12:00:00.000Z",
+        "end": "2026-09-13T14:00:00.000Z"
       },
       "Reservation Status": "Not Yet",
       "Reservation": "Necessary",
@@ -138,16 +138,16 @@
       "EA": 2,
       "Priority": "HIGH",
       "Category": "Park·Plaza",
-      "URL": "",
+      "URL": "https://lafetedeparis.fr\nhttps://mairie06.paris.fr/pages/fete-de-paris-2026-defile-costume-et-guinguette-35905",
       "Maps": "https://www.google.com/maps/search/?api=1&query=Place+Andr%C3%A9-Honnorat+Paris",
       "memo": "- Village / 역사 퍼레이드\n- 14시부터 퍼레이드 시작\n- 16시에 일찍 나오고 체력이 괜찮으면 로댕\n- 예산 근거\n\t- 일반 입장 : 0\n\t- 간단한 점심 : 40\n\t- 축제 음료/간식 : 10\n## 메모\n일요일 오전 숙소 예배→노트르담 미사→생트샤펠**→**간단한 점심 후 축제. 18시는 Village 폐장이지 의무 체류 시각이 아닙니다. 16시경 일찍 나오고 체력이 괜찮으면 로댕, 아니면 계속 축제/휴식 후 크루즈. Panthéon13:30–13:45는 앞 일정이 맞을 때의 목표이며 미사·보안·점심 지연 시 출발 관람을 보장하지 않습니다. 공식14시 안내/상세14:30 차이는 당일 재확인. Village/Parade 무료 등록 미완료. [https://lafetedeparis.fr/le-village/](https://lafetedeparis.fr/le-village/) · [https://mairie06.paris.fr/pages/fete-de-paris-2026-defile-costume-et-guinguette-35905](https://mairie06.paris.fr/pages/fete-de-paris-2026-defile-costume-et-guinguette-35905) (확인2026-09-09)\n## 예산·입장료\n**입장료 (1인 기준):** €0.00\n**예산 반영:** 일요일 포함 · 입장0 + 식사40 + 음료/간식10(2인 추정)\n### 예산 근거\n일반 입장0. 생트샤펠 뒤 간단한 점심40 + 축제 음료/간식10=2인 €50 임시 준비금. 공식 식당/부스 단가가 아니며 Le Florentin과 중복 합산하지 않음."
     },
     {
       "id": "3d6ea411129f816c93faf1d4393d468b",
-      "Name": "Musee Rodin",
+      "Name": "Musée Rodin",
       "Date&Time": {
-        "start": "2026-09-13T07:40:00.000Z",
-        "end": "2026-09-13T09:15:00.000Z"
+        "start": "2026-09-13T14:40:00.000Z",
+        "end": "2026-09-13T16:15:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Necessary",
@@ -156,7 +156,7 @@
       "EA": 2,
       "Priority": "MID",
       "Category": "Museum",
-      "URL": "",
+      "URL": "https://www.musee-rodin.fr/en",
       "Maps": "https://www.google.com/maps/search/?api=1&query=48.8553072%2C2.3158354",
       "memo": "- La Fete de Paris에서 16시 출발 후 체력이 괜찮으면 16:40–18:15 선택 방문\n- 못 보면 금요일 14:00–16:00에 몽소 대신 방문.\n- 일요일 방문했으면 금요일은 몽소 방문\n- 매표소 종료 17:30 \\| 전시실 퇴장 18:15부터\n- [ ] 티켓 예약은 했어도 일시 지정은 필요 없던 걸로 기억함. 확인해볼 것\n## 예산·입장료\n**입장료 (1인 기준):** €14.00"
     },
@@ -164,8 +164,8 @@
       "id": "3d5ea411129f81e9a4ead87e9beff796",
       "Name": "Bateaux Parisiens",
       "Date&Time": {
-        "start": "2026-09-13T11:00:00.000Z",
-        "end": "2026-09-13T12:00:00.000Z"
+        "start": "2026-09-13T18:00:00.000Z",
+        "end": "2026-09-13T19:00:00.000Z"
       },
       "Reservation Status": "Done",
       "Reservation": "Necessary",
@@ -180,17 +180,17 @@
     },
     {
       "id": "3d5ea411129f816f82c5e9d2656f8cca",
-      "Name": "Musee d’Orangerie",
+      "Name": "Musée d’Orangerie",
       "Date&Time": {
-        "start": "2026-09-14",
-        "end": null
+        "start": "2026-09-14T08:00:00.000Z",
+        "end": "2026-09-14T09:30:00.000Z"
       },
-      "Reservation Status": "",
-      "Reservation": "",
+      "Reservation Status": "Done",
+      "Reservation": "Not Needed",
       "Total Fee": null,
       "Pay per Each": 0,
-      "EA": null,
-      "Priority": "",
+      "EA": 2,
+      "Priority": "HIGH",
       "Category": "Museum",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8638,2.3227&z=16&hl=ko&output=embed",
@@ -199,13 +199,16 @@
     {
       "id": "3d5ea411129f819aa137cf48a9001401",
       "Name": "Fer à Cheval",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Date&Time": {
+        "start": "2026-09-14T11:00:00.000Z",
+        "end": "2026-09-14T11:30:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Not Needed",
       "Total Fee": null,
       "Pay per Each": 20,
-      "EA": null,
-      "Priority": "",
+      "EA": 1,
+      "Priority": "MID",
       "Category": "Shopping",
       "URL": "",
       "Maps": "https://www.google.com/maps/search/?api=1&query=48.8583549%2C2.3516334",
@@ -213,14 +216,17 @@
     },
     {
       "id": "3d5ea411129f812d8434e8163b01ed86",
-      "Name": "퐁뇌프 · 센강 산책",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Pont Neuf · La Seine",
+      "Date&Time": {
+        "start": "2026-09-14T11:30:00.000Z",
+        "end": "2026-09-14T12:00:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Not Needed",
       "Total Fee": null,
       "Pay per Each": 0,
-      "EA": null,
-      "Priority": "",
+      "EA": 2,
+      "Priority": "MID",
       "Category": "Park·Plaza",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8572,2.3413&z=16&hl=ko&output=embed",
@@ -228,14 +234,17 @@
     },
     {
       "id": "3d5ea411129f818293e4ef2f390a941b",
-      "Name": "진화 대전시실",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Muséum National d’Histoire Naturelle",
+      "Date&Time": {
+        "start": "2026-09-14T13:00:00.000Z",
+        "end": "2026-09-14T15:00:00.000Z"
+      },
+      "Reservation Status": "Not Yet",
+      "Reservation": "Necessary",
       "Total Fee": null,
-      "Pay per Each": 26,
-      "EA": null,
-      "Priority": "",
+      "Pay per Each": 13,
+      "EA": 1,
+      "Priority": "HIGH",
       "Category": "Museum",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8417,2.3559&z=16&hl=ko&output=embed",
@@ -243,14 +252,17 @@
     },
     {
       "id": "3d5ea411129f813b933bf3a19284fa51",
-      "Name": "파리 식물원",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Jardin des Plantes",
+      "Date&Time": {
+        "start": "2026-09-14T14:30:00.000Z",
+        "end": "2026-09-14T15:30:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Not Needed",
       "Total Fee": null,
       "Pay per Each": 0,
-      "EA": null,
-      "Priority": "",
+      "EA": 2,
+      "Priority": "HIGH",
       "Category": "Park·Plaza",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8435,2.3600&z=16&hl=ko&output=embed",
@@ -259,13 +271,16 @@
     {
       "id": "3d6ea411129f81a6864af00c55a3226a",
       "Name": "Bouillon Racine",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Date&Time": {
+        "start": "2026-09-14T16:00:00.000Z",
+        "end": "2026-09-14T17:00:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Necessary",
       "Total Fee": null,
       "Pay per Each": 70,
-      "EA": null,
-      "Priority": "",
+      "EA": 1,
+      "Priority": "HIGH",
       "Category": "Restaurant",
       "URL": "",
       "Maps": "https://www.google.com/maps/search/?api=1&query=Bouillon+Racine%2C+3+Rue+Racine%2C+75006+Paris",
@@ -274,13 +289,16 @@
     {
       "id": "3d5ea411129f814cb897fd226862c4dd",
       "Name": "Il Gelato del Marchese",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Date&Time": {
+        "start": "2026-09-14T17:30:00.000Z",
+        "end": "2026-09-14T18:00:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Not Needed",
       "Total Fee": null,
       "Pay per Each": 16,
-      "EA": null,
-      "Priority": "",
+      "EA": 1,
+      "Priority": "MID",
       "Category": "Restaurant",
       "URL": "",
       "Maps": "https://www.google.com/maps/search/?api=1&query=48.85159%2C2.3380824",
@@ -288,14 +306,17 @@
     },
     {
       "id": "3d5ea411129f8137ad7cf3df79a92c4f",
-      "Name": "달리그르 노천시장 · 보보 실내시장",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Marché d’Aligre · Le marché couvert Beauvau",
+      "Date&Time": {
+        "start": "2026-09-14T06:00:00.000Z",
+        "end": "2026-09-14T07:00:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Not Needed",
       "Total Fee": null,
       "Pay per Each": 8,
-      "EA": null,
-      "Priority": "",
+      "EA": 1,
+      "Priority": "MID",
       "Category": "Market",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8500,2.3790&z=16&hl=ko&output=embed",
@@ -303,14 +324,17 @@
     },
     {
       "id": "3d5ea411129f811db15df5774b7ab430",
-      "Name": "Musee Marmottan Monet",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Musée Marmottan Monet",
+      "Date&Time": {
+        "start": "2026-09-15T08:15:00.000Z",
+        "end": "2026-09-15T10:15:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Necessary",
       "Total Fee": null,
-      "Pay per Each": 29,
-      "EA": null,
-      "Priority": "",
+      "Pay per Each": 14.5,
+      "EA": 2,
+      "Priority": "HIGH",
       "Category": "Museum",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8593,2.2672&z=16&hl=ko&output=embed",
@@ -318,14 +342,17 @@
     },
     {
       "id": "3d5ea411129f811799bdf34042e382c4",
-      "Name": "오르세 미술관",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Musée d’Orsay",
+      "Date&Time": {
+        "start": "2026-09-15T12:00:00.000Z",
+        "end": "2026-09-15T16:00:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Not Needed",
       "Total Fee": null,
-      "Pay per Each": 0,
-      "EA": null,
-      "Priority": "",
+      "Pay per Each": 40,
+      "EA": 1,
+      "Priority": "HIGH",
       "Category": "Museum",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8599,2.3266&z=16&hl=ko&output=embed",
@@ -333,14 +360,17 @@
     },
     {
       "id": "3d5ea411129f8150b32df1e01ef807f1",
-      "Name": "생라자르역",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Gare Saint-Lazare → Vernon",
+      "Date&Time": {
+        "start": "2026-09-16T08:11:00.000Z",
+        "end": "2026-09-16T08:58:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Necessary",
       "Total Fee": null,
-      "Pay per Each": 72,
-      "EA": null,
-      "Priority": "",
+      "Pay per Each": 13.2,
+      "EA": 2,
+      "Priority": "HIGH",
       "Category": "Transportation",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8772,2.3253&z=16&hl=ko&output=embed",
@@ -348,14 +378,17 @@
     },
     {
       "id": "3d5ea411129f81e5bdf7dadda3a8a980",
-      "Name": "모네의 집과 정원",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Maison et Jardin de Claude-Monet",
+      "Date&Time": {
+        "start": "2026-09-16T10:00:00.000Z",
+        "end": "2026-09-16T13:00:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Necessary",
       "Total Fee": null,
-      "Pay per Each": 27,
-      "EA": null,
-      "Priority": "",
+      "Pay per Each": 13,
+      "EA": 2,
+      "Priority": "HIGH",
       "Category": "Park·Plaza",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=49.0754,1.5337&z=16&hl=ko&output=embed",
@@ -363,14 +396,17 @@
     },
     {
       "id": "3d5ea411129f81dfabaae68c60cc80a6",
-      "Name": "지베르니 인상주의 미술관",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Musée des Impressionnismes Giverny",
+      "Date&Time": {
+        "start": "2026-09-16T13:00:00.000Z",
+        "end": "2026-09-16T15:00:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Necessary",
       "Total Fee": null,
-      "Pay per Each": 24,
-      "EA": null,
-      "Priority": "",
+      "Pay per Each": 13,
+      "EA": 2,
+      "Priority": "HIGH",
       "Category": "Museum",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=49.0742,1.5330&z=16&hl=ko&output=embed",
@@ -378,14 +414,17 @@
     },
     {
       "id": "3d5ea411129f81a4a171def44d285480",
-      "Name": "루브르",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Musée Louvre",
+      "Date&Time": {
+        "start": "2026-09-17T09:00:00.000Z",
+        "end": "2026-09-17T13:00:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Necessary",
       "Total Fee": null,
-      "Pay per Each": 64,
-      "EA": null,
-      "Priority": "",
+      "Pay per Each": 32,
+      "EA": 2,
+      "Priority": "HIGH",
       "Category": "Museum",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8606,2.3376&z=16&hl=ko&output=embed",
@@ -393,14 +432,17 @@
     },
     {
       "id": "3d6ea411129f8133ac5bc30b9b3b8e9d",
-      "Name": "들라크루아 미술관",
-      "Date&Time": null,
-      "Reservation Status": "",
-      "Reservation": "",
+      "Name": "Musée National Eugène Delacroix",
+      "Date&Time": {
+        "start": "2026-09-17T13:30:00.000Z",
+        "end": "2026-09-17T15:00:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Not Needed",
       "Total Fee": null,
       "Pay per Each": 0,
-      "EA": null,
-      "Priority": "",
+      "EA": 2,
+      "Priority": "MID",
       "Category": "Museum",
       "URL": "",
       "Maps": "https://www.google.com/maps/search/?api=1&query=Mus%C3%A9e+national+Eug%C3%A8ne-Delacroix%2C+6+Rue+de+Furstemberg%2C+75006+Paris",
@@ -735,6 +777,24 @@
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8495,2.3715&z=16&hl=ko&output=embed",
       "memo": "## 메모\n9/17 루브르·들라크루아로 재배치하여 현재 방문일 연결을 해제했습니다. 장소는 삭제하지 않고 후보로 보존합니다. 아래는 과거 일정 메모이며 새 방문 시간으로 사용하지 마세요.\u003cbr>\\[이전 메모\\] 바스티유 쪽 고가 산책로만 걸어도 충분합니다. 14:15까지 바스티유 쪽 출입구로 돌아오는 짧은 구간만 걷습니다. 전 구간을 종주하지 않고 박물관 이동 시간을 확보합니다.\n## 예산·입장료\n**예산 반영:** 재배치 미정 · 현재 일일 합계 제외\n### 예산 근거\n무료 활동 기준 · 2인 €0.00. 야외 산책·구경만 €0. 별도 유료 시설·구매는 포함하지 않습니다.  출처 확인/산정2026-09-08 · 레포02ee61e."
+    },
+    {
+      "id": "3d8ea411129f8085a9c8d0abb369f1b6",
+      "memo": "",
+      "Name": "Vernon → Gare Saint-Lazare",
+      "Date&Time": {
+        "start": "2026-09-16T15:57:00.000Z",
+        "end": "2026-09-16T16:49:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Necessary",
+      "Total Fee": null,
+      "Pay per Each": 13.2,
+      "EA": 2,
+      "Priority": "HIGH",
+      "Category": "Transportation",
+      "URL": "",
+      "Maps": "https://maps.google.com/maps?q=48.8772,2.3253&z=16&hl=ko&output=embed"
     }
   ]
 };
