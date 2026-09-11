@@ -233,13 +233,13 @@
       "Reservation Status": "",
       "Reservation": "",
       "Total Fee": null,
-      "Pay per Each": 26,
-      "EA": null,
+      "Pay per Each": 13,
+      "EA": 2,
       "Priority": "",
       "Category": "Museum",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8417,2.3559&z=16&hl=ko&output=embed",
-      "memo": "## 메모\n⭐ 목요일에서 **월요일 9/14 오후로 이동**했습니다. 국립자연사박물관(MNHN)의 대전시관으로, 1889년 철골 유리 지붕 아래 박제 동물 행렬이 층층이 서 있습니다. €12/인 · 화요일 휴관 · 10:00–18:00 · 마지막 입장 17:15. 오전 오랑주리와 성격이 정반대라 눈이 쉬고, 숙소 도보권이라 저녁 전에 들러 짐을 둘 수도 있습니다.\n## 예산·입장료\n**입장료 (1인 기준):** €12.00\n**예산 반영:** 재배치 미정 · 현재 일일 합계 제외\n### 예산 근거\n공식 단가 기준 · 2인 €26.00. 일반 성인 상설전 €13 × 2인. 특별전·VR 제외. 무료 대상이 아닌 성인 기준. [https://www.jardindesplantesdeparis.fr/fr/grande-galerie-de-l-evolution?hidemenu=true](https://www.jardindesplantesdeparis.fr/fr/grande-galerie-de-l-evolution?hidemenu=true) 출처 확인/산정2026-09-08 · 레포02ee61e."
+      "memo": "## 메모\n⭐ 목요일에서 **월요일 9/14 오후로 이동**했습니다. 국립자연사박물관(MNHN)의 대전시관으로, 1889년 철골 유리 지붕 아래 박제 동물 행렬이 층층이 서 있습니다. €13/인 · 화요일 휴관 · 10:00–18:00 · 마지막 입장 17:00. 오전 오랑주리와 성격이 정반대라 눈이 쉬고, 숙소 도보권이라 저녁 전에 들러 짐을 둘 수도 있습니다.\n## 예산·입장료\n**입장료 (1인 기준):** €13.00\n**예산 반영:** 재배치 미정 · 현재 일일 합계 제외\n### 예산 근거\n공식 단가 기준 · 2인 €26.00. 일반 성인 상설전 €13 × 2인. 특별전·Revivre·VR 제외(각 +€3/인). 25세 미만 무료는 EU 거주자 한정이라 해당 없음. 무료 대상이 아닌 성인 기준. [https://www.jardindesplantesdeparis.fr/fr/grande-galerie-de-l-evolution?hidemenu=true](https://www.jardindesplantesdeparis.fr/fr/grande-galerie-de-l-evolution?hidemenu=true) 출처 확인/산정2026-09-08 · 레포02ee61e."
     },
     {
       "id": "3d5ea411129f813b933bf3a19284fa51",
