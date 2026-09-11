@@ -3,16 +3,15 @@
 
   var Model = window.TravelPlaces;
   var Seed = window.TRAVEL_PLACES_SEED || { version: 1, timeZone: 'Europe/Paris', days: [], places: [] };
+  var TIME_ZONE = 'Europe/Paris';
   var STORAGE_KEY = 'travel-guide.places.v1';
   var API_KEY = 'travel-guide.maps-api-key.v1';
-  var TZ_KEY = 'travel-guide.time-zone.v1';
 
   var state = {
     places: [],
     seedPlaces: [],
     baseDays: Array.isArray(Seed.days) ? Seed.days.slice() : [],
-    timeZone: Seed.timeZone || 'Europe/Paris',
-    timeZoneWarning: '',
+    timeZone: TIME_ZONE,
     activeDay: '',
     selectedRouteId: '',
     persistedRaw: null,
@@ -39,7 +38,7 @@
       mapPicker: $('map-picker'), openMapPicker: $('open-map-picker'), googleSearch: $('google-search'), googleCanvas: $('google-map-canvas'), pickerFrame: $('picker-map-frame'),
       pickerSearch: $('picker-search'), pickerResults: $('picker-results'), pickerManual: $('picker-manual-url'), previewMapUrl: $('preview-map-url'), pickerStatus: $('picker-status'),
       pickerSelection: $('picker-selection'), applyMap: $('apply-map'), pickerSettings: $('picker-settings'),
-      settings: $('settings-dialog'), openSettings: $('open-settings'), settingsForm: $('settings-form'), googleApiKey: $('google-api-key'), settingsTimeZone: $('settings-time-zone'), settingsErrors: $('settings-errors'), clearGoogleKey: $('clear-google-key'),
+      settings: $('settings-dialog'), openSettings: $('open-settings'), settingsForm: $('settings-form'), googleApiKey: $('google-api-key'), settingsErrors: $('settings-errors'), clearGoogleKey: $('clear-google-key'),
       confirm: $('confirm-dialog'), confirmTitle: $('confirm-title'), confirmMessage: $('confirm-message'), confirmAccept: $('confirm-accept'), confirmCancel: $('confirm-cancel'), seedNote: $('seed-note'),
     };
 
@@ -53,13 +52,8 @@
   }
 
   function bootData() {
-    var savedTimeZone = safeGet(TZ_KEY);
-    var initialTimeZone = savedTimeZone || Seed.timeZone || 'Europe/Paris';
-    if (isValidTimeZone(initialTimeZone)) state.timeZone = initialTimeZone;
-    else {
-      state.timeZone = 'Europe/Paris';
-      state.timeZoneWarning = '저장된 time zone이 유효하지 않아 Europe/Paris로 되돌렸습니다.';
-    }
+    state.timeZone = TIME_ZONE;
+    try { localStorage.removeItem('travel-guide.time-zone.v1'); } catch (_) {}
     var seeded = normalizeMany(Seed.places || [], true);
     state.seedPlaces = seeded;
     var stored = safeGet(STORAGE_KEY, true);
@@ -67,7 +61,6 @@
       try {
         var parsed = Model.parsePlaces(stored);
         state.places = parsed.places;
-        state.timeZone = parsed.timeZone || state.timeZone;
         state.persistedRaw = stored;
       } catch (error) {
         state.corruptRaw = stored;
@@ -81,7 +74,7 @@
     if (nodes.seedNote) nodes.seedNote.textContent = Seed.source || '수동 Notion 스냅샷 기반 · 자동 동기화 없음';
     state.activeDay = firstDay();
     if (state.corruptRaw !== null) showCorruptNotice();
-    else showStatus(state.timeZoneWarning || '브라우저 로컬 편집 모드입니다. Google API 키 없이도 URL 직접 입력과 저장된 장소 검색은 가능합니다.', state.timeZoneWarning ? 'warn' : 'ok');
+    else showStatus('일정은 파리 시간(Europe/Paris)으로 표시·편집됩니다. Google API 키 없이도 URL 직접 입력과 저장된 장소 검색은 가능합니다.', 'ok');
   }
 
   function normalizeMany(places, allowIncomplete) {
@@ -694,7 +687,6 @@
   function openSettings() {
     nodes.settingsErrors.textContent = '';
     nodes.googleApiKey.value = safeSessionGet(API_KEY);
-    nodes.settingsTimeZone.value = state.timeZone;
     showDialog(nodes.settings);
   }
 
@@ -702,27 +694,15 @@
     event.preventDefault();
     nodes.settingsErrors.textContent = '';
     var key = nodes.googleApiKey.value.trim();
-    var tz = nodes.settingsTimeZone.value.trim() || 'Europe/Paris';
-    try { new Intl.DateTimeFormat('en-US', { timeZone: tz }).format(new Date()); }
-    catch (_) { nodes.settingsErrors.textContent = '유효한 IANA time zone을 입력하세요. 예: Europe/Paris'; return; }
     if (key && !/^[A-Za-z0-9_-]{20,200}$/.test(key)) {
       nodes.settingsErrors.textContent = 'Google Maps API 키 형식이 이상합니다.';
       return;
     }
-    if (nodes.editor.open && tz !== state.timeZone) {
-      nodes.settingsErrors.textContent = '장소 편집 창이 열려 있을 때는 time zone을 바꿀 수 없습니다. 입력 중인 시간을 저장/취소한 뒤 변경하세요.';
-      return;
-    }
-    var previousTimeZone = state.timeZone;
-    state.timeZone = tz;
-    try { if (state.persistedRaw !== null || tz !== previousTimeZone) persistPlaces(state.places, false); }
-    catch (error) { state.timeZone = previousTimeZone; nodes.settingsErrors.textContent = error.message; return; }
     var keySaved = key ? safeSessionSet(API_KEY, key) : safeSessionRemove(API_KEY);
     if (!keySaved && key) {
       nodes.settingsErrors.textContent = 'API 키를 이 탭의 저장소에 저장하지 못했습니다. 브라우저 권한을 확인하세요. 장소 편집과 URL 입력은 계속 사용할 수 있습니다.';
       return;
     }
-    try { localStorage.setItem(TZ_KEY, tz); } catch (_) {}
     closeDialog(nodes.settings);
     showStatus('설정을 저장했습니다. API 키를 바꾼 뒤 이미 지도가 로드되어 있으면 새로고침이 필요할 수 있습니다.', 'ok');
     render();
@@ -758,13 +738,12 @@
     try { parsed = Model.parsePlaces(state.pendingImportRaw); }
     catch (error) { showStatus(error.message, 'error'); return; }
     confirmAction('JSON 가져오기', '현재 브라우저 로컬 일정이 가져온 JSON으로 교체됩니다. 계속할까요?', function () {
-      var serialized = Model.serializePlaces(parsed.places, parsed.timeZone || state.timeZone);
+      var serialized = Model.serializePlaces(parsed.places, TIME_ZONE);
       var expectedRaw = state.corruptRaw !== null ? state.corruptRaw : state.persistedRaw;
       if (safeGet(STORAGE_KEY, true) !== expectedRaw) { showStatus('다른 탭에서 변경된 데이터가 있어 가져오기를 중단했습니다. 새로고침 후 다시 확인하세요.', 'error'); return; }
       try { localStorage.setItem(STORAGE_KEY, serialized); }
       catch (_) { showStatus('브라우저 저장소에 저장하지 못해서 가져오기를 취소했습니다.', 'error'); return; }
       state.places = parsed.places;
-      state.timeZone = parsed.timeZone || state.timeZone;
       state.persistedRaw = serialized;
       state.corruptRaw = null;
       state.activeDay = firstDay();
@@ -847,7 +826,6 @@
       if (event.newValue !== null) {
         var parsed = Model.parsePlaces(event.newValue);
         state.places = parsed.places;
-        state.timeZone = parsed.timeZone || state.timeZone;
         state.persistedRaw = event.newValue;
         state.corruptRaw = null;
         showStatus('다른 탭의 변경사항을 반영했습니다.', 'ok');
@@ -878,11 +856,6 @@
     state.activeDay = tabs[next].dataset.day;
     state.selectedRouteId = '';
     render();
-  }
-
-  function isValidTimeZone(value) {
-    try { new Intl.DateTimeFormat('en-US', { timeZone: value }).format(new Date(0)); return true; }
-    catch (_) { return false; }
   }
 
   function safeSessionGet(key) { try { return sessionStorage.getItem(key) || ''; } catch (_) { return ''; } }
