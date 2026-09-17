@@ -1,6 +1,6 @@
 /* Friday 9/18 was planned mid-trip, after the seed had already been saved into
  * the traveller's browser.  Publishing a new seed is not enough on its own:
- * stored places win over the seed, so without the v3 migration the day stays
+ * stored places win over the seed, so without the Friday migration the day stays
  * empty on the device actually being carried around Paris.  These tests drive
  * the real page against storage shaped like that phone.
  */
@@ -111,7 +111,7 @@ async function fridayNames(page) {
     assert.deepEqual(await fridayNames(used.page), EXPECTED_ORDER);
     assert.deepEqual(used.errors, []);
     assert.equal(
-      await used.page.evaluate(() => localStorage.getItem('travel-guide.seed-migration.v3')),
+      await used.page.evaluate(() => localStorage.getItem('travel-guide.seed-migration.v4')),
       'done',
       'the migration must record itself so it does not re-run',
     );
@@ -135,7 +135,42 @@ async function fridayNames(page) {
     assert.deepEqual(kept.errors, []);
     await kept.page.close();
 
-    console.log('PASS: Friday 9/18 reaches used phones, fresh browsers, and leaves hand-edited records alone.');
+    // Browsers cache editor.js and places-seed.js separately.  A fresh script
+    // running beside a stale seed must not retire the migration having copied
+    // nothing, or the day stays empty forever.
+    const stalePage = await browser.newPage();
+    await stalePage.route('**/data/places-seed.js', (route) => {
+      const stale = {
+        version: 1,
+        timeZone: 'Europe/Paris',
+        capturedAt: '2026-09-11',
+        source: 'stale cache',
+        days: ['2026-09-17', '2026-09-18'],
+        places: JSON.parse(storageBeforeFriday(places)).places,
+      };
+      route.fulfill({
+        contentType: 'text/javascript',
+        body: `(function (root) { const seed = ${JSON.stringify(stale)};\n`
+          + 'root.TRAVEL_PLACES_SEED = seed;\nroot.TRAVEL_PLACE_NAME_ALIASES = {};\n'
+          + '})(typeof window !== "undefined" ? window : this);',
+      });
+    });
+    await stalePage.goto(`${origin}/index.html`);
+    await stalePage.evaluate(([raw]) => {
+      localStorage.clear();
+      localStorage.setItem('travel-guide.places.v1', raw);
+      localStorage.setItem('travel-guide.seed-migration.v2', 'done');
+    }, [storageBeforeFriday(places)]);
+    await stalePage.reload({waitUntil: 'networkidle'});
+    await stalePage.waitForTimeout(500);
+    assert.equal(
+      await stalePage.evaluate(() => localStorage.getItem('travel-guide.seed-migration.v4')),
+      null,
+      'a stale cached seed must leave the migration pending for the next load',
+    );
+    await stalePage.close();
+
+    console.log('PASS: Friday 9/18 reaches used phones, fresh browsers, survives a stale cached seed, and leaves hand-edited records alone.');
   } finally {
     await browser.close();
     server.close();

@@ -8,7 +8,8 @@
   var STORAGE_KEY = 'travel-guide.places.v1';
   var API_KEY = 'travel-guide.maps-api-key.v1';
   var SEED_MIGRATION_KEY = 'travel-guide.seed-migration.v2';
-  var FRIDAY_MIGRATION_KEY = 'travel-guide.seed-migration.v3';
+  // v3 could be burned by a stale cached seed, so retry under a new key.
+  var FRIDAY_MIGRATION_KEY = 'travel-guide.seed-migration.v4';
   // Friday 9/18 was planned after these defaults shipped undated.  Only fill a
   // record still sitting at the published default so a hand-edited or deleted
   // one is left alone.
@@ -118,18 +119,19 @@
         var friday = migrateFridaySchedule(migration.places);
         migration.places = friday.places;
         migration.changed = migration.changed || friday.changed;
+        var fridayReady = friday.ready;
         state.places = migration.places;
         state.persistedRaw = stored;
         if (migration.changed) {
           var migratedRaw = Model.serializePlaces(state.places, TIME_ZONE);
           if (safeLocalSet(STORAGE_KEY, migratedRaw)) {
             state.persistedRaw = migratedRaw;
-            markMigrationsDone();
+            markMigrationsDone(fridayReady);
           } else {
             state.places = parsed.places;
           }
         } else {
-          markMigrationsDone();
+          markMigrationsDone(fridayReady);
         }
       } catch (error) {
         state.corruptRaw = stored;
@@ -157,14 +159,28 @@
     });
   }
 
-  function markMigrationsDone() {
+  function markMigrationsDone(fridayReady) {
     safeLocalSet(SEED_MIGRATION_KEY, 'done');
-    safeLocalSet(FRIDAY_MIGRATION_KEY, 'done');
+    // Browsers cache each file separately, so a fresh editor.js can run beside
+    // a stale cached seed.  Recording the migration then would retire it having
+    // copied nothing, permanently.  Only claim it when the seed really carries
+    // Friday.
+    if (fridayReady !== false) safeLocalSet(FRIDAY_MIGRATION_KEY, 'done');
+  }
+
+  function seedHasFriday(seedById) {
+    var everyNewPlace = FRIDAY_NEW_IDS.every(function (id) { return seedById.has(id); });
+    var everyDate = FRIDAY_SCHEDULED_IDS.every(function (id) {
+      var source = seedById.get(id);
+      return Boolean(source && source['Date&Time']);
+    });
+    return everyNewPlace && everyDate;
   }
 
   function migrateFridaySchedule(places) {
-    if (safeGet(FRIDAY_MIGRATION_KEY) === 'done') return { places: places, changed: false };
     var seedById = new Map(state.seedPlaces.map(function (place) { return [place.id, place]; }));
+    if (!seedHasFriday(seedById)) return { places: places, changed: false, ready: false };
+    if (safeGet(FRIDAY_MIGRATION_KEY) === 'done') return { places: places, changed: false, ready: true };
     var changed = false;
     var migrated = places.map(function (place) {
       if (FRIDAY_SCHEDULED_IDS.indexOf(place.id) < 0) return place;
@@ -181,12 +197,10 @@
     var present = new Set(migrated.map(function (place) { return place.id; }));
     FRIDAY_NEW_IDS.forEach(function (id) {
       if (present.has(id)) return;
-      var source = seedById.get(id);
-      if (!source) return;
-      migrated.push(source);
+      migrated.push(seedById.get(id));
       changed = true;
     });
-    return { places: migrated, changed: changed };
+    return { places: migrated, changed: changed, ready: true };
   }
 
   function migrateStoredPlaces(places) {
