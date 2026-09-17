@@ -8,6 +8,25 @@
   var STORAGE_KEY = 'travel-guide.places.v1';
   var API_KEY = 'travel-guide.maps-api-key.v1';
   var SEED_MIGRATION_KEY = 'travel-guide.seed-migration.v2';
+  var FRIDAY_MIGRATION_KEY = 'travel-guide.seed-migration.v3';
+  // Friday 9/18 was planned after these defaults shipped undated.  Only fill a
+  // record still sitting at the published default so a hand-edited or deleted
+  // one is left alone.
+  var FRIDAY_SCHEDULED_IDS = [
+    '3d5ea411129f8163b6f2f1453dc87d07',
+    '3d5ea411129f8176817cf304e36538db',
+    '3d5ea411129f819e8e29c38107cdc6ec',
+    '3d5ea411129f81308318c867d62d6830',
+    '3d5ea411129f81d69b05f2a638a0341e',
+    '3d5ea411129f81e590bbd5aecbb2f174'
+  ];
+  // Brand-new ids, so a missing one cannot be a local deletion.
+  var FRIDAY_NEW_IDS = [
+    'plan_20260918_montmartre',
+    'plan_20260918_ruecler',
+    'plan_20260918_parisik',
+    'plan_20260918_arc'
+  ];
   var PROPERTY_LABELS = {
     'Name': '장소명',
     'Date&Time': '일시',
@@ -96,18 +115,21 @@
       try {
         var parsed = Model.parsePlaces(stored);
         var migration = migrateStoredPlaces(parsed.places);
+        var friday = migrateFridaySchedule(migration.places);
+        migration.places = friday.places;
+        migration.changed = migration.changed || friday.changed;
         state.places = migration.places;
         state.persistedRaw = stored;
         if (migration.changed) {
           var migratedRaw = Model.serializePlaces(state.places, TIME_ZONE);
           if (safeLocalSet(STORAGE_KEY, migratedRaw)) {
             state.persistedRaw = migratedRaw;
-            safeLocalSet(SEED_MIGRATION_KEY, 'done');
+            markMigrationsDone();
           } else {
             state.places = parsed.places;
           }
         } else {
-          safeLocalSet(SEED_MIGRATION_KEY, 'done');
+          markMigrationsDone();
         }
       } catch (error) {
         state.corruptRaw = stored;
@@ -117,7 +139,7 @@
     } else {
       state.places = seeded;
       state.persistedRaw = null;
-      safeLocalSet(SEED_MIGRATION_KEY, 'done');
+      markMigrationsDone();
     }
     if (nodes.seedNote) nodes.seedNote.textContent = Seed.source || '수동 Notion 스냅샷 기반 · 자동 동기화 없음';
     state.activeDay = firstDay();
@@ -133,6 +155,38 @@
       seen.add(normalized.id);
       return normalized;
     });
+  }
+
+  function markMigrationsDone() {
+    safeLocalSet(SEED_MIGRATION_KEY, 'done');
+    safeLocalSet(FRIDAY_MIGRATION_KEY, 'done');
+  }
+
+  function migrateFridaySchedule(places) {
+    if (safeGet(FRIDAY_MIGRATION_KEY) === 'done') return { places: places, changed: false };
+    var seedById = new Map(state.seedPlaces.map(function (place) { return [place.id, place]; }));
+    var changed = false;
+    var migrated = places.map(function (place) {
+      if (FRIDAY_SCHEDULED_IDS.indexOf(place.id) < 0) return place;
+      var source = seedById.get(place.id);
+      // Only a record still undated is a published default nobody has touched.
+      if (!source || place['Date&Time']) return place;
+      changed = true;
+      return Object.assign({}, place, {
+        Name: source.Name,
+        'Date&Time': source['Date&Time'],
+        memo: source.memo,
+      });
+    });
+    var present = new Set(migrated.map(function (place) { return place.id; }));
+    FRIDAY_NEW_IDS.forEach(function (id) {
+      if (present.has(id)) return;
+      var source = seedById.get(id);
+      if (!source) return;
+      migrated.push(source);
+      changed = true;
+    });
+    return { places: migrated, changed: changed };
   }
 
   function migrateStoredPlaces(places) {

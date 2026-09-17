@@ -496,7 +496,10 @@
     {
       "id": "3d5ea411129f8163b6f2f1453dc87d07",
       "Name": "파리 5구 숙소 체크아웃",
-      "Date&Time": null,
+      "Date&Time": {
+        "start": "2026-09-18T07:00:00.000Z",
+        "end": "2026-09-18T07:30:00.000Z"
+      },
       "Reservation Status": "",
       "Reservation": "",
       "Total Fee": null,
@@ -506,12 +509,15 @@
       "Category": "Accomodation",
       "URL": "",
       "Maps": "https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8556,2.2929&dirflg=r&hl=ko&output=embed",
-      "memo": "## 메모\n11시까지 짐 정리와 체크아웃을 마치고 풀만 파리 투르 에펠로 바로 이동합니다."
+      "memo": "## 방문할 때\n금요일 9/18 09:00 체크아웃. 짐을 모두 꺼내 풀만으로 바로 이동합니다. 5구 숙소로 다시 돌아오지 않습니다.\n## 이동\n10호선 직통으로 La Motte-Picquet–Grenelle까지 갑니다. 캐리어가 커서 환승·계단이 부담되면 택시를 탑니다."
     },
     {
       "id": "3d5ea411129f8176817cf304e36538db",
       "Name": "풀만 호텔 · 체크인 전 짐 보관",
-      "Date&Time": null,
+      "Date&Time": {
+        "start": "2026-09-18T07:30:00.000Z",
+        "end": "2026-09-18T08:00:00.000Z"
+      },
       "Reservation Status": "",
       "Reservation": "",
       "Total Fee": null,
@@ -521,7 +527,7 @@
       "Category": "Accomodation",
       "URL": "",
       "Maps": "https://maps.google.com/maps?saddr=48.8484866,2.3540618&daddr=48.8556,2.2929&dirflg=d&hl=ko&output=embed",
-      "memo": "## 메모\n프런트에 예약을 확인하고 큰 짐부터 맡깁니다. 객실 체크인과 별개이며, 사전 짐 보관 가능 여부·비용은 호텔에 확인해야 합니다."
+      "memo": "## 방문할 때\n금요일 9/18 09:30 도착 목표. 체크인은 15:00이므로 프런트에 짐만 맡기고 바로 나섭니다.\n## 주의\n조기 짐 보관은 공식 FAQ 게시 사항이지만 실제 예약 조건이 우선입니다. 보관증·짐 개수를 받아두세요."
     },
     {
       "id": "3d5ea411129f8197920bdeca5ac61cd5",
@@ -661,7 +667,10 @@
     {
       "id": "3d5ea411129f81308318c867d62d6830",
       "Name": "샹드마르스 공원 · 에펠탑",
-      "Date&Time": null,
+      "Date&Time": {
+        "start": "2026-09-18T11:30:00.000Z",
+        "end": "2026-09-18T13:00:00.000Z"
+      },
       "Reservation Status": "",
       "Reservation": "",
       "Total Fee": null,
@@ -671,7 +680,7 @@
       "Category": "Park·Plaza",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8556,2.2986&z=16&hl=ko&output=embed",
-      "memo": "## 메모\n화요일 기본 일정에서 제외. 로댕·오르세 후 숙소 복귀로 변경. 일요일 일반 유람선과 금요일 트로카데로는 유지. 장소 기록은 삭제하지 않음.\n## 예산·입장료\n**예산 반영:** 기본 합계 제외\n### 예산 근거\n방문 후보/대안 기록. €0은 식사·쇼핑이 무료라는 뜻이 아니라 현재 기본 합산 제외."
+      "memo": "## 방문할 때\n금요일 9/18 13:30–15:00 피크닉 점심. rue Cler에서 산 것을 들고 잔디에 앉습니다. 풀만이 도보권이라 체크인 시간에 맞춰 바로 넘어갑니다.\n## 주의\n잔디 개방 구역과 보안 통제는 당일 상황을 따릅니다. 유리병·음주 규정을 현장 표지로 확인하세요.\n## 예산·입장료\n**예산 반영:** 무료 · 식비는 rue Cler 항목에 계산"
     },
     {
       "id": "3d5ea411129f814cac65ee699c078c27",
@@ -691,7 +700,10 @@
     {
       "id": "3d5ea411129f819e8e29c38107cdc6ec",
       "Name": "몽소 공원",
-      "Date&Time": null,
+      "Date&Time": {
+        "start": "2026-09-18T08:30:00.000Z",
+        "end": "2026-09-18T09:10:00.000Z"
+      },
       "Reservation Status": "",
       "Reservation": "",
       "Total Fee": null,
@@ -701,7 +713,7 @@
       "Category": "Park·Plaza",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8797,2.3090&z=16&hl=ko&output=embed",
-      "memo": "## 메모\n일요일에 로댕을 이미 방문한 경우에만 금요일 대안으로 선택합니다. 일요일에 못 봤으면 이 동선 대신 금요일 로댕14–16시를 우선합니다. 9월에는 07:00부터 21:00까지. 짐을 호텔에 맡긴 뒤 8구 공원에서 여유롭게 산책합니다.\n## 예산·입장료\n**예산 반영:** 일요일 로댕 방문 시 금요일 대안 · 기본 금요일 로댕 예산에서는 제외\n### 예산 근거\n무료 활동 기준 · 2인 €0.00. 야외 산책·구경만 €0. 별도 유료 시설·구매는 포함하지 않습니다.  출처 확인/산정2026-09-08 · 레포02ee61e."
+      "memo": "## 방문할 때\n금요일 9/18 10:30–11:10, 40분. **생략 가능한 블록입니다.** 체크아웃·짐 맡기기가 늦어지면 건너뛰고 바로 Anvers로 갑니다.\n## 이동\n6호선 Bir-Hakeim → Étoile 환승 → 2호선 Monceau. 이후 같은 2호선으로 Anvers까지 이어집니다.\n## 예산·입장료\n**예산 반영:** 무료"
     },
     {
       "id": "3d5ea411129f81d3a69df49f5b73c76e",
@@ -736,7 +748,10 @@
     {
       "id": "3d5ea411129f81d69b05f2a638a0341e",
       "Name": "풀만 호텔 체크인",
-      "Date&Time": null,
+      "Date&Time": {
+        "start": "2026-09-18T13:00:00.000Z",
+        "end": "2026-09-18T15:00:00.000Z"
+      },
       "Reservation Status": "",
       "Reservation": "",
       "Total Fee": null,
@@ -746,12 +761,15 @@
       "Category": "Accomodation",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8556,2.2929&z=16&hl=ko&output=embed",
-      "memo": "## 메모\n로댕 또는 몽소·선택 카페에서 돌아와17시 체크인하고 맡긴 짐을 찾습니다. 객실 이용 가능 시각은 실제 예약 조건에 따릅니다. 저녁 산책 전 휴식을 지킵니다.\n## 예산·입장료\n**예산 반영:** 범위 제외\n### 예산 근거\n예산 범위 제외 · 2인 €0.00. 객실료·도시세·보증금·짐 보관료 실결제 내역 미확인. €0은 숙박 무료라는 뜻이 아니라 일일 활동 예산 제외.  출처 확인/산정2026-09-08 · 레포02ee61e."
+      "memo": "## 방문할 때\n금요일 9/18 15:00 체크인 후 17:00까지 휴식. 오전에 맡긴 짐을 찾아 방에 올립니다.\n## 주의\n공식 체크인 16:00 게시이나 15:00 조기 체크인은 당일 객실 상황에 달렸습니다. 늦어지면 로비에서 쉬고 17:00 출발만 지킵니다."
     },
     {
       "id": "3d5ea411129f81e590bbd5aecbb2f174",
-      "Name": "[제외] 갤러리 라파예트",
-      "Date&Time": null,
+      "Name": "갤러리 라파예트 · 프렝탕",
+      "Date&Time": {
+        "start": "2026-09-18T15:20:00.000Z",
+        "end": "2026-09-18T17:00:00.000Z"
+      },
       "Reservation Status": "",
       "Reservation": "",
       "Total Fee": null,
@@ -761,7 +779,7 @@
       "Category": "Shopping",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8736,2.3321&z=16&hl=ko",
-      "memo": "## 메모\n9/14 오후 재편으로 제외됨. 옥상에서 오페라 가르니에 지붕이 정면으로 보입니다. 입장·옥상 무료, 월–토 10:00–20:30."
+      "memo": "## 방문할 때\n금요일 9/18 17:20–19:00 기념품. 오스만 대로에 라파예트와 프렝탕이 붙어 있어 한 블록으로 봅니다.\n## 이동\n17:00 École Militaire에서 8호선 → Opéra, 약 12분.\n## 주의\n금요일 저녁 폐점 시각을 당일 확인하세요. 면세(détaxe)는 같은 매장 합산 기준·여권 필요이며 환급 창구 마감이 매장 폐점보다 이릅니다.\n## 예산·입장료\n**예산 반영:** 개인 쇼핑으로 합계 제외"
     },
     {
       "id": "3d5ea411129f81fb9e88eb815da613e5",
@@ -795,6 +813,78 @@
       "Category": "Transportation",
       "URL": "",
       "Maps": "https://maps.google.com/maps?q=48.8772,2.3253&z=16&hl=ko&output=embed"
+    },
+    {
+      "id": "plan_20260918_montmartre",
+      "Name": "몽마르뜨 · 사크레쾨르",
+      "Date&Time": {
+        "start": "2026-09-18T09:30:00.000Z",
+        "end": "2026-09-18T10:45:00.000Z"
+      },
+      "Reservation Status": "Done",
+      "Reservation": "Not Needed",
+      "Total Fee": null,
+      "Pay per Each": null,
+      "EA": null,
+      "Priority": "MID",
+      "Category": "Landmark",
+      "URL": "",
+      "Maps": "https://maps.google.com/maps?q=48.8867,2.3431&z=16&hl=ko&output=embed",
+      "memo": "## 방문할 때\n금요일 9/18 11:30–12:45. 2호선 Anvers 하차 후 언덕을 오릅니다.\n## 이동\n계단이 길면 Funiculaire(케이블카)를 타며 지하철 승차권 1회분이 그대로 적용됩니다.\n## 주의\n대성당 내부는 무료이고 돔 전망대만 유료입니다. Anvers–사크레쾨르 계단 구간은 팔찌 강매·소매치기가 잦은 구역이니 가방을 앞으로 메세요.\n## 예산·입장료\n**예산 반영:** 무료 · 돔 전망대는 선택"
+    },
+    {
+      "id": "plan_20260918_ruecler",
+      "Name": "rue Cler 장보기",
+      "Date&Time": {
+        "start": "2026-09-18T11:00:00.000Z",
+        "end": "2026-09-18T11:30:00.000Z"
+      },
+      "Reservation Status": "Not Yet",
+      "Reservation": "Not Needed",
+      "Total Fee": null,
+      "Pay per Each": 30,
+      "EA": 1,
+      "Priority": "MID",
+      "Category": "Market",
+      "URL": "",
+      "Maps": "https://maps.google.com/maps?q=48.8556,2.3050&z=16&hl=ko&output=embed",
+      "memo": "## 방문할 때\n금요일 9/18 13:00–13:30. 샹드마르스 피크닉 재료를 삽니다. 풀만에서 도보권입니다.\n## 살 것\n바게트·치즈·샤퀴테리·과일·물. 치즈 가게에서 그 자리에 먹을 거라고 말하면 잘라줍니다.\n## 주의\n상점가는 대체로 13:00 전후 점심 휴식에 들어가는 곳이 있습니다. 늦어지면 열려 있는 곳 위주로 빠르게 고릅니다.\n## 예산·입장료\n**입장료 (1인 기준):** —\n**예산 반영:** 기본 합산 · 계획\n### 예산 근거\n2인 피크닉 식자재 €30 계획값. 실제 구매 품목에 따라 달라집니다."
+    },
+    {
+      "id": "plan_20260918_parisik",
+      "Name": "파리식 (Parisik)",
+      "Date&Time": {
+        "start": "2026-09-18T17:00:00.000Z",
+        "end": "2026-09-18T19:00:00.000Z"
+      },
+      "Reservation Status": "Not Yet",
+      "Reservation": "Necessary",
+      "Total Fee": null,
+      "Pay per Each": 70,
+      "EA": 1,
+      "Priority": "MID",
+      "Category": "Restaurant",
+      "URL": "",
+      "Maps": "https://maps.google.com/maps?q=48.8700,2.3336&z=16&hl=ko&output=embed",
+      "memo": "## 방문할 때\n금요일 9/18 19:00 저녁. 3 Rue de la Michodière, 75002. 라파예트에서 도보로 이어집니다.\n## 주의\n**예약 미확인입니다.** 금요일 저녁이라 워크인 대기가 길 수 있으니 오늘 중 전화나 온라인으로 2인 19:00을 잡아두세요. 21:00 Auber 출발을 지키려면 늦어도 20:50에는 일어나야 합니다.\n## 예산·입장료\n**예산 반영:** 기본 합산 · 계획\n### 예산 근거\n2인 저녁 €70 계획값. 실제 메뉴·음료에 따라 달라집니다."
+    },
+    {
+      "id": "plan_20260918_arc",
+      "Name": "개선문 전망대",
+      "Date&Time": {
+        "start": "2026-09-18T19:30:00.000Z",
+        "end": "2026-09-18T21:00:00.000Z"
+      },
+      "Reservation Status": "Not Yet",
+      "Reservation": "Recommended",
+      "Total Fee": null,
+      "Pay per Each": 16,
+      "EA": 2,
+      "Priority": "MID",
+      "Category": "Landmark",
+      "URL": "",
+      "Maps": "https://maps.google.com/maps?q=48.8738,2.2950&z=16&hl=ko&output=embed",
+      "memo": "## 방문할 때\n금요일 9/18 21:30 전망대. **22:00 정각 에펠탑 반짝임을 옥상에서 봅니다.** 매시 정각 5분간이며 자정이 마지막입니다.\n## 이동\n21:00 Auber에서 RER A 두 정거장 → Charles de Gaulle–Étoile. 귀가는 6호선 Bir-Hakeim에서 호텔까지 도보, 23:00 출발 기준.\n## 주의\n광장으로 무단횡단하지 말고 샹젤리제 북쪽의 **지하도**를 이용합니다. 마지막 입장이 폐장 45분 전이라 21:30 도착은 여유가 크지 않습니다. 계단 284개이며 엘리베이터는 상시 개방이 아닙니다.\n## 예산·입장료\n**입장료 (1인 기준):** €16.00\n**예산 반영:** 기본 합산 · 계획\n### 예산 근거\n비EEA 일반 성인 €16 × 2인 = €32. 25세 미만 EU 거주자 무료는 해당 없음. 실제 요금·마지막 입장 시각은 당일 공식 안내로 확인."
     }
   ]
 };

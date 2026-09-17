@@ -57,8 +57,8 @@ class EditorSeedTests(unittest.TestCase):
     def test_seed_has_expected_public_snapshot_shape(self):
         self.assertEqual(self.seed["version"], 1)
         self.assertEqual(self.seed["timeZone"], "Europe/Paris")
-        self.assertEqual(len(self.places), 47)
-        self.assertEqual(len({place["id"] for place in self.places}), 47)
+        self.assertEqual(len(self.places), 51)
+        self.assertEqual(len({place["id"] for place in self.places}), 51)
         self.assertEqual(set(self.seed), {"version", "timeZone", "capturedAt", "source", "days", "places"})
         for place in self.places:
             self.assertEqual(set(place), ALLOWLIST, place.get("Name"))
@@ -69,8 +69,10 @@ class EditorSeedTests(unittest.TestCase):
     def test_source_snapshot_refreshes_only_scheduled_records_without_inventing_values(self):
         # Date&Time-filled Notion rows were refreshed first. Existing candidate
         # records without a date stay visible instead of receiving an invented day.
-        self.assertEqual(sum(place["Date&Time"] is not None for place in self.places), 25)
-        self.assertEqual(sum(place["Date&Time"] is None for place in self.places), 22)
+        # Friday 9/18 added ten scheduled records (six revived candidates plus
+        # four new places) from the traveller's own plan, not from guesswork.
+        self.assertEqual(sum(place["Date&Time"] is not None for place in self.places), 35)
+        self.assertEqual(sum(place["Date&Time"] is None for place in self.places), 16)
         self.assertEqual(sum(not place["Maps"] for place in self.places), 1)
         for place in self.places:
             if place["Date&Time"] is None:

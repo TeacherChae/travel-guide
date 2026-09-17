@@ -232,9 +232,10 @@ async function assertNoOverflow(page, width) {
   try {
     await openApp(page, origin);
     assert.equal(await cards(page).count(), 3);
+    // Property names render through the Korean label map, not the raw keys.
     assert.deepEqual(await card(page, 'fixture-a').locator('dt').allTextContents(), [
-      'Date&Time', 'Reservation Status', 'Reservation', 'Total Fee', 'Pay per Each',
-      'EA', 'Priority', 'Category', 'URL', 'Maps',
+      '일시', '예약 상태', '예약 필요 여부', '총액', '1개당 금액',
+      '수량', '우선순위', '분류', '참고 링크', '지도',
     ]);
     assert.equal(await card(page, 'fixture-a').locator('dt').filter({hasText: 'Payment'}).count(), 0);
     assert.equal(await routeCount(page), 2);
