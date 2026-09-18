@@ -36,10 +36,38 @@ const EXPECTED_ORDER = [
   'rue Cler 장보기',
   '샹드마르스 공원 · 에펠탑',
   '풀만 호텔 체크인',
-  '갤러리 라파예트 · 프렝탕',
+  '르봉 마르셰 백화점',
+  '라 그랑드 에피세리 · 보르디에',
   '파리식 (Parisik)',
   '개선문 전망대',
 ];
+/* The afternoon was replanned mid-trip: Lafayette/Printemps at Opera gave way to
+ * Le Bon Marche and its food hall, so a phone that already took the first
+ * revision has to be moved on to the second. */
+const REVISION_ONE = {
+  '3d5ea411129f8163b6f2f1453dc87d07': ['2026-09-18T07:00:00.000Z', '2026-09-18T07:30:00.000Z'],
+  '3d5ea411129f8176817cf304e36538db': ['2026-09-18T07:30:00.000Z', '2026-09-18T08:00:00.000Z'],
+  '3d5ea411129f819e8e29c38107cdc6ec': ['2026-09-18T08:30:00.000Z', '2026-09-18T09:10:00.000Z'],
+  '3d5ea411129f81308318c867d62d6830': ['2026-09-18T11:30:00.000Z', '2026-09-18T13:00:00.000Z'],
+  '3d5ea411129f81d69b05f2a638a0341e': ['2026-09-18T13:00:00.000Z', '2026-09-18T15:00:00.000Z'],
+  '3d5ea411129f81e590bbd5aecbb2f174': ['2026-09-18T15:20:00.000Z', '2026-09-18T17:00:00.000Z'],
+};
+
+/** Storage for a device that already received the first Friday revision. */
+function storageAtRevisionOne(places) {
+  return JSON.stringify({
+    version: 1,
+    timeZone: 'Europe/Paris',
+    places: places.map((place) => {
+      const slot = REVISION_ONE[place.id];
+      if (slot) return Object.assign({}, place, {'Date&Time': {start: slot[0], end: slot[1]}});
+      if (place.id === '3d5ea411129f812ca5f7f9da737f1a4a' || place.id === '3d5ea411129f81eb96ede9c010e3d377') {
+        return Object.assign({}, place, {'Date&Time': null});
+      }
+      return place;
+    }),
+  });
+}
 
 function seedPlaces() {
   const source = fs.readFileSync(path.join(ROOT, 'data', 'places-seed.js'), 'utf8');
@@ -111,11 +139,18 @@ async function fridayNames(page) {
     assert.deepEqual(await fridayNames(used.page), EXPECTED_ORDER);
     assert.deepEqual(used.errors, []);
     assert.equal(
-      await used.page.evaluate(() => localStorage.getItem('travel-guide.seed-migration.v4')),
+      await used.page.evaluate(() => localStorage.getItem('travel-guide.seed-migration.v5')),
       'done',
       'the migration must record itself so it does not re-run',
     );
     await used.page.close();
+
+    // A device already carrying the first revision moves on to the second:
+    // Lafayette leaves Friday and the Bon Marche pair takes its place.
+    const rev1 = await boot(browser, origin, storageAtRevisionOne(places), ['travel-guide.seed-migration.v2']);
+    assert.deepEqual(await fridayNames(rev1.page), EXPECTED_ORDER);
+    assert.deepEqual(rev1.errors, []);
+    await rev1.page.close();
 
     // A fresh browser reads the same day straight from the seed.
     const fresh = await boot(browser, origin, null, []);
@@ -164,7 +199,7 @@ async function fridayNames(page) {
     await stalePage.reload({waitUntil: 'networkidle'});
     await stalePage.waitForTimeout(500);
     assert.equal(
-      await stalePage.evaluate(() => localStorage.getItem('travel-guide.seed-migration.v4')),
+      await stalePage.evaluate(() => localStorage.getItem('travel-guide.seed-migration.v5')),
       null,
       'a stale cached seed must leave the migration pending for the next load',
     );

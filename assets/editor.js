@@ -8,19 +8,31 @@
   var STORAGE_KEY = 'travel-guide.places.v1';
   var API_KEY = 'travel-guide.maps-api-key.v1';
   var SEED_MIGRATION_KEY = 'travel-guide.seed-migration.v2';
-  // v3 could be burned by a stale cached seed, so retry under a new key.
-  var FRIDAY_MIGRATION_KEY = 'travel-guide.seed-migration.v4';
-  // Friday 9/18 was planned after these defaults shipped undated.  Only fill a
-  // record still sitting at the published default so a hand-edited or deleted
-  // one is left alone.
-  var FRIDAY_SCHEDULED_IDS = [
-    '3d5ea411129f8163b6f2f1453dc87d07',
-    '3d5ea411129f8176817cf304e36538db',
-    '3d5ea411129f819e8e29c38107cdc6ec',
-    '3d5ea411129f81308318c867d62d6830',
-    '3d5ea411129f81d69b05f2a638a0341e',
-    '3d5ea411129f81e590bbd5aecbb2f174'
-  ];
+  // Friday 9/18 is republished as the plan changes mid-trip.  Each revision gets
+  // a new key so a device that already ran an earlier one picks up the change.
+  var FRIDAY_MIGRATION_KEY = 'travel-guide.seed-migration.v5';
+  // A seed can be cached one revision behind the script.  Applying it then would
+  // copy stale values and retire the migration, so require this marker first.
+  var FRIDAY_REVISION_MARKER = {
+    id: '3d5ea411129f812ca5f7f9da737f1a4a',
+    start: '2026-09-18T14:10:00.000Z'
+  };
+  // Records Friday owns.  A stored one is ours to update only while it still
+  // holds a value this app published -- undated, or a slot from a past revision.
+  var FRIDAY_PRIOR_DEFAULTS = {
+    '3d5ea411129f8163b6f2f1453dc87d07': ['2026-09-18T07:00:00.000Z|2026-09-18T07:30:00.000Z'],
+    '3d5ea411129f8176817cf304e36538db': ['2026-09-18T07:30:00.000Z|2026-09-18T08:00:00.000Z'],
+    '3d5ea411129f819e8e29c38107cdc6ec': ['2026-09-18T08:30:00.000Z|2026-09-18T09:10:00.000Z'],
+    '3d5ea411129f81308318c867d62d6830': ['2026-09-18T11:30:00.000Z|2026-09-18T13:00:00.000Z'],
+    '3d5ea411129f81d69b05f2a638a0341e': ['2026-09-18T13:00:00.000Z|2026-09-18T15:00:00.000Z'],
+    '3d5ea411129f81e590bbd5aecbb2f174': ['2026-09-18T15:20:00.000Z|2026-09-18T17:00:00.000Z'],
+    '3d5ea411129f812ca5f7f9da737f1a4a': [],
+    '3d5ea411129f81eb96ede9c010e3d377': [],
+    'plan_20260918_montmartre': ['2026-09-18T09:30:00.000Z|2026-09-18T10:45:00.000Z'],
+    'plan_20260918_ruecler': ['2026-09-18T11:00:00.000Z|2026-09-18T11:30:00.000Z'],
+    'plan_20260918_parisik': ['2026-09-18T17:00:00.000Z|2026-09-18T19:00:00.000Z'],
+    'plan_20260918_arc': ['2026-09-18T19:30:00.000Z|2026-09-18T21:00:00.000Z']
+  };
   // Brand-new ids, so a missing one cannot be a local deletion.
   var FRIDAY_NEW_IDS = [
     'plan_20260918_montmartre',
@@ -170,11 +182,21 @@
 
   function seedHasFriday(seedById) {
     var everyNewPlace = FRIDAY_NEW_IDS.every(function (id) { return seedById.has(id); });
-    var everyDate = FRIDAY_SCHEDULED_IDS.every(function (id) {
-      var source = seedById.get(id);
-      return Boolean(source && source['Date&Time']);
-    });
-    return everyNewPlace && everyDate;
+    var marker = seedById.get(FRIDAY_REVISION_MARKER.id);
+    var markerDate = marker && marker['Date&Time'];
+    return everyNewPlace && Boolean(markerDate) && markerDate.start === FRIDAY_REVISION_MARKER.start;
+  }
+
+  function dateTimeKey(dateTime) {
+    if (!dateTime) return '';
+    return String(dateTime.start || '') + '|' + String(dateTime.end || '');
+  }
+
+  function isPublishedFridayValue(place) {
+    var priors = FRIDAY_PRIOR_DEFAULTS[place.id];
+    if (!priors) return false;
+    if (!place['Date&Time']) return true;
+    return priors.indexOf(dateTimeKey(place['Date&Time'])) >= 0;
   }
 
   function migrateFridaySchedule(places) {
@@ -183,10 +205,10 @@
     if (safeGet(FRIDAY_MIGRATION_KEY) === 'done') return { places: places, changed: false, ready: true };
     var changed = false;
     var migrated = places.map(function (place) {
-      if (FRIDAY_SCHEDULED_IDS.indexOf(place.id) < 0) return place;
       var source = seedById.get(place.id);
-      // Only a record still undated is a published default nobody has touched.
-      if (!source || place['Date&Time']) return place;
+      // Anything the traveller re-dated or renamed themselves is theirs to keep.
+      if (!source || !isPublishedFridayValue(place)) return place;
+      if (place.Name === source.Name && dateTimeKey(place['Date&Time']) === dateTimeKey(source['Date&Time'])) return place;
       changed = true;
       return Object.assign({}, place, {
         Name: source.Name,
