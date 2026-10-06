@@ -38,7 +38,7 @@ class Nodes(HTMLParser):
 class FlexibleItineraryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.html = (ROOT / "legacy.html").read_text()
+        cls.html = (ROOT / "Paris" / "legacy.html").read_text()
         budget = re.search(
             r'<script type="application/json" id="daily-budget-data">([\s\S]*?)</script>',
             cls.html,
@@ -212,7 +212,7 @@ class FlexibleItineraryTests(unittest.TestCase):
         self.assertIn('data-rodin-only="sunday"', panel)
         self.assertIn("14:00–15:10", panel)
         self.assertIn("15:40–16:10", panel)
-        self.assertIn("기본 금요일 로댕안", (ROOT / "data" / "dining-plan.json").read_text())
+        self.assertIn("기본 금요일 로댕안", (ROOT / "Paris" / "data" / "dining-plan.json").read_text())
 
     def test_budget_ledger_tracks_revised_places_and_exactly_one_rodin(self):
         days = self.budget["days"]

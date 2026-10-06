@@ -28,7 +28,7 @@ class Nodes(HTMLParser):
 class BudgetTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.html = (ROOT / 'legacy.html').read_text()
+        cls.html = (ROOT / 'Paris' / 'legacy.html').read_text()
         match = re.search(r'<script type="application/json" id="daily-budget-data">([\s\S]*?)</script>', cls.html)
         if not match:
             raise AssertionError('Missing single-source daily budget ledger')
@@ -184,8 +184,8 @@ class BudgetTests(unittest.TestCase):
         self.assertRegex(info, r'aria-checked="false"[^\n]+일요일 일반 유람선 바우처·탑승 조건 확인')
 
     def test_prep_and_handoff_docs_do_not_claim_notion_sync_completed(self):
-        prep = ROOT / 'docs' / 'predeparture-checklist.md'
-        handoff = ROOT / 'docs' / 'notion-sync-handoff.md'
+        prep = ROOT / 'Paris' / 'docs' / 'predeparture-checklist.md'
+        handoff = ROOT / 'Paris' / 'docs' / 'notion-sync-handoff.md'
         self.assertTrue(prep.is_file())
         self.assertTrue(handoff.is_file())
         prep_text = prep.read_text()
@@ -303,7 +303,7 @@ class BudgetTests(unittest.TestCase):
     def test_current_documents_match_monday_and_budget_totals(self):
         default = self.scenario_total('friday')
         sunday = self.scenario_total('sunday')
-        for name in ['README.md', 'docs/flexible-rodin-plan.md']:
+        for name in ['README.md', 'Paris/docs/flexible-rodin-plan.md']:
             text = (ROOT / name).read_text()
             monday = next(line for line in text.splitlines() if '9/14' in line and '오랑주리' in line)
             self.assertIn('진화 대전시실 16:00–17:30', monday, name)
@@ -311,7 +311,7 @@ class BudgetTests(unittest.TestCase):
             for cents in [default[2], sum(default), sum(default) + 3700,
                           sum(sunday), sum(sunday) + 3700]:
                 self.assertIn(f'€{cents / 100:,.2f}', text, name)
-        prep = (ROOT / 'docs/predeparture-checklist.md').read_text()
+        prep = (ROOT / 'Paris/docs/predeparture-checklist.md').read_text()
         self.assertIn('진화 대전시실 9/14 16:00', prep)
         self.assertNotRegex(prep, r'\[보류[^\n]*(?:GGE|식물원|진화)')
 

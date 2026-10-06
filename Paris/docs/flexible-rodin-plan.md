@@ -37,7 +37,7 @@ Fête 일반 입장·공연은 무료이며 음식·음료·상품·유료 체�
 
 ## 2인 예산
 
-유로는 2인 계획 예산이며 항공·숙박·도시세·개인 쇼핑은 제외한다. 공개 원장은 [`index.html#daily-budget-data`](../index.html#daily-budget-data)이고, 원화 결제액은 환율 없이 별도 표시한다. 메뉴·운임·잔여석 미확인 값은 추정이다.
+유로는 2인 계획 예산이며 항공·숙박·도시세·개인 쇼핑은 제외한다. 공개 원장은 [`legacy.html#daily-budget-data`](../legacy.html#daily-budget-data)이고, 원화 결제액은 환율 없이 별도 표시한다. 메뉴·운임·잔여석 미확인 값은 추정이다.
 
 월요일 교통비는 **€2.55 × 3회 × 2인 = €15.30**, 진화 대전시실 일반권은 **€13 × 2인 = €26**으로 반영했다. [IDFM 운임](https://www.iledefrance-mobilites.fr/titres-et-tarifs/detail/ticket-metro-train-rer) · [MNHN 요금](https://www.mnhn.fr/en/grande-galerie-de-l-evolution-gallery-of-evolution) (확인 2026-09-09).
 

@@ -70,7 +70,7 @@ function storageAtRevisionOne(places) {
 }
 
 function seedPlaces() {
-  const source = fs.readFileSync(path.join(ROOT, 'data', 'places-seed.js'), 'utf8');
+  const source = fs.readFileSync(path.join(ROOT, 'Paris', 'data', 'places-seed.js'), 'utf8');
   const match = source.match(/const seed = (\{[\s\S]*\});\s*\n\s*if \(typeof module/);
   if (!match) throw new Error('places-seed.js must contain a JSON seed object');
   return JSON.parse(match[1]).places;
@@ -108,7 +108,7 @@ async function boot(browser, origin, storage, flags) {
   const page = await browser.newPage();
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  await page.goto(`${origin}/index.html`);
+  await page.goto(`${origin}/Paris/index.html`);
   await page.evaluate(([raw, keys]) => {
     localStorage.clear();
     if (raw) localStorage.setItem('travel-guide.places.v1', raw);
@@ -174,7 +174,7 @@ async function fridayNames(page) {
     // running beside a stale seed must not retire the migration having copied
     // nothing, or the day stays empty forever.
     const stalePage = await browser.newPage();
-    await stalePage.route('**/data/places-seed.js', (route) => {
+    await stalePage.route('**/Paris/data/places-seed.js', (route) => {
       const stale = {
         version: 1,
         timeZone: 'Europe/Paris',
@@ -190,7 +190,7 @@ async function fridayNames(page) {
           + '})(typeof window !== "undefined" ? window : this);',
       });
     });
-    await stalePage.goto(`${origin}/index.html`);
+    await stalePage.goto(`${origin}/Paris/index.html`);
     await stalePage.evaluate(([raw]) => {
       localStorage.clear();
       localStorage.setItem('travel-guide.places.v1', raw);

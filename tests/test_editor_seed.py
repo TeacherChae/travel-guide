@@ -16,9 +16,9 @@ from urllib.parse import urlparse
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SEED_PATH = ROOT / "data" / "places-seed.js"
+SEED_PATH = ROOT / "Paris" / "data" / "places-seed.js"
 MODEL_PATH = ROOT / "assets" / "place-model.js"
-INDEX_PATH = ROOT / "index.html"
+INDEX_PATH = ROOT / "Paris" / "index.html"
 
 ALLOWLIST = {
     "id",
@@ -129,11 +129,11 @@ class EditorSeedTests(unittest.TestCase):
 
     def test_current_model_and_seed_are_loaded_by_index_without_legacy_records(self):
         for asset in (
-            'assets/place-model.js',
+            '../assets/place-model.js',
             'data/places-seed.js',
-            'assets/maps-picker.js',
-            'assets/editor.js',
-            'assets/editor.css',
+            '../assets/maps-picker.js',
+            '../assets/editor.js',
+            '../assets/editor.css',
         ):
             self.assertRegex(self.index, rf"(?:src|href)=\"{re.escape(asset)}\"", asset)
         for export in (

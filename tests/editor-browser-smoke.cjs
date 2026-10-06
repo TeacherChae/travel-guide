@@ -59,7 +59,7 @@ function backup(places) {
 async function createServer() {
   const server = http.createServer((request, response) => {
     const pathname = decodeURIComponent(new URL(request.url, 'http://127.0.0.1').pathname);
-    const relative = pathname.replace(/^\/+/, '') || 'index.html';
+    const relative = (pathname.replace(/^\/+/, '') || 'index.html').replace(/\/$/, '/index.html');
     const file = path.resolve(ROOT, relative);
     if (!file.startsWith(ROOT + path.sep) && file !== ROOT) {
       response.writeHead(403); response.end('forbidden'); return;
@@ -97,7 +97,7 @@ async function newAppPage(browser, data) {
 }
 
 async function openApp(page, origin) {
-  await page.goto(`${origin}/index.html`);
+  await page.goto(`${origin}/Paris/index.html`);
   await selectDay(page, '2026-09-14');
   await page.locator('#places-list [data-place-id]').first().waitFor({state: 'visible'});
 }
@@ -230,6 +230,19 @@ async function assertNoOverflow(page, width) {
   const pageErrors = [];
   page.on('pageerror', (error) => pageErrors.push(error.message));
   try {
+    const landing = await browser.newPage({viewport: {width: 390, height: 900}});
+    await landing.goto(`${origin}/`);
+    await assertNoOverflow(landing, 320);
+    await landing.getByRole('link', {name: /Kumamoto/}).click();
+    assert.equal(new URL(landing.url()).pathname, '/Kumamoto/');
+    assert.match(await landing.locator('h1').textContent(), /준비 중/);
+    assert.equal(await landing.locator('#add-place').count(), 0);
+    await assertNoOverflow(landing, 320);
+    await landing.getByRole('link', {name: /여행지 선택/}).click();
+    await landing.getByRole('link', {name: /Paris/}).click();
+    assert.equal(new URL(landing.url()).pathname, '/Paris/');
+    await landing.close();
+
     await openApp(page, origin);
     assert.equal(await cards(page).count(), 3);
     // Property names render through the Korean label map, not the raw keys.
@@ -244,21 +257,26 @@ async function assertNoOverflow(page, width) {
     assert.match(initialRoutes[0], /Alpha.*Bravo/);
     assert.match(initialRoutes[1], /Bravo.*Charlie/);
     await page.locator('.route-tab[data-from-id="fixture-b"]').click();
-    assert.equal(await page.locator('.route-tab[aria-pressed="true"]').count(), 1);
-    assert.equal(await page.locator('.route-tab[data-from-id="fixture-b"]').getAttribute('aria-pressed'), 'true');
-    const selectedMap = new URL(await page.locator('#day-map-frame').getAttribute('src'));
+    await page.locator('#route-details-dialog').waitFor({state: 'visible'});
+    assert.equal(await page.locator('#route-mode-tabs [data-route-mode="transit"]').getAttribute('aria-pressed'), 'true');
+    const selectedMap = new URL(await page.locator('#route-details-frame').getAttribute('src'));
     assert.equal(selectedMap.searchParams.get('saddr'), 'Bravo');
     assert.equal(selectedMap.searchParams.get('daddr'), 'Charlie');
+    await page.locator('#route-mode-tabs [data-route-mode="walking"]').click();
+    assert.equal(await page.locator('#route-mode-tabs [data-route-mode="walking"]').getAttribute('aria-pressed'), 'true');
+    await closeDialog(page, 'route-details-dialog');
     await card(page, 'fixture-a').locator('[data-action="map"]').click();
-    assert.equal(await page.locator('.route-tab[aria-pressed="true"]').count(), 0);
-    assert.equal(new URL(await page.locator('#day-map-frame').getAttribute('src')).searchParams.get('q'), 'Alpha');
+    await page.locator('#route-details-dialog').waitFor({state: 'visible'});
+    assert.equal(await page.locator('#route-mode-tabs').isHidden(), true);
+    assert.equal(new URL(await page.locator('#route-details-frame').getAttribute('src')).searchParams.get('q'), 'Alpha');
+    await closeDialog(page, 'route-details-dialog');
 
     // Required fields fail together; optional properties may remain blank.
     await openAdd(page);
     await page.locator('#save-place').click();
-    assert.match(await page.locator('#form-errors').textContent(), /Name|Name is required/);
-    assert.match(await page.locator('#form-errors').textContent(), /Date|Date&Time/);
-    assert.match(await page.locator('#form-errors').textContent(), /Maps/);
+    assert.match(await page.locator('#form-errors').textContent(), /장소명|Name/);
+    assert.match(await page.locator('#form-errors').textContent(), /일시|Date/);
+    assert.match(await page.locator('#form-errors').textContent(), /지도|Maps/);
     await fillForm(page, {name: 'Delta', localStart: '2026-09-14T11:00', maps: mapUrl('Delta')});
     await page.locator('#place-unit-fee').fill('12.5');
     await page.locator('#place-quantity').fill('2');
@@ -302,7 +320,7 @@ async function assertNoOverflow(page, width) {
     // proves the editor accepts a Places result without making a live Google
     // request and that the selected map is applied to the form.
     await openAdd(page);
-    await page.evaluate((key) => sessionStorage.setItem(key, 'AIza-test-key-is-not-a-live-request'), MAPS_KEY);
+    await page.evaluate((key) => localStorage.setItem(key, 'AIza-test-key-is-not-a-live-request'), MAPS_KEY);
     await page.evaluate((maps) => {
       window.TravelMapPicker = {
         mount: async function (options) {
@@ -321,7 +339,7 @@ async function assertNoOverflow(page, width) {
     assert.equal(await page.locator('#place-maps').inputValue(), mapUrl('Stub Place'));
     assert.equal(await page.locator('#place-name').inputValue(), 'Stub Place');
     await closeDialog(page, 'place-editor');
-    await page.evaluate((key) => sessionStorage.removeItem(key), MAPS_KEY);
+    await page.evaluate((key) => localStorage.removeItem(key), MAPS_KEY);
 
     // Keyless local saved-place search and picker cancel are deterministic.
     await openAdd(page);
@@ -409,9 +427,9 @@ async function assertNoOverflow(page, width) {
     assert.equal(await page.locator('#places-list').getByText('Replacement A', {exact: true}).count(), 1);
     assert.equal(await routeCount(page), 1);
 
-    // Export is portable and excludes the session-only API key.
+    // Export is portable and excludes the separately stored API key.
     const downloadPromise = page.waitForEvent('download');
-    await page.evaluate((key) => sessionStorage.setItem(key, 'AIza-test-key-is-not-a-live-request'), MAPS_KEY);
+    await page.evaluate((key) => localStorage.setItem(key, 'AIza-test-key-is-not-a-live-request'), MAPS_KEY);
     await page.locator('#export-places').click();
     const exported = await downloadText(await downloadPromise);
     assert.equal(exported.includes('AIza-test-key-is-not-a-live-request'), false);
@@ -442,7 +460,7 @@ async function assertNoOverflow(page, width) {
       const url = new URL(route.request().url());
       return url.protocol === 'http:' && url.hostname === '127.0.0.1' ? route.continue() : route.abort();
     });
-    await corruptPage.goto(`${origin}/index.html`);
+    await corruptPage.goto(`${origin}/Paris/index.html`);
     assert.match(await corruptPage.locator('#status-banner').textContent(), /오류|손상|불러오지|JSON|실패/i);
     assert.equal(await corruptPage.evaluate((key) => localStorage.getItem(key), STORAGE_KEY), '{corrupt');
     await corruptPage.close();
@@ -456,7 +474,7 @@ async function assertNoOverflow(page, width) {
       const url = new URL(route.request().url());
       return url.protocol === 'http:' && url.hostname === '127.0.0.1' ? route.continue() : route.abort();
     });
-    await emptyCorruptPage.goto(`${origin}/index.html`);
+    await emptyCorruptPage.goto(`${origin}/Paris/index.html`);
     assert.match(await emptyCorruptPage.locator('#status-banner').textContent(), /오류|손상|깨진|비어|복구|JSON/i);
     assert.equal(await emptyCorruptPage.evaluate((key) => localStorage.getItem(key), STORAGE_KEY), '');
     await emptyCorruptPage.close();
@@ -484,7 +502,7 @@ async function assertNoOverflow(page, width) {
     assert.equal(await quotaPage.evaluate((key) => localStorage.getItem(key), STORAGE_KEY), originalQuotaStore);
     await quotaPage.close();
 
-    // A blocked sessionStorage implementation must not make settings or
+    // A blocked API-key storage operation must not make settings or
     // keyless CRUD crash.  The browser API key is optional and stays out of
     // the local place store.
     const blockedPage = await newAppPage(browser, fixture());
@@ -526,8 +544,8 @@ async function assertNoOverflow(page, width) {
     await page.locator('#place-editor').waitFor({state: 'hidden'});
     for (const width of [320, 390, 1280]) await assertNoOverflow(page, width);
 
-    // Changing the display timezone in a second tab persists across reload,
-    // but does not silently rewrite an open editor's unsaved local input.
+    // Timezone is fixed to Paris; opening settings in another tab must not
+    // silently rewrite an open editor's unsaved local input.
     const tzContext = await browser.newContext({viewport: {width: 390, height: 900}});
     const tzPage = await newAppPage(tzContext, fixture());
     const tzErrors = [];
@@ -541,18 +559,18 @@ async function assertNoOverflow(page, width) {
       const url = new URL(route.request().url());
       return url.protocol === 'http:' && url.hostname === '127.0.0.1' ? route.continue() : route.abort();
     });
-    await peer.goto(`${origin}/index.html`);
+    await peer.goto(`${origin}/Paris/index.html`);
     await peer.locator('#open-settings').click();
-    await peer.locator('#settings-time-zone').fill('UTC');
-    await peer.locator('#settings-form button[type="submit"]').click();
-    await peer.locator('#settings-dialog').waitFor({state: 'hidden'});
+    assert.equal(await peer.locator('#settings-time-zone').count(), 0);
+    assert.match(await peer.locator('#settings-dialog').textContent(), /Europe\/Paris/);
     assert.equal(await tzPage.locator('#place-start').inputValue(), unsavedStart);
     await closeDialog(tzPage, 'place-editor');
+    await closeDialog(peer, 'settings-dialog');
     await peer.close();
     await tzPage.reload();
     await selectDay(tzPage, '2026-09-14');
     await tzPage.locator('#open-settings').click();
-    assert.equal(await tzPage.locator('#settings-time-zone').inputValue(), 'UTC');
+    assert.equal(await tzPage.locator('#settings-time-zone').count(), 0);
     await closeDialog(tzPage, 'settings-dialog');
     assert.deepEqual(tzErrors, []);
     await tzPage.close();
